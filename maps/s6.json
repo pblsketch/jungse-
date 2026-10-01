@@ -10,7 +10,7 @@
   "tilewidth": 32,
   "tileheight": 32,
   "nextlayerid": 6,
-  "nextobjectid": 27,
+  "nextobjectid": 35,
   "tilesets": [],
   "layers": [
     {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s6.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
@@ -41,8 +41,18 @@
         {"id": 24, "name": "front-gate", "type": "", "x": 452, "y": 598, "width": 265, "height": 60, "rotation": 0, "visible": true},
         {"id": 25, "name": "outer-wall", "type": "", "x": 0, "y": 655, "width": 1920, "height": 145, "rotation": 0, "visible": true}
       ]},
-    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
-    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 27, "name": "writing-table-book", "type": "", "x": 590, "y": 388, "width": 80, "height": 20, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s6.c1"}]},
+        {"id": 28, "name": "left-banner-notice", "type": "", "x": 205, "y": 340, "width": 50, "height": 16, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s6.c3"}]},
+        {"id": 29, "name": "seodang-desks", "type": "", "x": 1480, "y": 302, "width": 90, "height": 18, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s6.c5"}]},
+        {"id": 30, "name": "right-banner-bundle", "type": "", "x": 960, "y": 342, "width": 60, "height": 20, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s6.c6"}]}
+      ]},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 31, "name": "official", "type": "", "x": 480, "y": 318, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "official"},{"name": "contextId", "type": "string", "value": "s6.c2"},{"name": "sprite", "type": "string", "value": "official"}]},
+        {"id": 32, "name": "child", "type": "", "x": 1580, "y": 368, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "child"},{"name": "contextId", "type": "string", "value": "s6.c4"},{"name": "sprite", "type": "string", "value": "child"}]},
+        {"id": 33, "name": "commoner", "type": "", "x": 400, "y": 480, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "commoner"},{"name": "sprite", "type": "string", "value": "commoner_man"}]},
+        {"id": 34, "name": "elder", "type": "", "x": 820, "y": 480, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "elder"},{"name": "sprite", "type": "string", "value": "elder"}]}
+      ]},
     {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
         {"id": 26, "name": "spawn", "type": "", "x": 585, "y": 560, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
       ]}
