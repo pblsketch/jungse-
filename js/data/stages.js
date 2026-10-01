@@ -16,4 +16,6 @@ NM.data.BUNDLES = {
 NM.data.STAGES = NM.data.STAGES || {};
 /* stages:start */
 NM.data.STAGES['s12'] = {"id": "s12", "file": "js/data/scenes/s12.js", "mapKey": "s12", "gimmick": "wordRiver", "carveGlyph": "말", "bgmKey": "bgm_s12"};
+NM.data.STAGES['s0'] = {"id": "s0", "file": "js/data/scenes/s0.js", "mapKey": "s0", "gimmick": "sortGlyphs", "bgmKey": "bgm_s0"};
+NM.data.STAGES['s1'] = {"id": "s1", "file": "js/data/scenes/s1.js", "mapKey": "s1", "gimmick": "borrowSort", "carveGlyph": "借", "bgmKey": "bgm_s1"};
 /* stages:end */

@@ -124,7 +124,7 @@ function checkScene(label, stage, sc, levelOnly, partial) {
   }
   if (!isStr(sc.era)) R.warn(W, 'era(화면 표시용 시대)가 없다');
   if (!isStr(sc.bgmKey)) R.warn(W, 'bgmKey 가 없다');
-  else if (!(ASSETS.bgm && ASSETS.bgm[sc.bgmKey])) R.warn(W, `배경음 '${sc.bgmKey}' 가 그림·소리 목록에 아직 없다 (화면에서는 조용히 건너뜀)`);
+  else if (!(ASSETS.bgm && ASSETS.bgm[sc.bgmKey]) && !(data.BGM && data.BGM[sc.bgmKey])) R.warn(W, `배경음 '${sc.bgmKey}' 가 그림·소리 목록에 아직 없다 (화면에서는 조용히 건너뜀)`);
 
   // 맥락
   // partial: 학교급별 판이 따로 있는 바탕 장면 — contexts·items 를 판에만 둘 수 있다
