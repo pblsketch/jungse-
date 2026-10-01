@@ -1,0 +1,61 @@
+/*
+ * 기믹 G9 두 시대 수첩 (js/gimmicks/twoEraNotebook.js). 공용 부품은 css/g-g789-origwords.css.
+ * 글자 크기: 뿌리에서 calc(17px * var(--fs, 1) * var(--st-big, 1)), 안쪽은 em. 넓으면 두 쪽 나란히, 좁으면 위아래.
+ * 색만으로 나누지 않음: 근거 ✓, 틀림 ✕·점선, 정답 ○, 15세기 보기 ◇, 빛 ◆.
+ */
+.tn { font-size: calc(17px * var(--fs, 1) * var(--st-big, 1)); display: flex; flex-direction: column; gap: .8em; min-width: 0; }
+.tn-howto { margin: 0; }
+.tn-h { margin: 0 0 .35em; font-size: 1em; font-weight: 700; }
+.tn-sub { margin: 0; font-size: .86em; font-weight: 600; }
+.tn-spread { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .7em; }
+@media (max-width: 640px) { .tn-spread { grid-template-columns: minmax(0, 1fr); } }
+.tn-page { display: flex; flex-direction: column; gap: .5em; min-width: 0; padding: .6em; border-radius: 12px; border: 2px solid var(--st-line, rgba(43, 36, 32, .22)); background: #fffdf6; }
+.tn-page15 { border-style: double; border-width: 4px; }
+.tn-page .g789-orig .g789-line { font-size: 1.15em; }
+.tn-page .g789-orig.is-hint, .tn-extra.is-hint { box-shadow: 0 0 0 3px rgba(208, 138, 18, .45); }
+.tn-page15 .g789-word.is-example { background: #eef3e6; border: 2px solid var(--st-know, #4f6b3a); }
+.tn-page15 .g789-word.is-example::before { content: '\25c7'; font: 700 .55em/1 var(--font-ui, sans-serif); margin-right: .2em; color: var(--st-know, #4f6b3a); }
+.tn-extra { display: flex; flex-direction: column; gap: .3em; padding: .4em; border-radius: 10px; }
+.tn-extra-words { display: flex; flex-wrap: wrap; gap: .5em; }
+.tn-extra-item { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .35em; }
+.tn-extra-word { font-size: 1.15em; border: 2px solid rgba(43, 36, 32, .35); }
+.tn-extra-note { font-size: .85em; }
+.tn-src { font-size: .78em; opacity: .85; margin: 0; }
+.tn-book { display: flex; flex-direction: column; gap: .55em; }
+.tn-row { display: flex; flex-direction: column; gap: .45em; padding: .6em .7em; border-radius: 12px; border: 2px solid var(--st-line, rgba(43, 36, 32, .22)); background: #fffaf0; }
+.tn-row.is-active { border-color: var(--ink, #2b2420); box-shadow: inset 4px 0 0 var(--ink, #2b2420); }
+.tn-row.is-wrong { border-style: dashed; border-color: var(--seal, #b8322a); }
+.tn-row.is-hint { box-shadow: 0 0 0 3px rgba(208, 138, 18, .4); }
+.tn-row-know { border-left: 6px solid var(--st-know, #4f6b3a); background: #f7f8f0; }
+.tn-row-head { display: flex; flex-wrap: wrap; align-items: center; gap: .5em; }
+.tn-row-label { font-weight: 700; }
+.tn-notscored { font-size: .8em; opacity: .85; }
+.tn-row-note { display: block; font-size: .92em; }
+.tn-ex15 { display: flex; flex-wrap: wrap; align-items: center; gap: .4em; margin: 0; font-size: .92em; }
+.tn-ex15-label::before { content: '\25c7\00a0'; color: var(--st-know, #4f6b3a); }
+.tn-ex15-label { font-weight: 600; }
+.tn-ex15-word { font-size: 1.15em; padding: 0 .3em; border-radius: 6px; background: #eef3e6; }
+.tn-status { display: flex; flex-direction: column; gap: .25em; }
+.tn-ev { display: flex; flex-wrap: wrap; align-items: center; gap: .5em; }
+.tn-pick[aria-pressed="true"] { background: var(--hanji, #efe4cf); box-shadow: inset 0 -3px 0 var(--ink, #2b2420); }
+.tn-pick[aria-pressed="true"]::before { content: '\25b8\00a0'; }
+.tn-chips { display: flex; flex-wrap: wrap; align-items: center; gap: .35em; }
+.tn-chips-empty { font-size: .85em; opacity: .85; }
+.tn-chips-empty.is-wrong { opacity: 1; color: var(--seal, #b8322a); font-weight: 700; padding: .1em .4em; border: 2px dashed var(--seal, #b8322a); border-radius: 8px; }
+.tn-chip {
+  min-height: 44px; min-width: 44px; padding: .15em .55em; border-radius: 8px; cursor: pointer;
+  border: 2px solid var(--ink, #2b2420); background: #fff3d6; color: inherit; font: inherit; font-size: 1.05em;
+  display: inline-flex; align-items: center; gap: .25em;
+}
+.tn-chip::after { content: '\00d7'; font: 700 .8em/1 var(--font-ui, sans-serif); opacity: .7; }
+.tn-chip:disabled { cursor: default; }
+.tn-chip:disabled::after { content: none; }
+.tn-chip:focus-visible { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; }
+.tn-chip.is-wrong { border: 2px dashed var(--seal, #b8322a); text-decoration: line-through; text-decoration-color: var(--seal, #b8322a); }
+.tn-chip.is-wrong::after { content: '\2715'; color: var(--seal, #b8322a); opacity: 1; }
+.tn-chip.is-answer { border: 3px solid var(--st-know, #4f6b3a); }
+.tn-chip.is-answer:disabled::after { content: '\25cb'; color: var(--st-know, #4f6b3a); opacity: 1; }
+.tn-notes { display: flex; flex-direction: column; gap: .5em; }
+.tn-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .6em; }
+.tn-note { flex: 1 1 12em; margin: 0; font-size: .9em; }
+.tn-note:empty { display: none; }
