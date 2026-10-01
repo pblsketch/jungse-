@@ -97,6 +97,7 @@ let nStrings = 0;
   seen.add(v);
   for (const k of Object.keys(v)) {
     if (path === 'NM.data' && k === 'JAMO') continue; // 자모 표 자체는 표시 문자열이 아니다
+    if (/^NM\.data\.ORIG\.[^.]+$/.test(path) && /^(doc|src|certainty)$/.test(k)) continue; // 原文 블록 메타(화면에 안 나옴)
     walk(v[k], `${path}.${k}`, seen);
   }
 })(ctx.NM.data, 'NM.data', new Set());

@@ -87,6 +87,9 @@ export function loadData(root, { generated = true } = {}) {
 }
 
 // 값 안의 모든 문자열: fn(str, path)
+// 화면에 나오지 않는 메타 문자열(原文 블록의 리서치 문서 경로·출처·확실도)은 표기로 렌더하지 않는다.
+export const isMetaPath = (p) => /^NM\.data\.ORIG\.[^.]+\.(doc|src|certainty)$/.test(p);
+
 export function walkStrings(v, path, fn, { skip = () => false } = {}, seen = new Set()) {
   if (typeof v === 'string') { fn(v, path); return; }
   if (!v || typeof v !== 'object' || seen.has(v)) return;

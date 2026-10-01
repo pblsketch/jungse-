@@ -121,9 +121,11 @@ function parseBlock(lines, at, rel, id) {
   const src = need('출처');
   const cmp = need('대조');
   const cert = need('확실도');
-  // 출처는 URL 또는 교과서 쪽 표시(기준 본문이 교과서인 경우, 예: 공통국어2 132쪽). 대조에는 URL 이 있어야 한다.
-  if (src && !/https?:\/\//.test(src.value) && !/[0-9]+\s*쪽/.test(src.value)) errors.push(`${where(src.line)}: ${id} 출처에 URL 이나 교과서 쪽이 없다`);
-  if (cmp && !/https?:\/\//.test(cmp.value)) errors.push(`${where(cmp.line)}: ${id} 대조에 URL 이 없다`);
+  // 출처·대조는 URL 또는 교과서 쪽 표시(기준 본문이 교과서인 경우, 예: 공통국어2 132쪽). 둘 중 적어도 하나에는 URL 이 있어야 한다.
+  const URL_RE = /https?:\/\//, PAGE_RE = /[0-9]+\s*쪽/;
+  if (src && !URL_RE.test(src.value) && !PAGE_RE.test(src.value)) errors.push(`${where(src.line)}: ${id} 출처에 URL 이나 교과서 쪽이 없다`);
+  if (cmp && !URL_RE.test(cmp.value) && !PAGE_RE.test(cmp.value)) errors.push(`${where(cmp.line)}: ${id} 대조에 URL 이나 교과서 쪽이 없다`);
+  if (src && cmp && !URL_RE.test(src.value + cmp.value)) errors.push(`${where(src.line)}: ${id} 출처·대조 어디에도 URL 이 없다`);
   let certainty = null;
   if (cert) {
     certainty = [...cert.value].find(ch => CERTAINTY.includes(ch)) || null;

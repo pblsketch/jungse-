@@ -620,5 +620,194 @@ NM.data.ORIG = {
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
     "doc": "design/research/09_원문_훈민정음.md"
+  },
+  "O-s1-YEONGDONG": {
+    "title": "『삼국사기』 권34 잡지3 지리1 신라 상주 (1145)",
+    "lines": [
+      "永同郡 本吉同郡 景德王改名 今因之"
+    ],
+    "src": "https://zh.wikisource.org/wiki/三國史記/卷34",
+    "certainty": "◎",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s1-MILSEONG": {
+    "title": "『삼국사기』 권34 잡지3 지리1 신라 양주 (1145)",
+    "lines": [
+      "密城郡 本推火郡 景德王改名 今因之"
+    ],
+    "src": "https://zh.wikisource.org/wiki/三國史記/卷34",
+    "certainty": "○",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s1-SUSEONG": {
+    "title": "『삼국사기』 권35 잡지4 지리2 신라 한주 (1145)",
+    "lines": [
+      "水城郡 本高句麗買忽郡 景德王改名 今水州"
+    ],
+    "src": "https://zh.wikisource.org/wiki/三國史記/卷35",
+    "certainty": "○",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s1-SEODONG1": {
+    "title": "『삼국유사』 권2 기이 무왕 「서동요」 첫 구 (1281년 무렵)",
+    "lines": [
+      "善化公主主隱"
+    ],
+    "src": "https://zh.wikisource.org/wiki/三國遺事/卷第二",
+    "certainty": "◎",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s1-SEODONG2": {
+    "title": "『삼국유사』 권2 기이 무왕 「서동요」 둘째~넷째 구",
+    "lines": [
+      "他密只嫁良置古",
+      "薯童房乙",
+      "夜矣卯乙抱遣去如"
+    ],
+    "src": "https://zh.wikisource.org/wiki/三國遺事/卷第二",
+    "certainty": "○",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s1-CHEOYONG1": {
+    "title": "『삼국유사』 권2 기이 처용랑 망해사 「처용가」 첫째·둘째 구 (1281년 무렵)",
+    "lines": [
+      "東京明期月良",
+      "夜入伊遊行如可"
+    ],
+    "src": "https://zh.wikisource.org/wiki/三國遺事/卷第二",
+    "certainty": "◎",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s10-SOHAK1": {
+    "title": "『소학언해』 권2 명륜 (1587 언해 완성, 1588 간행)",
+    "lines": [
+      "{孔|·공}{子|·[ㅈㆍ]}ㅣ{曾|증}{子|·[ㅈㆍ]}[ㄷㆍ]·려닐·러[ㄱㆍㄹ][ㅇㆍ]·샤·[ㄷㆎ]"
+    ],
+    "src": "https://ko.wikisource.org/wiki/소학언해/권2",
+    "certainty": "○",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s10-SOHAK2": {
+    "title": "『소학언해』 권2 명륜",
+    "lines": [
+      "·몸·이며얼굴·이며머·리털·이·며·[ㅅㆍㄹ]·[ㅎㆍㄴ]{父|·부}{母|:모}·[ㅺㅢ]받[ㅈㆍ]·온거·시·라"
+    ],
+    "src": "https://ko.wikisource.org/wiki/소학언해/권2",
+    "certainty": "○",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s10-SOHAK3": {
+    "title": "『소학언해』 권2 명륜",
+    "lines": [
+      "{敢|:감}·히헐·워샹[ㅎㆎ]·오·디아·니:홈·이:효·도·[ㅇㆎ]비·르·소미·오"
+    ],
+    "src": "https://ko.wikisource.org/wiki/소학언해/권2",
+    "certainty": "○",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s10-SOHAK4": {
+    "title": "『소학언해』 권2 명륜",
+    "lines": [
+      "·몸·을셰·워{道|:도}·를{行|[ㅎㆎㅇ]}·[ㅎㆍ]·야일:홈·을{後|:후}{世|:셰}·예:베퍼·[ㅄㅓ]{父|·부}{母|:모}[ㄹㆍㄹ]:현·뎌케:홈·이:효·도·[ㅇㆎ][ㅁㆍ]·[ㅊㆍㅁ]·이니·라"
+    ],
+    "src": "https://ko.wikisource.org/wiki/소학언해/권2",
+    "certainty": "○",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s10-HUNMONG1": {
+    "title": "『훈몽자회』 범례 「언문자모」 初聲終聲通用八字 (1527)",
+    "lines": [
+      "ㄱ 其役 ㄴ 尼隱 ㄷ 池(末) ㄹ 梨乙 ㅁ 眉音 ㅂ 非邑 ㅅ 時(衣) ㆁ 異凝"
+    ],
+    "src": "https://ko.wikisource.org/wiki/훈몽자회/諺文字母",
+    "certainty": "◎",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s10-HUNMONG2": {
+    "title": "『훈몽자회』 범례 「언문자모」 협주",
+    "lines": [
+      "(末)(衣)兩字只取本字之釋俚語為聲"
+    ],
+    "src": "https://ko.wikisource.org/wiki/훈몽자회/諺文字母",
+    "certainty": "○",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s10-HUNMONG3": {
+    "title": "『훈몽자회』 범례 「언문자모」 初聲獨用八字 협주",
+    "lines": [
+      "(箕)字亦取本字之釋俚語為聲"
+    ],
+    "src": "https://ko.wikisource.org/wiki/훈몽자회/諺文字母",
+    "certainty": "○",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s11-NOGEOL1795": {
+    "title": "『중간노걸대언해』 상 (1795)",
+    "lines": [
+      "우리 셔울 가면 어[ㄷㆎ] 머므러야 죠흐료",
+      "우리 順城門 官店에 가셔 머므쟈 져긔셔 [ㅁㆍㄹ] 져제 가기 [ㅼㅗ] 져기 갓가오니라",
+      "네 니[ㄹㆍ]미 올타 나도 [ㅁㆍ][ㅇㆍㅁ]에 이리 [ㅅㆎㅇ]각[ㅎㆍ]엿더니 네 니[ㄹㆍ]미 맛치 내 [ㅼㅡㅅ]과 [ㄱㆍㅅ]다"
+    ],
+    "src": "http://www.davincimap.co.kr/davBase/Source/davSource.jsp?Job=Body&SourID=SOUR005668",
+    "certainty": "○",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s11-NOGEOL1670": {
+    "title": "『노걸대언해』 상 (1670) — 같은 대목의 앞선 판",
+    "lines": [
+      "우리 가면 어듸 브리워야 됴[ㅎㆍㄹ]고",
+      "우리 順城門읫 官店을 향[ㅎㆍ]야 브리오라 가쟈",
+      "뎨셔 곳 [ㅁㆍㄹ] 져제 가미 [ㅼㅗ] 갓가오니라",
+      "네 니[ㄹㆍ]미 올타",
+      "나도 [ㅁㆍ][ㅇㆍㅁ]애 이리 [ㅅㆎㅇ]각[ㅎㆍ]엿더니 네 닐오미 맛치 내 [ㅳㅡㅅ]과 [ㄱㆍㅅ]다"
+    ],
+    "src": "https://ko.wikisource.org/wiki/노걸대언해",
+    "certainty": "○",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s11-DOKRIP1": {
+    "title": "『독립신문』 창간호 논설 (1896.4.7.)",
+    "lines": [
+      "우리신문이 한문은 아니쓰고 다만 국문으로만 쓰[ㄴㆍㄴ]거슨 샹하귀쳔이 다보게 홈이라 [ㅼㅗ] 국문을 이러케 귀졀을 [ㅼㅔ]여 쓴즉 아모라도 이신문 보기가 쉽고 신문속에 잇[ㄴㆍㄴ]말을 자세이 알어 보게 [ㅎㆍㅁ]이라"
+    ],
+    "src": "https://ko.wikisource.org/wiki/독립신문/1896년/4월/7일",
+    "certainty": "◎",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s11-DOKRIP2": {
+    "title": "『독립신문』 창간호 논설 (1896.4.7.)",
+    "lines": [
+      "각국에셔[ㄴㆍㄴ] 사[ㄹㆍㅁ]들이 남녀 무론[ㅎㆍ]고 본국 국문을 몬저 [ㅂㆎ]화 능통[ㅎㆍㄴ] 후에야 외국 글을 [ㅂㆎ]오[ㄴㆍㄴ] 법인[ㄷㆎ] 죠션셔[ㄴㆍㄴ] 죠션 국문은 아니 [ㅂㆎ]오드[ㄹㆎ]도 한문만 공부 [ㅎㆍ][ㄴㆍㄴ] [ㅺㅏ][ㄷㆍㄺ]에 국문을 잘아[ㄴㆍㄴ] 사[ㄹㆍㅁ]이 드물미라"
+    ],
+    "src": "https://ko.wikisource.org/wiki/독립신문/1896년/4월/7일",
+    "certainty": "◎",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s11-DOKRIP3": {
+    "title": "『독립신문』 창간호 논설 (1896.4.7.)",
+    "lines": [
+      "죠션 국문[ㅎㆍ]고 한문[ㅎㆍ]고 비교[ㅎㆍ]여 보면 죠션국문이 한문 보다 얼마가 나흔거시 무어신고[ㅎㆍ]니 첫[ㅈㆎ][ㄴㆍㄴ] [ㅂㆎ]호기가 쉬흔이 됴흔 글이요 둘[ㅈㆎ][ㄴㆍㄴ] 이글이 죠션글이니 죠션 인민들이 알어셔 [ㅂㆎㄱ][ㅅㆍ]을 한문[ㄷㆎ]신 국문으로 써야 샹하 귀쳔이 모도보고 알어보기가 쉬흘터이라"
+    ],
+    "src": "https://ko.wikisource.org/wiki/독립신문/1896년/4월/7일",
+    "certainty": "◎",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s11-DOKRIP4": {
+    "title": "『독립신문』 창간호 논설 (1896.4.7.)",
+    "lines": [
+      "한문만 늘써 버릇[ㅎㆍ]고 국문은 폐[ㅎㆍㄴ] [ㅺㅏ][ㄷㆍㄺ]에 국문으로 쓴건 죠션 인민이 도로혀 잘 아러보지 못[ㅎㆍ]고 한문을 잘알아보니 그게 엇지 한심치 아니[ㅎㆍ]리요"
+    ],
+    "src": "https://ko.wikisource.org/wiki/독립신문/1896년/4월/7일",
+    "certainty": "◎",
+    "doc": "design/research/11_원문_고대_근대.md"
+  },
+  "O-s11-AD1902": {
+    "title": "『제국신문』 광고 「泥峴木島平時計舖」 (1902.8.25. 등)",
+    "lines": [
+      "각국시계와 좌죵과 각[ㅅㆎㄱ] [ㅈㆍ][ㅎㆎㅇ]거와 부속하는 물건을 허다히 구비하야 헐허게파오 [ㅼㅗ] 이번에 쟝[ㅅㆎㄱ]을 더 두고 시계며 [ㅈㆍ][ㅎㆎㅇ]거 파샹 [ㄱㆎ]조도 솜씨 잇게 잘하오"
+    ],
+    "src": "http://waks.aks.ac.kr/rsh/dir/rdirItem.aspx?rshID=AKS-2011-EBZ-3103&rptID=AKS-2011-EBZ-3103_NEWS",
+    "certainty": "○",
+    "doc": "design/research/11_원문_고대_근대.md"
   }
 };

@@ -6,7 +6,7 @@
 // 사용: node tests/checks/c3-yet.mjs [--root <데이터 뿌리>]
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { parseArgs, loadData, walkStrings, reporter, isGenerated, walkFiles, relTo, readJson, CONJOINING_RE, dataFiles } from '../lib/content.mjs';
+import { parseArgs, loadData, walkStrings, reporter, isGenerated, isMetaPath, walkFiles, relTo, readJson, CONJOINING_RE, dataFiles } from '../lib/content.mjs';
 import { jsStrings } from '../lib/jsscan.mjs';
 
 // 날 첫가끝 자모를 담아도 되는 손 데이터 파일 (작게 유지, 까닭 필수)
@@ -28,7 +28,7 @@ const tryRender = (s, where) => {
   try { yet.render(s, { bangjeom: true, ruby: 'paren' }); }
   catch (e) { R.error(where, e.message); }
 };
-walkStrings(data, 'NM.data', tryRender, { skip: (p) => p === 'NM.data.JAMO' });
+walkStrings(data, 'NM.data', tryRender, { skip: (p) => p === 'NM.data.JAMO' || isMetaPath(p) });
 
 const mapFiles = walkFiles(join(root, 'maps'), n => n.endsWith('.json'));
 for (const f of mapFiles) {
