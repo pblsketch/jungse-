@@ -10,7 +10,7 @@
   "tilewidth": 32,
   "tileheight": 32,
   "nextlayerid": 6,
-  "nextobjectid": 11,
+  "nextobjectid": 19,
   "tilesets": [],
   "layers": [
     {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s3.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
@@ -25,8 +25,18 @@
         {"id": 8, "name": "trees-left", "type": "", "x": 0, "y": 380, "width": 160, "height": 56, "rotation": 0, "visible": true},
         {"id": 9, "name": "bushes-right", "type": "", "x": 1700, "y": 395, "width": 220, "height": 41, "rotation": 0, "visible": true}
       ]},
-    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
-    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 11, "name": "notice-wall", "type": "", "x": 1482, "y": 146, "width": 46, "height": 80, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s3.c1"}]},
+        {"id": 12, "name": "fish-shop-eaves", "type": "", "x": 860, "y": 120, "width": 120, "height": 108, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s3.c3"}]},
+        {"id": 13, "name": "grain-stall", "type": "", "x": 730, "y": 440, "width": 170, "height": 50, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s3.c7"}]},
+        {"id": 14, "name": "cart-stall", "type": "", "x": 1520, "y": 440, "width": 150, "height": 50, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s3.c5"}]}
+      ]},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 15, "name": "potter", "type": "", "x": 1270, "y": 270, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s3.merchant"}, {"name": "contextId", "type": "string", "value": "s3.c2"}, {"name": "sprite", "type": "string", "value": "merchant"}]},
+        {"id": 16, "name": "child-bow", "type": "", "x": 620, "y": 345, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s3.child"}, {"name": "contextId", "type": "string", "value": "s3.c4"}, {"name": "sprite", "type": "string", "value": "child"}]},
+        {"id": 17, "name": "scholar-cloth", "type": "", "x": 560, "y": 270, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s3.yangban"}, {"name": "contextId", "type": "string", "value": "s3.c6"}, {"name": "sprite", "type": "string", "value": "yangban_man"}]},
+        {"id": 18, "name": "shoe-woman", "type": "", "x": 220, "y": 272, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s3.woman"}, {"name": "sprite", "type": "string", "value": "commoner_woman"}]}
+      ]},
     {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
         {"id": 10, "name": "spawn", "type": "", "x": 160, "y": 330, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
       ]}

@@ -10,7 +10,7 @@
   "tilewidth": 32,
   "tileheight": 32,
   "nextlayerid": 6,
-  "nextobjectid": 18,
+  "nextobjectid": 25,
   "tilesets": [],
   "layers": [
     {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s4.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
@@ -32,8 +32,17 @@
         {"id": 15, "name": "door-post-right", "type": "", "x": 595, "y": 745, "width": 120, "height": 151, "rotation": 0, "visible": true},
         {"id": 16, "name": "threshold", "type": "", "x": 445, "y": 830, "width": 155, "height": 66, "rotation": 0, "visible": true}
       ]},
-    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
-    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+      {"id": 18, "name": "인쇄대에 걸린 첫 장", "type": "", "x": 745, "y": 330, "width": 40, "height": 80, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s4.c1"}]},
+      {"id": 19, "name": "책 말리는 시렁", "type": "", "x": 873, "y": 540, "width": 40, "height": 60, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s4.c2"}]},
+      {"id": 20, "name": "책 탁자", "type": "", "x": 830, "y": 680, "width": 60, "height": 60, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s4.c3"}]},
+      {"id": 21, "name": "활자판 탁자", "type": "", "x": 400, "y": 470, "width": 50, "height": 60, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s4.c4"}]}
+    ]},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+      {"id": 22, "name": "활자 장인", "type": "", "x": 480, "y": 330, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s4.artisan"}, {"name": "contextId", "type": "string", "value": "s4.c5"}, {"name": "sprite", "type": "string", "value": "artisan"}]},
+      {"id": 23, "name": "구경 온 백성", "type": "", "x": 610, "y": 470, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s4.commoner"}, {"name": "contextId", "type": "string", "value": "s4.c6"}, {"name": "sprite", "type": "string", "value": "commoner_man"}]},
+      {"id": 24, "name": "책을 기다리는 아낙", "type": "", "x": 560, "y": 730, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s4.listeners"}, {"name": "sprite", "type": "string", "value": "commoner_woman"}]}
+    ]},
     {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
         {"id": 17, "name": "spawn", "type": "", "x": 520, "y": 790, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
       ]}

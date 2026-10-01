@@ -10,7 +10,7 @@
   "tilewidth": 32,
   "tileheight": 32,
   "nextlayerid": 6,
-  "nextobjectid": 12,
+  "nextobjectid": 23,
   "tilesets": [],
   "layers": [
     {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s2.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
@@ -26,10 +26,23 @@
         {"id": 9, "name": "gate", "type": "", "x": 376, "y": 486, "width": 400, "height": 140, "rotation": 0, "visible": true},
         {"id": 10, "name": "outer-wall", "type": "", "x": 0, "y": 612, "width": 1152, "height": 156, "rotation": 0, "visible": true}
       ]},
-    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
-    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 12, "name": "manuscript-left-steps", "type": "", "x": 160, "y": 198, "width": 32, "height": 32, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s2.c3"}]},
+        {"id": 13, "name": "bronze-vessel", "type": "", "x": 540, "y": 350, "width": 72, "height": 96, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s2.c5"}]},
+        {"id": 14, "name": "manuscript-right-steps", "type": "", "x": 960, "y": 198, "width": 32, "height": 32, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s2.c7"}]}
+      ]},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 15, "name": "scholar-left", "type": "", "x": 170, "y": 332, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s2.scholarA"}, {"name": "contextId", "type": "string", "value": "s2.c1"}, {"name": "sprite", "type": "string", "value": "official"}]},
+        {"id": 16, "name": "farmer", "type": "", "x": 290, "y": 505, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s2.farmer"}, {"name": "contextId", "type": "string", "value": "s2.c2"}, {"name": "sprite", "type": "string", "value": "elder"}]},
+        {"id": 17, "name": "scholar-right", "type": "", "x": 985, "y": 332, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s2.scholarB"}, {"name": "contextId", "type": "string", "value": "s2.c4"}, {"name": "sprite", "type": "string", "value": "official"}]},
+        {"id": 18, "name": "child", "type": "", "x": 880, "y": 482, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s2.child"}, {"name": "contextId", "type": "string", "value": "s2.c6"}, {"name": "sprite", "type": "string", "value": "child"}]},
+        {"id": 19, "name": "king", "type": "", "x": 576, "y": 222, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s2.sejong"}, {"name": "contextId", "type": "string", "value": "s2.c8"}, {"name": "sprite", "type": "string", "value": "sejong"}]},
+        {"id": 20, "name": "scholar-preface", "type": "", "x": 400, "y": 292, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s2.scholarC"}, {"name": "contextId", "type": "string", "value": "s2.c9"}, {"name": "sprite", "type": "string", "value": "official"}]},
+        {"id": 21, "name": "woman", "type": "", "x": 830, "y": 577, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s2.woman"}, {"name": "sprite", "type": "string", "value": "commoner_woman"}]},
+        {"id": 22, "name": "villager", "type": "", "x": 330, "y": 592, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "s2.villager"}, {"name": "sprite", "type": "string", "value": "commoner_man"}]}
+      ]},
     {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
-        {"id": 11, "name": "spawn", "type": "", "x": 576, "y": 285, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
+        {"id": 11, "name": "spawn", "type": "", "x": 576, "y": 472, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
       ]}
   ]
 }

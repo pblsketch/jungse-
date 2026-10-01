@@ -35,7 +35,10 @@
         build(w) {
           const plate = el('div', 'nm-st-plate' + (env.reducedMotion() ? ' is-still' : ''));
           const g = el('span', 'nm-st-glyph nm-yet');
-          g.appendChild(YB().build(env.scene.carveGlyph || '', {}));
+          const cg = env.scene.carveGlyph || '';
+          // 방점 하나(〮·〯)가 패 글자면 음절이 없어 점 그리기에서 빠지므로 글자 그대로 보인다(s4)
+          if (/^[〮〯]$/.test(cg)) g.appendChild(document.createTextNode(cg));
+          else g.appendChild(YB().build(cg, {}));
           plate.appendChild(g);
           w.body.appendChild(plate);
           w.body.appendChild(el('p', 'nm-st-end-text', TX().t('carve')));

@@ -178,7 +178,7 @@
         status === 'progress' ? el('span', { class: 'nm-badge nm-status-progress', text: t('select.statusProgress') }) : null,
         glyph ? el('span', { class: 'nm-card-glyph' }, [
           el('span', { class: 'nm-sr', text: t('select.glyphLabel') }),
-          el('span', { class: 'nm-glyph nm-yet', text: glyph })
+          /^[〮〯]$/.test(glyph) ? el('span', { class: 'nm-glyph nm-yet', text: glyph }) : el('span', { class: 'nm-glyph' }, dom.yet(glyph, { bangjeom: true }))
         ]) : null
       ])
     ];
