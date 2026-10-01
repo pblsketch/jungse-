@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- 모든 상대 경로를 저장소 뿌리 기준으로 -->
+  <base href="../../">
+  <title>엔진 시험 맵</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/engine.css">
+</head>
+<body>
+  <div id="app">
+    <div id="game"></div>
+    <div id="ui-layer"></div>
+  </div>
+  <script src="vendor/phaser.min.js"></script>
+  <script src="js/core/ns.js"></script>
+  <script src="js/data/stages.js"></script>
+  <script src="js/data/assets.js"></script>
+  <script src="js/engine/path.js"></script>
+  <script src="js/engine/tiled.js"></script>
+  <script src="js/engine/core.js"></script>
+  <script src="js/engine/audio.js"></script>
+  <script src="js/engine/hud.js"></script>
+  <script src="js/engine/world.js"></script>
+  <script src="js/engine/api.js"></script>
+  <script>
+    NM.engine.boot()
+      .then(function () { return NM.engine.test.loadTestMap(); })
+      .then(function () { window.__engineReady = true; })
+      .catch(function (e) { NM.reportError('engine.html', e); });
+  </script>
+</body>
+</html>
