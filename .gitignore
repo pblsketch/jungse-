@@ -3,3 +3,12 @@
 
 # 도구 상태 파일
 .omc/
+
+# 실행 문서·작업 공간 (dryforge)
+.dryforge/
+
+# 생성 원본·도구 산출물
+assets/raw/
+node_modules
+tests/shots/
+tests/test-results/

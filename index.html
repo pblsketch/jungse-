@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>나랏말ᄊᆞ미</title>
+  <meta name="description" content="중세국어를 읽어 내는 해독 어드벤처 — 국어 수업용 웹 게임">
+  <link rel="manifest" href="manifest.webmanifest">
+  <!-- styles:start -->
+  <link rel="stylesheet" href="css/base.css">
+  <!-- styles:end -->
+</head>
+<body>
+  <div id="app">
+    <div id="game" aria-label="게임 화면"></div>
+    <div id="ui-layer"></div>
+  </div>
+
+  <!-- scripts:start (순서: vendor → core → data → engine → ui → gimmicks → main) -->
+  <script src="vendor/phaser.min.js"></script>
+  <script src="js/core/ns.js"></script>
+  <script src="js/data/stages.js"></script>
+  <script src="js/data/assets.js"></script>
+  <script src="js/main.js"></script>
+  <!-- scripts:end -->
+</body>
+</html>
