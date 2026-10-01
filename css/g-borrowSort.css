@@ -1,0 +1,51 @@
+/*
+ * 기믹 borrowSort (스테이지 1 「빌려 쓴 글자」 뜻이냐 소리냐) — js/gimmicks/borrowSort.js
+ * - 글자 크기는 em: 과제 창 글자 크기 calc(17px * var(--fs) * var(--st-big))(css/stage.css)를 물려받는다.
+ * - 색만으로 나누지 않는다: 고른 단추는 ● 와 굵은 안쪽 테두리, 틀림 ×·점선, 고칠 곳 △·바깥선, 정답 ○·겹테두리.
+ * - 원문 글자는 DOM 글자(NMYet). 고르는 한자는 밑줄, 풀이가 갈리는(채점 안 함) 글자는 물결 밑줄.
+ * - 360px 폭에서 줄바꿈, 단추 44px 이상. 움직임 없음(움직임 줄이기와 상관없이 같다).
+ */
+.nm-gbs { display: flex; flex-direction: column; gap: .9em; }
+.nm-gbs-lead { margin: 0; font-size: .95em; }
+.nm-gbs-line { border: 2px solid var(--st-line, rgba(43, 36, 32, .22)); border-radius: 12px; padding: .6em .7em; background: #fffaf0; display: flex; flex-direction: column; gap: .5em; }
+.nm-gbs-linehead { display: flex; flex-wrap: wrap; gap: .45em; align-items: center; }
+.nm-gbs-title { font-size: .85em; font-weight: 600; }
+.nm-gbs-row { display: flex; flex-wrap: wrap; gap: .35em .3em; align-items: flex-start; }
+.nm-gbs-gap { width: .7em; }
+.nm-gbs-cell { position: relative; display: flex; flex-direction: column; align-items: center; gap: .25em; min-width: 1.5em; }
+.nm-gbs-char { font-size: 1.6em; line-height: 1.3; }
+.nm-gbs-cell.is-target .nm-gbs-char { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .18em; }
+.nm-gbs-cell.is-note .nm-gbs-char { text-decoration: underline wavy var(--interp, #34508a); text-underline-offset: .2em; }
+.nm-gbs-opts { display: flex; flex-direction: column; gap: .2em; }
+.nm-gbs-opt {
+  min-width: 48px; min-height: 44px; padding: .15em .45em; border-radius: 9px; cursor: pointer;
+  border: 2px solid var(--ink, #2b2420); background: var(--paper, #f6efe2); color: var(--ink, #2b2420);
+  font: 600 .9em/1.2 var(--font-ui, system-ui, sans-serif);
+}
+.nm-gbs-opt.is-selected { background: var(--hanji, #efe4cf); box-shadow: inset 0 0 0 3px var(--ink, #2b2420); }
+.nm-gbs-opt.is-selected::before { content: '\25CF  '; font-size: .75em; }
+.nm-gbs-opt:disabled { cursor: default; }
+.nm-gbs-opt:not(.is-selected):disabled { opacity: .5; }
+.nm-gbs-opt:focus-visible { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; }
+.nm-gbs-flag { position: absolute; top: -.35em; right: -.55em; min-width: 1.25em; height: 1.25em; border-radius: 50%; font-size: .78em; font-weight: 800; line-height: 1.25em; text-align: center; }
+.nm-gbs-flag:empty { display: none; }
+.nm-gbs-cell.is-wrong .nm-gbs-opt.is-selected { border-style: dashed; border-color: var(--seal, #b8322a); }
+.nm-gbs-cell.is-wrong .nm-gbs-char { opacity: .5; }
+.nm-gbs-cell.is-wrong .nm-gbs-flag, .nm-gbs-rule.is-wrong > .nm-gbs-flag { background: var(--seal, #b8322a); color: #fff; }
+.nm-gbs-cell.is-hint { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 3px; border-radius: 8px; }
+.nm-gbs-cell.is-hint:not(.is-wrong) .nm-gbs-flag, .nm-gbs-rule.is-hint:not(.is-wrong) > .nm-gbs-flag { background: var(--st-focus, #d08a12); color: #fff; }
+.nm-gbs-cell.is-answer .nm-gbs-opt.is-selected { border-style: double; border-width: 4px; }
+.nm-gbs-cell.is-answer .nm-gbs-flag, .nm-gbs-rule.is-answer > .nm-gbs-flag { background: var(--st-know, #4f6b3a); color: #fff; }
+.nm-gbs-note { font-size: .9em; }
+.nm-gbs-after { display: flex; flex-direction: column; gap: .4em; }
+
+.nm-gbs-rule { position: relative; border: 2px solid var(--ink, #2b2420); border-radius: 12px; padding: .6em .7em; background: var(--hanji, #efe4cf); }
+.nm-gbs-rule > .nm-gbs-flag { top: .4em; right: .5em; }
+.nm-gbs-rule.is-wrong { border-style: dashed; border-color: var(--seal, #b8322a); }
+.nm-gbs-rule.is-hint { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; }
+.nm-gbs-rule.is-answer { border-style: double; border-width: 4px; }
+.nm-gbs-ruletitle { margin: 0 0 .3em; font-size: 1em; }
+.nm-gbs-rulenote { margin: 0 0 .4em; font-size: .88em; }
+
+.nm-gbs-foot { display: flex; flex-wrap: wrap; gap: .6em; align-items: center; justify-content: flex-end; }
+.nm-gbs-left { margin-right: auto; font-size: .9em; }

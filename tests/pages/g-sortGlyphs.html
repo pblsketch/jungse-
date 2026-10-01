@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- 모든 상대 경로를 저장소 뿌리 기준으로 -->
+  <base href="../../">
+  <title>기믹 sortGlyphs 시험</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/engine.css">
+  <link rel="stylesheet" href="css/stage.css">
+  <link rel="stylesheet" href="css/g-sortGlyphs.css">
+</head>
+<body>
+  <div id="app">
+    <div id="game"></div>
+    <div id="ui-layer"></div>
+  </div>
+  <script src="vendor/phaser.min.js"></script>
+  <script src="js/core/ns.js"></script>
+  <script src="js/data/stages.js"></script>
+  <script src="js/data/assets.js"></script>
+  <script src="js/data/jamo.js"></script>
+  <script src="js/data/rules-config.js"></script>
+  <script src="js/data/profanity.js"></script>
+  <script src="js/data/text-stage.js"></script>
+  <script src="js/data/text-g-sortGlyphs.js"></script>
+  <script src="js/core/yet.js"></script>
+  <script src="js/core/rules.js"></script>
+  <script src="js/core/nickname.js"></script>
+  <script src="js/core/save.js"></script>
+  <script src="js/engine/path.js"></script>
+  <script src="js/engine/tiled.js"></script>
+  <script src="js/engine/core.js"></script>
+  <script src="js/engine/audio.js"></script>
+  <script src="js/engine/hud.js"></script>
+  <script src="js/engine/world.js"></script>
+  <script src="js/engine/api.js"></script>
+  <script src="js/ui/stage-text.js"></script>
+  <script src="js/ui/stage-logic.js"></script>
+  <script src="js/ui/stage-yet.js"></script>
+  <script src="js/ui/marker.js"></script>
+  <script src="js/ui/stage-window.js"></script>
+  <script src="js/ui/dialog.js"></script>
+  <script src="js/ui/rulecard.js"></script>
+  <script src="js/ui/stage-gimmick.js"></script>
+  <script src="js/gimmicks/sortGlyphs.js"></script>
+  <script src="js/ui/item-read.js"></script>
+  <script src="js/ui/item-task.js"></script>
+  <script src="js/ui/stage-end.js"></script>
+  <script src="js/ui/stage-runner.js"></script>
+  <script src="tests/fixtures/g-sortGlyphs.js"></script>
+  <script>
+    // 시험 진행: ?stage=s6&level=m&teacher=1&nick=하늘&reset=1&nosave=1  (idle=1 이면 아무것도 돌리지 않음 — 기록 미리 두기용)
+    (function () {
+      var q = new URLSearchParams(location.search);
+      if (q.get('idle') === '1') return;
+      if (q.get('reset') === '1') { try { localStorage.clear(); } catch (e) { /* 무시 */ } }
+      var teacher = q.get('teacher') === '1';
+      var store = NM.core.save.createStore({ storage: window.localStorage, urlLevel: q.get('level') || 'm', teacher: teacher, level: q.get('level') || 'm' });
+      if (q.get('nick') && !store.get().nickname) store.setup({ protagonist: 1, nickname: q.get('nick') });
+      window.__store = store;
+      window.__exits = [];
+      window.__saved = 0;
+      NM.engine.boot().then(function () {
+        return NM.ui.stage.run(q.get('stage') || 's0', {
+          store: store, level: store.level, teacher: teacher,
+          saveImage: q.get('nosave') === '1' ? undefined : function () { window.__saved++; return Promise.resolve(true); },
+          onExit: function (r) { window.__exits.push(r); }
+        });
+      }).then(function () { window.__stageReady = true; })
+        .catch(function (e) { NM.reportError('stage.html', e); });
+    })();
+  </script>
+</body>
+</html>

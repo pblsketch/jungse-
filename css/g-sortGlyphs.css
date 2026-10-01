@@ -1,0 +1,73 @@
+/*
+ * 기믹 sortGlyphs (서장 「흩어진 글자」) — js/gimmicks/sortGlyphs.js
+ * - 글자 크기는 em: 과제 창 글자 크기 calc(17px * var(--fs) * var(--st-big))(css/stage.css)를 물려받아 글자 크기 3단계·교사 크게 보기를 따른다.
+ * - 색만으로 나누지 않는다: 틀림 ×, 고칠 곳 △, 정답 자리 ○ 기호와 테두리 모양이 함께 바뀐다.
+ * - 움직임 줄이기(html.nm-reduced-motion, html[data-nm-motion="reduce"])면 흩어지는 움직임·기울기를 끈다.
+ * - 360px 폭에서 가로 스크롤이 생기지 않게 모두 줄바꿈한다. 단추는 44px 이상.
+ */
+.nm-gsg { display: flex; flex-direction: column; gap: .8em; }
+.nm-gsg-lead { margin: 0; font-size: .95em; }
+.nm-gsg-head, .nm-gsg-binname, .nm-gsg-grouphead { margin: 0; font-size: 1em; font-weight: 700; }
+.nm-gsg-pool { border: 2px dashed var(--st-line, rgba(43, 36, 32, .22)); border-radius: 12px; padding: .6em .7em; background: #fffaf0; }
+.nm-gsg-tiles { display: flex; flex-wrap: wrap; gap: .5em; min-height: 3.2em; align-items: center; }
+.nm-gsg-scatter { padding: .55em .2em .3em; }
+.nm-gsg-empty { margin: .3em 0 0; font-size: .9em; opacity: .8; }
+
+.nm-gsg-tile {
+  position: relative; min-width: 48px; min-height: 48px; width: 2.9em; height: 2.9em; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 2px solid var(--ink, #2b2420); border-radius: 10px; background: var(--paper, #f6efe2); color: var(--ink, #2b2420);
+  cursor: pointer; font: inherit;
+}
+.nm-gsg-scatter .nm-gsg-tile { transform: rotate(var(--gsg-r, 0deg)) translateY(var(--gsg-dy, 0px)); animation: nm-gsg-in .45s ease-out both; }
+@keyframes nm-gsg-in { from { opacity: 0; transform: rotate(0deg) translateY(-14px) scale(.8); } }
+html.nm-reduced-motion .nm-gsg-tile, html[data-nm-motion="reduce"] .nm-gsg-tile { animation: none !important; transform: none !important; transition: none !important; }
+.nm-gsg-glyph { font-size: 2.1em; line-height: 1; }
+.nm-gsg-tile.is-selected { background: var(--hanji, #efe4cf); box-shadow: inset 0 0 0 3px var(--ink, #2b2420); }
+.nm-gsg-tile.is-selected::after { content: '\25BC'; position: absolute; top: -1.05em; left: 50%; transform: translateX(-50%); font-size: .7em; }
+.nm-gsg-tile:disabled { cursor: default; }
+.nm-gsg-flag { position: absolute; top: -.45em; right: -.45em; min-width: 1.25em; height: 1.25em; border-radius: 50%; font-size: .78em; font-weight: 800; line-height: 1.25em; text-align: center; }
+.nm-gsg-flag:empty { display: none; }
+.nm-gsg-tile.is-wrong { border-style: dashed; border-color: var(--seal, #b8322a); }
+.nm-gsg-tile.is-wrong .nm-gsg-glyph { opacity: .45; filter: blur(.6px); }
+.nm-gsg-tile.is-wrong .nm-gsg-flag { background: var(--seal, #b8322a); color: #fff; }
+.nm-gsg-tile.is-hint { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; }
+.nm-gsg-tile.is-hint:not(.is-wrong) .nm-gsg-flag { background: var(--st-focus, #d08a12); color: #fff; }
+.nm-gsg-tile.is-answer { border-width: 3px; border-style: double; }
+.nm-gsg-tile.is-answer .nm-gsg-flag { background: var(--st-know, #4f6b3a); color: #fff; }
+
+.nm-gsg-bins { display: flex; flex-wrap: wrap; gap: .7em; }
+.nm-gsg-bin {
+  flex: 1 1 13em; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: .45em;
+  border: 2px solid var(--ink, #2b2420); border-radius: 12px; padding: .6em .7em; background: #fffaf0;
+}
+.nm-gsg-bin[data-bin="known"] { border-style: solid; }
+.nm-gsg-bin[data-bin="lost"] { border-style: dashed; }
+.nm-gsg-bin[data-bin="outside"] { border-style: dotted; }
+.nm-gsg-bin.is-hint { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; }
+.nm-gsg-binhead { display: flex; gap: .45em; align-items: flex-start; }
+.nm-gsg-binmark { flex: none; width: 1.3em; height: 1.3em; margin-top: .15em; border: 2px solid currentColor; }
+.nm-gsg-bin[data-bin="known"] .nm-gsg-binmark { border-radius: 50%; }
+.nm-gsg-bin[data-bin="lost"] .nm-gsg-binmark { border-radius: 2px; transform: rotate(45deg) scale(.85); }
+.nm-gsg-bin[data-bin="outside"] .nm-gsg-binmark { border-radius: 2px; }
+.nm-gsg-binnames { min-width: 0; }
+.nm-gsg-bindesc { margin: .1em 0 0; font-size: .85em; opacity: .85; }
+.nm-gsg-put { align-self: flex-start; min-height: 44px; padding: .3em .9em; font-size: .9em; }
+.nm-gsg-group { flex: 2 1 20em; min-width: 0; display: flex; flex-direction: column; gap: .4em; border: 2px solid var(--st-line, rgba(43, 36, 32, .22)); border-radius: 14px; padding: .5em; }
+.nm-gsg-grouphead { padding: 0 .3em; }
+.nm-gsg-grouprow { display: flex; flex-wrap: wrap; gap: .6em; }
+
+.nm-gsg-foot { display: flex; flex-wrap: wrap; gap: .6em; align-items: center; justify-content: flex-end; }
+.nm-gsg-left { margin-right: auto; font-size: .9em; }
+
+.nm-gsg-dogam { border: 2px solid var(--ink, #2b2420); border-radius: 12px; padding: .7em .8em; background: var(--hanji, #efe4cf); }
+.nm-gsg-dogam-title { margin: 0; font-size: 1.05em; }
+.nm-gsg-dogam-title::before { content: '\25C6  '; }
+.nm-gsg-dogam-lead { margin: .2em 0 .5em; font-size: .9em; }
+.nm-gsg-dogam-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .45em; }
+.nm-gsg-dogam-entry { display: flex; gap: .7em; align-items: center; background: #fffaf0; border-radius: 10px; padding: .4em .6em; }
+.nm-gsg-dogam-glyph { flex: none; width: 1.6em; text-align: center; font-size: 1.9em; line-height: 1.2; }
+.nm-gsg-dogam-info { display: flex; flex-direction: column; min-width: 0; }
+.nm-gsg-dogam-name { font-weight: 700; }
+.nm-gsg-dogam-bin { font-size: .8em; opacity: .85; }
+.nm-gsg-dogam-note { font-size: .9em; }
