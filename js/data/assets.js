@@ -7,4 +7,6 @@ window.NM = window.NM || {};
 NM.data = NM.data || {};
 NM.data.ASSETS = NM.data.ASSETS || { bg: {}, sprites: {}, portraits: {}, cg: {}, ui: {}, bgm: {}, maps: {} };
 /* assets:start */
+// 배경음: js/data/bgm.js(NM.data.BGM)를 먼저 불러와 그대로 옮긴다.
+Object.assign(NM.data.ASSETS.bgm, NM.data.BGM || {});
 /* assets:end */
