@@ -43,7 +43,7 @@ NM.data.SCENES['s4'] = {
   ],
 
   encounter: {
-    orig: ['O-s4-YB2a', 'O-s4-YB34a'],
+    orig: ['O-s4-YB2a'],
     lines: [
       { who: 'me', text: '글자 왼쪽에 점이 찍혀 있어요. 하나 찍힌 것도, 둘 찍힌 것도 있고요.', expr: 'surprised' },
       { who: 'senior', text: '여기 보이는 빈칸은 내가 읽기 쉽게 띄어 옮겨 적은 거야. 장인이 찍은 종이에는 빈칸이 하나도 없어.' },
@@ -308,8 +308,6 @@ NM.data.SCENES['s4'] = {
       { who: 'me', text: '뿌리가 깊이 박힌 나무는 바람이 불어도 흔들리지 않아, 꽃이 탐스럽고 열매가 많이 열린다는 노래예요.' },
       { who: 'senior', text: '여·름은 계절이 아니라 열매, ·하[ㄴㆍ]·니는 많다는 말이야. 이건 장터에 가면 더 자세히 배울 거야.', expr: 'smile' },
       { who: 'commoner_woman', text: '끊을 데를 알고 나니 노랫말이 귀에 쏙 들어오네요!', expr: 'smile' },
-      { who: 'commoner_man', text: '점 하나에 소리가 올라가고 내려가고… 이제 좀 노래 같소.' },
-      { who: 'artisan', text: '찍은 보람이 있구려. 통사 양반, 다음 장도 부탁하오.' },
       { who: 'senior', text: '소리 나는 대로 적고, 띄어 쓰지 않고, 점으로 높낮이를 적었다. 그걸 알면 이 책이 읽혀.' }
     ]
   }

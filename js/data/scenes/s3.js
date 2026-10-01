@@ -215,7 +215,7 @@
     contexts: [
       {
         id: 's3.c1', label: '벽에 붙은 방',
-        orig: ['O-s3-HJ-SAM', 'O-s3-HJ-CHO', 'O-s3-HJ-JUNG', 'O-s3-HJ-JONG'],
+        orig: ['O-s3-HJ-CHO', 'O-s3-HJ-JUNG', 'O-s3-HJ-JONG'],
         lines: [
           { who: 'narrator', text: '흰 담벼락에 새 글자 쓰는 법을 적은 방이 붙어 있다.', fiction: 'fiction.bang' },
           { who: 'senior', text: '첫소리는 가운뎃소리 위나 왼쪽에, 끝소리는 그 아래에 둔대. 글자마다 앉을 자리가 정해져 있어.' }
@@ -233,7 +233,7 @@
       },
       {
         id: 's3.c7', label: '곡식 노점',
-        orig: ['O-s3-YJ-CHO-K', 'O-s3-YJ-JUNG-I', 'O-s3-JONG8'],
+        orig: ['O-s3-YJ-CHO-K', 'O-s3-JONG8'],
         lines: [
           { who: 'narrator', text: '곡식 노점에 콩과 피가 자루마다 담겨 있다.' },
           { who: 'senior', text: '해례 보기 낱말에도 콩이 있어. 첫소리 ㅋ, 가운뎃소리 ㅗ, 끝소리 ㆁ을 모아 한 글자로 썼지.' }
@@ -245,8 +245,7 @@
         orig: ['O-s3-HJ-JONGHAP', 'O-s3-YJ-CHO-BB', 'O-s3-YEONSEO'],
         lines: [
           { who: 'narrator', text: '생선 가게 처마에 낚싯대와 마른 새우가 걸려 있다.' },
-          { who: 'senior', text: '낚시를 해례에서는 "낛"으로 적었어. 끝소리 자리에 ㄱ과 ㅅ을 나란히 썼지.' },
-          { who: 'senior', text: '흙도 끝소리에 ㄹ과 ㄱ을 나란히 써서 [ㅎㆍㄺ]으로 적었고.' }
+          { who: 'senior', text: '낚시를 해례에서는 "낛"으로 적었어. 끝소리 자리에 ㄱ과 ㅅ을 나란히 썼지. 흙도 ㄹ과 ㄱ을 나란히 써서 [ㅎㆍㄺ]이야.' }
         ],
         items: ['s3.r2']
       },
@@ -312,7 +311,6 @@
       lines: [
         { who: 'narrator', text: '이름표마다 새 글자가 한 덩이씩 또렷하다. 아낙과 아이가 이름표를 높이 들어 보인다.', cg: 's3_climax' },
         { who: 'woman', text: '"신"! 정말 우리 짚신 이름이네요. 한 글자 안에 소리가 다 들었어요.' },
-        { who: 'child', text: '나도 읽을래! 첫소리 ㅅ, 가운뎃소리 ㅣ, 끝소리 ㄴ… 신!' },
         { who: 'merchant', text: '독 한 글자에 소리가 셋이나 들었구먼. 이제 손님한테 이름표만 가리키면 되겠소.' },
         { who: 'senior', text: '스물여덟 자를 모으고, 나란히 쓰고, 합치니 어떤 말이든 적을 수 있지. <@아>, 수고했어.', expr: 'smile' }
       ]
