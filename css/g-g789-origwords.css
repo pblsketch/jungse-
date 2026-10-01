@@ -1,0 +1,57 @@
+/*
+ * 기믹 G7·G8·G9 공용 부품(js/gimmicks/g789-origwords.js): 原文 낱말 단추, 고르기 묶음.
+ * - 글자 크기는 각 기믹 뿌리가 calc(17px * var(--fs, 1)) 로 정하고, 여기서는 em 으로만 잰다.
+ * - 색만으로 나누지 않는다: 고름 ●, 틀림 ✕(점선 테두리), 정답 ○(굵은 테두리), 단서 ◆, 근거 ✓.
+ * - 누르는 곳은 44px 이상. 움직임 줄이기면 전환 효과 없음.
+ */
+.g789-orig .g789-line { font-size: 1.3em; line-height: 2; letter-spacing: .03em; margin: .1em 0; }
+.g789-vis { font-family: var(--font-yet, 'NMYet', 'NMSans', serif); }
+.g789-word {
+  font: inherit; letter-spacing: inherit; color: inherit;
+  display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box;
+  min-height: 44px; min-width: 44px; margin: 0 .08em; padding: 0 .18em;
+  border: 2px solid transparent; border-bottom: 2px dotted rgba(43, 36, 32, .45); border-radius: 6px;
+  background: transparent; vertical-align: middle;
+  transition: background-color .15s ease;
+}
+button.g789-word { cursor: pointer; }
+button.g789-word:hover:not(:disabled) { background: rgba(208, 138, 18, .12); }
+button.g789-word:disabled { cursor: default; }
+button.g789-word:focus-visible { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; }
+.g789-word-span { min-height: 0; min-width: 0; border-bottom-color: transparent; }
+.g789-word[aria-pressed="true"] { border: 2px solid var(--ink, #2b2420); background: #fff3d6; }
+.g789-word[aria-pressed="true"]::after { content: '\2713'; font: 700 .6em/1 var(--font-ui, sans-serif); margin-left: .2em; }
+.g789-word.is-cue { background: #fff0c2; border: 2px solid #b07a10; }
+.g789-word.is-cue::before { content: '\25c6'; font: 700 .55em/1 var(--font-ui, sans-serif); margin-right: .2em; color: #8a5c00; }
+.g789-word.is-ending { border-bottom: 3px double var(--ink, #2b2420); }
+.g789-word.is-wrong { border: 2px dashed var(--seal, #b8322a); text-decoration: line-through; text-decoration-color: var(--seal, #b8322a); }
+.g789-word.is-wrong::after { content: '\2715'; color: var(--seal, #b8322a); font: 700 .6em/1 var(--font-ui, sans-serif); margin-left: .2em; }
+.g789-word.is-answer { border: 3px solid var(--st-know, #4f6b3a); }
+.g789-word.is-answer::after { content: '\25cb'; color: var(--st-know, #4f6b3a); font: 700 .6em/1 var(--font-ui, sans-serif); margin-left: .2em; }
+
+.g789-radios { display: flex; flex-wrap: wrap; gap: .45em; }
+.g789-opt { position: relative; display: inline-flex; max-width: 100%; }
+.g789-radio { position: absolute; left: 0; top: 0; width: 1px; height: 1px; margin: 0; opacity: 0; }
+.g789-face {
+  display: inline-flex; flex-wrap: wrap; align-items: center; gap: .35em; box-sizing: border-box;
+  min-height: 44px; max-width: 100%; padding: .3em .8em; cursor: pointer;
+  border: 2px solid rgba(43, 36, 32, .3); border-radius: 10px; background: #fffaf0;
+}
+.g789-face::before { content: '\25cb'; font-size: .8em; opacity: .55; }
+.g789-radio:checked + .g789-face { border-color: var(--ink, #2b2420); background: var(--hanji, #efe4cf); font-weight: 700; }
+.g789-radio:checked + .g789-face::before { content: '\25cf'; opacity: 1; }
+.g789-radio:focus-visible + .g789-face { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; }
+.g789-radio:disabled + .g789-face { cursor: default; }
+.g789-sym { font-weight: 700; }
+.g789-sym:empty { display: none; }
+.g789-opt.is-wrong .g789-face { border: 2px dashed var(--seal, #b8322a); }
+.g789-opt.is-wrong .g789-sym { color: var(--seal, #b8322a); }
+.g789-opt.is-answer .g789-face { border: 3px solid var(--st-know, #4f6b3a); }
+.g789-opt.is-answer .g789-sym { color: var(--st-know, #4f6b3a); }
+.g789-tag {
+  display: inline-block; padding: 0 .4em; border-radius: 4px; font-size: .78em; font-weight: 700;
+  color: var(--st-know, #4f6b3a); border: 1.5px solid currentColor;
+}
+.g789-radios.is-wrong { padding: .2em; border-radius: 12px; box-shadow: 0 0 0 2px rgba(184, 50, 42, .25); }
+
+html.nm-reduced-motion .g789-word, html[data-nm-motion="reduce"] .g789-word { transition: none; }
