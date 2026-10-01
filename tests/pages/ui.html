@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- 모든 상대 경로를 저장소 뿌리 기준으로 -->
+  <base href="../../">
+  <title>화면 흐름 시험</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/engine.css">
+  <link rel="stylesheet" href="css/ui.css">
+</head>
+<body>
+  <div id="app">
+    <div id="game"></div>
+    <div id="ui-layer"></div>
+  </div>
+  <!-- index.html 과 같은 순서: vendor → ns → data → (시험 고정 데이터) → core → engine → ui → (장면 진행기 대역) → main -->
+  <script src="vendor/phaser.min.js"></script>
+  <script src="js/core/ns.js"></script>
+  <script src="js/data/stages.js"></script>
+  <script src="js/data/assets.js"></script>
+  <script src="js/data/jamo.js"></script>
+  <script src="js/data/rules-config.js"></script>
+  <script src="js/data/profanity.js"></script>
+  <script src="js/data/text-ui.js"></script>
+  <script src="tests/fixtures/ui-data.js"></script>
+  <script src="js/core/yet.js"></script>
+  <script src="js/core/rules.js"></script>
+  <script src="js/core/nickname.js"></script>
+  <script src="js/core/save.js"></script>
+  <script src="js/engine/path.js"></script>
+  <script src="js/engine/tiled.js"></script>
+  <script src="js/engine/core.js"></script>
+  <script src="js/engine/audio.js"></script>
+  <script src="js/engine/hud.js"></script>
+  <script src="js/engine/world.js"></script>
+  <script src="js/engine/api.js"></script>
+  <script src="js/ui/app-dom.js"></script>
+  <script src="js/ui/app-url.js"></script>
+  <script src="js/ui/notebook-model.js"></script>
+  <script src="js/ui/notebook-image.js"></script>
+  <script src="js/ui/notebook.js"></script>
+  <script src="js/ui/teacher.js"></script>
+  <script src="js/ui/settings.js"></script>
+  <script src="js/ui/screens.js"></script>
+  <script src="js/ui/app.js"></script>
+  <script src="tests/fixtures/ui-stage-stub.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
