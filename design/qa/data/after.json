@@ -1,0 +1,4407 @@
+{
+ "model": {
+  "readPlain": {
+   "m": 300,
+   "h1": 350,
+   "h23": 350
+  },
+  "sideWeight": 0.5,
+  "slow": {
+   "readPlain": {
+    "m": 250,
+    "h1": 300,
+    "h23": 300
+   },
+   "sideWeight": 1
+  },
+  "readOrig": 100,
+  "readHanja": 300,
+  "clickSec": 1,
+  "cgSec": 3,
+  "walkSpeed": 170,
+  "walkFixedSec": 2,
+  "openItemSec": 2,
+  "choiceSec": 8,
+  "retrySec": 5,
+  "opSec": 5,
+  "stepSec": 5,
+  "fixSec": 15,
+  "reflectSec": 30,
+  "pWrong": {
+   "read": 0.35,
+   "task": 0.5
+  }
+ },
+ "date": "2026-10-01",
+ "results": [
+  {
+   "stageId": "s0",
+   "level": "m",
+   "role": "prologue",
+   "title": "흩어진 글자",
+   "items": [
+    "s0.t1",
+    "s0.r1"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 8.2963472531337,
+     "parts": {
+      "readPlain": 277,
+      "readSide": 37,
+      "readOrig": 33,
+      "walk": 13,
+      "cards": 8,
+      "gimmick": 65,
+      "clicks": 64
+     },
+     "chars": {
+      "plain": 1386,
+      "side": 373,
+      "orig": 49,
+      "origHan": 17
+     },
+     "byPhase": {
+      "intro": 2.4,
+      "explore": 1.8,
+      "items": 3.7,
+      "translate": 0.5
+     }
+    },
+    "typical": {
+     "min": 8.830847253133701,
+     "parts": {
+      "readPlain": 298,
+      "readSide": 37,
+      "readOrig": 33,
+      "walk": 13,
+      "cards": 10,
+      "gimmick": 73,
+      "clicks": 66
+     },
+     "chars": {
+      "plain": 1491,
+      "side": 373,
+      "orig": 49,
+      "origHan": 17
+     },
+     "byPhase": {
+      "intro": 2.4,
+      "explore": 1.8,
+      "items": 4.2,
+      "translate": 0.5
+     }
+    },
+    "allWrong": {
+     "min": 9.616347253133702,
+     "parts": {
+      "readPlain": 331,
+      "readSide": 37,
+      "readOrig": 33,
+      "walk": 13,
+      "cards": 13,
+      "gimmick": 80,
+      "clicks": 69
+     },
+     "chars": {
+      "plain": 1657,
+      "side": 373,
+      "orig": 49,
+      "origHan": 17
+     },
+     "byPhase": {
+      "intro": 2.4,
+      "explore": 1.8,
+      "items": 5,
+      "translate": 0.5
+     }
+    },
+    "slowTypical": {
+     "min": 10.694913919800369,
+     "parts": {
+      "readPlain": 358,
+      "readSide": 90,
+      "readOrig": 33,
+      "walk": 13,
+      "cards": 10,
+      "gimmick": 73,
+      "clicks": 66
+     },
+     "chars": {
+      "plain": 1491,
+      "side": 373,
+      "orig": 49,
+      "origHan": 17
+     },
+     "byPhase": {
+      "intro": 2.9,
+      "explore": 2.2,
+      "items": 5,
+      "translate": 0.6
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 519,
+     "side": 58,
+     "orig": 23,
+     "origHan": 4,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 15
+    },
+    "explore": {
+     "plain": 321,
+     "side": 107,
+     "orig": 26,
+     "origHan": 13,
+     "walkPx": 1272,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "items": {
+     "plain": 141,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 9
+    },
+    "s0.t1": {
+     "plain": 230,
+     "side": 55,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 13,
+     "dialogClicks": 0
+    },
+    "s0.r1": {
+     "plain": 298,
+     "side": 153,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 148,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    }
+   }
+  },
+  {
+   "stageId": "s2",
+   "level": "m",
+   "role": "bundle",
+   "title": "스물여덟 자",
+   "items": [
+    "s2.r1",
+    "s2.r2",
+    "s2.r3",
+    "s2.r4",
+    "s2.t1",
+    "s2.t2"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 16.17796631627116,
+     "parts": {
+      "readPlain": 481,
+      "readSide": 114,
+      "readOrig": 104,
+      "walk": 37,
+      "cards": 32,
+      "gimmick": 125,
+      "clicks": 77
+     },
+     "chars": {
+      "plain": 2405,
+      "side": 1141,
+      "orig": 57,
+      "origHan": 351
+     },
+     "byPhase": {
+      "intro": 2.1,
+      "explore": 5.9,
+      "items": 7.6,
+      "translate": 0.6
+     }
+    },
+    "typical": {
+     "min": 17.57396631627116,
+     "parts": {
+      "readPlain": 533,
+      "readSide": 114,
+      "readOrig": 104,
+      "walk": 37,
+      "cards": 39,
+      "gimmick": 140,
+      "clicks": 87
+     },
+     "chars": {
+      "plain": 2663,
+      "side": 1141,
+      "orig": 57,
+      "origHan": 351
+     },
+     "byPhase": {
+      "intro": 2.1,
+      "explore": 5.9,
+      "items": 9,
+      "translate": 0.6
+     }
+    },
+    "allWrong": {
+     "min": 19.807966316271163,
+     "parts": {
+      "readPlain": 621,
+      "readSide": 114,
+      "readOrig": 104,
+      "walk": 37,
+      "cards": 52,
+      "gimmick": 155,
+      "clicks": 105
+     },
+     "chars": {
+      "plain": 3104,
+      "side": 1141,
+      "orig": 57,
+      "origHan": 351
+     },
+     "byPhase": {
+      "intro": 2.1,
+      "explore": 5.9,
+      "items": 11.2,
+      "translate": 0.6
+     }
+    },
+    "slowTypical": {
+     "min": 22.011832982937833,
+     "parts": {
+      "readPlain": 639,
+      "readSide": 274,
+      "readOrig": 104,
+      "walk": 37,
+      "cards": 39,
+      "gimmick": 140,
+      "clicks": 87
+     },
+     "chars": {
+      "plain": 2663,
+      "side": 1141,
+      "orig": 57,
+      "origHan": 351
+     },
+     "byPhase": {
+      "intro": 2.8,
+      "explore": 7.5,
+      "items": 11,
+      "translate": 0.7
+     }
+    },
+    "needsSec": 0
+   },
+   "perItem": {
+    "intro": {
+     "plain": 428,
+     "side": 175,
+     "orig": 1,
+     "origHan": 22,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 13
+    },
+    "explore": {
+     "plain": 856,
+     "side": 448,
+     "orig": 56,
+     "origHan": 329,
+     "walkPx": 2580,
+     "ops": 0,
+     "dialogClicks": 2
+    },
+    "items": {
+     "plain": 320,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 17
+    },
+    "s2.r1": {
+     "plain": 232,
+     "side": 83,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s2.r2": {
+     "plain": 181,
+     "side": 96,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s2.r3": {
+     "plain": 184,
+     "side": 86,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s2.r4": {
+     "plain": 185,
+     "side": 102,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s2.t1": {
+     "plain": 282,
+     "side": 81,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 16,
+     "dialogClicks": 0
+    },
+    "s2.t2": {
+     "plain": 250,
+     "side": 70,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 7,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 186,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    }
+   }
+  },
+  {
+   "stageId": "s3",
+   "level": "m",
+   "role": "bundle",
+   "title": "모아 써야 소리가 된다",
+   "items": [
+    "s3.r1",
+    "s3.r2",
+    "s3.r3",
+    "s3.t1",
+    "s3.t2"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 11.287695675507182,
+     "parts": {
+      "readPlain": 337,
+      "readSide": 73,
+      "readOrig": 76,
+      "walk": 26,
+      "cards": 24,
+      "gimmick": 75,
+      "clicks": 67
+     },
+     "chars": {
+      "plain": 1684,
+      "side": 727,
+      "orig": 58,
+      "origHan": 204
+     },
+     "byPhase": {
+      "intro": 1.8,
+      "explore": 3.4,
+      "items": 5.7,
+      "translate": 0.4
+     }
+    },
+    "typical": {
+     "min": 12.378362342173851,
+     "parts": {
+      "readPlain": 375,
+      "readSide": 73,
+      "readOrig": 76,
+      "walk": 26,
+      "cards": 29,
+      "gimmick": 90,
+      "clicks": 74
+     },
+     "chars": {
+      "plain": 1873,
+      "side": 727,
+      "orig": 58,
+      "origHan": 204
+     },
+     "byPhase": {
+      "intro": 1.8,
+      "explore": 3.4,
+      "items": 6.8,
+      "translate": 0.4
+     }
+    },
+    "allWrong": {
+     "min": 14.081029008840513,
+     "parts": {
+      "readPlain": 439,
+      "readSide": 73,
+      "readOrig": 76,
+      "walk": 26,
+      "cards": 39,
+      "gimmick": 105,
+      "clicks": 87
+     },
+     "chars": {
+      "plain": 2197,
+      "side": 727,
+      "orig": 58,
+      "origHan": 204
+     },
+     "byPhase": {
+      "intro": 1.8,
+      "explore": 3.4,
+      "items": 8.5,
+      "translate": 0.4
+     }
+    },
+    "slowTypical": {
+     "min": 15.323662342173852,
+     "parts": {
+      "readPlain": 450,
+      "readSide": 174,
+      "readOrig": 76,
+      "walk": 26,
+      "cards": 29,
+      "gimmick": 90,
+      "clicks": 74
+     },
+     "chars": {
+      "plain": 1873,
+      "side": 727,
+      "orig": 58,
+      "origHan": 204
+     },
+     "byPhase": {
+      "intro": 2.4,
+      "explore": 4.2,
+      "items": 8.3,
+      "translate": 0.5
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 373,
+     "side": 145,
+     "orig": 3,
+     "origHan": 16,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 10
+    },
+    "explore": {
+     "plain": 448,
+     "side": 206,
+     "orig": 51,
+     "origHan": 183,
+     "walkPx": 1728,
+     "ops": 0,
+     "dialogClicks": 1
+    },
+    "items": {
+     "plain": 220,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 10
+    },
+    "s3.r1": {
+     "plain": 261,
+     "side": 107,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s3.r2": {
+     "plain": 207,
+     "side": 93,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s3.r3": {
+     "plain": 165,
+     "side": 85,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s3.t1": {
+     "plain": 244,
+     "side": 41,
+     "orig": 4,
+     "origHan": 5,
+     "walkPx": 0,
+     "ops": 9,
+     "dialogClicks": 0
+    },
+    "s3.t2": {
+     "plain": 154,
+     "side": 50,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 6,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 125,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    }
+   }
+  },
+  {
+   "stageId": "s9",
+   "level": "m",
+   "role": "bundle",
+   "title": "나랏말[ㅆㆍ]미",
+   "items": [
+    "s9.r1",
+    "s9.t3"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 9.93947983200351,
+     "parts": {
+      "readPlain": 331,
+      "readSide": 85,
+      "readOrig": 59,
+      "walk": 26,
+      "cards": 8,
+      "gimmick": 25,
+      "clicks": 62
+     },
+     "chars": {
+      "plain": 1657,
+      "side": 847,
+      "orig": 82,
+      "origHan": 51
+     },
+     "byPhase": {
+      "intro": 2.2,
+      "explore": 3.4,
+      "items": 2.6,
+      "translate": 1.7
+     }
+    },
+    "typical": {
+     "min": 10.50231316533684,
+     "parts": {
+      "readPlain": 353,
+      "readSide": 85,
+      "readOrig": 59,
+      "walk": 26,
+      "cards": 10,
+      "gimmick": 33,
+      "clicks": 65
+     },
+     "chars": {
+      "plain": 1767,
+      "side": 847,
+      "orig": 82,
+      "origHan": 51
+     },
+     "byPhase": {
+      "intro": 2.2,
+      "explore": 3.4,
+      "items": 3.2,
+      "translate": 1.7
+     }
+    },
+    "allWrong": {
+     "min": 11.336146498670173,
+     "parts": {
+      "readPlain": 388,
+      "readSide": 85,
+      "readOrig": 59,
+      "walk": 26,
+      "cards": 13,
+      "gimmick": 40,
+      "clicks": 69
+     },
+     "chars": {
+      "plain": 1941,
+      "side": 847,
+      "orig": 82,
+      "origHan": 51
+     },
+     "byPhase": {
+      "intro": 2.2,
+      "explore": 3.4,
+      "items": 4,
+      "translate": 1.7
+     }
+    },
+    "slowTypical": {
+     "min": 13.656379832003514,
+     "parts": {
+      "readPlain": 424,
+      "readSide": 203,
+      "readOrig": 59,
+      "walk": 26,
+      "cards": 10,
+      "gimmick": 33,
+      "clicks": 65
+     },
+     "chars": {
+      "plain": 1767,
+      "side": 847,
+      "orig": 82,
+      "origHan": 51
+     },
+     "byPhase": {
+      "intro": 3,
+      "explore": 4.4,
+      "items": 4.3,
+      "translate": 1.9
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 441,
+     "side": 220,
+     "orig": 10,
+     "origHan": 2,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 10
+    },
+    "explore": {
+     "plain": 504,
+     "side": 287,
+     "orig": 72,
+     "origHan": 49,
+     "walkPx": 1594,
+     "ops": 0,
+     "dialogClicks": 1
+    },
+    "items": {
+     "plain": 110,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 2
+    },
+    "s9.r1": {
+     "plain": 281,
+     "side": 205,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s9.t3": {
+     "plain": 314,
+     "side": 135,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 5,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 291,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 426,
+     "ops": 0,
+     "dialogClicks": 8
+    }
+   }
+  },
+  {
+   "stageId": "s12",
+   "level": "m",
+   "role": "bundle",
+   "title": "말의 강",
+   "items": [
+    "s12.r1",
+    "s12.r2",
+    "s12.r3"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 9.815648470974338,
+     "parts": {
+      "readPlain": 393,
+      "readSide": 69,
+      "readOrig": 0,
+      "walk": 36,
+      "cards": 24,
+      "gimmick": 0,
+      "clicks": 67
+     },
+     "chars": {
+      "plain": 1967,
+      "side": 690,
+      "orig": 0,
+      "origHan": 0
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 3.3,
+      "items": 2.6,
+      "translate": 1.9
+     }
+    },
+    "typical": {
+     "min": 10.702315137641012,
+     "parts": {
+      "readPlain": 437,
+      "readSide": 69,
+      "readOrig": 0,
+      "walk": 36,
+      "cards": 29,
+      "gimmick": 0,
+      "clicks": 71
+     },
+     "chars": {
+      "plain": 2186,
+      "side": 690,
+      "orig": 0,
+      "origHan": 0
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 3.3,
+      "items": 3.5,
+      "translate": 1.9
+     }
+    },
+    "allWrong": {
+     "min": 12.348981804307671,
+     "parts": {
+      "readPlain": 518,
+      "readSide": 69,
+      "readOrig": 0,
+      "walk": 36,
+      "cards": 39,
+      "gimmick": 0,
+      "clicks": 79
+     },
+     "chars": {
+      "plain": 2592,
+      "side": 690,
+      "orig": 0,
+      "origHan": 0
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 3.3,
+      "items": 5.1,
+      "translate": 1.9
+     }
+    },
+    "slowTypical": {
+     "min": 13.769481804307675,
+     "parts": {
+      "readPlain": 525,
+      "readSide": 166,
+      "readOrig": 0,
+      "walk": 36,
+      "cards": 29,
+      "gimmick": 0,
+      "clicks": 71
+     },
+     "chars": {
+      "plain": 2186,
+      "side": 690,
+      "orig": 0,
+      "origHan": 0
+     },
+     "byPhase": {
+      "intro": 2.5,
+      "explore": 4.3,
+      "items": 4.7,
+      "translate": 2.2
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 447,
+     "side": 118,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 14
+    },
+    "explore": {
+     "plain": 747,
+     "side": 228,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 1953,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "items": {
+     "plain": 275,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 9
+    },
+    "s12.r1": {
+     "plain": 268,
+     "side": 86,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s12.r2": {
+     "plain": 304,
+     "side": 164,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s12.r3": {
+     "plain": 225,
+     "side": 94,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 326,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 1369,
+     "ops": 0,
+     "dialogClicks": 7
+    }
+   }
+  },
+  {
+   "stageId": "s0",
+   "level": "h1",
+   "role": "prologue",
+   "title": "흩어진 글자",
+   "items": [
+    "s0.t1",
+    "s0.r1"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 7.547537729324175,
+     "parts": {
+      "readPlain": 238,
+      "readSide": 32,
+      "readOrig": 33,
+      "walk": 13,
+      "cards": 8,
+      "gimmick": 65,
+      "clicks": 64
+     },
+     "chars": {
+      "plain": 1386,
+      "side": 373,
+      "orig": 49,
+      "origHan": 17
+     },
+     "byPhase": {
+      "intro": 2.1,
+      "explore": 1.6,
+      "items": 3.4,
+      "translate": 0.4
+     }
+    },
+    "typical": {
+     "min": 8.032228205514654,
+     "parts": {
+      "readPlain": 256,
+      "readSide": 32,
+      "readOrig": 33,
+      "walk": 13,
+      "cards": 10,
+      "gimmick": 73,
+      "clicks": 66
+     },
+     "chars": {
+      "plain": 1491,
+      "side": 373,
+      "orig": 49,
+      "origHan": 17
+     },
+     "byPhase": {
+      "intro": 2.1,
+      "explore": 1.6,
+      "items": 3.9,
+      "translate": 0.4
+     }
+    },
+    "allWrong": {
+     "min": 8.738490110276556,
+     "parts": {
+      "readPlain": 284,
+      "readSide": 32,
+      "readOrig": 33,
+      "walk": 13,
+      "cards": 13,
+      "gimmick": 80,
+      "clicks": 69
+     },
+     "chars": {
+      "plain": 1657,
+      "side": 373,
+      "orig": 49,
+      "origHan": 17
+     },
+     "byPhase": {
+      "intro": 2.1,
+      "explore": 1.6,
+      "items": 4.6,
+      "translate": 0.4
+     }
+    },
+    "slowTypical": {
+     "min": 9.452513919800369,
+     "parts": {
+      "readPlain": 298,
+      "readSide": 75,
+      "readOrig": 33,
+      "walk": 13,
+      "cards": 10,
+      "gimmick": 73,
+      "clicks": 66
+     },
+     "chars": {
+      "plain": 1491,
+      "side": 373,
+      "orig": 49,
+      "origHan": 17
+     },
+     "byPhase": {
+      "intro": 2.5,
+      "explore": 2,
+      "items": 4.5,
+      "translate": 0.5
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 519,
+     "side": 58,
+     "orig": 23,
+     "origHan": 4,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 15
+    },
+    "explore": {
+     "plain": 321,
+     "side": 107,
+     "orig": 26,
+     "origHan": 13,
+     "walkPx": 1272,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "items": {
+     "plain": 141,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 9
+    },
+    "s0.t1": {
+     "plain": 230,
+     "side": 55,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 13,
+     "dialogClicks": 0
+    },
+    "s0.r1": {
+     "plain": 298,
+     "side": 153,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 148,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    }
+   }
+  },
+  {
+   "stageId": "s4",
+   "level": "h1",
+   "role": "bundle",
+   "title": "소리대로 적은 책",
+   "items": [
+    "s4.t1",
+    "s4.r1",
+    "s4.r2",
+    "s4.r3",
+    "s4.r4"
+   ],
+   "problems": [
+    "E key did not open s4.c3 (prompt null) → goTo"
+   ],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 11.45328346514186,
+     "parts": {
+      "readPlain": 318,
+      "readSide": 92,
+      "readOrig": 57,
+      "walk": 26,
+      "cards": 32,
+      "gimmick": 90,
+      "clicks": 72
+     },
+     "chars": {
+      "plain": 1857,
+      "side": 1079,
+      "orig": 94,
+      "origHan": 2
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 2.7,
+      "items": 5.3,
+      "translate": 1.5
+     }
+    },
+    "typical": {
+     "min": 12.691902512760915,
+     "parts": {
+      "readPlain": 368,
+      "readSide": 92,
+      "readOrig": 57,
+      "walk": 26,
+      "cards": 39,
+      "gimmick": 98,
+      "clicks": 82
+     },
+     "chars": {
+      "plain": 2146,
+      "side": 1079,
+      "orig": 94,
+      "origHan": 2
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 2.7,
+      "items": 6.6,
+      "translate": 1.5
+     }
+    },
+    "allWrong": {
+     "min": 14.805664417522815,
+     "parts": {
+      "readPlain": 455,
+      "readSide": 92,
+      "readOrig": 57,
+      "walk": 26,
+      "cards": 52,
+      "gimmick": 105,
+      "clicks": 101
+     },
+     "chars": {
+      "plain": 2657,
+      "side": 1079,
+      "orig": 94,
+      "origHan": 2
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 2.7,
+      "items": 8.7,
+      "translate": 1.5
+     }
+    },
+    "slowTypical": {
+     "min": 15.768973941332344,
+     "parts": {
+      "readPlain": 429,
+      "readSide": 216,
+      "readOrig": 57,
+      "walk": 26,
+      "cards": 39,
+      "gimmick": 98,
+      "clicks": 82
+     },
+     "chars": {
+      "plain": 2146,
+      "side": 1079,
+      "orig": 94,
+      "origHan": 2
+     },
+     "byPhase": {
+      "intro": 2.5,
+      "explore": 3.6,
+      "items": 8.1,
+      "translate": 1.6
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 447,
+     "side": 158,
+     "orig": 21,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 12
+    },
+    "explore": {
+     "plain": 373,
+     "side": 361,
+     "orig": 73,
+     "origHan": 2,
+     "walkPx": 1269,
+     "ops": 0,
+     "dialogClicks": 1
+    },
+    "items": {
+     "plain": 372,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 12
+    },
+    "s4.t1": {
+     "plain": 330,
+     "side": 81,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 18,
+     "dialogClicks": 0
+    },
+    "s4.r1": {
+     "plain": 290,
+     "side": 142,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s4.r2": {
+     "plain": 247,
+     "side": 137,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s4.r3": {
+     "plain": 188,
+     "side": 115,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s4.r4": {
+     "plain": 153,
+     "side": 85,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 257,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 358,
+     "ops": 0,
+     "dialogClicks": 7
+    }
+   }
+  },
+  {
+   "stageId": "s5",
+   "level": "h1",
+   "role": "bundle",
+   "title": "사라진 소리, 바뀐 뜻",
+   "items": [
+    "s5.r1",
+    "s5.r2",
+    "s5.r3",
+    "s5.r4",
+    "s5.r5"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 10.37136024002121,
+     "parts": {
+      "readPlain": 277,
+      "readSide": 93,
+      "readOrig": 100,
+      "walk": 39,
+      "cards": 40,
+      "gimmick": 0,
+      "clicks": 73
+     },
+     "chars": {
+      "plain": 1618,
+      "side": 1081,
+      "orig": 160,
+      "origHan": 21
+     },
+     "byPhase": {
+      "intro": 2.2,
+      "explore": 4.4,
+      "items": 2.5,
+      "translate": 1.4
+     }
+    },
+    "typical": {
+     "min": 11.525526906687883,
+     "parts": {
+      "readPlain": 326,
+      "readSide": 93,
+      "readOrig": 100,
+      "walk": 39,
+      "cards": 49,
+      "gimmick": 0,
+      "clicks": 85
+     },
+     "chars": {
+      "plain": 1902,
+      "side": 1081,
+      "orig": 160,
+      "origHan": 21
+     },
+     "byPhase": {
+      "intro": 2.2,
+      "explore": 4.4,
+      "items": 3.6,
+      "translate": 1.4
+     }
+    },
+    "allWrong": {
+     "min": 13.668979287640257,
+     "parts": {
+      "readPlain": 416,
+      "readSide": 93,
+      "readOrig": 100,
+      "walk": 39,
+      "cards": 65,
+      "gimmick": 0,
+      "clicks": 107
+     },
+     "chars": {
+      "plain": 2428,
+      "side": 1081,
+      "orig": 160,
+      "origHan": 21
+     },
+     "byPhase": {
+      "intro": 2.2,
+      "explore": 4.4,
+      "items": 5.8,
+      "translate": 1.4
+     }
+    },
+    "slowTypical": {
+     "min": 14.490050716211694,
+     "parts": {
+      "readPlain": 380,
+      "readSide": 216,
+      "readOrig": 100,
+      "walk": 39,
+      "cards": 49,
+      "gimmick": 0,
+      "clicks": 85
+     },
+     "chars": {
+      "plain": 1902,
+      "side": 1081,
+      "orig": 160,
+      "origHan": 21
+     },
+     "byPhase": {
+      "intro": 2.8,
+      "explore": 5.3,
+      "items": 4.9,
+      "translate": 1.5
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 445,
+     "side": 230,
+     "orig": 29,
+     "origHan": 4,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 12
+    },
+    "explore": {
+     "plain": 679,
+     "side": 340,
+     "orig": 131,
+     "origHan": 17,
+     "walkPx": 1962,
+     "ops": 0,
+     "dialogClicks": 3
+    },
+    "items": {
+     "plain": 394,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 14
+    },
+    "s5.r1": {
+     "plain": 146,
+     "side": 167,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s5.r2": {
+     "plain": 108,
+     "side": 78,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s5.r3": {
+     "plain": 108,
+     "side": 76,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s5.r4": {
+     "plain": 119,
+     "side": 67,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s5.r5": {
+     "plain": 230,
+     "side": 123,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 199,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 938,
+     "ops": 0,
+     "dialogClicks": 6
+    }
+   }
+  },
+  {
+   "stageId": "s6",
+   "level": "h1",
+   "role": "bundle",
+   "title": "말을 잇는 끈",
+   "items": [
+    "s6.r1",
+    "s6.r2",
+    "s6.r3"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 10.166611654503388,
+     "parts": {
+      "readPlain": 322,
+      "readSide": 79,
+      "readOrig": 88,
+      "walk": 30,
+      "cards": 24,
+      "gimmick": 0,
+      "clicks": 67
+     },
+     "chars": {
+      "plain": 1877,
+      "side": 924,
+      "orig": 139,
+      "origHan": 23
+     },
+     "byPhase": {
+      "intro": 2.4,
+      "explore": 4.5,
+      "items": 2.9,
+      "translate": 0.4
+     }
+    },
+    "typical": {
+     "min": 10.819111654503393,
+     "parts": {
+      "readPlain": 349,
+      "readSide": 79,
+      "readOrig": 88,
+      "walk": 30,
+      "cards": 29,
+      "gimmick": 0,
+      "clicks": 73
+     },
+     "chars": {
+      "plain": 2038,
+      "side": 924,
+      "orig": 139,
+      "origHan": 23
+     },
+     "byPhase": {
+      "intro": 2.4,
+      "explore": 4.5,
+      "items": 3.5,
+      "translate": 0.4
+     }
+    },
+    "allWrong": {
+     "min": 12.030897368789105,
+     "parts": {
+      "readPlain": 401,
+      "readSide": 79,
+      "readOrig": 88,
+      "walk": 30,
+      "cards": 39,
+      "gimmick": 0,
+      "clicks": 85
+     },
+     "chars": {
+      "plain": 2337,
+      "side": 924,
+      "orig": 139,
+      "origHan": 23
+     },
+     "byPhase": {
+      "intro": 2.4,
+      "explore": 4.5,
+      "items": 4.7,
+      "translate": 0.4
+     }
+    },
+    "slowTypical": {
+     "min": 13.549587844979579,
+     "parts": {
+      "readPlain": 408,
+      "readSide": 185,
+      "readOrig": 88,
+      "walk": 30,
+      "cards": 29,
+      "gimmick": 0,
+      "clicks": 73
+     },
+     "chars": {
+      "plain": 2038,
+      "side": 924,
+      "orig": 139,
+      "origHan": 23
+     },
+     "byPhase": {
+      "intro": 3,
+      "explore": 5.6,
+      "items": 4.4,
+      "translate": 0.5
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 595,
+     "side": 154,
+     "orig": 21,
+     "origHan": 3,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 13
+    },
+    "explore": {
+     "plain": 721,
+     "side": 422,
+     "orig": 118,
+     "origHan": 20,
+     "walkPx": 2383,
+     "ops": 0,
+     "dialogClicks": 3
+    },
+    "items": {
+     "plain": 223,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 11
+    },
+    "s6.r1": {
+     "plain": 274,
+     "side": 163,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s6.r2": {
+     "plain": 197,
+     "side": 106,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s6.r3": {
+     "plain": 172,
+     "side": 79,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 155,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    }
+   }
+  },
+  {
+   "stageId": "s9",
+   "level": "h1",
+   "role": "bundle",
+   "title": "나랏말[ㅆㆍ]미",
+   "items": [
+    "s9.r1",
+    "s9.t1",
+    "s9.t2"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 13.203051260574938,
+     "parts": {
+      "readPlain": 335,
+      "readSide": 90,
+      "readOrig": 81,
+      "walk": 26,
+      "cards": 8,
+      "gimmick": 185,
+      "clicks": 67
+     },
+     "chars": {
+      "plain": 1954,
+      "side": 1054,
+      "orig": 117,
+      "origHan": 54
+     },
+     "byPhase": {
+      "intro": 2.3,
+      "explore": 3,
+      "items": 6.3,
+      "translate": 1.6
+     }
+    },
+    "typical": {
+     "min": 13.932741736765417,
+     "parts": {
+      "readPlain": 359,
+      "readSide": 90,
+      "readOrig": 81,
+      "walk": 26,
+      "cards": 10,
+      "gimmick": 200,
+      "clicks": 70
+     },
+     "chars": {
+      "plain": 2094,
+      "side": 1054,
+      "orig": 117,
+      "origHan": 54
+     },
+     "byPhase": {
+      "intro": 2.3,
+      "explore": 3,
+      "items": 7,
+      "translate": 1.6
+     }
+    },
+    "allWrong": {
+     "min": 14.902575070098747,
+     "parts": {
+      "readPlain": 394,
+      "readSide": 90,
+      "readOrig": 81,
+      "walk": 26,
+      "cards": 13,
+      "gimmick": 215,
+      "clicks": 75
+     },
+     "chars": {
+      "plain": 2298,
+      "side": 1054,
+      "orig": 117,
+      "origHan": 54
+     },
+     "byPhase": {
+      "intro": 2.3,
+      "explore": 3,
+      "items": 8,
+      "translate": 1.6
+     }
+    },
+    "slowTypical": {
+     "min": 16.937313165336843,
+     "parts": {
+      "readPlain": 419,
+      "readSide": 211,
+      "readOrig": 81,
+      "walk": 26,
+      "cards": 10,
+      "gimmick": 200,
+      "clicks": 70
+     },
+     "chars": {
+      "plain": 2094,
+      "side": 1054,
+      "orig": 117,
+      "origHan": 54
+     },
+     "byPhase": {
+      "intro": 3.1,
+      "explore": 3.8,
+      "items": 8.3,
+      "translate": 1.7
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 535,
+     "side": 275,
+     "orig": 10,
+     "origHan": 17,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 13
+    },
+    "explore": {
+     "plain": 489,
+     "side": 287,
+     "orig": 72,
+     "origHan": 34,
+     "walkPx": 1594,
+     "ops": 0,
+     "dialogClicks": 1
+    },
+    "items": {
+     "plain": 110,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 2
+    },
+    "s9.r1": {
+     "plain": 281,
+     "side": 205,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s9.t1": {
+     "plain": 417,
+     "side": 128,
+     "orig": 10,
+     "origHan": 2,
+     "walkPx": 0,
+     "ops": 22,
+     "dialogClicks": 0
+    },
+    "s9.t2": {
+     "plain": 179,
+     "side": 159,
+     "orig": 25,
+     "origHan": 1,
+     "walkPx": 0,
+     "ops": 15,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 287,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 426,
+     "ops": 0,
+     "dialogClicks": 7
+    }
+   }
+  },
+  {
+   "stageId": "s12",
+   "level": "h1",
+   "role": "bundle",
+   "title": "말의 강",
+   "items": [
+    "s12.t1",
+    "s12.r1",
+    "s12.r2"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 11.363267518593384,
+     "parts": {
+      "readPlain": 408,
+      "readSide": 84,
+      "readOrig": 0,
+      "walk": 36,
+      "cards": 16,
+      "gimmick": 75,
+      "clicks": 63
+     },
+     "chars": {
+      "plain": 2380,
+      "side": 983,
+      "orig": 0,
+      "origHan": 0
+     },
+     "byPhase": {
+      "intro": 1.7,
+      "explore": 3.3,
+      "items": 4.6,
+      "translate": 1.8
+     }
+    },
+    "typical": {
+     "min": 12.216315137641006,
+     "parts": {
+      "readPlain": 445,
+      "readSide": 84,
+      "readOrig": 0,
+      "walk": 36,
+      "cards": 20,
+      "gimmick": 83,
+      "clicks": 66
+     },
+     "chars": {
+      "plain": 2595,
+      "side": 983,
+      "orig": 0,
+      "origHan": 0
+     },
+     "byPhase": {
+      "intro": 1.7,
+      "explore": 3.3,
+      "items": 5.5,
+      "translate": 1.8
+     }
+    },
+    "allWrong": {
+     "min": 13.561362756688622,
+     "parts": {
+      "readPlain": 506,
+      "readSide": 84,
+      "readOrig": 0,
+      "walk": 36,
+      "cards": 26,
+      "gimmick": 90,
+      "clicks": 72
+     },
+     "chars": {
+      "plain": 2951,
+      "side": 983,
+      "orig": 0,
+      "origHan": 0
+     },
+     "byPhase": {
+      "intro": 1.7,
+      "explore": 3.3,
+      "items": 6.8,
+      "translate": 1.8
+     }
+    },
+    "slowTypical": {
+     "min": 15.324481804307677,
+     "parts": {
+      "readPlain": 519,
+      "readSide": 197,
+      "readOrig": 0,
+      "walk": 36,
+      "cards": 20,
+      "gimmick": 83,
+      "clicks": 66
+     },
+     "chars": {
+      "plain": 2595,
+      "side": 983,
+      "orig": 0,
+      "origHan": 0
+     },
+     "byPhase": {
+      "intro": 2.1,
+      "explore": 4.4,
+      "items": 6.9,
+      "translate": 1.9
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 453,
+     "side": 118,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 11
+    },
+    "explore": {
+     "plain": 845,
+     "side": 333,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 1953,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "items": {
+     "plain": 197,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 6
+    },
+    "s12.t1": {
+     "plain": 514,
+     "side": 219,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 15,
+     "dialogClicks": 0
+    },
+    "s12.r1": {
+     "plain": 319,
+     "side": 155,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s12.r2": {
+     "plain": 301,
+     "side": 158,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 322,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 1369,
+     "ops": 0,
+     "dialogClicks": 6
+    }
+   }
+  },
+  {
+   "stageId": "s10",
+   "level": "h1",
+   "role": "optional",
+   "title": "백 년 뒤",
+   "items": [
+    "s10.r1",
+    "s10.r2",
+    "s10.r4",
+    "s10.r5",
+    "s10.t2"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 13.82427784301096,
+     "parts": {
+      "readPlain": 398,
+      "readSide": 117,
+      "readOrig": 150,
+      "walk": 27,
+      "cards": 32,
+      "gimmick": 35,
+      "clicks": 71
+     },
+     "chars": {
+      "plain": 2323,
+      "side": 1362,
+      "orig": 226,
+      "origHan": 70
+     },
+     "byPhase": {
+      "intro": 2.4,
+      "explore": 4.2,
+      "items": 6.6,
+      "translate": 0.6
+     }
+    },
+    "typical": {
+     "min": 14.97627784301096,
+     "parts": {
+      "readPlain": 444,
+      "readSide": 117,
+      "readOrig": 150,
+      "walk": 27,
+      "cards": 39,
+      "gimmick": 43,
+      "clicks": 80
+     },
+     "chars": {
+      "plain": 2590,
+      "side": 1362,
+      "orig": 226,
+      "origHan": 70
+     },
+     "byPhase": {
+      "intro": 2.4,
+      "explore": 4.2,
+      "items": 7.7,
+      "translate": 0.6
+     }
+    },
+    "allWrong": {
+     "min": 16.889992128725247,
+     "parts": {
+      "readPlain": 522,
+      "readSide": 117,
+      "readOrig": 150,
+      "walk": 27,
+      "cards": 52,
+      "gimmick": 50,
+      "clicks": 96
+     },
+     "chars": {
+      "plain": 3046,
+      "side": 1362,
+      "orig": 226,
+      "origHan": 70
+     },
+     "byPhase": {
+      "intro": 2.4,
+      "explore": 4.2,
+      "items": 9.6,
+      "translate": 0.6
+     }
+    },
+    "slowTypical": {
+     "min": 18.803754033487156,
+     "parts": {
+      "readPlain": 518,
+      "readSide": 272,
+      "readOrig": 150,
+      "walk": 27,
+      "cards": 39,
+      "gimmick": 43,
+      "clicks": 80
+     },
+     "chars": {
+      "plain": 2590,
+      "side": 1362,
+      "orig": 226,
+      "origHan": 70
+     },
+     "byPhase": {
+      "intro": 3.1,
+      "explore": 5.7,
+      "items": 9.3,
+      "translate": 0.7
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 527,
+     "side": 202,
+     "orig": 36,
+     "origHan": 6,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 13
+    },
+    "explore": {
+     "plain": 686,
+     "side": 603,
+     "orig": 81,
+     "origHan": 50,
+     "walkPx": 1850,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "items": {
+     "plain": 286,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 14
+    },
+    "s10.r1": {
+     "plain": 229,
+     "side": 103,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s10.r2": {
+     "plain": 311,
+     "side": 121,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s10.r4": {
+     "plain": 272,
+     "side": 106,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s10.r5": {
+     "plain": 211,
+     "side": 105,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s10.t2": {
+     "plain": 321,
+     "side": 122,
+     "orig": 109,
+     "origHan": 14,
+     "walkPx": 0,
+     "ops": 7,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 203,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    }
+   }
+  },
+  {
+   "stageId": "s0",
+   "level": "h23",
+   "role": "prologue",
+   "title": "흩어진 글자",
+   "items": [
+    "s0.t1",
+    "s0.r1"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 7.635632967419414,
+     "parts": {
+      "readPlain": 242,
+      "readSide": 32,
+      "readOrig": 33,
+      "walk": 13,
+      "cards": 8,
+      "gimmick": 65,
+      "clicks": 65
+     },
+     "chars": {
+      "plain": 1411,
+      "side": 373,
+      "orig": 49,
+      "origHan": 17
+     },
+     "byPhase": {
+      "intro": 2.1,
+      "explore": 1.6,
+      "items": 3.4,
+      "translate": 0.5
+     }
+    },
+    "typical": {
+     "min": 8.120323443609893,
+     "parts": {
+      "readPlain": 260,
+      "readSide": 32,
+      "readOrig": 33,
+      "walk": 13,
+      "cards": 10,
+      "gimmick": 73,
+      "clicks": 67
+     },
+     "chars": {
+      "plain": 1516,
+      "side": 373,
+      "orig": 49,
+      "origHan": 17
+     },
+     "byPhase": {
+      "intro": 2.1,
+      "explore": 1.6,
+      "items": 3.9,
+      "translate": 0.5
+     }
+    },
+    "allWrong": {
+     "min": 8.826585348371795,
+     "parts": {
+      "readPlain": 288,
+      "readSide": 32,
+      "readOrig": 33,
+      "walk": 13,
+      "cards": 13,
+      "gimmick": 80,
+      "clicks": 70
+     },
+     "chars": {
+      "plain": 1682,
+      "side": 373,
+      "orig": 49,
+      "origHan": 17
+     },
+     "byPhase": {
+      "intro": 2.1,
+      "explore": 1.6,
+      "items": 4.6,
+      "translate": 0.5
+     }
+    },
+    "slowTypical": {
+     "min": 9.552513919800369,
+     "parts": {
+      "readPlain": 303,
+      "readSide": 75,
+      "readOrig": 33,
+      "walk": 13,
+      "cards": 10,
+      "gimmick": 73,
+      "clicks": 67
+     },
+     "chars": {
+      "plain": 1516,
+      "side": 373,
+      "orig": 49,
+      "origHan": 17
+     },
+     "byPhase": {
+      "intro": 2.5,
+      "explore": 2,
+      "items": 4.6,
+      "translate": 0.6
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 519,
+     "side": 58,
+     "orig": 23,
+     "origHan": 4,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 15
+    },
+    "explore": {
+     "plain": 321,
+     "side": 107,
+     "orig": 26,
+     "origHan": 13,
+     "walkPx": 1272,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "items": {
+     "plain": 141,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 10
+    },
+    "s0.t1": {
+     "plain": 230,
+     "side": 55,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 13,
+     "dialogClicks": 0
+    },
+    "s0.r1": {
+     "plain": 298,
+     "side": 153,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 173,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    }
+   }
+  },
+  {
+   "stageId": "s1",
+   "level": "h23",
+   "role": "bundle",
+   "title": "빌려 쓴 글자",
+   "items": [
+    "s1.t1",
+    "s1.r1",
+    "s1.r2"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 9.52050191625748,
+     "parts": {
+      "readPlain": 312,
+      "readSide": 83,
+      "readOrig": 13,
+      "walk": 17,
+      "cards": 16,
+      "gimmick": 60,
+      "clicks": 70
+     },
+     "chars": {
+      "plain": 1820,
+      "side": 969,
+      "orig": 0,
+      "origHan": 67
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 2,
+      "items": 4.5,
+      "translate": 1.1
+     }
+    },
+    "typical": {
+     "min": 10.30969239244796,
+     "parts": {
+      "readPlain": 343,
+      "readSide": 83,
+      "readOrig": 13,
+      "walk": 17,
+      "cards": 20,
+      "gimmick": 68,
+      "clicks": 75
+     },
+     "chars": {
+      "plain": 2001,
+      "side": 969,
+      "orig": 0,
+      "origHan": 67
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 2,
+      "items": 5.2,
+      "translate": 1.1
+     }
+    },
+    "allWrong": {
+     "min": 11.59859715435272,
+     "parts": {
+      "readPlain": 397,
+      "readSide": 83,
+      "readOrig": 13,
+      "walk": 17,
+      "cards": 26,
+      "gimmick": 75,
+      "clicks": 85
+     },
+     "chars": {
+      "plain": 2314,
+      "side": 969,
+      "orig": 0,
+      "origHan": 67
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 2,
+      "items": 6.5,
+      "translate": 1.1
+     }
+    },
+    "slowTypical": {
+     "min": 13.1080495353051,
+     "parts": {
+      "readPlain": 400,
+      "readSide": 194,
+      "readOrig": 13,
+      "walk": 17,
+      "cards": 20,
+      "gimmick": 68,
+      "clicks": 75
+     },
+     "chars": {
+      "plain": 2001,
+      "side": 969,
+      "orig": 0,
+      "origHan": 67
+     },
+     "byPhase": {
+      "intro": 2.6,
+      "explore": 2.6,
+      "items": 6.5,
+      "translate": 1.4
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 470,
+     "side": 213,
+     "orig": 0,
+     "origHan": 21,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 12
+    },
+    "explore": {
+     "plain": 431,
+     "side": 232,
+     "orig": 0,
+     "origHan": 46,
+     "walkPx": 1151,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "items": {
+     "plain": 271,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 18
+    },
+    "s1.t1": {
+     "plain": 239,
+     "side": 142,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 12,
+     "dialogClicks": 0
+    },
+    "s1.r1": {
+     "plain": 308,
+     "side": 169,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s1.r2": {
+     "plain": 244,
+     "side": 145,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 351,
+     "side": 68,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    }
+   }
+  },
+  {
+   "stageId": "s4",
+   "level": "h23",
+   "role": "bundle",
+   "title": "소리대로 적은 책",
+   "items": [
+    "s4.t1",
+    "s4.r1",
+    "s4.r2",
+    "s4.r3",
+    "s4.r4",
+    "s4.r5"
+   ],
+   "problems": [
+    "E key did not open s4.c3 (prompt null) → goTo"
+   ],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 12.126616798475196,
+     "parts": {
+      "readPlain": 344,
+      "readSide": 96,
+      "readOrig": 57,
+      "walk": 26,
+      "cards": 40,
+      "gimmick": 90,
+      "clicks": 75
+     },
+     "chars": {
+      "plain": 2007,
+      "side": 1122,
+      "orig": 94,
+      "origHan": 2
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 2.6,
+      "items": 6.1,
+      "translate": 1.5
+     }
+    },
+    "typical": {
+     "min": 13.59423584609425,
+     "parts": {
+      "readPlain": 403,
+      "readSide": 96,
+      "readOrig": 57,
+      "walk": 26,
+      "cards": 49,
+      "gimmick": 98,
+      "clicks": 88
+     },
+     "chars": {
+      "plain": 2351,
+      "side": 1122,
+      "orig": 94,
+      "origHan": 2
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 2.6,
+      "items": 7.6,
+      "translate": 1.5
+     }
+    },
+    "allWrong": {
+     "min": 16.133283465141865,
+     "parts": {
+      "readPlain": 508,
+      "readSide": 96,
+      "readOrig": 57,
+      "walk": 26,
+      "cards": 65,
+      "gimmick": 105,
+      "clicks": 111
+     },
+     "chars": {
+      "plain": 2966,
+      "side": 1122,
+      "orig": 94,
+      "origHan": 2
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 2.6,
+      "items": 10.1,
+      "translate": 1.5
+     }
+    },
+    "slowTypical": {
+     "min": 16.85114060799901,
+     "parts": {
+      "readPlain": 470,
+      "readSide": 224,
+      "readOrig": 57,
+      "walk": 26,
+      "cards": 49,
+      "gimmick": 98,
+      "clicks": 88
+     },
+     "chars": {
+      "plain": 2351,
+      "side": 1122,
+      "orig": 94,
+      "origHan": 2
+     },
+     "byPhase": {
+      "intro": 2.5,
+      "explore": 3.3,
+      "items": 9.5,
+      "translate": 1.6
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 447,
+     "side": 158,
+     "orig": 21,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 12
+    },
+    "explore": {
+     "plain": 377,
+     "side": 272,
+     "orig": 73,
+     "origHan": 2,
+     "walkPx": 1269,
+     "ops": 0,
+     "dialogClicks": 1
+    },
+    "items": {
+     "plain": 442,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 15
+    },
+    "s4.t1": {
+     "plain": 330,
+     "side": 81,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 18,
+     "dialogClicks": 0
+    },
+    "s4.r1": {
+     "plain": 290,
+     "side": 142,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s4.r2": {
+     "plain": 247,
+     "side": 137,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s4.r3": {
+     "plain": 188,
+     "side": 115,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s4.r4": {
+     "plain": 153,
+     "side": 85,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s4.r5": {
+     "plain": 235,
+     "side": 132,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 257,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 358,
+     "ops": 0,
+     "dialogClicks": 7
+    }
+   }
+  },
+  {
+   "stageId": "s5",
+   "level": "h23",
+   "role": "bundle",
+   "title": "사라진 소리, 바뀐 뜻",
+   "items": [
+    "s5.r1",
+    "s5.r2",
+    "s5.r3",
+    "s5.r5",
+    "s5.r6"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 10.418503097164068,
+     "parts": {
+      "readPlain": 275,
+      "readSide": 98,
+      "readOrig": 100,
+      "walk": 39,
+      "cards": 40,
+      "gimmick": 0,
+      "clicks": 73
+     },
+     "chars": {
+      "plain": 1602,
+      "side": 1146,
+      "orig": 160,
+      "origHan": 21
+     },
+     "byPhase": {
+      "intro": 2.2,
+      "explore": 4.4,
+      "items": 2.5,
+      "translate": 1.4
+     }
+    },
+    "typical": {
+     "min": 11.579503097164073,
+     "parts": {
+      "readPlain": 323,
+      "readSide": 98,
+      "readOrig": 100,
+      "walk": 39,
+      "cards": 49,
+      "gimmick": 0,
+      "clicks": 85
+     },
+     "chars": {
+      "plain": 1886,
+      "side": 1146,
+      "orig": 160,
+      "origHan": 21
+     },
+     "byPhase": {
+      "intro": 2.2,
+      "explore": 4.4,
+      "items": 3.7,
+      "translate": 1.4
+     }
+    },
+    "allWrong": {
+     "min": 13.735645954306923,
+     "parts": {
+      "readPlain": 414,
+      "readSide": 98,
+      "readOrig": 100,
+      "walk": 39,
+      "cards": 65,
+      "gimmick": 0,
+      "clicks": 108
+     },
+     "chars": {
+      "plain": 2413,
+      "side": 1146,
+      "orig": 160,
+      "origHan": 21
+     },
+     "byPhase": {
+      "intro": 2.2,
+      "explore": 4.4,
+      "items": 5.9,
+      "translate": 1.4
+     }
+    },
+    "slowTypical": {
+     "min": 14.660384049545028,
+     "parts": {
+      "readPlain": 377,
+      "readSide": 229,
+      "readOrig": 100,
+      "walk": 39,
+      "cards": 49,
+      "gimmick": 0,
+      "clicks": 85
+     },
+     "chars": {
+      "plain": 1886,
+      "side": 1146,
+      "orig": 160,
+      "origHan": 21
+     },
+     "byPhase": {
+      "intro": 2.8,
+      "explore": 5.3,
+      "items": 5.1,
+      "translate": 1.5
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 445,
+     "side": 230,
+     "orig": 29,
+     "origHan": 4,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 12
+    },
+    "explore": {
+     "plain": 679,
+     "side": 338,
+     "orig": 131,
+     "origHan": 17,
+     "walkPx": 1962,
+     "ops": 0,
+     "dialogClicks": 3
+    },
+    "items": {
+     "plain": 411,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 15
+    },
+    "s5.r1": {
+     "plain": 146,
+     "side": 167,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s5.r2": {
+     "plain": 108,
+     "side": 78,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s5.r3": {
+     "plain": 108,
+     "side": 76,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s5.r5": {
+     "plain": 230,
+     "side": 123,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s5.r6": {
+     "plain": 87,
+     "side": 134,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 199,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 938,
+     "ops": 0,
+     "dialogClicks": 6
+    }
+   }
+  },
+  {
+   "stageId": "s6",
+   "level": "h23",
+   "role": "bundle",
+   "title": "말을 잇는 끈",
+   "items": [
+    "s6.r1",
+    "s6.r2",
+    "s6.r3",
+    "s6.r4",
+    "s6.r5"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 11.464230702122439,
+     "parts": {
+      "readPlain": 369,
+      "readSide": 87,
+      "readOrig": 88,
+      "walk": 30,
+      "cards": 40,
+      "gimmick": 0,
+      "clicks": 74
+     },
+     "chars": {
+      "plain": 2152,
+      "side": 1014,
+      "orig": 139,
+      "origHan": 23
+     },
+     "byPhase": {
+      "intro": 2.6,
+      "explore": 4.3,
+      "items": 4.2,
+      "translate": 0.4
+     }
+    },
+    "typical": {
+     "min": 12.565064035455777,
+     "parts": {
+      "readPlain": 416,
+      "readSide": 87,
+      "readOrig": 88,
+      "walk": 30,
+      "cards": 49,
+      "gimmick": 0,
+      "clicks": 85
+     },
+     "chars": {
+      "plain": 2425,
+      "side": 1014,
+      "orig": 139,
+      "origHan": 23
+     },
+     "byPhase": {
+      "intro": 2.6,
+      "explore": 4.3,
+      "items": 5.3,
+      "translate": 0.4
+     }
+    },
+    "allWrong": {
+     "min": 14.609468797360533,
+     "parts": {
+      "readPlain": 503,
+      "readSide": 87,
+      "readOrig": 88,
+      "walk": 30,
+      "cards": 65,
+      "gimmick": 0,
+      "clicks": 104
+     },
+     "chars": {
+      "plain": 2932,
+      "side": 1014,
+      "orig": 139,
+      "origHan": 23
+     },
+     "byPhase": {
+      "intro": 2.6,
+      "explore": 4.3,
+      "items": 7.3,
+      "translate": 0.4
+     }
+    },
+    "slowTypical": {
+     "min": 15.651254511646245,
+     "parts": {
+      "readPlain": 485,
+      "readSide": 203,
+      "readOrig": 88,
+      "walk": 30,
+      "cards": 49,
+      "gimmick": 0,
+      "clicks": 85
+     },
+     "chars": {
+      "plain": 2425,
+      "side": 1014,
+      "orig": 139,
+      "origHan": 23
+     },
+     "byPhase": {
+      "intro": 3.2,
+      "explore": 5.1,
+      "items": 6.9,
+      "translate": 0.5
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 645,
+     "side": 158,
+     "orig": 21,
+     "origHan": 3,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 14
+    },
+    "explore": {
+     "plain": 736,
+     "side": 246,
+     "orig": 118,
+     "origHan": 20,
+     "walkPx": 2383,
+     "ops": 0,
+     "dialogClicks": 3
+    },
+    "items": {
+     "plain": 349,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 15
+    },
+    "s6.r1": {
+     "plain": 274,
+     "side": 163,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s6.r2": {
+     "plain": 197,
+     "side": 106,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s6.r3": {
+     "plain": 172,
+     "side": 79,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s6.r4": {
+     "plain": 197,
+     "side": 139,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s6.r5": {
+     "plain": 207,
+     "side": 123,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 155,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    }
+   }
+  },
+  {
+   "stageId": "s7",
+   "level": "h23",
+   "role": "bundle",
+   "title": "높이는 말",
+   "items": [
+    "s7.r1",
+    "s7.r2",
+    "s7.r3",
+    "s7.t1",
+    "s7.t2"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 10.871310346076047,
+     "parts": {
+      "readPlain": 314,
+      "readSide": 77,
+      "readOrig": 102,
+      "walk": 26,
+      "cards": 24,
+      "gimmick": 40,
+      "clicks": 69
+     },
+     "chars": {
+      "plain": 1831,
+      "side": 904,
+      "orig": 161,
+      "origHan": 28
+     },
+     "byPhase": {
+      "intro": 2.2,
+      "explore": 3.8,
+      "items": 4.5,
+      "translate": 0.4
+     }
+    },
+    "typical": {
+     "min": 11.975477012742717,
+     "parts": {
+      "readPlain": 353,
+      "readSide": 77,
+      "readOrig": 102,
+      "walk": 26,
+      "cards": 29,
+      "gimmick": 55,
+      "clicks": 76
+     },
+     "chars": {
+      "plain": 2057,
+      "side": 904,
+      "orig": 161,
+      "origHan": 28
+     },
+     "byPhase": {
+      "intro": 2.2,
+      "explore": 3.8,
+      "items": 5.6,
+      "translate": 0.4
+     }
+    },
+    "allWrong": {
+     "min": 13.660357965123664,
+     "parts": {
+      "readPlain": 416,
+      "readSide": 77,
+      "readOrig": 102,
+      "walk": 26,
+      "cards": 39,
+      "gimmick": 70,
+      "clicks": 89
+     },
+     "chars": {
+      "plain": 2428,
+      "side": 904,
+      "orig": 161,
+      "origHan": 28
+     },
+     "byPhase": {
+      "intro": 2.2,
+      "explore": 3.8,
+      "items": 7.3,
+      "translate": 0.4
+     }
+    },
+    "slowTypical": {
+     "min": 14.676786536552237,
+     "parts": {
+      "readPlain": 411,
+      "readSide": 181,
+      "readOrig": 102,
+      "walk": 26,
+      "cards": 29,
+      "gimmick": 55,
+      "clicks": 76
+     },
+     "chars": {
+      "plain": 2057,
+      "side": 904,
+      "orig": 161,
+      "origHan": 28
+     },
+     "byPhase": {
+      "intro": 2.7,
+      "explore": 4.5,
+      "items": 7,
+      "translate": 0.5
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 478,
+     "side": 154,
+     "orig": 34,
+     "origHan": 3,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 12
+    },
+    "explore": {
+     "plain": 565,
+     "side": 253,
+     "orig": 127,
+     "origHan": 25,
+     "walkPx": 2670,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "items": {
+     "plain": 225,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 11
+    },
+    "s7.r1": {
+     "plain": 219,
+     "side": 132,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s7.r2": {
+     "plain": 158,
+     "side": 153,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s7.r3": {
+     "plain": 210,
+     "side": 78,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s7.t1": {
+     "plain": 270,
+     "side": 70,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 4,
+     "dialogClicks": 0
+    },
+    "s7.t2": {
+     "plain": 154,
+     "side": 64,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 4,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 149,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    }
+   }
+  },
+  {
+   "stageId": "s8",
+   "level": "h23",
+   "role": "bundle",
+   "title": "묻는 말",
+   "items": [
+    "s8.r1",
+    "s8.r2",
+    "s8.r3",
+    "s8.t1"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 13.134028105067676,
+     "parts": {
+      "readPlain": 387,
+      "readSide": 68,
+      "readOrig": 152,
+      "walk": 27,
+      "cards": 24,
+      "gimmick": 60,
+      "clicks": 70
+     },
+     "chars": {
+      "plain": 2257,
+      "side": 793,
+      "orig": 237,
+      "origHan": 50
+     },
+     "byPhase": {
+      "intro": 2.5,
+      "explore": 3.3,
+      "items": 5.7,
+      "translate": 1.6
+     }
+    },
+    "typical": {
+     "min": 14.136694771734348,
+     "parts": {
+      "readPlain": 427,
+      "readSide": 68,
+      "readOrig": 152,
+      "walk": 27,
+      "cards": 29,
+      "gimmick": 68,
+      "clicks": 77
+     },
+     "chars": {
+      "plain": 2492,
+      "side": 793,
+      "orig": 237,
+      "origHan": 50
+     },
+     "byPhase": {
+      "intro": 2.5,
+      "explore": 3.3,
+      "items": 6.7,
+      "translate": 1.6
+     }
+    },
+    "allWrong": {
+     "min": 15.781647152686725,
+     "parts": {
+      "readPlain": 496,
+      "readSide": 68,
+      "readOrig": 152,
+      "walk": 27,
+      "cards": 39,
+      "gimmick": 75,
+      "clicks": 90
+     },
+     "chars": {
+      "plain": 2892,
+      "side": 793,
+      "orig": 237,
+      "origHan": 50
+     },
+     "byPhase": {
+      "intro": 2.5,
+      "explore": 3.3,
+      "items": 8.4,
+      "translate": 1.6
+     }
+    },
+    "slowTypical": {
+     "min": 16.83376620030577,
+     "parts": {
+      "readPlain": 498,
+      "readSide": 159,
+      "readOrig": 152,
+      "walk": 27,
+      "cards": 29,
+      "gimmick": 68,
+      "clicks": 77
+     },
+     "chars": {
+      "plain": 2492,
+      "side": 793,
+      "orig": 237,
+      "origHan": 50
+     },
+     "byPhase": {
+      "intro": 3,
+      "explore": 4,
+      "items": 8.2,
+      "translate": 1.7
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 550,
+     "side": 110,
+     "orig": 48,
+     "origHan": 9,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 14
+    },
+    "explore": {
+     "plain": 647,
+     "side": 188,
+     "orig": 74,
+     "origHan": 20,
+     "walkPx": 1477,
+     "ops": 0,
+     "dialogClicks": 1
+    },
+    "items": {
+     "plain": 264,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 7
+    },
+    "s8.r1": {
+     "plain": 272,
+     "side": 132,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s8.r2": {
+     "plain": 275,
+     "side": 117,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s8.r3": {
+     "plain": 175,
+     "side": 107,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s8.t1": {
+     "plain": 424,
+     "side": 139,
+     "orig": 115,
+     "origHan": 21,
+     "walkPx": 0,
+     "ops": 12,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 285,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 724,
+     "ops": 0,
+     "dialogClicks": 6
+    }
+   }
+  },
+  {
+   "stageId": "s9",
+   "level": "h23",
+   "role": "bundle",
+   "title": "나랏말[ㅆㆍ]미",
+   "items": [
+    "s9.r1",
+    "s9.t1",
+    "s9.t2"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 13.203051260574938,
+     "parts": {
+      "readPlain": 335,
+      "readSide": 90,
+      "readOrig": 81,
+      "walk": 26,
+      "cards": 8,
+      "gimmick": 185,
+      "clicks": 67
+     },
+     "chars": {
+      "plain": 1954,
+      "side": 1054,
+      "orig": 117,
+      "origHan": 54
+     },
+     "byPhase": {
+      "intro": 2.3,
+      "explore": 3,
+      "items": 6.3,
+      "translate": 1.6
+     }
+    },
+    "typical": {
+     "min": 13.932741736765417,
+     "parts": {
+      "readPlain": 359,
+      "readSide": 90,
+      "readOrig": 81,
+      "walk": 26,
+      "cards": 10,
+      "gimmick": 200,
+      "clicks": 70
+     },
+     "chars": {
+      "plain": 2094,
+      "side": 1054,
+      "orig": 117,
+      "origHan": 54
+     },
+     "byPhase": {
+      "intro": 2.3,
+      "explore": 3,
+      "items": 7,
+      "translate": 1.6
+     }
+    },
+    "allWrong": {
+     "min": 14.902575070098747,
+     "parts": {
+      "readPlain": 394,
+      "readSide": 90,
+      "readOrig": 81,
+      "walk": 26,
+      "cards": 13,
+      "gimmick": 215,
+      "clicks": 75
+     },
+     "chars": {
+      "plain": 2298,
+      "side": 1054,
+      "orig": 117,
+      "origHan": 54
+     },
+     "byPhase": {
+      "intro": 2.3,
+      "explore": 3,
+      "items": 8,
+      "translate": 1.6
+     }
+    },
+    "slowTypical": {
+     "min": 16.937313165336843,
+     "parts": {
+      "readPlain": 419,
+      "readSide": 211,
+      "readOrig": 81,
+      "walk": 26,
+      "cards": 10,
+      "gimmick": 200,
+      "clicks": 70
+     },
+     "chars": {
+      "plain": 2094,
+      "side": 1054,
+      "orig": 117,
+      "origHan": 54
+     },
+     "byPhase": {
+      "intro": 3.1,
+      "explore": 3.8,
+      "items": 8.3,
+      "translate": 1.7
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 535,
+     "side": 275,
+     "orig": 10,
+     "origHan": 17,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 13
+    },
+    "explore": {
+     "plain": 489,
+     "side": 287,
+     "orig": 72,
+     "origHan": 34,
+     "walkPx": 1594,
+     "ops": 0,
+     "dialogClicks": 1
+    },
+    "items": {
+     "plain": 110,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 2
+    },
+    "s9.r1": {
+     "plain": 281,
+     "side": 205,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s9.t1": {
+     "plain": 417,
+     "side": 128,
+     "orig": 10,
+     "origHan": 2,
+     "walkPx": 0,
+     "ops": 22,
+     "dialogClicks": 0
+    },
+    "s9.t2": {
+     "plain": 179,
+     "side": 159,
+     "orig": 25,
+     "origHan": 1,
+     "walkPx": 0,
+     "ops": 15,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 287,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 426,
+     "ops": 0,
+     "dialogClicks": 7
+    }
+   }
+  },
+  {
+   "stageId": "s10",
+   "level": "h23",
+   "role": "bundle",
+   "title": "백 년 뒤",
+   "items": [
+    "s10.r1",
+    "s10.r2",
+    "s10.r3",
+    "s10.r4",
+    "s10.r5",
+    "s10.t1"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 14.910944509677623,
+     "parts": {
+      "readPlain": 437,
+      "readSide": 122,
+      "readOrig": 150,
+      "walk": 27,
+      "cards": 40,
+      "gimmick": 45,
+      "clicks": 75
+     },
+     "chars": {
+      "plain": 2547,
+      "side": 1418,
+      "orig": 226,
+      "origHan": 70
+     },
+     "byPhase": {
+      "intro": 2.6,
+      "explore": 4.2,
+      "items": 7.6,
+      "translate": 0.6
+     }
+    },
+    "typical": {
+     "min": 16.264111176344294,
+     "parts": {
+      "readPlain": 491,
+      "readSide": 122,
+      "readOrig": 150,
+      "walk": 27,
+      "cards": 49,
+      "gimmick": 53,
+      "clicks": 86
+     },
+     "chars": {
+      "plain": 2862,
+      "side": 1418,
+      "orig": 226,
+      "origHan": 70
+     },
+     "byPhase": {
+      "intro": 2.6,
+      "explore": 4.2,
+      "items": 8.9,
+      "translate": 0.6
+     }
+    },
+    "allWrong": {
+     "min": 18.551420700153816,
+     "parts": {
+      "readPlain": 584,
+      "readSide": 122,
+      "readOrig": 150,
+      "walk": 27,
+      "cards": 65,
+      "gimmick": 60,
+      "clicks": 106
+     },
+     "chars": {
+      "plain": 3407,
+      "side": 1418,
+      "orig": 226,
+      "origHan": 70
+     },
+     "byPhase": {
+      "intro": 2.6,
+      "explore": 4.2,
+      "items": 11.2,
+      "translate": 0.6
+     }
+    },
+    "slowTypical": {
+     "min": 20.327754033487153,
+     "parts": {
+      "readPlain": 572,
+      "readSide": 284,
+      "readOrig": 150,
+      "walk": 27,
+      "cards": 49,
+      "gimmick": 53,
+      "clicks": 86
+     },
+     "chars": {
+      "plain": 2862,
+      "side": 1418,
+      "orig": 226,
+      "origHan": 70
+     },
+     "byPhase": {
+      "intro": 3.3,
+      "explore": 5.5,
+      "items": 10.9,
+      "translate": 0.7
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 582,
+     "side": 206,
+     "orig": 36,
+     "origHan": 6,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 14
+    },
+    "explore": {
+     "plain": 694,
+     "side": 526,
+     "orig": 81,
+     "origHan": 50,
+     "walkPx": 1850,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "items": {
+     "plain": 326,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 16
+    },
+    "s10.r1": {
+     "plain": 229,
+     "side": 103,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s10.r2": {
+     "plain": 311,
+     "side": 121,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s10.r3": {
+     "plain": 244,
+     "side": 108,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s10.r4": {
+     "plain": 272,
+     "side": 106,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s10.r5": {
+     "plain": 211,
+     "side": 105,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s10.t1": {
+     "plain": 335,
+     "side": 143,
+     "orig": 109,
+     "origHan": 14,
+     "walkPx": 0,
+     "ops": 9,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 203,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    }
+   }
+  },
+  {
+   "stageId": "s11",
+   "level": "h23",
+   "role": "bundle",
+   "title": "끊어 적는 시대",
+   "items": [
+    "s11.r1",
+    "s11.r2",
+    "s11.r3",
+    "s11.r4",
+    "s11.r5",
+    "s11.r6",
+    "s11.r7",
+    "s11.r8",
+    "s11.r9",
+    "s11.t1"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 19.514147090376557,
+     "parts": {
+      "readPlain": 512,
+      "readSide": 154,
+      "readOrig": 267,
+      "walk": 32,
+      "cards": 72,
+      "gimmick": 50,
+      "clicks": 83
+     },
+     "chars": {
+      "plain": 2989,
+      "side": 1800,
+      "orig": 442,
+      "origHan": 10
+     },
+     "byPhase": {
+      "intro": 3.5,
+      "explore": 6.1,
+      "items": 8.7,
+      "translate": 1.2
+     }
+    },
+    "typical": {
+     "min": 21.775551852281314,
+     "parts": {
+      "readPlain": 605,
+      "readSide": 154,
+      "readOrig": 267,
+      "walk": 32,
+      "cards": 88,
+      "gimmick": 58,
+      "clicks": 102
+     },
+     "chars": {
+      "plain": 3532,
+      "side": 1800,
+      "orig": 442,
+      "origHan": 10
+     },
+     "byPhase": {
+      "intro": 3.5,
+      "explore": 6.1,
+      "items": 11,
+      "translate": 1.2
+     }
+    },
+    "allWrong": {
+     "min": 25.776528042757498,
+     "parts": {
+      "readPlain": 773,
+      "readSide": 154,
+      "readOrig": 267,
+      "walk": 32,
+      "cards": 117,
+      "gimmick": 65,
+      "clicks": 138
+     },
+     "chars": {
+      "plain": 4510,
+      "side": 1800,
+      "orig": 442,
+      "origHan": 10
+     },
+     "byPhase": {
+      "intro": 3.5,
+      "explore": 6.1,
+      "items": 15,
+      "translate": 1.2
+     }
+    },
+    "slowTypical": {
+     "min": 26.885885185614637,
+     "parts": {
+      "readPlain": 706,
+      "readSide": 360,
+      "readOrig": 267,
+      "walk": 32,
+      "cards": 88,
+      "gimmick": 58,
+      "clicks": 102
+     },
+     "chars": {
+      "plain": 3532,
+      "side": 1800,
+      "orig": 442,
+      "origHan": 10
+     },
+     "byPhase": {
+      "intro": 4.2,
+      "explore": 7.5,
+      "items": 13.8,
+      "translate": 1.3
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 491,
+     "side": 269,
+     "orig": 139,
+     "origHan": 10,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 12
+    },
+    "explore": {
+     "plain": 618,
+     "side": 582,
+     "orig": 303,
+     "origHan": 0,
+     "walkPx": 2197,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "items": {
+     "plain": 578,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 18
+    },
+    "s11.r1": {
+     "plain": 247,
+     "side": 90,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s11.r2": {
+     "plain": 272,
+     "side": 97,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s11.r3": {
+     "plain": 308,
+     "side": 97,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s11.r4": {
+     "plain": 236,
+     "side": 88,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s11.r5": {
+     "plain": 268,
+     "side": 89,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s11.r6": {
+     "plain": 190,
+     "side": 63,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s11.r7": {
+     "plain": 273,
+     "side": 127,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s11.r8": {
+     "plain": 267,
+     "side": 100,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s11.r9": {
+     "plain": 227,
+     "side": 84,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s11.t1": {
+     "plain": 338,
+     "side": 114,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 10,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 197,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 177,
+     "ops": 0,
+     "dialogClicks": 4
+    }
+   }
+  },
+  {
+   "stageId": "s12",
+   "level": "h23",
+   "role": "bundle",
+   "title": "말의 강",
+   "items": [
+    "s12.t1",
+    "s12.r1",
+    "s12.r2"
+   ],
+   "problems": [],
+   "end": {
+    "status": "done"
+   },
+   "est": {
+    "best": {
+     "min": 11.363267518593384,
+     "parts": {
+      "readPlain": 408,
+      "readSide": 84,
+      "readOrig": 0,
+      "walk": 36,
+      "cards": 16,
+      "gimmick": 75,
+      "clicks": 63
+     },
+     "chars": {
+      "plain": 2380,
+      "side": 983,
+      "orig": 0,
+      "origHan": 0
+     },
+     "byPhase": {
+      "intro": 1.7,
+      "explore": 3.3,
+      "items": 4.6,
+      "translate": 1.8
+     }
+    },
+    "typical": {
+     "min": 12.216315137641006,
+     "parts": {
+      "readPlain": 445,
+      "readSide": 84,
+      "readOrig": 0,
+      "walk": 36,
+      "cards": 20,
+      "gimmick": 83,
+      "clicks": 66
+     },
+     "chars": {
+      "plain": 2595,
+      "side": 983,
+      "orig": 0,
+      "origHan": 0
+     },
+     "byPhase": {
+      "intro": 1.7,
+      "explore": 3.3,
+      "items": 5.5,
+      "translate": 1.8
+     }
+    },
+    "allWrong": {
+     "min": 13.561362756688622,
+     "parts": {
+      "readPlain": 506,
+      "readSide": 84,
+      "readOrig": 0,
+      "walk": 36,
+      "cards": 26,
+      "gimmick": 90,
+      "clicks": 72
+     },
+     "chars": {
+      "plain": 2951,
+      "side": 983,
+      "orig": 0,
+      "origHan": 0
+     },
+     "byPhase": {
+      "intro": 1.7,
+      "explore": 3.3,
+      "items": 6.8,
+      "translate": 1.8
+     }
+    },
+    "slowTypical": {
+     "min": 15.324481804307677,
+     "parts": {
+      "readPlain": 519,
+      "readSide": 197,
+      "readOrig": 0,
+      "walk": 36,
+      "cards": 20,
+      "gimmick": 83,
+      "clicks": 66
+     },
+     "chars": {
+      "plain": 2595,
+      "side": 983,
+      "orig": 0,
+      "origHan": 0
+     },
+     "byPhase": {
+      "intro": 2.1,
+      "explore": 4.4,
+      "items": 6.9,
+      "translate": 1.9
+     }
+    }
+   },
+   "perItem": {
+    "intro": {
+     "plain": 453,
+     "side": 118,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 11
+    },
+    "explore": {
+     "plain": 845,
+     "side": 333,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 1953,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "items": {
+     "plain": 197,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 6
+    },
+    "s12.t1": {
+     "plain": 514,
+     "side": 219,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 15,
+     "dialogClicks": 0
+    },
+    "s12.r1": {
+     "plain": 319,
+     "side": 155,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "s12.r2": {
+     "plain": 301,
+     "side": 158,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 0,
+     "ops": 0,
+     "dialogClicks": 0
+    },
+    "translate": {
+     "plain": 322,
+     "side": 0,
+     "orig": 0,
+     "origHan": 0,
+     "walkPx": 1369,
+     "ops": 0,
+     "dialogClicks": 6
+    }
+   }
+  }
+ ]
+}

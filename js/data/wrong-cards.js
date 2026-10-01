@@ -345,5 +345,25 @@ NM.data.WRONG_CARDS = {
     text: '한글 입력이 빠른 까닭은 글자 수가 적기 때문이다.',
     why: '자음, 모음을 누르는 대로 음절이 바로 완성되어 한자로 바꾸는 단계가 없고, 모아쓰기로 음절이 만들어지기 때문이다.',
     src: '리서치 11 §11 15번, §6-2'
+  },
+
+  // ── Q2 플레이테스트에서 장면 카드에서 옮겨 온 것(여러 장면에 다시 쓸 만한 오개념) ──
+  'wrong.yearsFixOrder': {
+    id: 'wrong.yearsFixOrder', stages: ['s11', 's12'], about: '변화의 연도', rule: 'rule.changeChain',
+    text: '낱말마다 바뀐 해가 하나씩 정해져 있어서, 연도를 외우면 차례도 정해진다.',
+    why: '문헌에 보인 때가 서로 겹친다. 옛 모습과 새 모습이 함께 쓰인 때가 있어 연도 하나로 못 박을 수 없고, 앞뒤 차례로 본다.',
+    src: '리서치 11 §11 7번'
+  },
+  'wrong.oldFormVanishes': {
+    id: 'wrong.oldFormVanishes', stages: ['s10', 's11', 's12'], about: '옛 모습과 새 모습', rule: 'rule.changeChain',
+    text: '새 모습이 나타나면 옛 모습은 그 자리에서 사라졌다.',
+    why: '\'믈\'과 \'물\'처럼 앞 모습과 뒤 모습이 오랫동안 함께 쓰였다. 새 모습이 생긴 뒤에도 옛 모습은 한동안 남았다.',
+    src: '리서치 11 §5, §11 10번'
+  },
+  'wrong.syllabary': {
+    id: 'wrong.syllabary', stages: ['s3', 's12'], about: '한글의 문자 종류', rule: 'rule.moasseugi',
+    text: '한글은 한 덩어리가 곧 한 글자인 음절 문자라서 모아 쓴다.',
+    why: '한글은 자음, 모음 하나하나가 소리 하나를 나타내는 음소 문자다. 그 글자들을 음절 단위로 모아 쓸 뿐이다.',
+    src: '리서치 06 §4'
   }
 };

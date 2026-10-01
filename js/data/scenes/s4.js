@@ -34,18 +34,16 @@ NM.data.SCENES['s4'] = {
   intro: [
     { who: 'narrator', text: '1447년, 한양의 한 인쇄소. 먹 냄새와 쇳물 냄새가 뒤섞여 있다.', cg: 's4_intro', fiction: 'fiction.s4press' },
     { who: 'senior', text: '<@아>, 여기가 새 책을 찍는 곳이야. 오늘은 우리 정음 통사가 할 일이 있대.', fiction: 'fiction.tongsa' },
-    { who: 'me', text: '책 찍는 데서 통사가 할 일이요?' },
     { who: 'senior', text: '찍어 낸 책을 백성들한테 소리 내어 읽어 주는 일이야. 생각보다 만만치 않을걸.', expr: 'smile' }
   ],
 
   request: [
-    { who: 'artisan', text: '오셨구려. 나라를 세운 임금님 조상들을 기리는 노래책을 막 찍어 냈소.' },
-    { who: 'artisan', text: '그런데 문 앞에 모인 사람들이 글자는 분명 정음인데 어디서 끊어 읽어야 할지, 무슨 말인지 모르겠다고 하오.' },
+    { who: 'artisan', text: '나라를 세운 임금님 조상들을 기리는 노래책을 막 찍어 냈는데, 사람들이 어디서 끊어 읽어야 할지 모르겠다고 하오.' },
     { who: 'commoner_woman', text: '새 글자를 배웠다고 좋아했는데, 막상 책을 펴 보니 앞이 캄캄하네요. 좀 읽어 주세요.' }
   ],
 
   encounter: {
-    orig: ['O-s4-YB2a', 'O-s4-YB34a'],
+    orig: ['O-s4-YB2a'],
     lines: [
       { who: 'me', text: '글자 왼쪽에 점이 찍혀 있어요. 하나 찍힌 것도, 둘 찍힌 것도 있고요.', expr: 'surprised' },
       { who: 'senior', text: '여기 보이는 빈칸은 내가 읽기 쉽게 띄어 옮겨 적은 거야. 장인이 찍은 종이에는 빈칸이 하나도 없어.' },
@@ -57,9 +55,7 @@ NM.data.SCENES['s4'] = {
     orig: ['O-s4-YB2a'],
     lines: [
       { who: 'senior', text: '첫 낱말은 내가 풀어 볼게. 불·휘는 지금 말로 뿌리야. 뒤에 붙은 조사가 없으니 여기서 한 번 끊으면 돼.' },
-      { who: 'senior', text: '휘 왼쪽에 점이 하나 있지? 점이 무엇을 나타내는지는 네가 직접 확인해 봐.' },
-      { who: 'me', text: '그다음 기·픈은요? 깊다랑 닮았는데 받침이 없어요.' },
-      { who: 'senior', text: '그건 네 몫이야. 인쇄소를 돌며 같은 말이 쓰인 다른 장을 찾아봐. 두 곳을 견주면 보여.', expr: 'thinking' }
+      { who: 'senior', text: '휘 왼쪽의 점, 깊다를 닮은 기·픈은 네 몫이야. 인쇄소를 돌며 같은 말이 쓰인 다른 장을 찾아 두 곳을 견주어 봐.', expr: 'thinking' }
     ]
   },
 
@@ -312,8 +308,6 @@ NM.data.SCENES['s4'] = {
       { who: 'me', text: '뿌리가 깊이 박힌 나무는 바람이 불어도 흔들리지 않아, 꽃이 탐스럽고 열매가 많이 열린다는 노래예요.' },
       { who: 'senior', text: '여·름은 계절이 아니라 열매, ·하[ㄴㆍ]·니는 많다는 말이야. 이건 장터에 가면 더 자세히 배울 거야.', expr: 'smile' },
       { who: 'commoner_woman', text: '끊을 데를 알고 나니 노랫말이 귀에 쏙 들어오네요!', expr: 'smile' },
-      { who: 'commoner_man', text: '점 하나에 소리가 올라가고 내려가고… 이제 좀 노래 같소.' },
-      { who: 'artisan', text: '찍은 보람이 있구려. 통사 양반, 다음 장도 부탁하오.' },
       { who: 'senior', text: '소리 나는 대로 적고, 띄어 쓰지 않고, 점으로 높낮이를 적었다. 그걸 알면 이 책이 읽혀.' }
     ]
   }
