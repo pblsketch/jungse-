@@ -10,6 +10,7 @@
  *   openOverlay(el), closeOverlay(el?), isOverlayOpen()
  *   setReducedMotion(bool)
  *   listPlaces(), goTo(id)          교사 모드: 장소 목록, 그 자리로 옮겨 살피기
+ *   setPlayerSprite(key)            주인공 그림(ASSETS.sprites 키, 예: hero_2) — 다음 맵부터
  *   audio                           audio.js
  *   test                            점검용 통로(화면에 드러내지 않음)
  */
@@ -97,6 +98,7 @@
   E.setObjective = function (ids) { try { W.setObjective(ids); } catch (e) { NM.reportError('engine.setObjective', e); } };
   E.highlight = function (id) { try { W.setHighlightObj(id); } catch (e) { NM.reportError('engine.highlight', e); } };
   E.setReducedMotion = function (on) { try { W.setReduced(on); } catch (e) { NM.reportError('engine.reducedMotion', e); } };
+  E.setPlayerSprite = function (key) { W.setPlayerSprite(key); };
   E.listPlaces = function () { return W.listPlaces(); };
   E.goTo = function (id) { try { return W.goTo(id); } catch (e) { NM.reportError('engine.goTo', e); return false; } };
 
@@ -156,6 +158,11 @@
       return { x: p.x + r.left, y: p.y + r.top };
     },
     target(id) { const t = W.findTarget(id); return t ? Object.assign({ rect: W.targetRect(t) }, t, { spr: undefined }) : null; },
+    sprites() {
+      const p = W.player;
+      return { player: p ? p.texture.key : null, frame: p ? p.frame.name : null, flip: p ? p.flipX : null,
+        anim: p && p.anims.isPlaying ? p.anims.currentAnim.key : null, npcs: W.npcs.map(n => n.spr.texture.key) };
+    },
     collides(x, y) { return W.grid ? E.path.collides(W.grid, x, y, cfg.feet.hw, cfg.feet.hh) : null; },
     state() {
       const n = W.nearest;

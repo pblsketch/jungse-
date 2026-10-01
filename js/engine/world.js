@@ -22,9 +22,12 @@
     paused: false, reduced: false, overlays: [],
     objective: [], objMarkers: [], arrowSig: '',
     highlight: null, hlGfx: null,
-    nearest: null, cam: { cx: 0, cy: 0 }, errCount: 0, lastInteract: null
+    nearest: null, cam: { cx: 0, cy: 0 }, errCount: 0, lastInteract: null,
+    playerKey: null, sheets: {}
   };
   E._w = W;
+  // 주인공 그림 키(ASSETS.sprites). 다음 loadMap 부터 쓴다.
+  W.setPlayerSprite = function (key) { W.playerKey = key || null; };
 
   /* ---------- 임시 그림(진짜 그림이 오기 전) ---------- */
   const FW = 48, FH = 64;
@@ -128,6 +131,48 @@
     });
   }
 
+  /* ---------- 인물 아틀라스 (tools/process_sprites.py 결과: png + json) ----------
+   * NM.data.ASSETS.sprites[key] = { png, json }. 칸 번호 프레임, anims down/left/up/idle, 오른쪽 = 왼쪽 뒤집기.
+   * 목록에 없는 키는 임시 그림을 쓰고, 목록에 있는데 못 불러오면 오류로 보고한 뒤 임시 그림을 쓴다. */
+  async function loadSheet(key) {
+    if (!key) return null;
+    if (W.sheets[key] !== undefined) return W.sheets[key];
+    const A = NM.data && NM.data.ASSETS, ent = A && A.sprites && A.sprites[key];
+    if (!ent || !ent.png || !ent.json) { W.sheets[key] = null; return null; }
+    const s = W.scene, tk = 'nm-sp:' + key;
+    try {
+      const res = await fetch(ent.json);
+      if (!res.ok) throw new Error('sprite json not found: ' + ent.json);
+      const meta = await res.json();
+      if (!s.textures.exists(tk)) {
+        await new Promise(resolve => {
+          let failed = false;
+          const onErr = file => { if (file && file.key === tk) failed = true; };
+          s.load.on('loaderror', onErr);
+          s.load.once('complete', () => { s.load.off('loaderror', onErr); resolve(!failed); });
+          s.load.spritesheet(tk, ent.png, { frameWidth: meta.frameWidth, frameHeight: meta.frameHeight });
+          s.load.start();
+        });
+      }
+      if (!s.textures.exists(tk)) throw new Error('sprite image not loaded: ' + ent.png);
+      const anims = meta.anims || {};
+      ['down', 'left', 'up'].forEach(d => {
+        const a = anims[d], ak = tk + ':walk-' + d;
+        if (a && !s.anims.exists(ak)) {
+          s.anims.create({ key: ak, frameRate: a.fps || 8, repeat: -1, frames: a.frames.map(f => ({ key: tk, frame: f })) });
+        }
+      });
+      const stand = {};
+      ['down', 'left', 'up'].forEach(d => { const a = anims[d]; stand[d] = a && a.frames.length ? a.frames[Math.min(1, a.frames.length - 1)] : 0; });
+      const o = meta.origin || { x: 0.5, y: 1 };
+      W.sheets[key] = { tex: tk, stand, ox: o.x, oy: o.y, idle: anims.idle && anims.idle.frames ? anims.idle.frames[0] : stand.down };
+    } catch (e) {
+      NM.reportError('engine.sprite', e);
+      W.sheets[key] = null;
+    }
+    return W.sheets[key];
+  }
+
   function resolveMapUrl(keyOrUrl) {
     const A = NM.data && NM.data.ASSETS;
     if (A && A.maps && typeof A.maps[keyOrUrl] === 'string') return A.maps[keyOrUrl];
@@ -159,9 +204,18 @@
     map.npcs.forEach(n => P.markRect(grid, { x: n.x - cfg.npcFeet.hw, y: n.y - cfg.npcFeet.hh * 2, w: cfg.npcFeet.hw * 2, h: cfg.npcFeet.hh * 2 }));
     W.map = map; W.grid = grid; W.mask = P.walkMask(grid, cfg.feet.hw, cfg.feet.hh);
     W.spots = map.spots.slice();
+    const A = NM.data && NM.data.ASSETS, spriteKeys = (A && A.sprites) || {};
+    const npcKey = n => n.sprite || (spriteKeys[n.npcId] ? n.npcId : null);
+    const keys = [W.playerKey].concat(map.npcs.map(npcKey)).filter(Boolean);
+    for (const k of keys) await loadSheet(k);
+    if (W.mapUrl !== url) return { url, width: map.width, height: map.height }; // 그사이 다른 맵을 불렀다
     W.npcs = map.npcs.map(n => {
-      const key = n.sprite && s.textures.exists(n.sprite) ? n.sprite : 'nm-ph-npc';
-      const spr = s.add.sprite(n.x, n.y, key, key === 'nm-ph-npc' ? 'down-0' : undefined).setOrigin(0.5, 62 / 64).setDepth(n.y);
+      const sh = W.sheets[npcKey(n)];
+      const spr = sh
+        ? s.add.sprite(n.x, n.y, sh.tex, sh.idle).setOrigin(sh.ox, sh.oy).setDepth(n.y)
+        : s.add.sprite(n.x, n.y, 'nm-ph-npc', 'down-0').setOrigin(0.5, 62 / 64).setDepth(n.y);
+      // 서 있는 인물은 코드로 숨쉬기(움직임 줄이기면 멈춤)
+      if (sh && !W.reduced) s.tweens.add({ targets: spr, scaleY: 1.025, duration: 1300 + (n.x % 7) * 90, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
       W.objs.push(spr);
       return Object.assign({}, n, { spr });
     });
@@ -171,7 +225,11 @@
       if (c) sp = P.cellCenter(grid, c.c, c.r);
     }
     W.pos = { x: sp.x, y: sp.y }; W.facing = 'down';
-    W.player = s.add.sprite(sp.x, sp.y, 'nm-ph-player', 'down-0').setOrigin(0.5, 62 / 64).setDepth(sp.y);
+    const psh = W.sheets[W.playerKey] || null;
+    W.psheet = psh;
+    W.player = psh
+      ? s.add.sprite(sp.x, sp.y, psh.tex, psh.stand.down).setOrigin(psh.ox, psh.oy).setDepth(sp.y)
+      : s.add.sprite(sp.x, sp.y, 'nm-ph-player', 'down-0').setOrigin(0.5, 62 / 64).setDepth(sp.y);
     W.objs.push(W.player);
     W.pathGfx = s.add.graphics().setDepth(-50000); W.objs.push(W.pathGfx);
     W.destGfx = s.add.graphics().setDepth(-49999); W.objs.push(W.destGfx);
@@ -335,12 +393,13 @@
     const p = W.player; if (!p) return;
     const dir = W.facing === 'right' ? 'left' : W.facing;
     p.setFlipX(W.facing === 'right');
+    const sh = W.psheet;
     if (W.moving && !W.reduced) {
-      const k = 'nm-p-walk-' + dir;
+      const k = sh ? sh.tex + ':walk-' + dir : 'nm-p-walk-' + dir;
       if (!p.anims.isPlaying || p.anims.currentAnim.key !== k) p.anims.play(k, true);
     } else {
       if (p.anims.isPlaying) p.anims.stop();
-      p.setFrame(dir + '-0');
+      p.setFrame(sh ? sh.stand[dir] : dir + '-0');
     }
   }
 
