@@ -1,0 +1,259 @@
+{
+  "name": "yeokgwan_18c",
+  "image": "yeokgwan_18c.png",
+  "source": "assets/raw/gen/sd_18c.png",
+  "sourceRegion": [
+    0,
+    0,
+    768,
+    1024
+  ],
+  "frameWidth": 108,
+  "frameHeight": 124,
+  "frameCount": 12,
+  "columns": 3,
+  "rows": 4,
+  "rowOrder": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "pivot": {
+    "x": 54,
+    "y": 122
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.9839
+  },
+  "scale": 0.47581,
+  "targetHeight": 118,
+  "anims": {
+    "down": {
+      "frames": [
+        0,
+        1,
+        2,
+        1
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "left": {
+      "frames": [
+        3,
+        4,
+        5,
+        4
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "up": {
+      "frames": [
+        9,
+        10,
+        11,
+        10
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "idle": {
+      "frames": [
+        1
+      ],
+      "fps": 1,
+      "repeat": -1
+    }
+  },
+  "flip": {
+    "right": "left"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "dir": "down",
+      "step": 0,
+      "x": 0,
+      "y": 0,
+      "w": 108,
+      "h": 124,
+      "srcBBox": [
+        72,
+        20,
+        270,
+        268
+      ]
+    },
+    {
+      "index": 1,
+      "dir": "down",
+      "step": 1,
+      "x": 108,
+      "y": 0,
+      "w": 108,
+      "h": 124,
+      "srcBBox": [
+        284,
+        21,
+        478,
+        268
+      ]
+    },
+    {
+      "index": 2,
+      "dir": "down",
+      "step": 2,
+      "x": 216,
+      "y": 0,
+      "w": 108,
+      "h": 124,
+      "srcBBox": [
+        493,
+        20,
+        686,
+        268
+      ]
+    },
+    {
+      "index": 3,
+      "dir": "left",
+      "step": 0,
+      "x": 0,
+      "y": 124,
+      "w": 108,
+      "h": 124,
+      "srcBBox": [
+        62,
+        274,
+        252,
+        511
+      ]
+    },
+    {
+      "index": 4,
+      "dir": "left",
+      "step": 1,
+      "x": 108,
+      "y": 124,
+      "w": 108,
+      "h": 124,
+      "srcBBox": [
+        282,
+        280,
+        471,
+        512
+      ]
+    },
+    {
+      "index": 5,
+      "dir": "left",
+      "step": 2,
+      "x": 216,
+      "y": 124,
+      "w": 108,
+      "h": 124,
+      "srcBBox": [
+        492,
+        519,
+        685,
+        751
+      ]
+    },
+    {
+      "index": 6,
+      "dir": "right",
+      "step": 0,
+      "x": 0,
+      "y": 248,
+      "w": 108,
+      "h": 124,
+      "srcBBox": [
+        66,
+        519,
+        259,
+        750
+      ]
+    },
+    {
+      "index": 7,
+      "dir": "right",
+      "step": 1,
+      "x": 108,
+      "y": 248,
+      "w": 108,
+      "h": 124,
+      "srcBBox": [
+        283,
+        522,
+        475,
+        752
+      ]
+    },
+    {
+      "index": 8,
+      "dir": "right",
+      "step": 2,
+      "x": 216,
+      "y": 248,
+      "w": 108,
+      "h": 124,
+      "srcBBox": [
+        505,
+        275,
+        695,
+        512
+      ]
+    },
+    {
+      "index": 9,
+      "dir": "up",
+      "step": 0,
+      "x": 0,
+      "y": 372,
+      "w": 108,
+      "h": 124,
+      "srcBBox": [
+        67,
+        758,
+        255,
+        995
+      ]
+    },
+    {
+      "index": 10,
+      "dir": "up",
+      "step": 1,
+      "x": 108,
+      "y": 372,
+      "w": 108,
+      "h": 124,
+      "srcBBox": [
+        287,
+        761,
+        470,
+        992
+      ]
+    },
+    {
+      "index": 11,
+      "dir": "up",
+      "step": 2,
+      "x": 216,
+      "y": 372,
+      "w": 108,
+      "h": 124,
+      "srcBBox": [
+        499,
+        758,
+        684,
+        996
+      ]
+    }
+  ],
+  "warnings": [
+    "frames 5 and 8 swapped by tools/prompts/A2/swap_frames.py (wrong facing in source sheet)"
+  ]
+}

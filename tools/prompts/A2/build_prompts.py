@@ -195,6 +195,7 @@ def p_sd(keys):
 # ------------------------------------------------------------------ jobs
 # manifest -> [(job name, size, refs, prompt text builder)]
 P = "tools/prompts/A2/"
+G = "assets/raw/gen/"  # outputs of other manifests (gitignored)
 MANIFESTS = {
     "m1_core": [
         ("pt_hero_1", "1024x1024", L1, lambda: p_expressions("hero_1")),
@@ -238,15 +239,15 @@ MANIFESTS = {
     # redo of 15th-century dialogue portraits (2x2 grids touched each other; woman's jacket short;
     # yangban hat knob) + a separate full-body reference for the senior (cheollik 1:1)
     "m4_fix": [
-        ("pt15_commoners", "1536x1024", "pt_15c_a;" + N1, lambda: p_npc_busts(["commoner_man", "commoner_woman"])),
-        ("pt15_child_merchant", "1536x1024", "pt_15c_a", lambda: p_npc_busts(["child", "merchant"])),
-        ("pt15_yangban", "1536x1024", "pt_15c_b;" + N1, lambda: p_npc_busts(["yangban_man", "yangban_woman"])),
-        ("pt15_official_monk", "1536x1024", "pt_15c_b", lambda: p_npc_busts(["official", "monk"])),
+        ("pt15_commoners", "1536x1024", N1, lambda: p_npc_busts(["commoner_man", "commoner_woman"])),
+        ("pt15_child_merchant", "1536x1024", G + "pt_15c_a.png", lambda: p_npc_busts(["child", "merchant"])),
+        ("pt15_yangban", "1536x1024", N1, lambda: p_npc_busts(["yangban_man", "yangban_woman"])),
+        ("pt15_official_monk", "1536x1024", G + "pt_15c_b.png", lambda: p_npc_busts(["official", "monk"])),
         ("sd15_commoners", "1536x1024", "pt15_commoners;" + S1,
          lambda: p_sd(["commoner_man", "commoner_woman"])),
         ("sd15_yangban", "1536x1024", "pt15_yangban;" + S1,
          lambda: p_sd(["yangban_man", "yangban_woman"])),
-        ("full_senior_tongsa", "1024x1536", "pt_senior_tongsa", lambda: p_full_body(
+        ("full_senior_tongsa", "1024x1536", G + "pt_senior_tongsa.png", lambda: p_full_body(
             "senior_tongsa",
             "Measure it: the distance from the shoulders down to the cord belt equals the distance from "
             "the cord belt down to the skirt hem; the hem is at the knees.")),

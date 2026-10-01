@@ -1,0 +1,257 @@
+{
+  "name": "commoner_woman",
+  "image": "commoner_woman.png",
+  "source": "assets/raw/gen/sd15_commoners.png",
+  "sourceRegion": [
+    768,
+    0,
+    1536,
+    1024
+  ],
+  "frameWidth": 68,
+  "frameHeight": 112,
+  "frameCount": 12,
+  "columns": 3,
+  "rows": 4,
+  "rowOrder": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "pivot": {
+    "x": 34,
+    "y": 110
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.9821
+  },
+  "scale": 0.41897,
+  "targetHeight": 106,
+  "anims": {
+    "down": {
+      "frames": [
+        0,
+        1,
+        2,
+        1
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "left": {
+      "frames": [
+        3,
+        4,
+        5,
+        4
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "up": {
+      "frames": [
+        9,
+        10,
+        11,
+        10
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "idle": {
+      "frames": [
+        1
+      ],
+      "fps": 1,
+      "repeat": -1
+    }
+  },
+  "flip": {
+    "right": "left"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "dir": "down",
+      "step": 0,
+      "x": 0,
+      "y": 0,
+      "w": 68,
+      "h": 112,
+      "srcBBox": [
+        900,
+        19,
+        1025,
+        272
+      ]
+    },
+    {
+      "index": 1,
+      "dir": "down",
+      "step": 1,
+      "x": 68,
+      "y": 0,
+      "w": 68,
+      "h": 112,
+      "srcBBox": [
+        1109,
+        19,
+        1230,
+        270
+      ]
+    },
+    {
+      "index": 2,
+      "dir": "down",
+      "step": 2,
+      "x": 136,
+      "y": 0,
+      "w": 68,
+      "h": 112,
+      "srcBBox": [
+        1312,
+        19,
+        1433,
+        272
+      ]
+    },
+    {
+      "index": 3,
+      "dir": "left",
+      "step": 0,
+      "x": 0,
+      "y": 112,
+      "w": 68,
+      "h": 112,
+      "srcBBox": [
+        893,
+        284,
+        1021,
+        519
+      ]
+    },
+    {
+      "index": 4,
+      "dir": "left",
+      "step": 1,
+      "x": 68,
+      "y": 112,
+      "w": 68,
+      "h": 112,
+      "srcBBox": [
+        1105,
+        284,
+        1231,
+        519
+      ]
+    },
+    {
+      "index": 5,
+      "dir": "left",
+      "step": 2,
+      "x": 136,
+      "y": 112,
+      "w": 68,
+      "h": 112,
+      "srcBBox": [
+        1309,
+        284,
+        1435,
+        519
+      ]
+    },
+    {
+      "index": 6,
+      "dir": "right",
+      "step": 0,
+      "x": 0,
+      "y": 224,
+      "w": 68,
+      "h": 112,
+      "srcBBox": [
+        895,
+        529,
+        1023,
+        756
+      ]
+    },
+    {
+      "index": 7,
+      "dir": "right",
+      "step": 1,
+      "x": 68,
+      "y": 224,
+      "w": 68,
+      "h": 112,
+      "srcBBox": [
+        1103,
+        529,
+        1231,
+        757
+      ]
+    },
+    {
+      "index": 8,
+      "dir": "right",
+      "step": 2,
+      "x": 136,
+      "y": 224,
+      "w": 68,
+      "h": 112,
+      "srcBBox": [
+        1310,
+        529,
+        1438,
+        757
+      ]
+    },
+    {
+      "index": 9,
+      "dir": "up",
+      "step": 0,
+      "x": 0,
+      "y": 336,
+      "w": 68,
+      "h": 112,
+      "srcBBox": [
+        890,
+        766,
+        1003,
+        999
+      ]
+    },
+    {
+      "index": 10,
+      "dir": "up",
+      "step": 1,
+      "x": 68,
+      "y": 336,
+      "w": 68,
+      "h": 112,
+      "srcBBox": [
+        1110,
+        766,
+        1223,
+        996
+      ]
+    },
+    {
+      "index": 11,
+      "dir": "up",
+      "step": 2,
+      "x": 136,
+      "y": 336,
+      "w": 68,
+      "h": 112,
+      "srcBBox": [
+        1328,
+        766,
+        1442,
+        999
+      ]
+    }
+  ],
+  "warnings": []
+}

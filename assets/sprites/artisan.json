@@ -1,0 +1,257 @@
+{
+  "name": "artisan",
+  "image": "artisan.png",
+  "source": "assets/raw/gen/sd_monk_artisan.png",
+  "sourceRegion": [
+    768,
+    0,
+    1536,
+    1024
+  ],
+  "frameWidth": 80,
+  "frameHeight": 116,
+  "frameCount": 12,
+  "columns": 3,
+  "rows": 4,
+  "rowOrder": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "pivot": {
+    "x": 40,
+    "y": 114
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.9828
+  },
+  "scale": 0.41825,
+  "targetHeight": 110,
+  "anims": {
+    "down": {
+      "frames": [
+        0,
+        1,
+        2,
+        1
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "left": {
+      "frames": [
+        3,
+        4,
+        5,
+        4
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "up": {
+      "frames": [
+        9,
+        10,
+        11,
+        10
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "idle": {
+      "frames": [
+        1
+      ],
+      "fps": 1,
+      "repeat": -1
+    }
+  },
+  "flip": {
+    "right": "left"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "dir": "down",
+      "step": 0,
+      "x": 0,
+      "y": 0,
+      "w": 80,
+      "h": 116,
+      "srcBBox": [
+        884,
+        17,
+        1015,
+        280
+      ]
+    },
+    {
+      "index": 1,
+      "dir": "down",
+      "step": 1,
+      "x": 80,
+      "y": 0,
+      "w": 80,
+      "h": 116,
+      "srcBBox": [
+        1094,
+        16,
+        1210,
+        279
+      ]
+    },
+    {
+      "index": 2,
+      "dir": "down",
+      "step": 2,
+      "x": 160,
+      "y": 0,
+      "w": 80,
+      "h": 116,
+      "srcBBox": [
+        1291,
+        16,
+        1427,
+        280
+      ]
+    },
+    {
+      "index": 3,
+      "dir": "left",
+      "step": 0,
+      "x": 0,
+      "y": 116,
+      "w": 80,
+      "h": 116,
+      "srcBBox": [
+        884,
+        285,
+        1021,
+        523
+      ]
+    },
+    {
+      "index": 4,
+      "dir": "left",
+      "step": 1,
+      "x": 80,
+      "y": 116,
+      "w": 80,
+      "h": 116,
+      "srcBBox": [
+        1090,
+        285,
+        1224,
+        525
+      ]
+    },
+    {
+      "index": 5,
+      "dir": "left",
+      "step": 2,
+      "x": 160,
+      "y": 116,
+      "w": 80,
+      "h": 116,
+      "srcBBox": [
+        1292,
+        285,
+        1428,
+        522
+      ]
+    },
+    {
+      "index": 6,
+      "dir": "right",
+      "step": 0,
+      "x": 0,
+      "y": 232,
+      "w": 80,
+      "h": 116,
+      "srcBBox": [
+        876,
+        533,
+        1013,
+        763
+      ]
+    },
+    {
+      "index": 7,
+      "dir": "right",
+      "step": 1,
+      "x": 80,
+      "y": 232,
+      "w": 80,
+      "h": 116,
+      "srcBBox": [
+        1079,
+        533,
+        1215,
+        765
+      ]
+    },
+    {
+      "index": 8,
+      "dir": "right",
+      "step": 2,
+      "x": 160,
+      "y": 232,
+      "w": 80,
+      "h": 116,
+      "srcBBox": [
+        1284,
+        533,
+        1421,
+        763
+      ]
+    },
+    {
+      "index": 9,
+      "dir": "up",
+      "step": 0,
+      "x": 0,
+      "y": 348,
+      "w": 80,
+      "h": 116,
+      "srcBBox": [
+        888,
+        766,
+        1001,
+        1002
+      ]
+    },
+    {
+      "index": 10,
+      "dir": "up",
+      "step": 1,
+      "x": 80,
+      "y": 348,
+      "w": 80,
+      "h": 116,
+      "srcBBox": [
+        1094,
+        766,
+        1202,
+        1001
+      ]
+    },
+    {
+      "index": 11,
+      "dir": "up",
+      "step": 2,
+      "x": 160,
+      "y": 348,
+      "w": 80,
+      "h": 116,
+      "srcBBox": [
+        1297,
+        764,
+        1408,
+        1003
+      ]
+    }
+  ],
+  "warnings": []
+}
