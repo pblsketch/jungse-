@@ -452,6 +452,3 @@ NM.data.SCENES['s12'] = {
     }
   }
 };
-// 점검기(tests/lib/content.mjs sceneVariants)는 아직 editions 를 읽지 않고 variants·byLevel·<학교급> 키만 편다.
-// 같은 중학교판 객체를 variants.m 으로도 가리켜 c3-data 가 중학교판을 점검하게 한다(진행기는 editions 만 쓴다).
-NM.data.SCENES['s12'].variants = { m: NM.data.SCENES['s12'].editions.m };
