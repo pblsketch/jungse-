@@ -1,0 +1,41 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.10.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 36,
+  "height": 28,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "nextlayerid": 6,
+  "nextobjectid": 18,
+  "tilesets": [],
+  "layers": [
+    {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s10.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
+    {"id": 2, "name": "collision", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 1, "name": "seodang-house", "type": "", "x": 180, "y": 0, "width": 830, "height": 330, "rotation": 0, "visible": true},
+        {"id": 2, "name": "shed-left", "type": "", "x": 0, "y": 0, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 180, "y": 0}, {"x": 180, "y": 270}, {"x": 120, "y": 290}, {"x": 70, "y": 340}, {"x": 60, "y": 450}, {"x": 0, "y": 450}]},
+        {"id": 3, "name": "wall-top-right", "type": "", "x": 1000, "y": 0, "width": 152, "height": 90, "rotation": 0, "visible": true},
+        {"id": 4, "name": "shed-corner", "type": "", "x": 100, "y": 270, "width": 80, "height": 80, "rotation": 0, "visible": true},
+        {"id": 5, "name": "persimmon-canopy", "type": "", "x": 900, "y": 90, "width": 252, "height": 170, "rotation": 0, "visible": true},
+        {"id": 6, "name": "persimmon-trunk", "type": "", "x": 1060, "y": 250, "width": 92, "height": 210, "rotation": 0, "visible": true},
+        {"id": 7, "name": "bench", "type": "", "x": 915, "y": 405, "width": 135, "height": 45, "rotation": 0, "visible": true},
+        {"id": 8, "name": "well", "type": "", "x": 950, "y": 470, "width": 202, "height": 220, "rotation": 0, "visible": true},
+        {"id": 9, "name": "bucket", "type": "", "x": 928, "y": 618, "width": 52, "height": 52, "rotation": 0, "visible": true},
+        {"id": 10, "name": "flowers-right", "type": "", "x": 1000, "y": 660, "width": 152, "height": 60, "rotation": 0, "visible": true},
+        {"id": 11, "name": "winnowing-stand", "type": "", "x": 60, "y": 350, "width": 130, "height": 120, "rotation": 0, "visible": true},
+        {"id": 12, "name": "jars", "type": "", "x": 0, "y": 450, "width": 105, "height": 70, "rotation": 0, "visible": true},
+        {"id": 13, "name": "garden-fence", "type": "", "x": 0, "y": 500, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 180, "y": 50}, {"x": 185, "y": 120}, {"x": 130, "y": 160}, {"x": 0, "y": 170}]},
+        {"id": 14, "name": "bushes-left", "type": "", "x": 130, "y": 610, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 120, "y": -10}, {"x": 210, "y": 30}, {"x": 220, "y": 90}, {"x": 170, "y": 90}, {"x": 0, "y": 55}]},
+        {"id": 15, "name": "wall-left-of-gate", "type": "", "x": 0, "y": 670, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 130, "y": -5}, {"x": 300, "y": 30}, {"x": 470, "y": 65}, {"x": 505, "y": 70}, {"x": 590, "y": 90}, {"x": 590, "y": 226}, {"x": 0, "y": 226}]},
+        {"id": 16, "name": "wall-right-of-gate", "type": "", "x": 650, "y": 760, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 90, "y": -30}, {"x": 110, "y": -45}, {"x": 250, "y": -60}, {"x": 502, "y": -60}, {"x": 502, "y": 136}, {"x": 0, "y": 136}]}
+      ]},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 17, "name": "spawn", "type": "", "x": 576, "y": 560, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
+      ]}
+  ]
+}

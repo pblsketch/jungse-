@@ -1,0 +1,49 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.10.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 36,
+  "height": 28,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "nextlayerid": 6,
+  "nextobjectid": 26,
+  "tilesets": [],
+  "layers": [
+    {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s9.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
+    {"id": 2, "name": "collision", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 1, "name": "windows-wall", "type": "", "x": 0, "y": 0, "width": 1152, "height": 195, "rotation": 0, "visible": true},
+        {"id": 2, "name": "dais-screen", "type": "", "x": 330, "y": 150, "width": 490, "height": 155, "rotation": 0, "visible": true},
+        {"id": 3, "name": "shelves-left", "type": "", "x": 0, "y": 80, "width": 130, "height": 350, "rotation": 0, "visible": true},
+        {"id": 4, "name": "lanterns-left", "type": "", "x": 130, "y": 130, "width": 80, "height": 150, "rotation": 0, "visible": true},
+        {"id": 5, "name": "shelves-right", "type": "", "x": 1020, "y": 80, "width": 132, "height": 370, "rotation": 0, "visible": true},
+        {"id": 6, "name": "lanterns-right", "type": "", "x": 940, "y": 130, "width": 80, "height": 150, "rotation": 0, "visible": true},
+        {"id": 7, "name": "table-left-1", "type": "", "x": 110, "y": 360, "width": 210, "height": 135, "rotation": 0, "visible": true},
+        {"id": 8, "name": "lantern-left-mid", "type": "", "x": 50, "y": 420, "width": 50, "height": 130, "rotation": 0, "visible": true},
+        {"id": 9, "name": "scrolls-left", "type": "", "x": 0, "y": 470, "width": 50, "height": 140, "rotation": 0, "visible": true},
+        {"id": 10, "name": "left-edge-props", "type": "", "x": 0, "y": 420, "width": 60, "height": 350, "rotation": 0, "visible": true},
+        {"id": 11, "name": "table-left-2", "type": "", "x": 65, "y": 595, "width": 210, "height": 130, "rotation": 0, "visible": true},
+        {"id": 12, "name": "cushion-left-2a", "type": "", "x": 0, "y": 640, "width": 60, "height": 70, "rotation": 0, "visible": true},
+        {"id": 13, "name": "cushion-left-2b", "type": "", "x": 90, "y": 715, "width": 195, "height": 70, "rotation": 0, "visible": true},
+        {"id": 14, "name": "table-right-1", "type": "", "x": 835, "y": 365, "width": 225, "height": 130, "rotation": 0, "visible": true},
+        {"id": 15, "name": "lantern-right-mid", "type": "", "x": 1050, "y": 420, "width": 55, "height": 130, "rotation": 0, "visible": true},
+        {"id": 16, "name": "scrolls-right", "type": "", "x": 1100, "y": 480, "width": 52, "height": 140, "rotation": 0, "visible": true},
+        {"id": 17, "name": "right-edge-props", "type": "", "x": 1095, "y": 420, "width": 57, "height": 350, "rotation": 0, "visible": true},
+        {"id": 18, "name": "table-right-2", "type": "", "x": 880, "y": 595, "width": 215, "height": 130, "rotation": 0, "visible": true},
+        {"id": 19, "name": "cushion-right-2a", "type": "", "x": 1085, "y": 640, "width": 67, "height": 70, "rotation": 0, "visible": true},
+        {"id": 20, "name": "cushion-right-2b", "type": "", "x": 865, "y": 715, "width": 205, "height": 70, "rotation": 0, "visible": true},
+        {"id": 21, "name": "railing-left", "type": "", "x": 0, "y": 770, "width": 375, "height": 126, "rotation": 0, "visible": true},
+        {"id": 22, "name": "lantern-bottom-left", "type": "", "x": 285, "y": 740, "width": 55, "height": 30, "rotation": 0, "visible": true},
+        {"id": 23, "name": "railing-right", "type": "", "x": 775, "y": 770, "width": 377, "height": 126, "rotation": 0, "visible": true},
+        {"id": 24, "name": "lantern-bottom-right", "type": "", "x": 810, "y": 740, "width": 55, "height": 30, "rotation": 0, "visible": true}
+      ]},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 25, "name": "spawn", "type": "", "x": 576, "y": 700, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
+      ]}
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.10.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 60,
+  "height": 24,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "nextlayerid": 6,
+  "nextobjectid": 10,
+  "tilesets": [],
+  "layers": [
+    {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s5.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
+    {"id": 2, "name": "collision", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 1, "name": "top-houses", "type": "", "x": 0, "y": 0, "width": 1920, "height": 95, "rotation": 0, "visible": true},
+        {"id": 2, "name": "house-left", "type": "", "x": 0, "y": 0, "width": 100, "height": 300, "rotation": 0, "visible": true},
+        {"id": 3, "name": "fields-left", "type": "", "x": 100, "y": 0, "width": 420, "height": 175, "rotation": 0, "visible": true},
+        {"id": 4, "name": "stalls-left", "type": "", "x": 100, "y": 160, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 420, "y": 0}, {"x": 420, "y": 170}, {"x": 380, "y": 185}, {"x": 200, "y": 205}, {"x": 130, "y": 245}, {"x": 40, "y": 245}, {"x": 0, "y": 220}]},
+        {"id": 5, "name": "grain-stall-cart", "type": "", "x": 560, "y": 85, "width": 480, "height": 200, "rotation": 0, "visible": true},
+        {"id": 6, "name": "tree-bench", "type": "", "x": 1030, "y": 95, "width": 262, "height": 212, "rotation": 0, "visible": true},
+        {"id": 7, "name": "stalls-right", "type": "", "x": 1292, "y": 95, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 628, "y": 0}, {"x": 628, "y": 390}, {"x": 588, "y": 390}, {"x": 368, "y": 383}, {"x": 308, "y": 347}, {"x": 248, "y": 307}, {"x": 108, "y": 277}, {"x": 18, "y": 250}]},
+        {"id": 8, "name": "river-bank", "type": "", "x": 0, "y": 500, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 640, "y": 0}, {"x": 660, "y": -60}, {"x": 900, "y": -60}, {"x": 945, "y": 5}, {"x": 1000, "y": 12}, {"x": 1000, "y": 112}, {"x": 1372, "y": 112}, {"x": 1372, "y": 20}, {"x": 1400, "y": 32}, {"x": 1920, "y": 48}, {"x": 1920, "y": 268}, {"x": 0, "y": 268}]}
+      ]},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 9, "name": "spawn", "type": "", "x": 800, "y": 390, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
+      ]}
+  ]
+}
