@@ -26,4 +26,6 @@ NM.data.STAGES['s10'] = {"id": "s10", "file": "js/data/scenes/s10.js", "mapKey":
 NM.data.STAGES['s11'] = {"id": "s11", "file": "js/data/scenes/s11.js", "mapKey": "s11", "gimmick": "threeEraLink", "carveGlyph": "가", "bgmKey": "bgm_s11"};
 NM.data.STAGES['s2'] = {"id": "s2", "file": "js/data/scenes/s2.js", "mapKey": "s2", "gimmick": "letterForge", "carveGlyph": "ㄱ", "bgmKey": "bgm_s2"};
 NM.data.STAGES['s3'] = {"id": "s3", "file": "js/data/scenes/s3.js", "mapKey": "s3", "gimmick": "syllableBuild", "carveGlyph": "ㅘ", "bgmKey": "bgm_s3"};
+NM.data.STAGES['s8'] = {"id": "s8", "file": "js/data/scenes/s8.js", "mapKey": "s8", "gimmick": "questionPair", "carveGlyph": "고", "bgmKey": "bgm_s8"};
+NM.data.STAGES['s9'] = {"id": "s9", "file": "js/data/scenes/s9.js", "mapKey": "s9", "gimmick": "prefaceDecode", "carveGlyph": "정", "bgmKey": "bgm_s9"};
 /* stages:end */
