@@ -133,6 +133,8 @@
   function stamp(d) {
     return '' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' + pad(d.getHours()) + pad(d.getMinutes());
   }
+  // 패 글자 평문: 표기([ㅳ] 등)를 풀고, 방점 하나(〮·〯)는 그대로 둔다
+  function glyphText(g) { return /^[〮〯]$/.test(g) ? g : plain(g, true); }
   function plain(text, bangjeom) {
     const Y = NM.core.yet;
     try { return Y.render(String(text || ''), { bangjeom }); } catch (e) { NM.reportError('ui.notebookModel.render', e); return String(text || ''); }
@@ -163,7 +165,7 @@
       translations: translations(store, stageId).map(x => plain(x.text, bj)),
       rules: prog.rules.map(ruleCard).map(c => ({ id: c.id, name: plain(c.name, bj), text: plain(c.text, bj) })),
       reflection: prog.reflection || '',
-      glyph: glyphs.indexOf(stageId) >= 0 ? carveGlyph(stageId) : '',
+      glyph: glyphs.indexOf(stageId) >= 0 ? glyphText(carveGlyph(stageId)) : '',
       title: store.title().title,
       stats: {
         firstTryRate: st.firstTryRate,
