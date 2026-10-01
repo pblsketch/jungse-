@@ -1,0 +1,31 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.10.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 60,
+  "height": 22,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "nextlayerid": 6,
+  "nextobjectid": 8,
+  "tilesets": [],
+  "layers": [
+    {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s12.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
+    {"id": 2, "name": "collision", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 1, "name": "river-left", "type": "", "x": 0, "y": 0, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 500, "y": 0}, {"x": 500, "y": 90}, {"x": 565, "y": 90}, {"x": 565, "y": 330}, {"x": 420, "y": 330}, {"x": 330, "y": 300}, {"x": 200, "y": 300}, {"x": 150, "y": 300}, {"x": 60, "y": 300}, {"x": 0, "y": 300}]},
+        {"id": 2, "name": "streetlamp", "type": "", "x": 155, "y": 190, "width": 40, "height": 160, "rotation": 0, "visible": true},
+        {"id": 3, "name": "bench", "type": "", "x": 200, "y": 295, "width": 130, "height": 90, "rotation": 0, "visible": true},
+        {"id": 4, "name": "river-middle", "type": "", "x": 650, "y": 90, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 180, "y": 0}, {"x": 180, "y": -90}, {"x": 790, "y": -90}, {"x": 790, "y": 125}, {"x": 875, "y": 125}, {"x": 875, "y": 320}, {"x": 830, "y": 330}, {"x": 770, "y": 310}, {"x": 650, "y": 270}, {"x": 400, "y": 290}, {"x": 300, "y": 270}, {"x": 250, "y": 305}, {"x": 130, "y": 280}, {"x": 50, "y": 250}, {"x": 0, "y": 240}]},
+        {"id": 5, "name": "river-right-future", "type": "", "x": 1440, "y": 0, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 480, "y": 0}, {"x": 480, "y": 330}, {"x": 440, "y": 340}, {"x": 310, "y": 400}, {"x": 300, "y": 420}, {"x": 200, "y": 420}, {"x": 200, "y": 215}, {"x": 280, "y": 215}, {"x": 280, "y": 160}, {"x": 0, "y": 160}]},
+        {"id": 6, "name": "trees-roofs-bottom", "type": "", "x": 0, "y": 400, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 60, "y": 20}, {"x": 70, "y": 140}, {"x": 260, "y": 160}, {"x": 280, "y": 80}, {"x": 345, "y": 80}, {"x": 380, "y": 120}, {"x": 450, "y": 120}, {"x": 470, "y": 160}, {"x": 640, "y": 160}, {"x": 1000, "y": 175}, {"x": 1300, "y": 170}, {"x": 1500, "y": 175}, {"x": 1920, "y": 155}, {"x": 1920, "y": 304}, {"x": 0, "y": 304}]}
+      ]},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 7, "name": "spawn", "type": "", "x": 150, "y": 460, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
+      ]}
+  ]
+}

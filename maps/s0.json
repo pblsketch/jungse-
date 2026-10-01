@@ -1,0 +1,36 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.10.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 36,
+  "height": 28,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "nextlayerid": 6,
+  "nextobjectid": 13,
+  "tilesets": [],
+  "layers": [
+    {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s0.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
+    {"id": 2, "name": "collision", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 1, "name": "back-wall", "type": "", "x": 0, "y": 0, "width": 1152, "height": 205, "rotation": 0, "visible": true},
+        {"id": 2, "name": "locker", "type": "", "x": 170, "y": 0, "width": 95, "height": 232, "rotation": 0, "visible": true},
+        {"id": 3, "name": "teacher-desk", "type": "", "x": 498, "y": 165, "width": 145, "height": 118, "rotation": 0, "visible": true},
+        {"id": 4, "name": "bookshelf-plant", "type": "", "x": 762, "y": 120, "width": 215, "height": 112, "rotation": 0, "visible": true},
+        {"id": 5, "name": "left-wall-doors", "type": "", "x": 0, "y": 0, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 170, "y": 0}, {"x": 170, "y": 235}, {"x": 140, "y": 245}, {"x": 0, "y": 475}]},
+        {"id": 6, "name": "window-wall", "type": "", "x": 1152, "y": 0, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": -162, "y": 0}, {"x": -162, "y": 235}, {"x": -142, "y": 250}, {"x": -12, "y": 640}, {"x": 0, "y": 640}]},
+        {"id": 7, "name": "desks-left", "type": "", "x": 0, "y": 250, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 385, "y": 15}, {"x": 378, "y": 190}, {"x": 348, "y": 280}, {"x": 340, "y": 360}, {"x": 312, "y": 465}, {"x": 0, "y": 465}]},
+        {"id": 8, "name": "desks-right", "type": "", "x": 755, "y": 265, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 397, "y": 0}, {"x": 397, "y": 450}, {"x": 85, "y": 450}, {"x": 50, "y": 265}, {"x": 33, "y": 165}, {"x": 15, "y": 80}]},
+        {"id": 9, "name": "shelf-plant-left", "type": "", "x": 0, "y": 650, "width": 115, "height": 246, "rotation": 0, "visible": true},
+        {"id": 10, "name": "window-wall-low", "type": "", "x": 1095, "y": 640, "width": 57, "height": 160, "rotation": 0, "visible": true},
+        {"id": 11, "name": "cabinet-right", "type": "", "x": 1025, "y": 795, "width": 127, "height": 101, "rotation": 0, "visible": true}
+      ]},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 12, "name": "spawn", "type": "", "x": 576, "y": 770, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
+      ]}
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.10.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 36,
+  "height": 28,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "nextlayerid": 6,
+  "nextobjectid": 18,
+  "tilesets": [],
+  "layers": [
+    {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s4.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
+    {"id": 2, "name": "collision", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 1, "name": "top-wall-shelves", "type": "", "x": 0, "y": 0, "width": 1152, "height": 185, "rotation": 0, "visible": true},
+        {"id": 2, "name": "paper-shelves-right", "type": "", "x": 905, "y": 0, "width": 247, "height": 255, "rotation": 0, "visible": true},
+        {"id": 3, "name": "barrel-right", "type": "", "x": 1030, "y": 255, "width": 122, "height": 95, "rotation": 0, "visible": true},
+        {"id": 4, "name": "right-wall", "type": "", "x": 1110, "y": 0, "width": 42, "height": 896, "rotation": 0, "visible": true},
+        {"id": 5, "name": "printing-table", "type": "", "x": 738, "y": 310, "width": 390, "height": 160, "rotation": 0, "visible": true},
+        {"id": 6, "name": "printing-press", "type": "", "x": 860, "y": 255, "width": 140, "height": 60, "rotation": 0, "visible": true},
+        {"id": 7, "name": "stool", "type": "", "x": 798, "y": 455, "width": 64, "height": 62, "rotation": 0, "visible": true},
+        {"id": 8, "name": "drying-racks", "type": "", "x": 872, "y": 455, "width": 253, "height": 215, "rotation": 0, "visible": true},
+        {"id": 9, "name": "book-table-right", "type": "", "x": 820, "y": 665, "width": 332, "height": 231, "rotation": 0, "visible": true},
+        {"id": 10, "name": "bottom-wall-right", "type": "", "x": 700, "y": 785, "width": 452, "height": 111, "rotation": 0, "visible": true},
+        {"id": 11, "name": "furnace-molds", "type": "", "x": 0, "y": 0, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 410, "y": 0}, {"x": 410, "y": 190}, {"x": 385, "y": 235}, {"x": 355, "y": 325}, {"x": 240, "y": 345}, {"x": 195, "y": 370}, {"x": 0, "y": 370}]},
+        {"id": 12, "name": "type-tables", "type": "", "x": 0, "y": 365, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 430, "y": 10}, {"x": 455, "y": 65}, {"x": 445, "y": 195}, {"x": 410, "y": 255}, {"x": 0, "y": 255}]},
+        {"id": 13, "name": "table-bushes-left", "type": "", "x": 0, "y": 580, "width": 335, "height": 316, "rotation": 0, "visible": true},
+        {"id": 14, "name": "door-post-left", "type": "", "x": 330, "y": 680, "width": 120, "height": 216, "rotation": 0, "visible": true},
+        {"id": 15, "name": "door-post-right", "type": "", "x": 595, "y": 745, "width": 120, "height": 151, "rotation": 0, "visible": true},
+        {"id": 16, "name": "threshold", "type": "", "x": 445, "y": 830, "width": 155, "height": 66, "rotation": 0, "visible": true}
+      ]},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 17, "name": "spawn", "type": "", "x": 520, "y": 790, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
+      ]}
+  ]
+}

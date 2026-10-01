@@ -1,0 +1,37 @@
+{
+  "type": "map",
+  "version": "1.10",
+  "tiledversion": "1.10.2",
+  "orientation": "orthogonal",
+  "renderorder": "right-down",
+  "infinite": false,
+  "width": 60,
+  "height": 25,
+  "tilewidth": 32,
+  "tileheight": 32,
+  "nextlayerid": 6,
+  "nextobjectid": 14,
+  "tilesets": [],
+  "layers": [
+    {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s7.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
+    {"id": 2, "name": "collision", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 1, "name": "palace-hall", "type": "", "x": 0, "y": 0, "width": 640, "height": 300, "rotation": 0, "visible": true},
+        {"id": 2, "name": "palace-wall-right", "type": "", "x": 575, "y": 200, "width": 85, "height": 260, "rotation": 0, "visible": true},
+        {"id": 3, "name": "palace-left-edge", "type": "", "x": 0, "y": 250, "width": 90, "height": 160, "rotation": 0, "visible": true},
+        {"id": 4, "name": "wall-left-of-gate", "type": "", "x": 0, "y": 400, "width": 128, "height": 240, "rotation": 0, "visible": true},
+        {"id": 5, "name": "wall-right-of-gate", "type": "", "x": 235, "y": 410, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 340, "y": -10}, {"x": 425, "y": 40}, {"x": 405, "y": 65}, {"x": 0, "y": 175}]},
+        {"id": 6, "name": "forest-stream-top", "type": "", "x": 640, "y": 0, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 650, "y": 0}, {"x": 650, "y": 290}, {"x": 560, "y": 330}, {"x": 510, "y": 430}, {"x": 500, "y": 445}, {"x": 230, "y": 445}, {"x": 140, "y": 430}, {"x": 60, "y": 430}, {"x": 20, "y": 445}, {"x": 0, "y": 445}]},
+        {"id": 7, "name": "forest-stream-bottom", "type": "", "x": 0, "y": 690, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 280, "y": -50}, {"x": 420, "y": -90}, {"x": 760, "y": -130}, {"x": 800, "y": -160}, {"x": 880, "y": -168}, {"x": 1140, "y": -168}, {"x": 1180, "y": -130}, {"x": 1300, "y": -125}, {"x": 1400, "y": -90}, {"x": 1520, "y": -50}, {"x": 1920, "y": -40}, {"x": 1920, "y": 110}, {"x": 0, "y": 110}]},
+        {"id": 8, "name": "temple-hall", "type": "", "x": 1290, "y": 0, "width": 630, "height": 300, "rotation": 0, "visible": true},
+        {"id": 9, "name": "pagoda", "type": "", "x": 1250, "y": 345, "width": 200, "height": 75, "rotation": 0, "visible": true},
+        {"id": 10, "name": "stone-lantern", "type": "", "x": 1595, "y": 390, "width": 60, "height": 140, "rotation": 0, "visible": true},
+        {"id": 11, "name": "bell-pavilion", "type": "", "x": 1660, "y": 320, "width": 260, "height": 200, "rotation": 0, "visible": true},
+        {"id": 12, "name": "bushes-right", "type": "", "x": 1780, "y": 500, "width": 140, "height": 50, "rotation": 0, "visible": true}
+      ]},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 13, "name": "spawn", "type": "", "x": 450, "y": 560, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
+      ]}
+  ]
+}
