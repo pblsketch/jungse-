@@ -8,6 +8,8 @@
   <link rel="manifest" href="manifest.webmanifest">
   <!-- styles:start -->
   <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/engine.css">
   <!-- styles:end -->
 </head>
 <body>
@@ -16,11 +18,25 @@
     <div id="ui-layer"></div>
   </div>
 
-  <!-- scripts:start (순서: vendor → core → data → engine → ui → gimmicks → main) -->
+  <!-- scripts:start (순서: vendor → ns → data → core → engine → ui → gimmicks → main) -->
   <script src="vendor/phaser.min.js"></script>
   <script src="js/core/ns.js"></script>
   <script src="js/data/stages.js"></script>
   <script src="js/data/assets.js"></script>
+  <script src="js/data/jamo.js"></script>
+  <script src="js/data/rules-config.js"></script>
+  <script src="js/data/profanity.js"></script>
+  <script src="js/core/yet.js"></script>
+  <script src="js/core/rules.js"></script>
+  <script src="js/core/nickname.js"></script>
+  <script src="js/core/save.js"></script>
+  <script src="js/engine/path.js"></script>
+  <script src="js/engine/tiled.js"></script>
+  <script src="js/engine/core.js"></script>
+  <script src="js/engine/audio.js"></script>
+  <script src="js/engine/hud.js"></script>
+  <script src="js/engine/world.js"></script>
+  <script src="js/engine/api.js"></script>
   <script src="js/main.js"></script>
   <!-- scripts:end -->
 </body>
