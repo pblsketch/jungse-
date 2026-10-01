@@ -1,0 +1,122 @@
+/*
+ * 기믹 letterForge (스테이지 2 「스물여덟 자」 소리 → 글자 변신) — js/gimmicks/letterForge.js, letterForge-svg.js
+ * - 글자 크기는 em: 과제 창 글자 크기 calc(17px * var(--fs) * var(--st-big))(css/stage.css)를 물려받는다. 그림 크기도 em 이라 함께 커진다.
+ * - 색만으로 나누지 않는다: 고름 = 굵은 안쪽 테두리(+● 표), 틀림 = × + 점선 + 흐려짐(틀린 획은 흐린 점선), 고칠 곳 = △ + 바깥선, 정답 = ○ + 겹테두리.
+ *   단면도의 본뜬 곳은 굵은 선 + 끝점 동그라미로도 구별된다.
+ * - 움직임 줄이기(html.nm-reduced-motion, html[data-nm-motion="reduce"])면 획이 그려지는 움직임을 끈다.
+ * - 360px 폭에서 줄바꿈, 단추 44px 이상.
+ */
+.nm-glf { display: flex; flex-direction: column; gap: 1em; }
+.nm-glf-step { position: relative; display: flex; flex-direction: column; gap: .6em; border: 2px solid var(--st-line, rgba(43, 36, 32, .22)); border-radius: 12px; padding: .7em .75em; background: #fffaf0; }
+.nm-glf-step.is-hint { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; }
+.nm-glf-step.is-missing { border-style: dashed; border-color: var(--seal, #b8322a); }
+.nm-glf-title { margin: 0; font-size: 1.02em; }
+.nm-glf-lead { margin: 0; font-size: .92em; }
+.nm-glf-wing { border-left: 4px double var(--st-know, #4f6b3a); background: var(--hanji, #efe4cf); padding: .4em .6em; border-radius: 0 8px 8px 0; font-size: .88em; }
+.nm-glf-winglabel { display: inline-block; font-weight: 700; font-size: .85em; margin-bottom: .1em; }
+.nm-glf-wingtext { margin: 0; }
+.nm-glf-after, .nm-glf-missing { margin: 0; font-size: .9em; }
+.nm-glf-missing { color: var(--seal, #b8322a); font-weight: 700; }
+
+/* 표시 기호(부분마다) */
+.nm-glf [data-part] { position: relative; }
+.nm-glf-flag { position: absolute; top: -.4em; right: -.4em; min-width: 1.25em; height: 1.25em; border-radius: 50%; font-size: .78em; font-weight: 800; line-height: 1.25em; text-align: center; z-index: 1; }
+.nm-glf-flag:empty { display: none; }
+.is-wrong > .nm-glf-flag { background: var(--seal, #b8322a); color: #fff; }
+.is-hint:not(.is-wrong) > .nm-glf-flag { background: var(--st-focus, #d08a12); color: #fff; }
+.is-answer > .nm-glf-flag { background: var(--st-know, #4f6b3a); color: #fff; }
+.nm-glf-row.is-wrong, .nm-glf-srow.is-wrong, .nm-glf-vrow.is-wrong { border-style: dashed; border-color: var(--seal, #b8322a); }
+.nm-glf-row.is-hint, .nm-glf-srow.is-hint, .nm-glf-vrow.is-hint, .nm-glf-slotwrap.is-hint, .nm-glf-owrap.is-hint, .nm-glf-chain.is-hint { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; border-radius: 10px; }
+.nm-glf-row.is-answer, .nm-glf-srow.is-answer, .nm-glf-vrow.is-answer { border-style: double; border-width: 4px; }
+
+/* 단추 공통 */
+.nm-glf button { font: inherit; color: var(--ink, #2b2420); cursor: pointer; }
+.nm-glf button:disabled { cursor: default; }
+.nm-glf button:focus-visible { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; }
+.nm-glf-gtile {
+  min-width: 48px; min-height: 48px; width: 2.6em; height: 2.6em; box-sizing: border-box; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 1.1em; line-height: 1;
+  border: 2px solid var(--ink, #2b2420); border-radius: 10px; background: var(--paper, #f6efe2);
+}
+.nm-glf-gtile.is-base { background: var(--hanji, #efe4cf); font-size: 1.35em; }
+.nm-glf-gtile.is-selected, .nm-glf-slot.is-selected { box-shadow: inset 0 0 0 3px var(--ink, #2b2420); background: var(--hanji, #efe4cf); }
+.nm-glf-otile.is-selected::after { content: '\25CF'; position: absolute; bottom: 1px; right: 4px; font-size: .45em; }
+.nm-glf-otile { position: relative; font-size: 1.35em; }
+
+/* 상형 */
+.nm-glf-row { display: flex; flex-wrap: wrap; gap: .6em .9em; align-items: center; border: 2px solid transparent; border-radius: 12px; padding: .35em; }
+.nm-glf-fig { margin: 0; display: flex; flex-direction: column; align-items: flex-start; gap: .2em; flex: 1 1 11em; min-width: 0; }
+.nm-glf-head { width: min(100%, 12em); height: auto; color: var(--ink, #2b2420); }
+.nm-glf-head .nm-glf-skin { stroke: currentColor; stroke-width: 2.2; opacity: .75; }
+.nm-glf-head .nm-glf-thin { stroke: currentColor; stroke-width: 1.2; stroke-dasharray: 3 3; opacity: .5; }
+.nm-glf-head .nm-glf-part { stroke: currentColor; stroke-width: 2; opacity: .8; }
+.nm-glf-head .nm-glf-tooth { stroke: currentColor; stroke-width: 1.4; fill: #fffaf0; }
+.nm-glf-head .nm-glf-hl { stroke: var(--seal, #b8322a); stroke-width: 5; }
+.nm-glf-head .nm-glf-hl-dot { fill: var(--seal, #b8322a); stroke: none; }
+.nm-glf-cap { display: flex; flex-direction: column; font-size: .9em; }
+.nm-glf-soundshape { font-size: .92em; }
+.nm-glf-build { display: flex; flex-wrap: wrap; gap: .6em; align-items: center; flex: 1 1 13em; min-width: 0; }
+.nm-glf-boardwrap { flex: none; }
+.nm-glf-board { width: 5.2em; height: 5.2em; border: 2px solid var(--ink, #2b2420); border-radius: 8px; background: #fff; color: var(--ink, #2b2420); }
+.nm-glf-board .nm-glf-guide { stroke: currentColor; stroke-width: 2; stroke-dasharray: 4 5; opacity: .25; }
+.nm-glf-board .nm-glf-stroke, .nm-glf-picon .nm-glf-stroke, .nm-glf-vowel .nm-glf-stroke { stroke: currentColor; stroke-width: 9; }
+.nm-glf-board .nm-glf-stroke { stroke-dasharray: 200; stroke-dashoffset: 0; animation: nm-glf-draw .35s ease-out both; }
+@keyframes nm-glf-draw { from { stroke-dashoffset: 200; } }
+.nm-glf-board .nm-glf-stroke.is-wrong { stroke: var(--seal, #b8322a); opacity: .35; stroke-dasharray: 6 6; animation: none; filter: blur(.5px); }
+html.nm-reduced-motion .nm-glf-board .nm-glf-stroke, html[data-nm-motion="reduce"] .nm-glf-board .nm-glf-stroke { animation: none !important; }
+.nm-glf-palette { display: flex; flex-wrap: wrap; gap: .35em; min-width: 0; }
+.nm-glf-piece { position: relative; width: 48px; height: 48px; padding: 6px; border: 2px solid var(--ink, #2b2420); border-radius: 9px; background: var(--paper, #f6efe2); }
+.nm-glf-piece .nm-glf-picon { width: 100%; height: 100%; color: var(--ink, #2b2420); }
+.nm-glf-piece.is-selected { background: var(--hanji, #efe4cf); box-shadow: inset 0 0 0 3px var(--ink, #2b2420); }
+.nm-glf-piece.is-selected::before { content: '\25CF'; position: absolute; top: 1px; left: 3px; font-size: .55em; }
+.nm-glf-piece.is-wrong { border-style: dashed; border-color: var(--seal, #b8322a); }
+.nm-glf-pflag { position: absolute; top: -.45em; right: -.45em; min-width: 1.15em; height: 1.15em; border-radius: 50%; background: var(--seal, #b8322a); color: #fff; font-size: .75em; font-weight: 800; line-height: 1.15em; text-align: center; }
+.nm-glf-pflag:empty { display: none; }
+
+/* 가획 */
+.nm-glf-chains { display: flex; flex-direction: column; gap: .5em; }
+.nm-glf-chain { display: flex; flex-wrap: wrap; align-items: center; gap: .35em; }
+.nm-glf-plus { font-weight: 800; font-size: 1.1em; padding: 0 .1em; }
+.nm-glf-plus::after { content: '\2192'; font-weight: 400; margin-left: .1em; }
+.nm-glf-slotwrap { display: inline-flex; border-radius: 10px; }
+.nm-glf-slot {
+  min-width: 48px; min-height: 48px; width: 2.6em; height: 2.6em; padding: 0; font-size: 1.35em; line-height: 1;
+  border: 2px solid var(--ink, #2b2420); border-radius: 10px; background: #fff;
+}
+.nm-glf-slot.is-empty { border-style: dashed; }
+.nm-glf-slotwrap.is-wrong .nm-glf-slot { border-style: dashed; border-color: var(--seal, #b8322a); color: rgba(43, 36, 32, .5); }
+.nm-glf-slotwrap.is-answer .nm-glf-slot { border-style: double; border-width: 4px; }
+.nm-glf-tray { display: flex; flex-wrap: wrap; gap: .4em; padding-top: .3em; border-top: 1px dashed var(--st-line, rgba(43, 36, 32, .22)); }
+.nm-glf-traytile { font-size: 1.35em; }
+.nm-glf-traytile.is-used { opacity: .45; border-style: dotted; }
+
+/* 다르게 만든 글자 */
+.nm-glf-oddpool { display: flex; flex-wrap: wrap; gap: .45em; }
+.nm-glf-owrap { display: inline-flex; border-radius: 10px; }
+.nm-glf-owrap.is-wrong .nm-glf-otile { border-style: dashed; border-color: var(--seal, #b8322a); color: rgba(43, 36, 32, .5); }
+.nm-glf-owrap.is-answer .nm-glf-otile { border-style: double; border-width: 4px; }
+
+/* 하늘 · 땅 · 사람 */
+.nm-glf-srow, .nm-glf-vrow { display: flex; flex-wrap: wrap; gap: .5em .7em; align-items: center; border: 2px solid transparent; border-radius: 12px; padding: .3em; }
+.nm-glf-things { display: flex; flex-wrap: wrap; gap: .35em; }
+.nm-glf-thingbtn { display: inline-flex; flex-direction: column; align-items: center; gap: .1em; min-width: 48px; min-height: 48px; padding: .25em .4em; border: 2px solid var(--ink, #2b2420); border-radius: 10px; background: var(--paper, #f6efe2); }
+.nm-glf-thingbtn.is-selected { background: var(--hanji, #efe4cf); box-shadow: inset 0 0 0 3px var(--ink, #2b2420); }
+.nm-glf-thingbtn.is-selected .nm-glf-thinglabel::before { content: '\25CF  '; font-size: .7em; }
+.nm-glf-thing { width: 2em; height: 2em; color: var(--ink, #2b2420); }
+.nm-glf-thing g { stroke: currentColor; stroke-width: 3; }
+.nm-glf-thing .nm-glf-fillish { fill: rgba(208, 138, 18, .25); }
+.nm-glf-thing .nm-glf-thin { stroke-width: 1.6; }
+.nm-glf-thinglabel { font-size: .85em; font-weight: 600; }
+
+/* 합성 */
+.nm-glf-gtile.is-target { font-size: 1.5em; }
+.nm-glf-preview { flex: none; }
+.nm-glf-vowel { width: 3.2em; height: 3.2em; border: 2px solid var(--ink, #2b2420); border-radius: 8px; background: #fff; color: var(--ink, #2b2420); display: block; }
+.nm-glf-vowel .nm-glf-dot { fill: currentColor; }
+.nm-glf-keys { display: flex; flex-wrap: wrap; gap: .35em; }
+.nm-glf-key { min-width: 48px; min-height: 48px; padding: 0 .5em; font-size: 1.2em; border: 2px solid var(--ink, #2b2420); border-radius: 10px; background: var(--paper, #f6efe2); }
+.nm-glf-back { font-size: .85em; }
+.nm-glf-tag { font-size: .8em; font-weight: 700; border: 1px solid currentColor; border-radius: 999px; padding: .05em .55em; }
+
+.nm-glf-foot { display: flex; flex-wrap: wrap; gap: .6em; align-items: center; justify-content: flex-end; }
+.nm-glf-left { margin-right: auto; font-size: .9em; }

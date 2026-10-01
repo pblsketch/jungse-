@@ -10,6 +10,7 @@
 .nm-gsg-head, .nm-gsg-binname, .nm-gsg-grouphead { margin: 0; font-size: 1em; font-weight: 700; }
 .nm-gsg-pool { border: 2px dashed var(--st-line, rgba(43, 36, 32, .22)); border-radius: 12px; padding: .6em .7em; background: #fffaf0; }
 .nm-gsg-tiles { display: flex; flex-wrap: wrap; gap: .5em; min-height: 3.2em; align-items: center; }
+.nm-gsg-scatter { padding: .55em .2em .3em; }
 .nm-gsg-empty { margin: .3em 0 0; font-size: .9em; opacity: .8; }
 
 .nm-gsg-tile {
@@ -21,7 +22,7 @@
 .nm-gsg-scatter .nm-gsg-tile { transform: rotate(var(--gsg-r, 0deg)) translateY(var(--gsg-dy, 0px)); animation: nm-gsg-in .45s ease-out both; }
 @keyframes nm-gsg-in { from { opacity: 0; transform: rotate(0deg) translateY(-14px) scale(.8); } }
 html.nm-reduced-motion .nm-gsg-tile, html[data-nm-motion="reduce"] .nm-gsg-tile { animation: none !important; transform: none !important; transition: none !important; }
-.nm-gsg-glyph { font-size: 1.7em; line-height: 1; }
+.nm-gsg-glyph { font-size: 2.1em; line-height: 1; }
 .nm-gsg-tile.is-selected { background: var(--hanji, #efe4cf); box-shadow: inset 0 0 0 3px var(--ink, #2b2420); }
 .nm-gsg-tile.is-selected::after { content: '\25BC'; position: absolute; top: -1.05em; left: 50%; transform: translateX(-50%); font-size: .7em; }
 .nm-gsg-tile:disabled { cursor: default; }
