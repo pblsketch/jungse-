@@ -10,7 +10,7 @@
  *   NM.data.SCENES[id]      장면 데이터(spec §19-3). title, carveGlyph, items[{id, kind, word|label, cards}], translate
  *                           확정 항목의 원문 글은 item.word(없으면 item.label)를 쓴다. 현대어는 정답 카드 text.
  *                           옮긴 구절 글: translate(배열 또는 {lines}) / translations 안에서 같은 id 의 text|modern.
- *   NM.data.RULE_CARDS[id]  { id, name, text, stage }
+ *   NM.data.RULE_CARDS[id]  { id, name, text, stage, levels? } — levels 가 있으면 그 학교급에서만 '아직 확인하지 않은 규칙'에 보인다
  *   NM.data.DOGAM[key]      { glyph, name, note, stage }
  *   NM.data.STAGES[id].carveGlyph (장면 데이터에 패 글자가 없을 때)
  */
@@ -99,7 +99,12 @@
   function view(store, stageId) {
     const prog = store.stage(stageId);
     const learned = learnedRuleIds(store);
-    const all = D.RULE_CARDS ? Object.keys(D.RULE_CARDS) : [];
+    // 규칙 카드의 levels(그 규칙이 핵심인 학교급)가 있으면 지금 학교급의 카드만 보인다(중학교에 '병서'·고2~3 규칙이 섞이지 않게).
+    const lv = store.level;
+    const all = D.RULE_CARDS ? Object.keys(D.RULE_CARDS).filter(id => {
+      const c = D.RULE_CARDS[id];
+      return !c || !Array.isArray(c.levels) || !lv || c.levels.indexOf(lv) >= 0;
+    }) : [];
     return {
       stageId,
       stageLabel: stageLabel(stageId),

@@ -89,6 +89,12 @@ assert.equal(v.items[0].word, '·[ㅁㆍㄹ][ㅆㆍ]·미', '화면용은 표기
 assert.deepEqual(v.translations.map(x => x.text), ['시험으로 옮긴 구절']);
 assert.deepEqual(v.rulesLearned.map(r => r.id), ['rule.araea']);
 assert.deepEqual(v.rulesUnlearned.map(r => r.id).sort(), ['rule.bangjeom', 'rule.nomCase']);
+// levels 가 있는 규칙 카드는 그 학교급에서만 보인다(store.level = m)
+ctx.NM.data.RULE_CARDS['rule.h23only'] = { id: 'rule.h23only', name: '고2~3 규칙', text: '시험', stage: 's7', levels: ['h23'] };
+ctx.NM.data.RULE_CARDS['rule.mAlso'] = { id: 'rule.mAlso', name: '중학교 규칙', text: '시험', stage: 's3', levels: ['m', 'h1'] };
+const vLv = plain(M.view(store, 's2')).rulesUnlearned.map(r => r.id);
+assert.ok(vLv.indexOf('rule.mAlso') >= 0 && vLv.indexOf('rule.h23only') < 0, '학교급 밖 규칙 카드는 빠진다');
+delete ctx.NM.data.RULE_CARDS['rule.h23only']; delete ctx.NM.data.RULE_CARDS['rule.mAlso'];
 const nom = v.rulesUnlearned.filter(r => r.id === 'rule.nomCase')[0];
 assert.equal(nom.stageName, '제6장', '장면 데이터가 없으면 장면 번호 이름');
 const bj = v.rulesUnlearned.filter(r => r.id === 'rule.bangjeom')[0];
