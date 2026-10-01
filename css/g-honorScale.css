@@ -1,0 +1,97 @@
+/*
+ * 기믹 '높임 저울'(js/gimmicks/honorScale.js) 스타일. 토큰은 css/base.css · css/stage.css.
+ * - 글자 크기: 창 글자 크기(--fs)를 따라 em 으로 잡는다. 인물 패·활자·빈 자리는 44px 이상.
+ * - 저울: 활자를 끼우면(data-tilt="1") 화자 쪽(왼쪽)이 내려가고 높임 받는 사람 쪽(오른쪽)이 올라간다.
+ *   움직임 줄이기(html[data-nm-motion="reduce"], html.nm-reduced-motion, .ghs.is-static)면 전환 없이 바로 기운 모양.
+ * - 색만으로 나누지 않는다: 고른 것은 굵은 테두리 + ▶, 틀림 ✕ + 점선 + 흐려짐, 강조 ! + 점선 바깥선, 정답 ◎.
+ */
+.ghs { display: flex; flex-direction: column; gap: .9em; }
+.ghs-origs[hidden] { display: none; }
+.ghs-origs { display: flex; flex-direction: column; gap: .5em; }
+.ghs-slot {
+  display: flex; flex-direction: column; gap: .55em; padding: .7em .8em; border-radius: 12px;
+  background: #fffaf0; border: 1px solid var(--st-line, rgba(43, 36, 32, .22));
+}
+.ghs-frame { padding: .5em .7em; border-radius: 10px; background: #f3ead8; border: 2px solid #8b6b4a; }
+.ghs-frame-title { margin: 0 0 .2em; font-size: .8em; font-weight: 700; opacity: .8; }
+.ghs-line { margin: 0; font-size: 1.35em; line-height: 2; letter-spacing: .03em; word-break: keep-all; overflow-wrap: anywhere; }
+.ghs-word { background: linear-gradient(transparent 65%, rgba(208, 138, 18, .25) 65%); border-radius: 3px; }
+.ghs-slotbox {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; vertical-align: middle;
+  min-width: 3.2em; min-height: 44px; margin: 0 .1em; padding: 0 .35em; border-radius: 6px; cursor: pointer;
+  border: 2px dashed var(--ink, #2b2420); background: #fff; color: var(--ink, #2b2420);
+  font: 400 .9em/1.2 var(--font-yet, 'NMYet', serif);
+}
+.ghs-otherslot {
+  display: inline-block; min-width: 1.6em; margin: 0 .1em; padding: 0 .2em; border-radius: 4px; text-align: center;
+  border: 1.5px dashed var(--st-line, rgba(43, 36, 32, .45)); font: 600 .7em/1.6 var(--font-ui, system-ui, sans-serif); vertical-align: middle; opacity: .7;
+}
+.ghs-slotbox.is-filled { border-style: solid; background: var(--hanji, #efe4cf); }
+.ghs-slot-empty { font: 600 .62em/1.2 var(--font-ui, system-ui, sans-serif); opacity: .65; }
+.ghs-slotunit.is-answer { outline: 2px solid var(--st-know, #4f6b3a); outline-offset: 1px; border-radius: 3px; }
+.ghs-u.is-hint { outline: 3px dotted var(--st-focus, #d08a12); outline-offset: 1px; border-radius: 3px; }
+.ghs-step { margin: .2em 0 0; font-weight: 700; font-size: .92em; }
+.ghs-pickfirst { margin: 0; font-size: .82em; opacity: .75; }
+.ghs-pickfirst[hidden] { display: none; }
+.ghs-tokens, .ghs-tray { position: relative; display: flex; flex-wrap: wrap; gap: .5em; padding: .15em; border-radius: 10px; }
+.ghs-token {
+  position: relative; display: inline-flex; flex-direction: column; align-items: flex-start; gap: .05em;
+  min-width: 7em; min-height: 44px; padding: .35em .7em; border-radius: 10px; cursor: pointer; text-align: left;
+  border: 2px solid var(--ink, #2b2420); background: #fbf6ea; color: var(--ink, #2b2420); font: 400 1em/1.3 var(--font-ui, system-ui, sans-serif);
+}
+.ghs-token-role { font-weight: 800; font-size: .82em; letter-spacing: .04em; }
+.ghs-token-name { font-weight: 700; font-family: var(--font-yet, 'NMYet', serif); font-size: 1.1em; }
+.ghs-token-help { font-size: .72em; opacity: .75; }
+.ghs-token[aria-pressed="true"], .ghs-type[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--ink, #2b2420); background: #fff3d6; }
+.ghs-token[aria-pressed="true"] .ghs-token-role::before, .ghs-type[aria-pressed="true"]::before { content: '\25B6\00a0'; font: 700 .7em/1 var(--font-ui, system-ui, sans-serif); }
+.ghs-type {
+  position: relative; display: inline-flex; align-items: center; min-width: 3.4em; min-height: 48px; padding: 0 .6em;
+  border-radius: 6px; cursor: pointer; border: 2px solid var(--ink, #2b2420); background: #fffaf0; color: var(--ink, #2b2420);
+  box-shadow: 0 3px 0 rgba(43, 36, 32, .35); font: 400 1.2em/1 var(--font-yet, 'NMYet', serif);
+}
+.ghs-type:disabled { opacity: .45; cursor: not-allowed; }
+.ghs.is-locked .ghs-type:disabled, .ghs.is-locked .ghs-token:disabled { cursor: default; }
+.ghs.is-locked .ghs-type:disabled { opacity: .7; }
+.ghs-mark { position: absolute; top: -.45em; right: -.35em; font: 900 .85em/1 var(--font-ui, system-ui, sans-serif); pointer-events: none; }
+.ghs-mark:empty { display: none; }
+
+/* 저울 */
+.ghs-scale { display: flex; flex-direction: column; align-items: center; gap: .2em; padding: .3em 0 .1em; }
+.ghs-scale-title { font-size: .78em; font-weight: 700; opacity: .75; }
+.ghs-scale-stage { position: relative; width: min(100%, 20em); height: 7.2em; }
+.ghs-post { position: absolute; left: 50%; bottom: 0; width: .5em; height: 3.6em; margin-left: -.25em; background: #8b6b4a; border-radius: 3px 3px 0 0; }
+.ghs-post::after { content: ''; position: absolute; left: -1.6em; right: -1.6em; bottom: 0; height: .4em; background: #8b6b4a; border-radius: 4px; }
+.ghs-beam {
+  position: absolute; left: 6%; right: 6%; top: 3.2em; height: .35em; background: var(--ink, #2b2420); border-radius: 3px;
+  transform-origin: 50% 50%; transform: rotate(0deg); transition: transform .45s ease;
+}
+.ghs-scale[data-tilt="1"] .ghs-beam { transform: rotate(-9deg); }
+.ghs-pan { position: absolute; bottom: .35em; width: 42%; display: flex; justify-content: center; transform: rotate(0deg); transition: transform .45s ease; }
+.ghs-pan-left { left: 0; }
+.ghs-pan-right { right: 0; }
+.ghs-scale[data-tilt="1"] .ghs-pan { transform: rotate(9deg); }
+.ghs-pan-body {
+  display: flex; flex-direction: column; align-items: center; min-width: 4em; min-height: 2.6em; padding: .15em .4em;
+  border-radius: 8px 8px 14px 14px; border: 2px solid var(--ink, #2b2420); background: #fbf6ea; font-size: .82em; text-align: center;
+}
+.ghs-pan-role { font-weight: 800; font-size: .85em; }
+.ghs-pan-name { font-family: var(--font-yet, 'NMYet', serif); }
+.ghs-weight:not(:empty) { margin-top: .1em; padding: 0 .3em; border-radius: 4px; background: var(--ink, #2b2420); color: #fffaf0; font-family: var(--font-yet, 'NMYet', serif); }
+
+.ghs-actions { display: flex; justify-content: flex-end; }
+
+/* 틀림 · 강조 · 정답 */
+.ghs-slotbox.is-wrong, .ghs-token.is-wrong, .ghs-type.is-wrong { border-style: dashed; border-color: var(--seal, #b8322a); }
+.ghs-slotbox.is-wrong .ghs-slot-type, .ghs-token.is-wrong .ghs-token-name, .ghs-type.is-wrong .ghs-type-face { filter: blur(1.2px); opacity: .55; }
+.ghs-slotbox.is-wrong > .ghs-mark, .ghs-token.is-wrong > .ghs-mark, .ghs-type.is-wrong > .ghs-mark { color: var(--seal, #b8322a); }
+.ghs-tokens.is-hint, .ghs-tray.is-hint, .ghs-slotbox.is-hint { outline: 3px dotted var(--st-focus, #d08a12); outline-offset: 2px; }
+.ghs-tokens.is-hint > .ghs-mark, .ghs-slotbox.is-hint > .ghs-mark { color: var(--st-focus, #d08a12); }
+.ghs-token.is-answer, .ghs-type.is-answer { border-color: var(--st-know, #4f6b3a); }
+.ghs-token.is-answer > .ghs-mark, .ghs-type.is-answer > .ghs-mark { color: var(--st-know, #4f6b3a); }
+
+.ghs button:focus-visible { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; }
+html[data-nm-motion="reduce"] .ghs *, html.nm-reduced-motion .ghs *, .ghs.is-static * { transition: none !important; animation: none !important; }
+@media (max-width: 420px) {
+  .ghs-token { min-width: 0; flex: 1 1 8em; }
+  .ghs-scale-stage { height: 6.6em; }
+}

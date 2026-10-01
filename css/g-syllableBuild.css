@@ -1,0 +1,79 @@
+/*
+ * 기믹 '음절 조립'(js/gimmicks/syllableBuild.js) 스타일. 토큰은 css/base.css · css/stage.css.
+ * - 글자 크기: 창 글자 크기(--fs) 를 따라 em 으로 잡는다. 블록·단추는 44px 이상.
+ * - 색만으로 나누지 않는다: 틀림 ✕ · 강조 ! · 정답 ◎ 기호와 점선/굵은 테두리를 함께 쓴다.
+ * - 움직임 줄이기: html[data-nm-motion="reduce"], html.nm-reduced-motion, .gsb.is-static 이면 전환 없음.
+ */
+.gsb { display: flex; flex-direction: column; gap: .8em; }
+.gsb-guide { margin: 0; font-size: .92em; opacity: .85; }
+.gsb-target {
+  display: flex; flex-direction: column; gap: .6em; padding: .7em .8em; border-radius: 12px;
+  background: #fffaf0; border: 1px solid var(--st-line, rgba(43, 36, 32, .22));
+}
+.gsb-target[data-practice] { border-style: dashed; }
+.gsb-practice { align-self: flex-start; }
+.gsb-prompt { font-weight: 600; }
+.gsb-work { display: flex; flex-wrap: wrap; align-items: stretch; gap: .7em; }
+.gsb-slots { display: flex; flex-direction: column; gap: .4em; flex: 1 1 14em; min-width: 0; }
+.gsb-slot {
+  position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: .4em;
+  padding: .3em .4em; border-radius: 10px; border: 2px solid var(--st-line, rgba(43, 36, 32, .22)); background: #fbf6ea;
+  transition: border-color .2s, box-shadow .2s;
+}
+.gsb-slot.is-active { border-color: var(--ink, #2b2420); box-shadow: inset 0 0 0 1px var(--ink, #2b2420); }
+.gsb-slot.is-active .gsb-slot-pick::before { content: '\25B6\00a0'; }
+.gsb-slot.is-over { border-style: dashed; background: #fff3d6; }
+.gsb-slot-pick {
+  min-width: 4.2em; min-height: 44px; padding: .2em .6em; border-radius: 8px; cursor: pointer;
+  border: 2px solid var(--ink, #2b2420); background: #fffaf0; color: var(--ink, #2b2420);
+  font: 700 1em/1.2 var(--font-ui, system-ui, sans-serif);
+}
+.gsb-slot-pick[aria-pressed="true"] { background: var(--ink, #2b2420); color: #fffaf0; }
+.gsb-slot-items { display: flex; flex-wrap: wrap; gap: .3em; min-height: 44px; align-items: center; }
+.gsb-empty { font-size: .85em; opacity: .6; }
+.gsb-term {
+  padding: .05em .5em; border-radius: 4px; border: 1.5px solid currentColor;
+  font: 700 .8em/1.5 var(--font-ui, system-ui, sans-serif); color: var(--interp, #34508a); white-space: nowrap;
+}
+.gsb-term[hidden] { display: none; }
+.gsb-mark { margin-left: auto; font: 900 1.1em/1 var(--font-ui, system-ui, sans-serif); min-width: 1em; text-align: center; }
+.gsb-placed, .gsb-block {
+  min-width: 44px; min-height: 44px; padding: 0 .3em; border-radius: 8px; cursor: pointer;
+  border: 2px solid var(--ink, #2b2420); background: #fff; color: var(--ink, #2b2420);
+  font: 400 1.35em/1 var(--font-yet, 'NMYet', serif);
+}
+.gsb-block { background: #fffaf0; box-shadow: 0 3px 0 rgba(43, 36, 32, .35); }
+.gsb-block:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(43, 36, 32, .35); }
+.gsb-placed { background: var(--hanji, #efe4cf); }
+.gsb-placed:disabled, .gsb-block:disabled, .gsb-slot-pick:disabled { cursor: default; opacity: 1; }
+.gsb-tray { display: flex; flex-wrap: wrap; gap: .45em; padding-top: .2em; border-top: 1px dashed var(--st-line, rgba(43, 36, 32, .22)); }
+.gsb-preview {
+  flex: 0 0 auto; display: flex; align-items: center; justify-content: center;
+  min-width: 4.2em; min-height: 4.2em; padding: .2em; border-radius: 12px;
+  border: 2px solid var(--ink, #2b2420); background: #fff;
+}
+.gsb-syl { font-size: 2.6em; line-height: 1.1; }
+.gsb-syl-none { font-size: .78em; opacity: .6; text-align: center; max-width: 6em; }
+.gsb-actions { display: flex; justify-content: flex-end; }
+
+/* 틀림: 흐려짐 + ✕ */
+.gsb-slot.is-wrong { border-style: dashed; border-color: var(--seal, #b8322a); }
+.gsb-slot.is-wrong .gsb-slot-items { filter: blur(1.2px); opacity: .55; }
+.gsb-slot.is-wrong .gsb-mark { color: var(--seal, #b8322a); }
+/* 도움 2: 고칠 곳 강조 */
+.gsb-slot.is-hint { outline: 3px dotted var(--st-focus, #d08a12); outline-offset: 2px; }
+.gsb-slot.is-hint .gsb-mark { color: var(--st-focus, #d08a12); }
+/* 정답 */
+.gsb-slot.is-answer { border-color: var(--st-know, #4f6b3a); }
+.gsb-slot.is-answer .gsb-slot-items { filter: none; opacity: 1; }
+.gsb-slot.is-answer .gsb-mark { color: var(--st-know, #4f6b3a); }
+.gsb.is-locked .gsb-tray { opacity: .5; }
+
+.gsb button:focus-visible { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; }
+
+html[data-nm-motion="reduce"] .gsb *, html.nm-reduced-motion .gsb *, .gsb.is-static * { transition: none !important; animation: none !important; }
+html[data-nm-motion="reduce"] .gsb-block:active, html.nm-reduced-motion .gsb-block:active, .gsb.is-static .gsb-block:active { transform: none; }
+@media (max-width: 420px) {
+  .gsb-preview { min-width: 3.6em; min-height: 3.6em; }
+  .gsb-syl { font-size: 2.2em; }
+}
