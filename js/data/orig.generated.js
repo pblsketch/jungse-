@@ -3,7 +3,7 @@
  * 자동 생성 파일 — 손으로 고치지 않는다.
  * 만든 도구: tools/extract_orig.mjs (원본: design/research/*.md 의 spec §19-2 原文 블록, 확실도 △ 제외)
  * 다시 만들기: node tools/extract_orig.mjs    낡았는지 점검: node tools/extract_orig.mjs --check
- * NM.data.ORIG[<블록 id>] = { title, lines: [원문 줄…], src: <출처 URL 또는 교과서 쪽>, certainty: ◎|○, doc: <리서치 문서> }
+ * NM.data.ORIG[<블록 id>] = { title, lines: [원문 줄…], src: <출처 URL 또는 교과서 쪽>, certainty: ◎|○, doc: <리서치 문서>, noBangjeom?: true }
  */
 window.NM = window.NM || {};
 NM.data = NM.data || {};
@@ -620,6 +620,406 @@ NM.data.ORIG = {
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
     "doc": "design/research/09_원문_훈민정음.md"
+  },
+  "O-s4-YB2a": {
+    "title": "「용비어천가」 제2장 앞절 (1447)",
+    "lines": [
+      "불·휘 기·픈 남·[ㄱㆍㄴ] [ㅂㆍ][ㄹㆍ]·매 아·니 :뮐·[ㅆㆎ] 곶 :됴·코 여·름 ·하[ㄴㆍ]·니"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s4-YB2b": {
+    "title": "「용비어천가」 제2장 뒷절 (1447)",
+    "lines": [
+      ":[ㅅㆎ]·미 기·픈 ·므·른 ·[ㄱㆍ][ㅁㆍ]·래 아·니 그·츨·[ㅆㆎ] :내·히 이·러 바·[ㄹㆍ]·래 ·가[ㄴㆍ]·니"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s4-YB34a": {
+    "title": "「용비어천가」 제34장 앞절 (1447)",
+    "lines": [
+      "·믈 깊·고 ·[ㅂㆎ] :업·건마·[ㄹㆍㄴ] 하·[ㄴㆍㄹ]·히 命·[ㅎㆍ]실·[ㅆㆎ] [ㅁㆍㄹ] ·톤 자·히 :건·너시·니[ㆁㅣ]·다"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s4-YB34b": {
+    "title": "「용비어천가」 제34장 뒷절 (1447)",
+    "lines": [
+      "城 높·고 [ㄷㆍ]리 :업·건마·[ㄹㆍㄴ] 하·[ㄴㆍㄹ]·히 :도·[ㅸㆍ]실·[ㅆㆎ] [ㅁㆍㄹ] ·톤 자·히 [ㄴㆍ]·리시·니[ㆁㅣ]·다"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s5-YB13": {
+    "title": "「용비어천가」 제13장 앞절 (1447)",
+    "lines": [
+      ":말[ㅆㆍ]·[ㅁㆍㄹ] [ㅅㆍㄹ]·[ㅸㆍ]·리 :하·[ㄷㆎ] 天命·을 疑心·[ㅎㆍ]실·[ㅆㆎ] ·[ㅺㅜ]므·로 뵈·아시·니"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s5-YB39a": {
+    "title": "「용비어천가」 제39장 앞절 (1447)",
+    "lines": [
+      "楚國·엣 天子氣·를 行幸·[ㅇㆍ]·로 마[ㄱㆍ]·시·니 :님·[ㄱㅡㅰ] [ㅁㆍ][ㅿㆍ]·미 :긔 아·니 어·리시·니"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s5-YB39b": {
+    "title": "「용비어천가」 제39장 뒷절 (1447)",
+    "lines": [
+      "鴨江·앳 將軍氣·를 :아모 爲[ㅎㆍ]·다 ·[ㅎㆍ]시·니 :님·[ㄱㅡㅰ] :말[ㅆㆍ]·미 :긔 아·니 ·올·[ㅎㆍ]시·니"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s5-YB50": {
+    "title": "「용비어천가」 제50장 앞절 첫 구절 (1447)",
+    "lines": [
+      "내 百姓 :어엿·비 너·기·샤"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s5-YB64": {
+    "title": "「용비어천가」 제64장 앞절 끝 구절 (1447)",
+    "lines": [
+      "叛·[ㅎㆍ][ㄴㆍㄴ] ·노·[ㅁㆍㄹ] 부·러 노[ㅎㆍ]·시·니"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s5-SS613": {
+    "title": "『석보상절』 권6 13ㄱ (1447)",
+    "lines": [
+      "{艱|간}{難|난}[ㅎㆍ]·며 :어·엿븐 :사[ㄹㆍ]·[ㅁㆍㄹ] :쥐·주·어"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0190",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s5-WS112": {
+    "title": "『월인석보』 권1 12ㄱ 협주 (1459)",
+    "lines": [
+      "{果|광}[ㄴㆍㄴ] 여르미오"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0180",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "noBangjeom": true
+  },
+  "O-s5-DS1017": {
+    "title": "『분류두공부시언해』 초간본 권10 17ㄱ (1481)",
+    "lines": [
+      "[ㅎㆍㄴ]번 브[ㅿㅓ] 머구메 즈믄 시르미 흗[ㄴㆍ]다"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P51_BD_v010&recordId=P51_BD_e01_v010_0180",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "noBangjeom": true
+  },
+  "O-s5-DS114": {
+    "title": "『분류두공부시언해』 초간본 권11 4ㄱ (1481)",
+    "lines": [
+      "[ㅁㆍ][ㅿㆍ]매 온 혜아룜과 [ㅼㅗ] 즈믄 혜아료[ㅁㆍㄹ] 머겟도다"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P51_BD_v011&recordId=P51_BD_e01_v011_0060",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "noBangjeom": true
+  },
+  "O-s6-SS6a": {
+    "title": "『석보상절』 권6 10ㄴ (1447)",
+    "lines": [
+      "{羅|랑}{雲|운}·이 져·머 노·[ㄹㆍ]·[ㅅㆍㄹ] ·즐·겨 {法|·법} 드·로·[ㅁㆍㄹ] ·슬·히 너·겨 ·[ㅎㆍ]거·든"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s6-SS6d": {
+    "title": "『석보상절』 권6 10ㄴ~11ㄱ (1447)",
+    "lines": [
+      "부텨 맛:나·미 어·려[ㅸㅡ]며 {法|·법} 드·로·미 어·려[ㅸㅡ]·니"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s6-SS6e": {
+    "title": "『석보상절』 권6 11ㄱ (1447)",
+    "lines": [
+      ":네 ·이제 :사[ㄹㆍ]·[ㅁㆎ] ·모·[ㅁㆍㄹ] {得|·득}[ㅎㆍ]·고 부텨·를 맛·나 잇[ㄴㆍ]·니"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s6-SS6j": {
+    "title": "『석보상절』 권6 11ㄴ (1447)",
+    "lines": [
+      "{羅|랑}{雲|운}·의 [ㅁㆍ]·[ㅿㆍ]·미 여·러 :아니·라"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s6-YB17a": {
+    "title": "「용비어천가」 제17장 앞절 첫 구절 (1447)",
+    "lines": [
+      "宮女·로 :놀·라샤·미 宮監·[ㅇㆎ] 다·시언마·[ㄹㆍㄴ]"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s6-YB17b": {
+    "title": "「용비어천가」 제17장 뒷절 첫 구절 (1447)",
+    "lines": [
+      "官妓·로 怒·[ㅎㆍ]샤·미 官吏·의 다시언마·[ㄹㆍㄴ]"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-SS6b": {
+    "title": "『석보상절』 권6 10ㄴ (1447)",
+    "lines": [
+      "부:톄 [ㅈㆍ]·로 니[ㄹㆍ]·샤·도 {從|[ㅉㅛㆁ]}·[ㅎㆍ][ㅿㆍㅂ]·디 아·니·[ㅎㆍ]더·니"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-SS6c": {
+    "title": "『석보상절』 권6 10ㄴ (1447)",
+    "lines": [
+      "{後|:[ㆅㅜㅱ]}·에 부:톄 {羅|랑}{雲|운}·이[ㄷㆍ]·려 니[ㄹㆍ]·샤·[ㄷㆎ]"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-SS6h": {
+    "title": "『석보상절』 권6 11ㄴ (1447)",
+    "lines": [
+      "어·루 {法|·법}·을 [ㅂㆎ]·호[ㅿㆍ]·[ㅸㅗ]·리[ㆁㅣ]·다"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-WS1a": {
+    "title": "『월인석보』 권1 9ㄱ (1459)",
+    "lines": [
+      "그 저·긧 {燈|[ㄷㅡㆁ]}{照|·[ㅈㅛㅱ]} {王|[ㅇㅘㆁ]}·이 {普|:퐁}{光|[ㄱㅘㆁ]}{佛|·[ㅃㅜㅭ]}·을 {請|:[ㅊㅓㆁ]}·[ㅎㆍ][ㅿㆍ]·[ㅸㅏ] {供|[ㄱㅗㆁ]}{養|·[ㅇㅑㆁ]}·호리·라 ·[ㅎㆍ]·야"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-WS1b": {
+    "title": "『월인석보』 권1 9ㄴ (1459)",
+    "lines": [
+      "나·라·해 {出|·[ㅊㅠㅭ]}{令|·[ㄹㅕㆁ]}·호·[ㄷㆎ] :됴[ㅎㆍㄴ] 고·[ㅈㆍ]란 ·[ㅍㆍ]·디 :말·오 :다 {王|[ㅇㅘㆁ]}·[ㅺㅢ] 가·져오·라"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-WS1c": {
+    "title": "『월인석보』 권1 9ㄴ (1459)",
+    "lines": [
+      "{善|:쎤}{慧|·[ㆅㅞㅇ]} 드르·시·고 츠기 너·겨"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-WS1d": {
+    "title": "『월인석보』 권1 9ㄴ (1459)",
+    "lines": [
+      "·가·시다·가 {俱|궁}{夷|잉}·[ㄹㆍㄹ] 맛·나시·니"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-WS1e": {
+    "title": "『월인석보』 권1 9ㄴ (1459)",
+    "lines": [
+      "곳 닐·굽 줄·기·를 가·져 :겨샤·[ㄷㆎ]"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-WS1f": {
+    "title": "『월인석보』 권1 9ㄴ~10ㄱ (1459)",
+    "lines": [
+      "{王|[ㅇㅘㆁ]}ㄱ {出|·[ㅊㅠㅭ]}{令|·[ㄹㅕㆁ]}·을 저[ㅆㆍ]·[ㅸㅏ] {甁|[ㅃㅕㆁ]}ㄱ :소·배 [ㄱㆍ]·초·아 ·뒷·더시·니"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-WS1g": {
+    "title": "『월인석보』 권1 10ㄱ (1459)",
+    "lines": [
+      "{善|:쎤}{慧|·[ㆅㅞㅇ]} {精|[ㅈㅕㆁ]}{誠|[ㅆㅕㆁ]}·이 {至|·징}{極|·끅}·[ㅎㆍ]실·[ㅆㆎ] 고·지 소·사·나거·늘"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-WS1h": {
+    "title": "『월인석보』 권1 10ㄱ (1459)",
+    "lines": [
+      "조·차 블·러 ·사·아 지·라 ·[ㅎㆍ]신·대"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-WS1i": {
+    "title": "『월인석보』 권1 10ㄱ (1459)",
+    "lines": [
+      "{俱|궁}{夷|잉} 니[ㄹㆍ]·샤·[ㄷㆎ]"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-WS1j": {
+    "title": "『월인석보』 권1 10ㄱ (1459)",
+    "lines": [
+      "{大|·땡}{闕|·[ㄱㅝㅭ]}·에 보·내[ㅿㆍ]·[ㅸㅏ] 부텻·긔 받[ㅈㆍ]·[ㅸㆍㅭ] 고·지·라 :몯[ㅎㆍ]·리·라"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-YB29": {
+    "title": "「용비어천가」 제29장 앞절 끝 구절 (1447)",
+    "lines": [
+      "大耳兒·[ㄹㆍㄹ] 臥龍·이 :돕·[ㅅㆍ][ㅸㆍ]·니"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-YB55": {
+    "title": "「용비어천가」 제55장 앞절 (1447)",
+    "lines": [
+      "逐鹿未掎·예 燕人·이 向慕·[ㅎㆍ][ㅿㆍ]·[ㅸㅏ] 梟騎 보·내·야 戰陣·[ㅇㆍㄹ] :돕·[ㅅㆍ][ㅸㆍ]·니"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s7-YB63": {
+    "title": "「용비어천가」 제63장 뒷절 끝 구절 (1447)",
+    "lines": [
+      "慶爵·[ㅇㆍㄹ] 받[ㅈㆍ]·[ㅸㆍ]·니[ㆁㅣ]·다"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s8-SS6f": {
+    "title": "『석보상절』 권6 11ㄱ (1447)",
+    "lines": [
+      ":엇·뎨 게을·어 {法|·법}·을 아·니 듣[ㄴㆍㄴ]·다"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
+    "certainty": "◎",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s8-SS6g": {
+    "title": "『석보상절』 권6 11ㄱ (1447)",
+    "lines": [
+      "{羅|랑}{雲|운}·이 [ㅅㆍㄹ]·[ㅸㅗ]·[ㄷㆎ] 부텻 {法|·법}·이 {精|[ㅈㅕㆁ]}{微|밍}·[ㅎㆍ]·야 져·믄 아·[ㅎㆎ] 어·느 듣[ㅈㆍ]·[ㅸㅗ]·리[ㆁㅣㅅ]·고"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s8-SS6i": {
+    "title": "『석보상절』 권6 11ㄴ (1447)",
+    "lines": [
+      "네 목:수·믈 미·더 ·[ㅈㆍ]·[ㄹㅏㅭ] {時|씽}{節|·[ㅈㅕㅭ]}·을 기·드·리[ㄴㆍㄴ]·다"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s8-SS68": {
+    "title": "『석보상절』 권6 8ㄱ (1447)",
+    "lines": [
+      ":네 :디·나건 :녜 :뉫 {時|씽}{節|·[ㅈㅕㅭ]}·에 {盟|[ㅁㅕㆁ]}{誓|·쎙} {發|·[ㅂㅓㅭ]}{願|·[ㆁㅝㄴ]}·혼 :이·[ㄹㆍㄹ] :혜[ㄴㆍㄴ]·다 모·[ㄹㆍ][ㄴㆍㄴ]·다"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0110",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s8-WS894": {
+    "title": "『월인석보』 권8 94ㄴ 협주 (1459)",
+    "lines": [
+      "이 [ㅼㆍ]리 너희 죵가"
+    ],
+    "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v008&recordId=P14_WS_e01_v008_0940",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "noBangjeom": true
+  },
+  "O-s8-YB15": {
+    "title": "「용비어천가」 제15장 뒷절 끝 구절 (1447)",
+    "lines": [
+      "九變之局·이 :사[ㄹㆍㅮ] ·[ㅳㅡ]디·리[ㆁㅣㅅ]·가"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s8-YB88": {
+    "title": "「용비어천가」 제88장 앞절 끝 구절 (1447)",
+    "lines": [
+      "遮陽ㄱ :세 ·쥐 :녜·도 잇·더신·가"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s8-YB28": {
+    "title": "「용비어천가」 제28장 앞절 (1447)",
+    "lines": [
+      "員·의 지·븨 ·가·샤 避仇[ㅎㆍㅭ] 소·[ㄴㆎ] :마·리 兩漢 故事·애 :엇더[ㅎㆍ]·니[ㆁㅣㅅ]·고"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
+  },
+  "O-s8-YB47": {
+    "title": "「용비어천가」 제47장 앞절 끝 구절 (1447)",
+    "lines": [
+      "어·듸 머·러 威不及[ㅎㆍ]·리[ㆁㅣㅅ]·고"
+    ],
+    "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
+    "certainty": "○",
+    "doc": "design/research/10_원문_15세기문헌.md"
   },
   "O-s1-YEONGDONG": {
     "title": "『삼국사기』 권34 잡지3 지리1 신라 상주 (1145)",

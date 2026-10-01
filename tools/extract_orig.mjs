@@ -133,7 +133,10 @@ function parseBlock(lines, at, rel, id) {
   }
   if (errors.length) return { block: null, errors, consumed };
   const srcUrl = (src.value.match(/https?:\/\/[^\s<>]+/) || [src.value])[0].replace(/[,.;]+$/, '');
-  return { block: { title, lines: body, src: srcUrl, certainty, doc: rel }, errors, consumed };
+  const block = { title, lines: body, src: srcUrl, certainty, doc: rel };
+  // '- 방점: 표기 안 함' 블록은 방점을 판독하지 못한 구절이다(평성이라는 뜻이 아님). 화면은 방점 설정과 상관없이 방점 없이 보인다.
+  if (meta['방점'] && /^표기\s*안\s*함/.test(meta['방점'].value)) block.noBangjeom = true;
+  return { block, errors, consumed };
 }
 
 export function renderGenerated(orig) {
@@ -143,7 +146,7 @@ export function renderGenerated(orig) {
     ' * 자동 생성 파일 — 손으로 고치지 않는다.',
     ' * 만든 도구: tools/extract_orig.mjs (원본: design/research/*.md 의 spec §19-2 原文 블록, 확실도 △ 제외)',
     ' * 다시 만들기: node tools/extract_orig.mjs    낡았는지 점검: node tools/extract_orig.mjs --check',
-    ' * NM.data.ORIG[<블록 id>] = { title, lines: [원문 줄…], src: <출처 URL 또는 교과서 쪽>, certainty: ◎|○, doc: <리서치 문서> }',
+    ' * NM.data.ORIG[<블록 id>] = { title, lines: [원문 줄…], src: <출처 URL 또는 교과서 쪽>, certainty: ◎|○, doc: <리서치 문서>, noBangjeom?: true }',
     ' */',
     'window.NM = window.NM || {};',
     'NM.data = NM.data || {};',
