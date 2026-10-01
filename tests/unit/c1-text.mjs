@@ -145,4 +145,7 @@ const bad = yet.buildDom('[ㄱㅏㄱㅏ]', { document: doc });
 assert.equal(ctx.__nmErrors.length, before + 1);
 assert.equal(bad.textContent, '[ㄱㅏㄱㅏ]');
 
+// 규칙 문장 빈칸 자리 '{?}' 는 루비가 아니라 빈칸 표시
+assert.equal(yet.render('주격은 {?} 이다'), '주격은 ＿＿ 이다');
+
 console.log('c1 text ok');

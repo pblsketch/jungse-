@@ -144,7 +144,8 @@ export function sceneEntries(SCENES) {
 export function sceneVariants(key, scene) {
   const out = [{ label: key, level: null, scene }];
   if (!scene || typeof scene !== 'object') return out;
-  const holders = [scene.variants, scene.byLevel, scene];
+  // 장면 진행기가 쓰는 학교급별 판은 scene.editions[level] (얕은 덮기). 옛 이름 variants/byLevel/scene[level] 도 받는다.
+  const holders = [scene.editions, scene.variants, scene.byLevel, scene];
   const done = new Set();
   for (const h of holders) {
     if (!h || typeof h !== 'object') continue;
@@ -154,7 +155,7 @@ export function sceneVariants(key, scene) {
       if (!('items' in v) && !('contexts' in v)) continue;
       done.add(lv);
       const merged = Object.assign({}, scene, v);
-      delete merged.variants; delete merged.byLevel;
+      delete merged.variants; delete merged.byLevel; delete merged.editions;
       for (const l2 of LEVELS) delete merged[l2];
       out.push({ label: `${key}[${lv}]`, level: lv, scene: merged });
     }
