@@ -10,7 +10,7 @@
   "tilewidth": 32,
   "tileheight": 32,
   "nextlayerid": 6,
-  "nextobjectid": 13,
+  "nextobjectid": 16,
   "tilesets": [],
   "layers": [
     {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s0.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
@@ -27,8 +27,13 @@
         {"id": 10, "name": "window-wall-low", "type": "", "x": 1095, "y": 640, "width": 57, "height": 160, "rotation": 0, "visible": true},
         {"id": 11, "name": "cabinet-right", "type": "", "x": 1025, "y": 795, "width": 127, "height": 101, "rotation": 0, "visible": true}
       ]},
-    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
-    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 13, "name": "textbook", "type": "", "x": 300, "y": 278, "width": 70, "height": 32, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s0.c1"}]},
+        {"id": 14, "name": "bookshelf", "type": "", "x": 770, "y": 148, "width": 135, "height": 78, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s0.c2"}]}
+      ]},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 15, "name": "teacher", "type": "", "x": 600, "y": 330, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "teacher"}, {"name": "contextId", "type": "string", "value": "s0.c3"}, {"name": "sprite", "type": "string", "value": "teacher_modern"}]}
+      ]},
     {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
         {"id": 12, "name": "spawn", "type": "", "x": 576, "y": 770, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
       ]}
