@@ -1,0 +1,70 @@
+/*
+ * 기믹 'threeEraLink' (S11 세 시대 변환) — js/gimmicks/threeEraLink.js
+ * - 글자 크기: 과제 창 글꼴(css/stage.css: calc(17px * var(--fs, 1) * var(--st-big, 1)))을 em 으로 따른다 → 글자 크기 3단계·교사 크게 보기.
+ * - 색만으로 나누지 않는다: 틀림 ✕ · 강조 ★ · 정답/맞음 ○ · 고름 ● 기호와 화면 낭독기 글이 늘 함께 붙는다. 테두리 모양도 다르다.
+ * - 누를 곳은 44px 이상. 360px 너비에서 가로 스크롤 없음(칸이 줄바꿈). 움직임 줄이기면 전환 없음.
+ */
+.tel { display: flex; flex-direction: column; gap: .9em; }
+.tel-orig { max-height: 14em; overflow: auto; }
+.tel-sec { display: flex; flex-direction: column; gap: .5em; padding: .6em .7em; border-radius: 10px; border: 1px solid var(--st-line, rgba(43, 36, 32, .22)); background: #fffaf0; position: relative; }
+.tel-title { margin: 0; font-size: 1.02em; font-weight: 700; }
+.tel-help { margin: 0; font-size: .9em; }
+
+/* 세 시대 칸 */
+.tel-grid { display: flex; flex-direction: column; gap: .45em; }
+.tel-row { display: flex; flex-wrap: wrap; align-items: center; gap: .3em; padding: .2em .25em; border-radius: 8px; position: relative; }
+.tel-head { font-size: .85em; font-weight: 700; color: var(--ink, #2b2420); }
+.tel-head .tel-era { flex: 1 1 5.5em; min-width: 4.5em; text-align: center; }
+.tel-arrow { flex: 0 0 auto; opacity: .7; }
+.tel-cell { flex: 1 1 5.5em; min-width: 4.5em; display: flex; }
+.tel-anchor { align-items: center; justify-content: center; min-height: 44px; padding: .2em .5em; border-radius: 8px; background: var(--hanji, #efe4cf); border: 2px solid var(--ink, #2b2420); font-size: 1.15em; }
+.tel-yet { font-family: var(--font-yet, 'NMYet', 'NMSans', serif); }
+
+.tel-slot, .tel-chip, .tel-kind {
+  min-height: 44px; min-width: 44px; padding: .25em .6em; border-radius: 8px; cursor: pointer;
+  border: 2px dashed var(--ink, #2b2420); background: #fffdf7; color: var(--ink, #2b2420);
+  font: 600 1em/1.3 var(--font-ui, system-ui, sans-serif); position: relative;
+  transition: background-color .15s ease, transform .15s ease;
+}
+.tel-slot { width: 100%; font-size: 1.15em; display: inline-flex; align-items: center; justify-content: center; gap: .3em; }
+.tel-slot.is-filled { border-style: solid; }
+.tel-slot[aria-pressed="true"], .tel-chip[aria-pressed="true"] { background: #fff1c9; border-style: double; border-width: 4px; }
+.tel-chip { font-size: 1.15em; border-style: solid; }
+.tel-chip[aria-pressed="true"]::before { content: '\25CF\00a0'; font-size: .7em; }
+.tel-chip[hidden], .tel-pool-empty[hidden], .tel-need[hidden], .tel-submit[hidden] { display: none; }
+.tel-slot:disabled, .tel-chip:disabled, .tel-kind:disabled { cursor: default; opacity: 1; }
+.tel-slot:focus-visible, .tel-chip:focus-visible, .tel-kind:focus-visible { outline: 3px solid var(--st-focus, #d08a12); outline-offset: 2px; }
+.tel-pool { display: flex; flex-wrap: wrap; gap: .4em; padding: .45em; border-radius: 8px; background: var(--st-shade, rgba(43, 36, 32, .07)); min-height: 44px; }
+.tel-pool-empty { margin: 0; align-self: center; font-size: .9em; }
+
+/* 적는 방식 */
+.tel-sp { display: flex; flex-direction: column; gap: .3em; padding: .45em .5em; border-radius: 8px; border: 1px solid var(--st-line, rgba(43, 36, 32, .22)); background: #fffdf7; position: relative; }
+.tel-ex { margin: 0; font-size: 1.08em; line-height: 1.7; }
+.tel-target { background: transparent; color: inherit; text-decoration: underline; text-decoration-thickness: .14em; text-underline-offset: .22em; font-weight: 700; padding: 0 .1em; border-bottom: 0; }
+.tel-cut { opacity: .7; padding: 0 .15em; }
+.tel-src { margin: 0; font-size: .8em; opacity: .85; }
+.tel-kinds { display: flex; flex-wrap: wrap; gap: .4em; }
+.tel-kind { border-style: solid; display: inline-flex; align-items: center; gap: .3em; }
+.tel-kind[aria-pressed="true"] { background: #fff1c9; border-width: 3px; }
+.tel-kind-sym { font-size: .8em; }
+
+/* 표시: 틀림 ✕ / 강조 ★ / 정답 ○ — 기호 + 테두리 모양 */
+.tel-sym { display: inline-flex; align-items: center; font-size: .8em; font-weight: 700; margin-left: .25em; }
+.is-wrong { border-color: var(--seal, #b8322a) !important; border-style: dotted !important; border-width: 3px !important; background: #fdf0ee !important; }
+.tel-sym-wrong { color: var(--seal, #b8322a); }
+.tel-row.is-hint, .tel-sp.is-hint, .tel-sec.is-hint { outline: 3px dashed var(--st-focus, #d08a12); outline-offset: 2px; background: #fff6dd; }
+.tel-row > .tel-sym-hint, .tel-sp > .tel-sym-hint, .tel-sec > .tel-sym-hint { position: absolute; top: .1em; right: .3em; color: #8a5a00; }
+.is-answer { border-color: #2c7a3a !important; border-style: solid !important; border-width: 3px !important; background: #eef7ec !important; }
+.tel-sym-answer { color: #2c7a3a; }
+.tel.is-done .tel-slot.is-filled, .tel.is-done .tel-kind[aria-pressed="true"] { border-color: #2c7a3a; border-style: solid; }
+
+.tel-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .5em; }
+.tel-need { margin: 0; font-size: .85em; flex: 1 1 12em; }
+
+html[data-nm-motion="reduce"] .tel *, html.nm-reduced-motion .tel * { transition: none !important; animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .tel * { transition: none !important; } }
+@media (max-width: 420px) {
+  .tel-arrow { display: none; }
+  .tel-head .tel-era, .tel-cell { flex-basis: 30%; min-width: 0; }
+  .tel-slot, .tel-chip, .tel-anchor { font-size: 1.05em; padding: .2em .35em; }
+}
