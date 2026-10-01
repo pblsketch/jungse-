@@ -1,0 +1,98 @@
+{
+ "type": "map",
+ "version": "1.10",
+ "tiledversion": "1.10.2",
+ "orientation": "orthogonal",
+ "renderorder": "right-down",
+ "infinite": false,
+ "width": 48,
+ "height": 30,
+ "tilewidth": 32,
+ "tileheight": 32,
+ "nextlayerid": 6,
+ "nextobjectid": 20,
+ "tilesets": [],
+ "layers": [
+  {
+   "id": 1,
+   "name": "bg",
+   "type": "imagelayer",
+   "image": "../../../assets/bg/test.webp",
+   "x": 0,
+   "y": 0,
+   "offsetx": 0,
+   "offsety": 0,
+   "opacity": 1,
+   "visible": true
+  },
+  {
+   "id": 2,
+   "name": "collision",
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "x": 0,
+   "y": 0,
+   "opacity": 1,
+   "visible": true,
+   "objects": [
+    {
+     "id": 1,
+     "name": "trees-top",
+     "type": "",
+     "x": 0,
+     "y": 0,
+     "width": 1536,
+     "height": 64,
+     "rotation": 0,
+     "visible": true
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "spots",
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "x": 0,
+   "y": 0,
+   "opacity": 1,
+   "visible": true,
+   "objects": []
+  },
+  {
+   "id": 4,
+   "name": "npcs",
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "x": 0,
+   "y": 0,
+   "opacity": 1,
+   "visible": true,
+   "objects": []
+  },
+  {
+   "id": 5,
+   "name": "spawn",
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "x": 0,
+   "y": 0,
+   "opacity": 1,
+   "visible": true,
+   "objects": [
+    {
+     "id": 14,
+     "name": "spawn",
+     "type": "",
+     "x": 300,
+     "y": 480,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "point": true
+    }
+   ]
+  }
+ ]
+}
