@@ -22,7 +22,13 @@
   const DONE = ['confirmed', 'confirmedByHelp'];
   const ALWAYS_BANGJEOM = ['s4', 's10'];
 
-  const sceneOf = (id) => (D.SCENES && D.SCENES[id]) || null;
+  // 학교급별 판(scene.editions[level])은 장면 진행기와 같은 규칙(NM.ui.stageLogic.resolveScene)으로 합친다.
+  const curLevel = () => { const a = UI.app; if (!a) return null; return typeof a.level === 'function' ? a.level() : a.level; };
+  const sceneOf = (id, level) => {
+    const raw = (D.SCENES && D.SCENES[id]) || null;
+    const SL = UI.stageLogic, lv = level || curLevel();
+    return raw && SL && typeof SL.resolveScene === 'function' && lv ? SL.resolveScene(raw, lv) : raw;
+  };
   const stageLabel = (id) => (UI.dom.has('stageLabels.' + id) ? t('stageLabels.' + id) : String(id));
   function stageName(id) {
     const s = sceneOf(id);
@@ -53,7 +59,7 @@
       const rec = prog.items[it.id];
       if (!rec || DONE.indexOf(rec.state) < 0) return;
       const right = (it.cards || []).filter(c => c && c.correct === true)[0];
-      out.push({ id: it.id, word: typeof it.word === 'string' ? it.word : (typeof it.label === 'string' ? it.label : ''), modern: right && typeof right.text === 'string' ? right.text : '', byHelp: rec.state === 'confirmedByHelp' });
+      out.push({ id: it.id, word: typeof it.word === 'string' ? it.word : (typeof it.label === 'string' ? it.label : ''), modern: typeof it.gloss === 'string' && it.gloss ? it.gloss : (right && typeof right.text === 'string' ? right.text : ''), byHelp: rec.state === 'confirmedByHelp' });
     });
     return out;
   }
@@ -63,7 +69,10 @@
     const src = [];
     [sc.translate, sc.translations].forEach(x => {
       if (Array.isArray(x)) src.push.apply(src, x);
-      else if (x && Array.isArray(x.lines)) src.push.apply(src, x.lines);
+      else if (x && typeof x === 'object') {
+        if (x.id) src.push(x); // 장면 진행기 형식: translate = { id, text, at, lines }
+        if (Array.isArray(x.lines)) src.push.apply(src, x.lines);
+      }
     });
     return src.filter(l => l && typeof l === 'object');
   }

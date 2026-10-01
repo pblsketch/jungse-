@@ -20,8 +20,9 @@
       const c = sc.contexts.filter(x => x && x.id === cid)[0];
       if (c && typeof c.label === 'string' && c.label) return c.label;
     }
-    if (sc && place.npcId && Array.isArray(sc.npcs)) {
-      const n = sc.npcs.filter(x => x && x.id === place.npcId)[0];
+    if (sc && place.npcId && sc.npcs) {
+      // 장면 진행기 형식은 npcs = { <npcId>: { name, lines } } (배열 형식도 받는다)
+      const n = Array.isArray(sc.npcs) ? sc.npcs.filter(x => x && x.id === place.npcId)[0] : sc.npcs[place.npcId];
       if (n && typeof n.name === 'string' && n.name) return n.name;
     }
     return String(place.label || place.id || '');

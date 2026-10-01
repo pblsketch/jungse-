@@ -76,11 +76,13 @@
     sec.setAttribute('data-orig', blockId);
     const head = el(doc, 'div', 'nm-orig-head');
     head.appendChild(badge('orig', { document: doc }));
-    if (block.title) { const t = el(doc, 'span', 'nm-orig-title'); t.appendChild(YB().build(block.title, { document: doc })); head.appendChild(t); }
+    // 제목은 메타 정보(평문)다 — 표기로 해석하면 '첫째·둘째'의 가운뎃점이 방점으로 읽힌다.
+    if (block.title) head.appendChild(el(doc, 'span', 'nm-orig-title', block.title));
     sec.appendChild(head);
     const body = el(doc, 'div', 'nm-orig-body');
     block.lines.forEach(ln => body.appendChild(YB().line(ln, { document: doc, solved: o.solved })));
     sec.appendChild(body);
+    if (block.noBangjeom) sec.appendChild(el(doc, 'p', 'nm-orig-note', TX().t('marks.noBangjeom')));
     if (block.src) {
       const s = el(doc, 'p', 'nm-card-src');
       s.appendChild(el(doc, 'span', 'nm-card-src-label', TX().t('marks.src')));

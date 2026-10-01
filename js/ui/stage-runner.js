@@ -494,6 +494,16 @@
       }
       return Promise.resolve(false);
     }
+    // 교사 진행은 메모리 저장소로만 한다: 교사 표시인데 학생 저장소가 오면 학생 기록을 건드리므로 멈춘다.
+    if (c.teacher === true && store.isTeacher !== true) {
+      NM.reportError('stage.run', 'teacher mode needs the in-memory teacher store');
+      last = { stageId, phase: 'exited' };
+      if (typeof c.onExit === 'function') {
+        try { c.onExit({ stageId, completed: false, reason: 'noScene', newlyDone: false, glyphAdded: false, saved: false }); }
+        catch (e) { NM.reportError('stage.onExit', e); }
+      }
+      return Promise.resolve(false);
+    }
     const scene = L().resolveScene(raw, store.level);
     scene.id = stageId;
     const my = ++token;
@@ -509,6 +519,11 @@
     const st = (NM.data.STAGES && NM.data.STAGES[stageId]) || {};
     const mapKey = scene.mapKey || st.mapKey || stageId;
     const bgmKey = scene.bgmKey || st.bgmKey || null;
+    // 주인공 그림: 고른 주인공(교사 모드는 1번)의 아틀라스(ASSETS.sprites.hero_<번호>)
+    if (typeof E().setPlayerSprite === 'function') {
+      const pn = cur.teacher ? 1 : (store.get().protagonist || 1);
+      E().setPlayerSprite('hero_' + pn);
+    }
     return E().ready()
       .then(() => E().loadMap(mapKey))
       .then(() => {

@@ -120,6 +120,7 @@ html[data-nm-bangjeom="off"] .nm-bj-syl { padding-left: 0; }
 .nm-card-text, .nm-card-real, .nm-card-src { margin: .35em 0 0; }
 .nm-card-real-label { font-weight: 700; color: var(--fiction, #2f8a86); }
 .nm-card-src { font-size: .82em; opacity: .85; }
+.nm-orig-note { margin: .35em 0 0; font-size: .8em; opacity: .85; font-style: italic; }
 .nm-card-src-label { font-weight: 700; }
 
 /* ── 대사 ── */

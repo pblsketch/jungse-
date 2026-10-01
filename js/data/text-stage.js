@@ -32,7 +32,8 @@ NM.data.TEXT.stage = {
   },
   marks: {
     orig: '原文', explain: '풀이', know: '알아 두기', fiction: '게임 설정 · 虛',
-    variant: '이본 노트', interp: '해석', real: '실제로는 →', src: '출처', notScored: '채점하지 않아요'
+    variant: '이본 노트', interp: '해석', real: '실제로는 →', src: '출처', notScored: '채점하지 않아요',
+    noBangjeom: '이 구절은 원본의 방점을 판독하지 못해 방점 없이 보여요(평성이라는 뜻이 아니에요)'
   },
   state: {
     unseen: '아직 만나지 못한 말', met: '만남', guessed: '추측', confirmable: '확정할 수 있음',

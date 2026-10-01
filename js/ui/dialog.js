@@ -40,11 +40,26 @@
     return { name: '', portrait: null };
   }
 
-  function portraitEl(key, name) {
+  // 초상 키 찾기: 'me' → 고른 주인공(hero_<번호>), 'senior' → senior_tongsa. 그다음 <키>_<표정> → <키>_neutral → <키>.
+  const PORTRAIT_ALIAS = { senior: 'senior_tongsa' };
+  function portraitSrc(key, env, expr) {
+    const P = NM.data.ASSETS && NM.data.ASSETS.portraits;
+    if (!key || !P) return null;
+    let base = key;
+    if (key === 'me') {
+      const rec = env && env.store && env.store.get ? env.store.get() : null;
+      const n = env && env.teacher ? 1 : (rec && rec.protagonist) || 1;
+      base = 'hero_' + n;
+    } else if (PORTRAIT_ALIAS[key]) base = PORTRAIT_ALIAS[key];
+    const tries = [expr ? base + '_' + expr : null, base + '_neutral', base, key];
+    for (const k of tries) if (k && typeof P[k] === 'string') return P[k];
+    return null;
+  }
+
+  function portraitEl(key, name, env, expr) {
     const box = el('span', 'nm-dlg-portrait');
     box.setAttribute('aria-hidden', 'true');
-    const P = NM.data.ASSETS && NM.data.ASSETS.portraits;
-    const src = key && P && typeof P[key] === 'string' ? P[key] : null;
+    const src = portraitSrc(key, env, expr);
     if (src) {
       const img = document.createElement('img');
       img.src = src; img.alt = ''; img.decoding = 'async';
@@ -82,7 +97,7 @@
     }
     const sp = speaker(ln.who, env);
     const row = el('div', 'nm-dlg-line' + (sp.name ? '' : ' is-narration'));
-    if (sp.name) row.appendChild(portraitEl(ln.portrait || sp.portrait, sp.name));
+    if (sp.name) row.appendChild(portraitEl(ln.portrait || sp.portrait, sp.name, env, ln.expr));
     const main = el('div', 'nm-dlg-main');
     if (sp.name) {
       const who = el('span', 'nm-dlg-who', sp.name);
