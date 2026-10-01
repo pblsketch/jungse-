@@ -65,6 +65,8 @@
       var store = NM.core.save.createStore({ storage: window.localStorage, urlLevel: q.get('level') || 'm', teacher: teacher, level: q.get('level') || 'm' });
       if (q.get('nick') && !store.get().nickname) store.setup({ protagonist: 1, nickname: q.get('nick') });
       window.__store = store;
+      // 수첩 규칙 읽기(G8)를 위해 화면 흐름(U1)의 store() 통로만 흉내 낸다 — index.html 에서는 진짜 NM.ui.app 이 이 일을 한다
+      NM.ui.app = NM.ui.app || { started: true, store: function () { return window.__store; } };
       window.__exits = [];
       window.__saved = 0;
       NM.engine.boot().then(function () {

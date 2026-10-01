@@ -12,6 +12,7 @@
  *   match 는 조각 경계에 맞아야 한다(방점까지 原文 그대로). at 의 자리는 0부터 세고 빈칸은 세지 않는다.
  * ■ API
  *   pieces(line), places(line) → [{ piece, index(조각 번호) }], locate(line, word) → { from, to }(조각 번호, to 는 끝 다음) | null
+ *   wordText(line, word) → 그 낱말 자리의 데이터 표기(原文 글자 그대로, 못 찾으면 '')
  *   segment(line, words) → [{ text, wordId|null }]   (겹치거나 못 찾은 낱말은 NM.reportError 로 알리고 건너뜀)
  *   block(id) → ORIG 블록 | null, plain(text) → 평문(방점 없음·루비 바탕), modern(text) → 화면 낭독용 현대 표기
  *   textOf(name, level) → t(key, vars)   NM.data.TEXT.g[name] 문구. levels[level][key] 가 있으면 그것을 먼저 쓴다
@@ -95,6 +96,12 @@
       }
     }
     return null;
+  }
+
+  // 낱말 자리의 데이터 표기(原文 글자 그대로) — 없으면 ''
+  function wordText(line, word) {
+    const r = locate(line, word);
+    return r ? pieces(line).slice(r.from, r.to).join('') : '';
   }
 
   function segment(line, words) {
@@ -311,5 +318,5 @@
     return { id, name: c && c.name ? c.name : null, text: c && c.text ? c.text : null, stage, stageName };
   }
 
-  NM.g789 = { pieces, places, locate, segment, block, plain, modern, textOf, el, mark, richSpan, yetPiece, origView, radios, knownRules, ruleInfo };
+  NM.g789 = { pieces, places, locate, wordText, segment, block, plain, modern, textOf, el, mark, richSpan, yetPiece, origView, radios, knownRules, ruleInfo };
 })(typeof window !== 'undefined' ? window : globalThis);
