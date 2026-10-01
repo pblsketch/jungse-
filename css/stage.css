@@ -289,3 +289,8 @@ html[data-nm-bangjeom="off"] .nm-bj-syl { padding-left: 0; }
 /* 움직임 줄이기 */
 html[data-nm-motion="reduce"] .nm-st-glyph, html.nm-reduced-motion .nm-st-glyph { animation: none; }
 @media (prefers-reduced-motion: reduce) { .nm-st-glyph { animation: none; } }
+
+/* 대사 위 장면 그림(줄의 cg 키) */
+.nm-dlg-line.has-cg { flex-wrap: wrap; }
+.nm-dlg-cg { flex: 1 0 100%; margin: 0 0 .5em; }
+.nm-dlg-cg img { display: block; width: 100%; max-height: 42vh; object-fit: contain; border-radius: 8px; background: var(--hanji); }

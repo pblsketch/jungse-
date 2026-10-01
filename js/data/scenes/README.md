@@ -60,12 +60,15 @@ NM.data.SCENES['s6'] = { id: 's6', /* … */ };
 
 ### 대사 줄
 
-문자열(해설) 또는 `{ who, text, portrait?, fiction?, mark?, src? }`.
+문자열(해설) 또는 `{ who, text, portrait?, expr?, cg?, fiction?, mark?, src? }`.
 
 - `who`: `cast` 키 또는 `senior`·`sejong`·`me`·`narrator`
 - `fiction: true` → 이름 옆에 `게임 설정 · 虛` 표지(세종의 지어낸 대사 등). `fiction: '<fiction id>'` → 그 카드를 줄 아래에 붙임
 - `mark: 'know'|'variant'|'interp'|'explain'` → 대사 대신 표지 카드로 보임(`src` 는 출처)
 - `portrait`: `NM.data.ASSETS.portraits` 의 키(없으면 `cast[who].portrait`, 그다음 `who`). 그림이 없으면 이름 첫 글자
+  - 초상 키 찾는 순서: `me` → 고른 주인공 `hero_<번호>`, `senior` → `senior_tongsa`; 그다음 `<키>_<expr>` → `<키>_neutral` → `<키>`. 인물 초상 키는 `js/data/assets.js` 의 `portraits` 를 본다(예: `commoner_man`, `yangban_woman`, `sejong`).
+- `expr`: 표정 `neutral` / `surprised` / `smile` / `thinking` (그 표정 초상이 있을 때만 바뀜)
+- `cg`: `NM.data.ASSETS.cg` 키. 대사 위에 웹툰 그림을 한 장 보인다(예: 도입 `s2_intro`, 절정 `s2_climax`, 오해 장면 반응 `mis_commoner_puzzled`·`mis_yangban_offended`·`mis_child_laughing`·`mis_official_confused`·`mis_woman_flustered`·`mis_monk_bemused`)
 
 ### 항목 (`items`)
 

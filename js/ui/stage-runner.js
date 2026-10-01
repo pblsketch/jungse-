@@ -38,7 +38,7 @@
  *     translate: { id?, text?, at?(맥락 id 또는 npcId — 있으면 그곳에서 통역), lines: [줄] },
  *     translations?: [{ id, text, orig? }],               기믹이 store.addTranslation 으로 남기는 옮긴 구절(수첩용)
  *     editions?: { m: { ...그 학교급 판에서 바꿀 필드 } } }
- *   줄 = 문자열 또는 { who, text, portrait?, fiction?, mark?, src? } (js/ui/dialog.js)
+ *   줄 = 문자열 또는 { who, text, portrait?, expr?(표정: neutral|surprised|smile|thinking), cg?(ASSETS.cg 키), fiction?, mark?, src? } (js/ui/dialog.js)
  *   원문 글자는 장면 데이터에 쓰지 않는다 — 블록 id 로만 가리키고 NM.data.ORIG(자동 생성)에서 그린다.
  * 필요: core(yet·rules·save), engine(api), ui(stage-text·stage-logic·stage-yet·marker·stage-window·dialog·rulecard·
  *       stage-gimmick·item-read·item-task·stage-end), data/text-stage.js

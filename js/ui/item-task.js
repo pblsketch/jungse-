@@ -65,6 +65,7 @@
       status.hidden = !key;
     }
 
+    lastSubmit = onSubmit;
     function onSubmit(answer) {
       const cur = env.rec(itemId);
       if (cur && NM.core.rules.isItemDone(cur)) return;
@@ -149,5 +150,7 @@
     return w;
   }
 
-  NM.ui.itemTask = { open };
+  // 점검용 통로: 지금 열린 기믹 과제 창에 답을 바로 제출한다(기믹 화면 조작은 각 기믹 점검이 맡는다). 화면에 드러내지 않는다.
+  let lastSubmit = null;
+  NM.ui.itemTask = { open, test: { submit(answer) { if (typeof lastSubmit === 'function') lastSubmit(answer); return !!lastSubmit; } } };
 })(typeof window !== 'undefined' ? window : globalThis);

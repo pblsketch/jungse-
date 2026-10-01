@@ -97,6 +97,19 @@
     }
     const sp = speaker(ln.who, env);
     const row = el('div', 'nm-dlg-line' + (sp.name ? '' : ' is-narration'));
+    // 장면 그림: 줄의 cg 키(NM.data.ASSETS.cg) — 대사 위에 웹툰 그림 한 장(글자 없는 그림, 장식이라 화면 낭독기는 건너뜀)
+    if (ln.cg) {
+      const C = NM.data.ASSETS && NM.data.ASSETS.cg;
+      const src = C && typeof C[ln.cg] === 'string' ? C[ln.cg] : null;
+      if (src) {
+        const fig = el('figure', 'nm-dlg-cg');
+        const img = document.createElement('img');
+        img.src = src; img.alt = ''; img.decoding = 'async';
+        fig.appendChild(img);
+        row.classList.add('has-cg');
+        row.appendChild(fig);
+      } else NM.reportError('stage.dialog', 'unknown cg: ' + ln.cg);
+    }
     if (sp.name) row.appendChild(portraitEl(ln.portrait || sp.portrait, sp.name, env, ln.expr));
     const main = el('div', 'nm-dlg-main');
     if (sp.name) {
