@@ -10,7 +10,7 @@
   "tilewidth": 32,
   "tileheight": 32,
   "nextlayerid": 6,
-  "nextobjectid": 10,
+  "nextobjectid": 15,
   "tilesets": [],
   "layers": [
     {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s1.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
@@ -24,8 +24,15 @@
         {"id": 7, "name": "stele-top", "type": "", "x": 525, "y": 245, "width": 85, "height": 60, "rotation": 0, "visible": true},
         {"id": 8, "name": "stele-base", "type": "", "x": 495, "y": 305, "width": 142, "height": 85, "rotation": 0, "visible": true}
       ]},
-    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
-    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 10, "name": "stele", "type": "", "x": 495, "y": 300, "width": 142, "height": 92, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s1.c1"}]}
+      ]},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 11, "name": "scribe", "type": "", "x": 690, "y": 302, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "scribe"}, {"name": "contextId", "type": "string", "value": "s1.c2"}, {"name": "sprite", "type": "string", "value": "anc_scribe"}]},
+        {"id": 12, "name": "child", "type": "", "x": 640, "y": 532, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "child"}, {"name": "contextId", "type": "string", "value": "s1.c3"}, {"name": "sprite", "type": "string", "value": "anc_child"}]},
+        {"id": 13, "name": "woman", "type": "", "x": 960, "y": 428, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "woman"}, {"name": "contextId", "type": "string", "value": "s1.c4"}, {"name": "sprite", "type": "string", "value": "anc_woman"}]},
+        {"id": 14, "name": "man", "type": "", "x": 430, "y": 430, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "man"}, {"name": "contextId", "type": "string", "value": "s1.c5"}, {"name": "sprite", "type": "string", "value": "anc_man"}]}
+      ]},
     {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
         {"id": 9, "name": "spawn", "type": "", "x": 380, "y": 330, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
       ]}
