@@ -30,7 +30,7 @@ const texts = {};
 for (const d of DOCS) {
   const p = join(ROOT, d);
   if (!existsSync(p)) { err(d, '파일이 없다'); continue; }
-  texts[d] = readFileSync(p, 'utf8');
+  texts[d] = readFileSync(p, 'utf8').replace(/\r\n/g, '\n'); // git 자동 줄바꿈(CRLF)과 상관없이 읽는다
 }
 
 // ── 경로 확인 도구 ──
@@ -106,7 +106,7 @@ for (const [doc, text] of Object.entries(texts)) {
       continue;
     }
     if (anchor && rel(abs).endsWith('.md')) {
-      const anchors = anchorsOf(readFileSync(abs, 'utf8'));
+      const anchors = anchorsOf(readFileSync(abs, 'utf8').replace(/\r\n/g, '\n'));
       if (!anchors.has(anchor)) err(doc, `링크의 제목(#${anchor})이 ${rel(abs)} 에 없다`);
     }
   }
