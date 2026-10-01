@@ -4,8 +4,6 @@
  * - 原文: 『석보상절』 권6의 羅雲 문답(화법과 언어 205쪽)과 「용비어천가」의 물음 구절. 블록 id 로만 가리킨다(리서치 10 §4 s8).
  * - 기믹: questionPair (js/gimmicks/README-questionPair.md).
  * - 고2~3 전용 장면이라 모든 항목의 levels 는 ['h23'] 이다(spec §6-1: 누가 들어가도 이 범위).
- * - 규칙 항목의 sentence 는 빈칸 표시 없이 빈칸 바로 앞에서 끝낸다(빈칸이 문장 끝에 붙는다, js/ui/rulecard.js).
- *   c3-yet 이 '{?}' 를 루비 표기로 읽어 실패로 보기 때문이다.
  * - 대사·풀이·대답 카드는 모두 새로 쓴 글이다. 오답 카드는 NM.data.WRONG_CARDS 의 오개념을 옮기거나(src 표시), 규칙 카드 문장에서 생기는 혼동을 적었다.
  */
 window.NM = window.NM || {};
@@ -141,7 +139,7 @@ NM.data.SCENES['s8'] = {
       ruleCard: 'rule.secondPersonQ',
       word: '듣[ㄴㆍㄴ]·다', wordForms: ['듣[ㄴㆍㄴ]다'], gloss: '듣느냐',
       prompt: '\':네\'가 주어인 말의 끝 \'-[ㄴㆍㄴ]·다\'는 무엇일까?',
-      sentence: '주어가 듣는 사람 \'너\'인 말끝의 \'-ㄴ다\'는',
+      sentence: '주어가 듣는 사람 \'너\'인 말끝의 \'-ㄴ다\'는 {?}.',
       cards: [
         { id: 's8.r1.a', text: '의문사가 있든 없든 \'너\'에게 묻는 말을 끝맺는다(듣느냐, 모르느냐)', correct: true },
         { id: 's8.r1.b', text: '지금의 \'듣는다\'처럼 사실을 서술하는 말을 끝맺는다', correct: false,
@@ -167,7 +165,7 @@ NM.data.SCENES['s8'] = {
       id: 's8.r2', kind: 'read', levels: ['h23'], label: '물음의 갈래를 가르는 법',
       ruleCard: 'rule.whQ',
       prompt: '판정 의문과 설명 의문은 무엇으로 가를까?',
-      sentence: '판정 의문과 설명 의문을 가를 때는',
+      sentence: '판정 의문과 설명 의문을 가를 때는 {?}.',
       cards: [
         { id: 's8.r2.a', text: '먼저 \'어·느\', \':엇더\', \'어·듸\' 같은 의문사가 있는지 본다. 있으면 설명 의문이고 \'-고\' 계열로 끝맺는다', correct: true },
         { id: 's8.r2.b', text: '의문사는 볼 필요 없이 말끝 모양만 보면 된다', correct: false,
@@ -192,7 +190,7 @@ NM.data.SCENES['s8'] = {
       id: 's8.r3', kind: 'read', levels: ['h23'], label: '의문사가 없는 물음',
       ruleCard: 'rule.yesNoQ',
       prompt: '의문사 없는 물음 끝의 \'-가\'는 무엇일까?',
-      sentence: '의문사 없는 물음 끝의 \'-가\'는',
+      sentence: '의문사 없는 물음 끝의 \'-가\'는 {?}.',
       cards: [
         { id: 's8.r3.a', text: '\'예, 아니요\'의 대답을 바라는 판정 의문을 끝맺는 말이다', correct: true },
         { id: 's8.r3.b', text: '주격 조사 \'가\'다', correct: false,
