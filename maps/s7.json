@@ -10,7 +10,7 @@
   "tilewidth": 32,
   "tileheight": 32,
   "nextlayerid": 6,
-  "nextobjectid": 14,
+  "nextobjectid": 19,
   "tilesets": [],
   "layers": [
     {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s7.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
@@ -28,8 +28,15 @@
         {"id": 11, "name": "bell-pavilion", "type": "", "x": 1660, "y": 320, "width": 260, "height": 200, "rotation": 0, "visible": true},
         {"id": 12, "name": "bushes-right", "type": "", "x": 1780, "y": 500, "width": 140, "height": 50, "rotation": 0, "visible": true}
       ]},
-    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
-    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 14, "name": "bell-pavilion-desk", "type": "", "x": 1690, "y": 522, "width": 70, "height": 20, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s7.c5"}]}
+      ]},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 15, "name": "official", "type": "", "x": 370, "y": 335, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "official"},{"name": "contextId", "type": "string", "value": "s7.c1"},{"name": "sprite", "type": "string", "value": "official"}]},
+        {"id": 16, "name": "messenger", "type": "", "x": 230, "y": 365, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "messenger"},{"name": "contextId", "type": "string", "value": "s7.c2"},{"name": "sprite", "type": "string", "value": "commoner_man"}]},
+        {"id": 17, "name": "scholar", "type": "", "x": 1190, "y": 480, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "scholar"},{"name": "contextId", "type": "string", "value": "s7.c3"},{"name": "sprite", "type": "string", "value": "yangban_man"}]},
+        {"id": 18, "name": "monk", "type": "", "x": 1560, "y": 430, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "monk"},{"name": "contextId", "type": "string", "value": "s7.c4"},{"name": "sprite", "type": "string", "value": "monk"}]}
+      ]},
     {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
         {"id": 13, "name": "spawn", "type": "", "x": 450, "y": 560, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
       ]}
