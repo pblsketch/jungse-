@@ -281,6 +281,7 @@ node tests/server.mjs
 | `js/data/rule-cards.js` | 규칙 카드 이름과 문장, 배우는 장면 | 카드 id(`rule.nomCase` 등)는 바꾸지 않습니다 |
 | `js/data/dogam.js` | 옛글자 도감(글자, 이름, 설명) | 키 이름은 바꾸지 않습니다 |
 | `js/data/wrong-cards.js` | 실제 오개념을 모은 오답 카드 목록 | 화면이 직접 읽지 않습니다. 장면 파일의 오답 카드를 만들 때 골라 옮겨 적는 재료입니다 |
+| `js/data/credits.js` | 첫 화면 '만든 사람들' 창의 출처 문구 | 배경음 출처는 `assets/audio/CREDITS.md`와 같게 둡니다 |
 | `js/data/text-ui.js` | 첫 화면, 설정, 스테이지 고르기, 수첩 등 화면 문구 | `%v%`처럼 `%`로 둘러싼 자리는 값이 들어가는 곳이니 남겨 둡니다 |
 | `js/data/text-stage.js` | 장면 진행 문구(단추, 안내), 별명 뒤 조사 짝 | 같은 주의 |
 | `js/data/text-engine.js` | 맵의 '살피기' 단추 이름 | |
@@ -355,6 +356,8 @@ python tools/build_fonts.py
 ---
 
 ## 7. 출처와 라이선스
+
+게임 첫 화면의 **만든 사람들** 단추를 누르면 아래 출처가 게임 안에서도 보입니다(문구는 `js/data/credits.js`에서 고칩니다).
 
 | 무엇 | 출처 | 라이선스 |
 |---|---|---|

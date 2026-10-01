@@ -182,3 +182,8 @@
 /* 움직임 줄이기: html.nm-reduced-motion 만 따른다(app.js 가 기기 설정 기본값 또는 직접 고른 값으로 붙인다).
    미디어 쿼리를 따로 두지 않는다 — 직접 '끔'을 고르면 기기 설정보다 앞선다. */
 .nm-reduced-motion #nm-screens *, .nm-reduced-motion .nm-modal *, .nm-reduced-motion #nm-toolbar * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+
+/* 만든 사람들 */
+.nm-credits-sec { margin: 0 0 1em; }
+.nm-credits-title { margin: 0 0 .3em; font-size: calc(1.05rem * var(--fs, 1)); }
+.nm-credits-line { margin: 0 0 .35em; font-size: calc(.92rem * var(--fs, 1)); line-height: 1.55; overflow-wrap: anywhere; }

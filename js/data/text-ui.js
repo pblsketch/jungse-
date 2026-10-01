@@ -25,7 +25,8 @@ NM.data.TEXT.ui = {
     start: '시작',
     settings: '설정',
     teacherBadge: '교사 모드',
-    teacherStart: '교사 모드로 시작'
+    teacherStart: '교사 모드로 시작',
+    credits: '만든 사람들'
   },
 
   levels: { m: '중학교', h1: '고1', h23: '고2~3' },

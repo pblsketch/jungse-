@@ -41,7 +41,18 @@
       acts.appendChild(dom.button(t('title.start'), 'start', () => app.beginSetup(), { class: 'nm-btn-primary nm-btn-big', data: { primary: '1' } }));
     }
     acts.appendChild(dom.button(t('title.settings'), 'settings', () => app.openSettings(), { class: 'nm-btn-big' }));
+    acts.appendChild(dom.button(t('title.credits'), 'credits', () => openCredits()));
     box.appendChild(acts);
+  }
+
+  /* ---------- 만든 사람들 (spec §16: 배경음 출처를 게임 안에도 적는다) ---------- */
+  function openCredits() {
+    if (dom.isOpen('credits')) return null;
+    const C = NM.data.CREDITS && Array.isArray(NM.data.CREDITS.sections) ? NM.data.CREDITS.sections : [];
+    const body = el('div', { class: 'nm-credits' }, C.map(s => el('section', { class: 'nm-credits-sec' }, [
+      el('h3', { class: 'nm-credits-title', text: String(s.title || '') })
+    ].concat((s.lines || []).map(line => el('p', { class: 'nm-credits-line' }, dom.yet(String(line))))))));
+    return dom.openModal(body, { name: 'credits', titleKey: 'title.credits' });
   }
 
   /* ---------- 처음 정하기 ---------- */

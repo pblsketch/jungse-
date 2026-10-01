@@ -306,7 +306,13 @@
       level: st.level,
       teacher: state.teacher,
       onExit(result) { if (exited) return; exited = true; exitStage(id, result); },
-      saveImage() { UI.notebookImage.open(api, id); }
+      // 장면 끝 저장 제안은 이 약속이 풀릴 때까지 기다린다(이름·번호 입력 → 이미지 미리 보기를 닫을 때까지)
+      saveImage() {
+        return new Promise(resolve => {
+          const w = UI.notebookImage.open(api, id, { onDone: resolve });
+          if (!w) resolve(false);
+        });
+      }
     };
     try { runner.call(UI.stage, id, ctx); }
     catch (e) { NM.reportError('ui.stage.run', e); ctx.onExit({ error: true }); }

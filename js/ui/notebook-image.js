@@ -172,7 +172,7 @@
     });
   }
 
-  function preview(model, blob) {
+  function preview(model, blob, onDone) {
     const url = URL.createObjectURL(blob);
     const body = el('div', { class: 'nm-img-preview-box' }, [
       el('img', { class: 'nm-img-preview', attrs: { src: url, alt: model.stageLabel + ' ' + model.stageName + ' ' + model.statusText, width: String(W) } }),
@@ -182,10 +182,12 @@
         attrs: { href: url, download: model.fileName }, data: { act: 'download' }
       }))
     ]);
-    dom.openModal(body, { name: 'image-preview', titleKey: 'image.previewTitle', full: true, onClose() { try { URL.revokeObjectURL(url); } catch (e) { /* 무시 */ } } });
+    dom.openModal(body, { name: 'image-preview', titleKey: 'image.previewTitle', full: true, onClose() { try { URL.revokeObjectURL(url); } catch (e) { /* 무시 */ } if (onDone) onDone(true); } });
   }
 
-  function open(app, stageId) {
+  // opts.onDone(saved): 이름·번호 창을 그냥 닫으면 false, 이미지를 만들고 미리 보기를 닫으면 true (장면 끝 저장 제안이 기다린다)
+  function open(app, stageId, opts) {
+    const onDone = opts && typeof opts.onDone === 'function' ? opts.onDone : null;
     if (dom.isOpen('image-form')) return null;
     const nameIn = el('input', { attrs: { id: 'nm-img-name', type: 'text', autocomplete: 'off', spellcheck: 'false', maxlength: '20', 'data-autofocus': '1' } });
     const noIn = el('input', { attrs: { id: 'nm-img-no', type: 'text', inputmode: 'numeric', autocomplete: 'off', maxlength: '10' } });
@@ -203,7 +205,7 @@
         nameIn.value = ''; noIn.value = '';
         if (!r.blob) throw new Error('toBlob returned null');
         dom.closeModal(wrap, true);
-        preview(r.model, r.blob);
+        preview(r.model, r.blob, onDone);
       }).catch(e => {
         NM.reportError('ui.notebookImage', e);
         err.textContent = t('image.failed');
@@ -215,7 +217,7 @@
       el('label', { class: 'nm-label', text: t('image.number'), attrs: { for: 'nm-img-no' } }), noIn,
       err, btn
     ]);
-    wrap = dom.openModal(form, { name: 'image-form', titleKey: 'image.formTitle' });
+    wrap = dom.openModal(form, { name: 'image-form', titleKey: 'image.formTitle', onClose() { if (onDone) onDone(false); } });
     return wrap;
   }
 
