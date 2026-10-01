@@ -212,7 +212,6 @@
     "s2.r2",
     "s2.r3",
     "s2.r4",
-    "s2.r6",
     "s2.t1",
     "s2.t2"
    ],
@@ -222,129 +221,130 @@
    },
    "est": {
     "best": {
-     "min": 18.852966316271157,
+     "min": 16.17796631627116,
      "parts": {
-      "readPlain": 554,
-      "readSide": 112,
-      "readOrig": 117,
+      "readPlain": 481,
+      "readSide": 114,
+      "readOrig": 104,
       "walk": 37,
-      "cards": 40,
-      "gimmick": 185,
-      "clicks": 86
+      "cards": 32,
+      "gimmick": 125,
+      "clicks": 77
      },
      "chars": {
-      "plain": 2768,
-      "side": 1122,
-      "orig": 66,
-      "origHan": 388
+      "plain": 2405,
+      "side": 1141,
+      "orig": 57,
+      "origHan": 351
      },
      "byPhase": {
-      "intro": 2.5,
-      "explore": 6.1,
-      "items": 9.5,
-      "translate": 0.8
+      "intro": 2.1,
+      "explore": 5.9,
+      "items": 7.6,
+      "translate": 0.6
      }
     },
     "typical": {
-     "min": 20.528799649604494,
+     "min": 17.57396631627116,
      "parts": {
-      "readPlain": 618,
-      "readSide": 112,
-      "readOrig": 117,
+      "readPlain": 533,
+      "readSide": 114,
+      "readOrig": 104,
       "walk": 37,
-      "cards": 49,
-      "gimmick": 200,
-      "clicks": 99
+      "cards": 39,
+      "gimmick": 140,
+      "clicks": 87
      },
      "chars": {
-      "plain": 3089,
-      "side": 1122,
-      "orig": 66,
-      "origHan": 388
+      "plain": 2663,
+      "side": 1141,
+      "orig": 57,
+      "origHan": 351
      },
      "byPhase": {
-      "intro": 2.5,
-      "explore": 6.1,
-      "items": 11.2,
-      "translate": 0.8
+      "intro": 2.1,
+      "explore": 5.9,
+      "items": 9,
+      "translate": 0.6
      }
     },
     "allWrong": {
-     "min": 23.26963298293783,
+     "min": 19.807966316271163,
      "parts": {
-      "readPlain": 729,
-      "readSide": 112,
-      "readOrig": 117,
+      "readPlain": 621,
+      "readSide": 114,
+      "readOrig": 104,
       "walk": 37,
-      "cards": 65,
-      "gimmick": 215,
-      "clicks": 121
+      "cards": 52,
+      "gimmick": 155,
+      "clicks": 105
      },
      "chars": {
-      "plain": 3643,
-      "side": 1122,
-      "orig": 66,
-      "origHan": 388
+      "plain": 3104,
+      "side": 1141,
+      "orig": 57,
+      "origHan": 351
      },
      "byPhase": {
-      "intro": 2.5,
-      "explore": 6.1,
-      "items": 14,
-      "translate": 0.8
+      "intro": 2.1,
+      "explore": 5.9,
+      "items": 11.2,
+      "translate": 0.6
      }
     },
     "slowTypical": {
-     "min": 25.2062996496045,
+     "min": 22.011832982937833,
      "parts": {
-      "readPlain": 741,
-      "readSide": 269,
-      "readOrig": 117,
+      "readPlain": 639,
+      "readSide": 274,
+      "readOrig": 104,
       "walk": 37,
-      "cards": 49,
-      "gimmick": 200,
-      "clicks": 99
+      "cards": 39,
+      "gimmick": 140,
+      "clicks": 87
      },
      "chars": {
-      "plain": 3089,
-      "side": 1122,
-      "orig": 66,
-      "origHan": 388
+      "plain": 2663,
+      "side": 1141,
+      "orig": 57,
+      "origHan": 351
      },
      "byPhase": {
-      "intro": 3.2,
+      "intro": 2.8,
       "explore": 7.5,
-      "items": 13.6,
-      "translate": 0.9
+      "items": 11,
+      "translate": 0.7
      }
-    }
+    },
+    "needsSec": 0
    },
    "perItem": {
     "intro": {
-     "plain": 524,
+     "plain": 428,
      "side": 175,
      "orig": 1,
      "origHan": 22,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 17
+     "dialogClicks": 13
     },
     "explore": {
-     "plain": 894,
-     "side": 357,
-     "orig": 65,
-     "origHan": 366,
+     "plain": 856,
+     "side": 448,
+     "orig": 56,
+     "origHan": 329,
      "walkPx": 2580,
      "ops": 0,
      "dialogClicks": 2
     },
     "items": {
-     "plain": 389,
+     "plain": 320,
      "side": 0,
      "orig": 0,
      "origHan": 0,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 22
+     "dialogClicks": 17
     },
     "s2.r1": {
      "plain": 232,
@@ -382,35 +382,26 @@
      "ops": 0,
      "dialogClicks": 0
     },
-    "s2.r6": {
-     "plain": 196,
-     "side": 84,
-     "orig": 0,
-     "origHan": 0,
-     "walkPx": 0,
-     "ops": 0,
-     "dialogClicks": 0
-    },
     "s2.t1": {
-     "plain": 381,
+     "plain": 282,
      "side": 81,
      "orig": 0,
      "origHan": 0,
      "walkPx": 0,
-     "ops": 23,
+     "ops": 16,
      "dialogClicks": 0
     },
     "s2.t2": {
-     "plain": 251,
-     "side": 58,
+     "plain": 250,
+     "side": 70,
      "orig": 0,
      "origHan": 0,
      "walkPx": 0,
-     "ops": 11,
+     "ops": 7,
      "dialogClicks": 0
     },
     "translate": {
-     "plain": 226,
+     "plain": 186,
      "side": 0,
      "orig": 0,
      "origHan": 0,
@@ -438,117 +429,117 @@
    },
    "est": {
     "best": {
-     "min": 11.80769567550718,
+     "min": 11.287695675507182,
      "parts": {
-      "readPlain": 358,
+      "readPlain": 337,
       "readSide": 73,
-      "readOrig": 80,
+      "readOrig": 76,
       "walk": 26,
       "cards": 24,
       "gimmick": 75,
-      "clicks": 72
+      "clicks": 67
      },
      "chars": {
-      "plain": 1791,
+      "plain": 1684,
       "side": 727,
-      "orig": 63,
-      "origHan": 213
+      "orig": 58,
+      "origHan": 204
      },
      "byPhase": {
-      "intro": 2.1,
-      "explore": 3.5,
+      "intro": 1.8,
+      "explore": 3.4,
       "items": 5.7,
-      "translate": 0.5
+      "translate": 0.4
      }
     },
     "typical": {
-     "min": 12.898362342173849,
+     "min": 12.378362342173851,
      "parts": {
-      "readPlain": 396,
+      "readPlain": 375,
       "readSide": 73,
-      "readOrig": 80,
+      "readOrig": 76,
       "walk": 26,
       "cards": 29,
       "gimmick": 90,
-      "clicks": 79
+      "clicks": 74
      },
      "chars": {
-      "plain": 1980,
+      "plain": 1873,
       "side": 727,
-      "orig": 63,
-      "origHan": 213
+      "orig": 58,
+      "origHan": 204
      },
      "byPhase": {
-      "intro": 2.1,
-      "explore": 3.5,
+      "intro": 1.8,
+      "explore": 3.4,
       "items": 6.8,
-      "translate": 0.5
+      "translate": 0.4
      }
     },
     "allWrong": {
-     "min": 14.601029008840515,
+     "min": 14.081029008840513,
      "parts": {
-      "readPlain": 461,
+      "readPlain": 439,
       "readSide": 73,
-      "readOrig": 80,
+      "readOrig": 76,
       "walk": 26,
       "cards": 39,
       "gimmick": 105,
-      "clicks": 92
+      "clicks": 87
      },
      "chars": {
-      "plain": 2304,
+      "plain": 2197,
       "side": 727,
-      "orig": 63,
-      "origHan": 213
+      "orig": 58,
+      "origHan": 204
      },
      "byPhase": {
-      "intro": 2.1,
-      "explore": 3.5,
+      "intro": 1.8,
+      "explore": 3.4,
       "items": 8.5,
-      "translate": 0.5
+      "translate": 0.4
      }
     },
     "slowTypical": {
-     "min": 15.914995675507184,
+     "min": 15.323662342173852,
      "parts": {
-      "readPlain": 475,
+      "readPlain": 450,
       "readSide": 174,
-      "readOrig": 80,
+      "readOrig": 76,
       "walk": 26,
       "cards": 29,
       "gimmick": 90,
-      "clicks": 79
+      "clicks": 74
      },
      "chars": {
-      "plain": 1980,
+      "plain": 1873,
       "side": 727,
-      "orig": 63,
-      "origHan": 213
+      "orig": 58,
+      "origHan": 204
      },
      "byPhase": {
-      "intro": 2.8,
-      "explore": 4.3,
+      "intro": 2.4,
+      "explore": 4.2,
       "items": 8.3,
-      "translate": 0.6
+      "translate": 0.5
      }
     }
    },
    "perItem": {
     "intro": {
-     "plain": 453,
+     "plain": 373,
      "side": 145,
      "orig": 3,
      "origHan": 16,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 14
+     "dialogClicks": 10
     },
     "explore": {
-     "plain": 455,
+     "plain": 448,
      "side": 206,
-     "orig": 56,
-     "origHan": 192,
+     "orig": 51,
+     "origHan": 183,
      "walkPx": 1728,
      "ops": 0,
      "dialogClicks": 1
@@ -560,7 +551,7 @@
      "origHan": 0,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 11
+     "dialogClicks": 10
     },
     "s3.r1": {
      "plain": 261,
@@ -608,7 +599,7 @@
      "dialogClicks": 0
     },
     "translate": {
-     "plain": 145,
+     "plain": 125,
      "side": 0,
      "orig": 0,
      "origHan": 0,
@@ -633,97 +624,97 @@
    },
    "est": {
     "best": {
-     "min": 10.176146498670175,
+     "min": 9.93947983200351,
      "parts": {
-      "readPlain": 345,
+      "readPlain": 331,
       "readSide": 85,
       "readOrig": 59,
       "walk": 26,
       "cards": 8,
       "gimmick": 25,
-      "clicks": 63
+      "clicks": 62
      },
      "chars": {
-      "plain": 1723,
+      "plain": 1657,
       "side": 847,
       "orig": 82,
       "origHan": 51
      },
      "byPhase": {
-      "intro": 2.3,
-      "explore": 3.5,
+      "intro": 2.2,
+      "explore": 3.4,
       "items": 2.6,
       "translate": 1.7
      }
     },
     "typical": {
-     "min": 10.738979832003507,
+     "min": 10.50231316533684,
      "parts": {
-      "readPlain": 367,
+      "readPlain": 353,
       "readSide": 85,
       "readOrig": 59,
       "walk": 26,
       "cards": 10,
       "gimmick": 33,
-      "clicks": 66
+      "clicks": 65
      },
      "chars": {
-      "plain": 1833,
+      "plain": 1767,
       "side": 847,
       "orig": 82,
       "origHan": 51
      },
      "byPhase": {
-      "intro": 2.3,
-      "explore": 3.5,
+      "intro": 2.2,
+      "explore": 3.4,
       "items": 3.2,
       "translate": 1.7
      }
     },
     "allWrong": {
-     "min": 11.57281316533684,
+     "min": 11.336146498670173,
      "parts": {
-      "readPlain": 401,
+      "readPlain": 388,
       "readSide": 85,
       "readOrig": 59,
       "walk": 26,
       "cards": 13,
       "gimmick": 40,
-      "clicks": 70
+      "clicks": 69
      },
      "chars": {
-      "plain": 2007,
+      "plain": 1941,
       "side": 847,
       "orig": 82,
       "origHan": 51
      },
      "byPhase": {
-      "intro": 2.3,
-      "explore": 3.5,
+      "intro": 2.2,
+      "explore": 3.4,
       "items": 4,
       "translate": 1.7
      }
     },
     "slowTypical": {
-     "min": 13.937046498670183,
+     "min": 13.656379832003514,
      "parts": {
-      "readPlain": 440,
+      "readPlain": 424,
       "readSide": 203,
       "readOrig": 59,
       "walk": 26,
       "cards": 10,
       "gimmick": 33,
-      "clicks": 66
+      "clicks": 65
      },
      "chars": {
-      "plain": 1833,
+      "plain": 1767,
       "side": 847,
       "orig": 82,
       "origHan": 51
      },
      "byPhase": {
-      "intro": 3.2,
-      "explore": 4.5,
+      "intro": 3,
+      "explore": 4.4,
       "items": 4.3,
       "translate": 1.9
      }
@@ -731,16 +722,16 @@
    },
    "perItem": {
     "intro": {
-     "plain": 485,
+     "plain": 441,
      "side": 220,
      "orig": 10,
      "origHan": 2,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 11
+     "dialogClicks": 10
     },
     "explore": {
-     "plain": 526,
+     "plain": 504,
      "side": 287,
      "orig": 72,
      "origHan": 49,
@@ -1152,117 +1143,117 @@
    },
    "est": {
     "best": {
-     "min": 11.893283465141861,
+     "min": 11.45328346514186,
      "parts": {
-      "readPlain": 339,
+      "readPlain": 318,
       "readSide": 92,
       "readOrig": 57,
       "walk": 26,
       "cards": 32,
       "gimmick": 90,
-      "clicks": 78
+      "clicks": 72
      },
      "chars": {
-      "plain": 1976,
+      "plain": 1857,
       "side": 1079,
       "orig": 94,
       "origHan": 2
      },
      "byPhase": {
-      "intro": 2.5,
-      "explore": 2.4,
+      "intro": 2,
+      "explore": 2.7,
       "items": 5.3,
-      "translate": 1.6
+      "translate": 1.5
      }
     },
     "typical": {
-     "min": 13.131902512760917,
+     "min": 12.691902512760915,
      "parts": {
-      "readPlain": 388,
+      "readPlain": 368,
       "readSide": 92,
       "readOrig": 57,
       "walk": 26,
       "cards": 39,
       "gimmick": 98,
-      "clicks": 88
+      "clicks": 82
      },
      "chars": {
-      "plain": 2265,
+      "plain": 2146,
       "side": 1079,
       "orig": 94,
       "origHan": 2
      },
      "byPhase": {
-      "intro": 2.5,
-      "explore": 2.4,
+      "intro": 2,
+      "explore": 2.7,
       "items": 6.6,
-      "translate": 1.6
+      "translate": 1.5
      }
     },
     "allWrong": {
-     "min": 15.24566441752282,
+     "min": 14.805664417522815,
      "parts": {
-      "readPlain": 476,
+      "readPlain": 455,
       "readSide": 92,
       "readOrig": 57,
       "walk": 26,
       "cards": 52,
       "gimmick": 105,
-      "clicks": 107
+      "clicks": 101
      },
      "chars": {
-      "plain": 2776,
+      "plain": 2657,
+      "side": 1079,
+      "orig": 94,
+      "origHan": 2
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 2.7,
+      "items": 8.7,
+      "translate": 1.5
+     }
+    },
+    "slowTypical": {
+     "min": 15.768973941332344,
+     "parts": {
+      "readPlain": 429,
+      "readSide": 216,
+      "readOrig": 57,
+      "walk": 26,
+      "cards": 39,
+      "gimmick": 98,
+      "clicks": 82
+     },
+     "chars": {
+      "plain": 2146,
       "side": 1079,
       "orig": 94,
       "origHan": 2
      },
      "byPhase": {
       "intro": 2.5,
-      "explore": 2.4,
-      "items": 8.7,
-      "translate": 1.6
-     }
-    },
-    "slowTypical": {
-     "min": 16.26564060799901,
-     "parts": {
-      "readPlain": 453,
-      "readSide": 216,
-      "readOrig": 57,
-      "walk": 26,
-      "cards": 39,
-      "gimmick": 98,
-      "clicks": 88
-     },
-     "chars": {
-      "plain": 2265,
-      "side": 1079,
-      "orig": 94,
-      "origHan": 2
-     },
-     "byPhase": {
-      "intro": 3.1,
-      "explore": 3.3,
+      "explore": 3.6,
       "items": 8.1,
-      "translate": 1.8
+      "translate": 1.6
      }
     }
    },
    "perItem": {
     "intro": {
-     "plain": 539,
+     "plain": 447,
      "side": 158,
-     "orig": 45,
-     "origHan": 1,
+     "orig": 21,
+     "origHan": 0,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 16
+     "dialogClicks": 12
     },
     "explore": {
-     "plain": 358,
+     "plain": 373,
      "side": 361,
-     "orig": 49,
-     "origHan": 1,
+     "orig": 73,
+     "origHan": 2,
      "walkPx": 1269,
      "ops": 0,
      "dialogClicks": 1
@@ -1322,13 +1313,13 @@
      "dialogClicks": 0
     },
     "translate": {
-     "plain": 299,
+     "plain": 257,
      "side": 0,
      "orig": 0,
      "origHan": 0,
      "walkPx": 358,
      "ops": 0,
-     "dialogClicks": 9
+     "dialogClicks": 7
     }
    }
   },
@@ -1546,96 +1537,96 @@
    },
    "est": {
     "best": {
-     "min": 10.36851641640815,
+     "min": 10.166611654503388,
      "parts": {
-      "readPlain": 332,
+      "readPlain": 322,
       "readSide": 79,
       "readOrig": 88,
       "walk": 30,
       "cards": 24,
       "gimmick": 0,
-      "clicks": 69
+      "clicks": 67
      },
      "chars": {
-      "plain": 1936,
+      "plain": 1877,
       "side": 924,
       "orig": 139,
       "origHan": 23
      },
      "byPhase": {
-      "intro": 2.6,
+      "intro": 2.4,
       "explore": 4.5,
       "items": 2.9,
       "translate": 0.4
      }
     },
     "typical": {
-     "min": 11.021016416408154,
+     "min": 10.819111654503393,
      "parts": {
-      "readPlain": 359,
+      "readPlain": 349,
       "readSide": 79,
       "readOrig": 88,
       "walk": 30,
       "cards": 29,
       "gimmick": 0,
-      "clicks": 75
+      "clicks": 73
      },
      "chars": {
-      "plain": 2097,
+      "plain": 2038,
       "side": 924,
       "orig": 139,
       "origHan": 23
      },
      "byPhase": {
-      "intro": 2.6,
+      "intro": 2.4,
       "explore": 4.5,
       "items": 3.5,
       "translate": 0.4
      }
     },
     "allWrong": {
-     "min": 12.232802130693868,
+     "min": 12.030897368789105,
      "parts": {
-      "readPlain": 411,
+      "readPlain": 401,
       "readSide": 79,
       "readOrig": 88,
       "walk": 30,
       "cards": 39,
       "gimmick": 0,
-      "clicks": 87
+      "clicks": 85
      },
      "chars": {
-      "plain": 2396,
+      "plain": 2337,
       "side": 924,
       "orig": 139,
       "origHan": 23
      },
      "byPhase": {
-      "intro": 2.6,
+      "intro": 2.4,
       "explore": 4.5,
       "items": 4.7,
       "translate": 0.4
      }
     },
     "slowTypical": {
-     "min": 13.779587844979577,
+     "min": 13.549587844979579,
      "parts": {
-      "readPlain": 419,
+      "readPlain": 408,
       "readSide": 185,
       "readOrig": 88,
       "walk": 30,
       "cards": 29,
       "gimmick": 0,
-      "clicks": 75
+      "clicks": 73
      },
      "chars": {
-      "plain": 2097,
+      "plain": 2038,
       "side": 924,
       "orig": 139,
       "origHan": 23
      },
      "byPhase": {
-      "intro": 3.2,
+      "intro": 3,
       "explore": 5.6,
       "items": 4.4,
       "translate": 0.5
@@ -1644,13 +1635,13 @@
    },
    "perItem": {
     "intro": {
-     "plain": 654,
+     "plain": 595,
      "side": 154,
      "orig": 21,
      "origHan": 3,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 15
+     "dialogClicks": 13
     },
     "explore": {
      "plain": 721,
@@ -1724,114 +1715,114 @@
    },
    "est": {
     "best": {
-     "min": 13.689717927241608,
+     "min": 13.203051260574938,
      "parts": {
-      "readPlain": 360,
-      "readSide": 91,
+      "readPlain": 335,
+      "readSide": 90,
       "readOrig": 81,
       "walk": 26,
       "cards": 8,
       "gimmick": 185,
-      "clicks": 71
+      "clicks": 67
      },
      "chars": {
-      "plain": 2099,
-      "side": 1058,
+      "plain": 1954,
+      "side": 1054,
       "orig": 117,
       "origHan": 54
      },
      "byPhase": {
-      "intro": 2.7,
-      "explore": 3.1,
+      "intro": 2.3,
+      "explore": 3,
       "items": 6.3,
       "translate": 1.6
      }
     },
     "typical": {
-     "min": 14.419408403432083,
+     "min": 13.932741736765417,
      "parts": {
-      "readPlain": 384,
-      "readSide": 91,
+      "readPlain": 359,
+      "readSide": 90,
       "readOrig": 81,
       "walk": 26,
       "cards": 10,
       "gimmick": 200,
-      "clicks": 74
+      "clicks": 70
      },
      "chars": {
-      "plain": 2239,
-      "side": 1058,
+      "plain": 2094,
+      "side": 1054,
       "orig": 117,
       "origHan": 54
      },
      "byPhase": {
-      "intro": 2.7,
-      "explore": 3.1,
+      "intro": 2.3,
+      "explore": 3,
       "items": 7,
       "translate": 1.6
      }
     },
     "allWrong": {
-     "min": 15.389241736765415,
+     "min": 14.902575070098747,
      "parts": {
-      "readPlain": 419,
-      "readSide": 91,
+      "readPlain": 394,
+      "readSide": 90,
       "readOrig": 81,
       "walk": 26,
       "cards": 13,
       "gimmick": 215,
-      "clicks": 79
+      "clicks": 75
      },
      "chars": {
-      "plain": 2443,
-      "side": 1058,
+      "plain": 2298,
+      "side": 1054,
       "orig": 117,
       "origHan": 54
      },
      "byPhase": {
-      "intro": 2.7,
-      "explore": 3.1,
+      "intro": 2.3,
+      "explore": 3,
       "items": 8,
       "translate": 1.6
      }
     },
     "slowTypical": {
-     "min": 17.500646498670175,
+     "min": 16.937313165336843,
      "parts": {
-      "readPlain": 448,
-      "readSide": 212,
+      "readPlain": 419,
+      "readSide": 211,
       "readOrig": 81,
       "walk": 26,
       "cards": 10,
       "gimmick": 200,
-      "clicks": 74
+      "clicks": 70
      },
      "chars": {
-      "plain": 2239,
-      "side": 1058,
+      "plain": 2094,
+      "side": 1054,
       "orig": 117,
       "origHan": 54
      },
      "byPhase": {
-      "intro": 3.5,
-      "explore": 3.9,
+      "intro": 3.1,
+      "explore": 3.8,
       "items": 8.3,
-      "translate": 1.8
+      "translate": 1.7
      }
     }
    },
    "perItem": {
     "intro": {
-     "plain": 641,
-     "side": 279,
+     "plain": 535,
+     "side": 275,
      "orig": 10,
      "origHan": 17,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 16
+     "dialogClicks": 13
     },
     "explore": {
-     "plain": 511,
+     "plain": 489,
      "side": 287,
      "orig": 72,
      "origHan": 34,
@@ -1876,13 +1867,13 @@
      "dialogClicks": 0
     },
     "translate": {
-     "plain": 304,
+     "plain": 287,
      "side": 0,
      "orig": 0,
      "origHan": 0,
      "walkPx": 426,
      "ops": 0,
-     "dialogClicks": 8
+     "dialogClicks": 7
     }
    }
   },
@@ -1902,114 +1893,114 @@
    },
    "est": {
     "best": {
-     "min": 11.721362756688624,
+     "min": 11.363267518593384,
      "parts": {
-      "readPlain": 425,
+      "readPlain": 408,
       "readSide": 84,
       "readOrig": 0,
       "walk": 36,
       "cards": 16,
       "gimmick": 75,
-      "clicks": 67
+      "clicks": 63
      },
      "chars": {
-      "plain": 2482,
+      "plain": 2380,
       "side": 983,
       "orig": 0,
       "origHan": 0
      },
      "byPhase": {
-      "intro": 2,
+      "intro": 1.7,
       "explore": 3.3,
       "items": 4.6,
       "translate": 1.8
      }
     },
     "typical": {
-     "min": 12.574410375736242,
+     "min": 12.216315137641006,
      "parts": {
-      "readPlain": 462,
+      "readPlain": 445,
       "readSide": 84,
       "readOrig": 0,
       "walk": 36,
       "cards": 20,
       "gimmick": 83,
-      "clicks": 70
+      "clicks": 66
      },
      "chars": {
-      "plain": 2697,
+      "plain": 2595,
       "side": 983,
       "orig": 0,
       "origHan": 0
      },
      "byPhase": {
-      "intro": 2,
+      "intro": 1.7,
       "explore": 3.3,
       "items": 5.5,
       "translate": 1.8
      }
     },
     "allWrong": {
-     "min": 13.91945799478386,
+     "min": 13.561362756688622,
      "parts": {
-      "readPlain": 523,
+      "readPlain": 506,
       "readSide": 84,
       "readOrig": 0,
       "walk": 36,
       "cards": 26,
       "gimmick": 90,
-      "clicks": 76
+      "clicks": 72
      },
      "chars": {
-      "plain": 3053,
+      "plain": 2951,
       "side": 983,
       "orig": 0,
       "origHan": 0
      },
      "byPhase": {
-      "intro": 2,
+      "intro": 1.7,
       "explore": 3.3,
       "items": 6.8,
       "translate": 1.8
      }
     },
     "slowTypical": {
-     "min": 15.731148470974341,
+     "min": 15.324481804307677,
      "parts": {
-      "readPlain": 539,
+      "readPlain": 519,
       "readSide": 197,
       "readOrig": 0,
       "walk": 36,
       "cards": 20,
       "gimmick": 83,
-      "clicks": 70
+      "clicks": 66
      },
      "chars": {
-      "plain": 2697,
+      "plain": 2595,
       "side": 983,
       "orig": 0,
       "origHan": 0
      },
      "byPhase": {
-      "intro": 2.5,
-      "explore": 4.3,
+      "intro": 2.1,
+      "explore": 4.4,
       "items": 6.9,
-      "translate": 2
+      "translate": 1.9
      }
     }
    },
    "perItem": {
     "intro": {
-     "plain": 547,
+     "plain": 453,
      "side": 118,
      "orig": 0,
      "origHan": 0,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 14
+     "dialogClicks": 11
     },
     "explore": {
-     "plain": 843,
+     "plain": 845,
      "side": 333,
      "orig": 0,
      "origHan": 0,
@@ -2054,13 +2045,13 @@
      "dialogClicks": 0
     },
     "translate": {
-     "plain": 332,
+     "plain": 322,
      "side": 0,
      "orig": 0,
      "origHan": 0,
      "walkPx": 1369,
      "ops": 0,
-     "dialogClicks": 7
+     "dialogClicks": 6
     }
    }
   },
@@ -2082,111 +2073,111 @@
    },
    "est": {
     "best": {
-     "min": 15.005230223963341,
+     "min": 13.82427784301096,
      "parts": {
-      "readPlain": 455,
-      "readSide": 127,
+      "readPlain": 398,
+      "readSide": 117,
       "readOrig": 150,
       "walk": 27,
       "cards": 32,
       "gimmick": 35,
-      "clicks": 75
+      "clicks": 71
      },
      "chars": {
-      "plain": 2655,
-      "side": 1478,
+      "plain": 2323,
+      "side": 1362,
       "orig": 226,
       "origHan": 70
      },
      "byPhase": {
-      "intro": 2.8,
+      "intro": 2.4,
       "explore": 4.2,
-      "items": 7.3,
+      "items": 6.6,
       "translate": 0.6
      }
     },
     "typical": {
-     "min": 16.157230223963342,
+     "min": 14.97627784301096,
      "parts": {
-      "readPlain": 501,
-      "readSide": 127,
+      "readPlain": 444,
+      "readSide": 117,
       "readOrig": 150,
       "walk": 27,
       "cards": 39,
       "gimmick": 43,
-      "clicks": 84
+      "clicks": 80
      },
      "chars": {
-      "plain": 2922,
-      "side": 1478,
+      "plain": 2590,
+      "side": 1362,
       "orig": 226,
       "origHan": 70
      },
      "byPhase": {
-      "intro": 2.8,
+      "intro": 2.4,
       "explore": 4.2,
-      "items": 8.5,
+      "items": 7.7,
       "translate": 0.6
      }
     },
     "allWrong": {
-     "min": 18.070944509677627,
+     "min": 16.889992128725247,
      "parts": {
-      "readPlain": 579,
-      "readSide": 127,
+      "readPlain": 522,
+      "readSide": 117,
       "readOrig": 150,
       "walk": 27,
       "cards": 52,
       "gimmick": 50,
-      "clicks": 100
+      "clicks": 96
      },
      "chars": {
-      "plain": 3378,
-      "side": 1478,
+      "plain": 3046,
+      "side": 1362,
       "orig": 226,
       "origHan": 70
      },
      "byPhase": {
-      "intro": 2.8,
+      "intro": 2.4,
       "explore": 4.2,
-      "items": 10.4,
+      "items": 9.6,
       "translate": 0.6
      }
     },
     "slowTypical": {
-     "min": 20.36375403348715,
+     "min": 18.803754033487156,
      "parts": {
-      "readPlain": 584,
-      "readSide": 296,
+      "readPlain": 518,
+      "readSide": 272,
       "readOrig": 150,
       "walk": 27,
       "cards": 39,
       "gimmick": 43,
-      "clicks": 84
+      "clicks": 80
      },
      "chars": {
-      "plain": 2922,
-      "side": 1478,
+      "plain": 2590,
+      "side": 1362,
       "orig": 226,
       "origHan": 70
      },
      "byPhase": {
-      "intro": 3.5,
+      "intro": 3.1,
       "explore": 5.7,
-      "items": 10.4,
+      "items": 9.3,
       "translate": 0.7
      }
     }
    },
    "perItem": {
     "intro": {
-     "plain": 642,
+     "plain": 527,
      "side": 202,
      "orig": 36,
      "origHan": 6,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 16
+     "dialogClicks": 13
     },
     "explore": {
      "plain": 686,
@@ -2204,7 +2195,7 @@
      "origHan": 0,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 15
+     "dialogClicks": 14
     },
     "s10.r1": {
      "plain": 229,
@@ -2243,8 +2234,8 @@
      "dialogClicks": 0
     },
     "s10.t2": {
-     "plain": 517,
-     "side": 238,
+     "plain": 321,
+     "side": 122,
      "orig": 109,
      "origHan": 14,
      "walkPx": 0,
@@ -2252,7 +2243,7 @@
      "dialogClicks": 0
     },
     "translate": {
-     "plain": 224,
+     "plain": 203,
      "side": 0,
      "orig": 0,
      "origHan": 0,
@@ -2629,117 +2620,117 @@
    },
    "est": {
     "best": {
-     "min": 12.566616798475195,
+     "min": 12.126616798475196,
      "parts": {
-      "readPlain": 364,
+      "readPlain": 344,
       "readSide": 96,
       "readOrig": 57,
       "walk": 26,
       "cards": 40,
       "gimmick": 90,
-      "clicks": 81
+      "clicks": 75
      },
      "chars": {
-      "plain": 2126,
+      "plain": 2007,
       "side": 1122,
       "orig": 94,
       "origHan": 2
      },
      "byPhase": {
-      "intro": 2.5,
-      "explore": 2.3,
+      "intro": 2,
+      "explore": 2.6,
       "items": 6.1,
-      "translate": 1.6
+      "translate": 1.5
      }
     },
     "typical": {
-     "min": 14.03423584609425,
+     "min": 13.59423584609425,
      "parts": {
-      "readPlain": 424,
+      "readPlain": 403,
       "readSide": 96,
       "readOrig": 57,
       "walk": 26,
       "cards": 49,
       "gimmick": 98,
-      "clicks": 94
+      "clicks": 88
      },
      "chars": {
-      "plain": 2470,
+      "plain": 2351,
       "side": 1122,
       "orig": 94,
       "origHan": 2
      },
      "byPhase": {
-      "intro": 2.5,
-      "explore": 2.3,
+      "intro": 2,
+      "explore": 2.6,
       "items": 7.6,
-      "translate": 1.6
+      "translate": 1.5
      }
     },
     "allWrong": {
-     "min": 16.573283465141866,
+     "min": 16.133283465141865,
      "parts": {
-      "readPlain": 529,
+      "readPlain": 508,
       "readSide": 96,
       "readOrig": 57,
       "walk": 26,
       "cards": 65,
       "gimmick": 105,
-      "clicks": 117
+      "clicks": 111
      },
      "chars": {
-      "plain": 3085,
+      "plain": 2966,
+      "side": 1122,
+      "orig": 94,
+      "origHan": 2
+     },
+     "byPhase": {
+      "intro": 2,
+      "explore": 2.6,
+      "items": 10.1,
+      "translate": 1.5
+     }
+    },
+    "slowTypical": {
+     "min": 16.85114060799901,
+     "parts": {
+      "readPlain": 470,
+      "readSide": 224,
+      "readOrig": 57,
+      "walk": 26,
+      "cards": 49,
+      "gimmick": 98,
+      "clicks": 88
+     },
+     "chars": {
+      "plain": 2351,
       "side": 1122,
       "orig": 94,
       "origHan": 2
      },
      "byPhase": {
       "intro": 2.5,
-      "explore": 2.3,
-      "items": 10.1,
-      "translate": 1.6
-     }
-    },
-    "slowTypical": {
-     "min": 17.347807274665676,
-     "parts": {
-      "readPlain": 494,
-      "readSide": 224,
-      "readOrig": 57,
-      "walk": 26,
-      "cards": 49,
-      "gimmick": 98,
-      "clicks": 94
-     },
-     "chars": {
-      "plain": 2470,
-      "side": 1122,
-      "orig": 94,
-      "origHan": 2
-     },
-     "byPhase": {
-      "intro": 3.1,
-      "explore": 3,
+      "explore": 3.3,
       "items": 9.5,
-      "translate": 1.8
+      "translate": 1.6
      }
     }
    },
    "perItem": {
     "intro": {
-     "plain": 539,
+     "plain": 447,
      "side": 158,
-     "orig": 45,
-     "origHan": 1,
+     "orig": 21,
+     "origHan": 0,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 16
+     "dialogClicks": 12
     },
     "explore": {
-     "plain": 362,
+     "plain": 377,
      "side": 272,
-     "orig": 49,
-     "origHan": 1,
+     "orig": 73,
+     "origHan": 2,
      "walkPx": 1269,
      "ops": 0,
      "dialogClicks": 1
@@ -2808,13 +2799,13 @@
      "dialogClicks": 0
     },
     "translate": {
-     "plain": 299,
+     "plain": 257,
      "side": 0,
      "orig": 0,
      "origHan": 0,
      "walkPx": 358,
      "ops": 0,
-     "dialogClicks": 9
+     "dialogClicks": 7
     }
    }
   },
@@ -3034,96 +3025,96 @@
    },
    "est": {
     "best": {
-     "min": 11.666135464027201,
+     "min": 11.464230702122439,
      "parts": {
-      "readPlain": 379,
+      "readPlain": 369,
       "readSide": 87,
       "readOrig": 88,
       "walk": 30,
       "cards": 40,
       "gimmick": 0,
-      "clicks": 76
+      "clicks": 74
      },
      "chars": {
-      "plain": 2211,
+      "plain": 2152,
       "side": 1014,
       "orig": 139,
       "origHan": 23
      },
      "byPhase": {
-      "intro": 2.8,
+      "intro": 2.6,
       "explore": 4.3,
       "items": 4.2,
       "translate": 0.4
      }
     },
     "typical": {
-     "min": 12.766968797360537,
+     "min": 12.565064035455777,
      "parts": {
-      "readPlain": 426,
+      "readPlain": 416,
       "readSide": 87,
       "readOrig": 88,
       "walk": 30,
       "cards": 49,
       "gimmick": 0,
-      "clicks": 87
+      "clicks": 85
      },
      "chars": {
-      "plain": 2484,
+      "plain": 2425,
       "side": 1014,
       "orig": 139,
       "origHan": 23
      },
      "byPhase": {
-      "intro": 2.8,
+      "intro": 2.6,
       "explore": 4.3,
       "items": 5.3,
       "translate": 0.4
      }
     },
     "allWrong": {
-     "min": 14.811373559265295,
+     "min": 14.609468797360533,
      "parts": {
-      "readPlain": 513,
+      "readPlain": 503,
       "readSide": 87,
       "readOrig": 88,
       "walk": 30,
       "cards": 65,
       "gimmick": 0,
-      "clicks": 106
+      "clicks": 104
      },
      "chars": {
-      "plain": 2991,
+      "plain": 2932,
       "side": 1014,
       "orig": 139,
       "origHan": 23
      },
      "byPhase": {
-      "intro": 2.8,
+      "intro": 2.6,
       "explore": 4.3,
       "items": 7.3,
       "translate": 0.4
      }
     },
     "slowTypical": {
-     "min": 15.881254511646244,
+     "min": 15.651254511646245,
      "parts": {
-      "readPlain": 497,
+      "readPlain": 485,
       "readSide": 203,
       "readOrig": 88,
       "walk": 30,
       "cards": 49,
       "gimmick": 0,
-      "clicks": 87
+      "clicks": 85
      },
      "chars": {
-      "plain": 2484,
+      "plain": 2425,
       "side": 1014,
       "orig": 139,
       "origHan": 23
      },
      "byPhase": {
-      "intro": 3.4,
+      "intro": 3.2,
       "explore": 5.1,
       "items": 6.9,
       "translate": 0.5
@@ -3132,13 +3123,13 @@
    },
    "perItem": {
     "intro": {
-     "plain": 704,
+     "plain": 645,
      "side": 158,
      "orig": 21,
      "origHan": 3,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 16
+     "dialogClicks": 14
     },
     "explore": {
      "plain": 736,
@@ -3232,96 +3223,96 @@
    },
    "est": {
     "best": {
-     "min": 11.016548441314141,
+     "min": 10.871310346076047,
      "parts": {
-      "readPlain": 322,
+      "readPlain": 314,
       "readSide": 77,
       "readOrig": 102,
       "walk": 26,
       "cards": 24,
       "gimmick": 40,
-      "clicks": 70
+      "clicks": 69
      },
      "chars": {
-      "plain": 1876,
+      "plain": 1831,
       "side": 904,
       "orig": 161,
       "origHan": 28
      },
      "byPhase": {
-      "intro": 2.3,
+      "intro": 2.2,
       "explore": 3.8,
       "items": 4.5,
       "translate": 0.4
      }
     },
     "typical": {
-     "min": 12.120715107980812,
+     "min": 11.975477012742717,
      "parts": {
-      "readPlain": 360,
+      "readPlain": 353,
       "readSide": 77,
       "readOrig": 102,
       "walk": 26,
       "cards": 29,
       "gimmick": 55,
-      "clicks": 77
+      "clicks": 76
      },
      "chars": {
-      "plain": 2102,
+      "plain": 2057,
       "side": 904,
       "orig": 161,
       "origHan": 28
      },
      "byPhase": {
-      "intro": 2.3,
+      "intro": 2.2,
       "explore": 3.8,
       "items": 5.6,
       "translate": 0.4
      }
     },
     "allWrong": {
-     "min": 13.80559606036176,
+     "min": 13.660357965123664,
      "parts": {
-      "readPlain": 424,
+      "readPlain": 416,
       "readSide": 77,
       "readOrig": 102,
       "walk": 26,
       "cards": 39,
       "gimmick": 70,
-      "clicks": 90
+      "clicks": 89
      },
      "chars": {
-      "plain": 2473,
+      "plain": 2428,
       "side": 904,
       "orig": 161,
       "origHan": 28
      },
      "byPhase": {
-      "intro": 2.3,
+      "intro": 2.2,
       "explore": 3.8,
       "items": 7.3,
       "translate": 0.4
      }
     },
     "slowTypical": {
-     "min": 14.843453203218905,
+     "min": 14.676786536552237,
      "parts": {
-      "readPlain": 420,
+      "readPlain": 411,
       "readSide": 181,
       "readOrig": 102,
       "walk": 26,
       "cards": 29,
       "gimmick": 55,
-      "clicks": 77
+      "clicks": 76
      },
      "chars": {
-      "plain": 2102,
+      "plain": 2057,
       "side": 904,
       "orig": 161,
       "origHan": 28
      },
      "byPhase": {
-      "intro": 2.9,
+      "intro": 2.7,
       "explore": 4.5,
       "items": 7,
       "translate": 0.5
@@ -3330,13 +3321,13 @@
    },
    "perItem": {
     "intro": {
-     "plain": 523,
+     "plain": 478,
      "side": 154,
      "orig": 34,
      "origHan": 3,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 13
+     "dialogClicks": 12
     },
     "explore": {
      "plain": 565,
@@ -3429,111 +3420,111 @@
    },
    "est": {
     "best": {
-     "min": 13.745456676496246,
+     "min": 13.134028105067676,
      "parts": {
-      "readPlain": 418,
+      "readPlain": 387,
       "readSide": 68,
       "readOrig": 152,
       "walk": 27,
       "cards": 24,
       "gimmick": 60,
-      "clicks": 76
+      "clicks": 70
      },
      "chars": {
-      "plain": 2436,
+      "plain": 2257,
       "side": 793,
       "orig": 237,
       "origHan": 50
      },
      "byPhase": {
-      "intro": 3,
+      "intro": 2.5,
       "explore": 3.3,
       "items": 5.7,
-      "translate": 1.8
+      "translate": 1.6
      }
     },
     "typical": {
-     "min": 14.748123343162918,
+     "min": 14.136694771734348,
      "parts": {
-      "readPlain": 458,
+      "readPlain": 427,
       "readSide": 68,
       "readOrig": 152,
       "walk": 27,
       "cards": 29,
       "gimmick": 68,
-      "clicks": 83
+      "clicks": 77
      },
      "chars": {
-      "plain": 2671,
+      "plain": 2492,
       "side": 793,
       "orig": 237,
       "origHan": 50
      },
      "byPhase": {
-      "intro": 3,
+      "intro": 2.5,
       "explore": 3.3,
       "items": 6.7,
-      "translate": 1.8
+      "translate": 1.6
      }
     },
     "allWrong": {
-     "min": 16.393075724115295,
+     "min": 15.781647152686725,
      "parts": {
-      "readPlain": 526,
+      "readPlain": 496,
       "readSide": 68,
       "readOrig": 152,
       "walk": 27,
       "cards": 39,
       "gimmick": 75,
-      "clicks": 96
+      "clicks": 90
      },
      "chars": {
-      "plain": 3071,
+      "plain": 2892,
+      "side": 793,
+      "orig": 237,
+      "origHan": 50
+     },
+     "byPhase": {
+      "intro": 2.5,
+      "explore": 3.3,
+      "items": 8.4,
+      "translate": 1.6
+     }
+    },
+    "slowTypical": {
+     "min": 16.83376620030577,
+     "parts": {
+      "readPlain": 498,
+      "readSide": 159,
+      "readOrig": 152,
+      "walk": 27,
+      "cards": 29,
+      "gimmick": 68,
+      "clicks": 77
+     },
+     "chars": {
+      "plain": 2492,
       "side": 793,
       "orig": 237,
       "origHan": 50
      },
      "byPhase": {
       "intro": 3,
-      "explore": 3.3,
-      "items": 8.4,
-      "translate": 1.8
-     }
-    },
-    "slowTypical": {
-     "min": 17.530432866972436,
-     "parts": {
-      "readPlain": 534,
-      "readSide": 159,
-      "readOrig": 152,
-      "walk": 27,
-      "cards": 29,
-      "gimmick": 68,
-      "clicks": 83
-     },
-     "chars": {
-      "plain": 2671,
-      "side": 793,
-      "orig": 237,
-      "origHan": 50
-     },
-     "byPhase": {
-      "intro": 3.5,
       "explore": 4,
       "items": 8.2,
-      "translate": 1.9
+      "translate": 1.7
      }
     }
    },
    "perItem": {
     "intro": {
-     "plain": 683,
+     "plain": 550,
      "side": 110,
      "orig": 48,
      "origHan": 9,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 18
+     "dialogClicks": 14
     },
     "explore": {
      "plain": 647,
@@ -3590,13 +3581,13 @@
      "dialogClicks": 0
     },
     "translate": {
-     "plain": 331,
+     "plain": 285,
      "side": 0,
      "orig": 0,
      "origHan": 0,
      "walkPx": 724,
      "ops": 0,
-     "dialogClicks": 8
+     "dialogClicks": 6
     }
    }
   },
@@ -3616,114 +3607,114 @@
    },
    "est": {
     "best": {
-     "min": 13.689717927241608,
+     "min": 13.203051260574938,
      "parts": {
-      "readPlain": 360,
-      "readSide": 91,
+      "readPlain": 335,
+      "readSide": 90,
       "readOrig": 81,
       "walk": 26,
       "cards": 8,
       "gimmick": 185,
-      "clicks": 71
+      "clicks": 67
      },
      "chars": {
-      "plain": 2099,
-      "side": 1058,
+      "plain": 1954,
+      "side": 1054,
       "orig": 117,
       "origHan": 54
      },
      "byPhase": {
-      "intro": 2.7,
-      "explore": 3.1,
+      "intro": 2.3,
+      "explore": 3,
       "items": 6.3,
       "translate": 1.6
      }
     },
     "typical": {
-     "min": 14.419408403432083,
+     "min": 13.932741736765417,
      "parts": {
-      "readPlain": 384,
-      "readSide": 91,
+      "readPlain": 359,
+      "readSide": 90,
       "readOrig": 81,
       "walk": 26,
       "cards": 10,
       "gimmick": 200,
-      "clicks": 74
+      "clicks": 70
      },
      "chars": {
-      "plain": 2239,
-      "side": 1058,
+      "plain": 2094,
+      "side": 1054,
       "orig": 117,
       "origHan": 54
      },
      "byPhase": {
-      "intro": 2.7,
-      "explore": 3.1,
+      "intro": 2.3,
+      "explore": 3,
       "items": 7,
       "translate": 1.6
      }
     },
     "allWrong": {
-     "min": 15.389241736765415,
+     "min": 14.902575070098747,
      "parts": {
-      "readPlain": 419,
-      "readSide": 91,
+      "readPlain": 394,
+      "readSide": 90,
       "readOrig": 81,
       "walk": 26,
       "cards": 13,
       "gimmick": 215,
-      "clicks": 79
+      "clicks": 75
      },
      "chars": {
-      "plain": 2443,
-      "side": 1058,
+      "plain": 2298,
+      "side": 1054,
       "orig": 117,
       "origHan": 54
      },
      "byPhase": {
-      "intro": 2.7,
-      "explore": 3.1,
+      "intro": 2.3,
+      "explore": 3,
       "items": 8,
       "translate": 1.6
      }
     },
     "slowTypical": {
-     "min": 17.500646498670175,
+     "min": 16.937313165336843,
      "parts": {
-      "readPlain": 448,
-      "readSide": 212,
+      "readPlain": 419,
+      "readSide": 211,
       "readOrig": 81,
       "walk": 26,
       "cards": 10,
       "gimmick": 200,
-      "clicks": 74
+      "clicks": 70
      },
      "chars": {
-      "plain": 2239,
-      "side": 1058,
+      "plain": 2094,
+      "side": 1054,
       "orig": 117,
       "origHan": 54
      },
      "byPhase": {
-      "intro": 3.5,
-      "explore": 3.9,
+      "intro": 3.1,
+      "explore": 3.8,
       "items": 8.3,
-      "translate": 1.8
+      "translate": 1.7
      }
     }
    },
    "perItem": {
     "intro": {
-     "plain": 641,
-     "side": 279,
+     "plain": 535,
+     "side": 275,
      "orig": 10,
      "origHan": 17,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 16
+     "dialogClicks": 13
     },
     "explore": {
-     "plain": 511,
+     "plain": 489,
      "side": 287,
      "orig": 72,
      "origHan": 34,
@@ -3768,13 +3759,13 @@
      "dialogClicks": 0
     },
     "translate": {
-     "plain": 304,
+     "plain": 287,
      "side": 0,
      "orig": 0,
      "origHan": 0,
      "walkPx": 426,
      "ops": 0,
-     "dialogClicks": 8
+     "dialogClicks": 7
     }
    }
   },
@@ -3797,111 +3788,111 @@
    },
    "est": {
     "best": {
-     "min": 16.091896890630007,
+     "min": 14.910944509677623,
      "parts": {
-      "readPlain": 494,
-      "readSide": 131,
+      "readPlain": 437,
+      "readSide": 122,
       "readOrig": 150,
       "walk": 27,
       "cards": 40,
       "gimmick": 45,
-      "clicks": 79
+      "clicks": 75
      },
      "chars": {
-      "plain": 2879,
-      "side": 1534,
+      "plain": 2547,
+      "side": 1418,
       "orig": 226,
       "origHan": 70
      },
      "byPhase": {
-      "intro": 3,
+      "intro": 2.6,
       "explore": 4.2,
-      "items": 8.3,
+      "items": 7.6,
       "translate": 0.6
      }
     },
     "typical": {
-     "min": 17.44506355729668,
+     "min": 16.264111176344294,
      "parts": {
-      "readPlain": 547,
-      "readSide": 131,
+      "readPlain": 491,
+      "readSide": 122,
       "readOrig": 150,
       "walk": 27,
       "cards": 49,
       "gimmick": 53,
-      "clicks": 90
+      "clicks": 86
      },
      "chars": {
-      "plain": 3194,
-      "side": 1534,
+      "plain": 2862,
+      "side": 1418,
       "orig": 226,
       "origHan": 70
      },
      "byPhase": {
-      "intro": 3,
+      "intro": 2.6,
       "explore": 4.2,
-      "items": 9.6,
+      "items": 8.9,
       "translate": 0.6
      }
     },
     "allWrong": {
-     "min": 19.732373081106193,
+     "min": 18.551420700153816,
      "parts": {
-      "readPlain": 641,
-      "readSide": 131,
+      "readPlain": 584,
+      "readSide": 122,
       "readOrig": 150,
       "walk": 27,
       "cards": 65,
       "gimmick": 60,
-      "clicks": 110
+      "clicks": 106
      },
      "chars": {
-      "plain": 3739,
-      "side": 1534,
+      "plain": 3407,
+      "side": 1418,
       "orig": 226,
       "origHan": 70
      },
      "byPhase": {
-      "intro": 3,
+      "intro": 2.6,
       "explore": 4.2,
-      "items": 11.9,
+      "items": 11.2,
       "translate": 0.6
      }
     },
     "slowTypical": {
-     "min": 21.887754033487152,
+     "min": 20.327754033487153,
      "parts": {
-      "readPlain": 639,
-      "readSide": 307,
+      "readPlain": 572,
+      "readSide": 284,
       "readOrig": 150,
       "walk": 27,
       "cards": 49,
       "gimmick": 53,
-      "clicks": 90
+      "clicks": 86
      },
      "chars": {
-      "plain": 3194,
-      "side": 1534,
+      "plain": 2862,
+      "side": 1418,
       "orig": 226,
       "origHan": 70
      },
      "byPhase": {
-      "intro": 3.7,
+      "intro": 3.3,
       "explore": 5.5,
-      "items": 11.9,
+      "items": 10.9,
       "translate": 0.7
      }
     }
    },
    "perItem": {
     "intro": {
-     "plain": 697,
+     "plain": 582,
      "side": 206,
      "orig": 36,
      "origHan": 6,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 17
+     "dialogClicks": 14
     },
     "explore": {
      "plain": 694,
@@ -3919,7 +3910,7 @@
      "origHan": 0,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 17
+     "dialogClicks": 16
     },
     "s10.r1": {
      "plain": 229,
@@ -3967,8 +3958,8 @@
      "dialogClicks": 0
     },
     "s10.t1": {
-     "plain": 531,
-     "side": 259,
+     "plain": 335,
+     "side": 143,
      "orig": 109,
      "origHan": 14,
      "walkPx": 0,
@@ -3976,7 +3967,7 @@
      "dialogClicks": 0
     },
     "translate": {
-     "plain": 224,
+     "plain": 203,
      "side": 0,
      "orig": 0,
      "origHan": 0,
@@ -4009,123 +4000,123 @@
    },
    "est": {
     "best": {
-     "min": 21.63986137609084,
+     "min": 19.514147090376557,
      "parts": {
-      "readPlain": 575,
-      "readSide": 163,
-      "readOrig": 315,
+      "readPlain": 512,
+      "readSide": 154,
+      "readOrig": 267,
       "walk": 32,
       "cards": 72,
       "gimmick": 50,
-      "clicks": 92
+      "clicks": 83
      },
      "chars": {
-      "plain": 3356,
-      "side": 1896,
-      "orig": 521,
+      "plain": 2989,
+      "side": 1800,
+      "orig": 442,
       "origHan": 10
      },
      "byPhase": {
-      "intro": 4.2,
-      "explore": 7.2,
+      "intro": 3.5,
+      "explore": 6.1,
       "items": 8.7,
-      "translate": 1.5
+      "translate": 1.2
      }
     },
     "typical": {
-     "min": 23.90226613799559,
+     "min": 21.775551852281314,
      "parts": {
-      "readPlain": 668,
-      "readSide": 163,
-      "readOrig": 315,
+      "readPlain": 605,
+      "readSide": 154,
+      "readOrig": 267,
       "walk": 32,
       "cards": 88,
       "gimmick": 58,
-      "clicks": 111
+      "clicks": 102
      },
      "chars": {
-      "plain": 3899,
-      "side": 1896,
-      "orig": 521,
+      "plain": 3532,
+      "side": 1800,
+      "orig": 442,
       "origHan": 10
      },
      "byPhase": {
-      "intro": 4.2,
-      "explore": 7.2,
+      "intro": 3.5,
+      "explore": 6.1,
       "items": 11,
-      "translate": 1.5
+      "translate": 1.2
      }
     },
     "allWrong": {
-     "min": 27.905099471328924,
+     "min": 25.776528042757498,
      "parts": {
-      "readPlain": 836,
-      "readSide": 163,
-      "readOrig": 315,
+      "readPlain": 773,
+      "readSide": 154,
+      "readOrig": 267,
       "walk": 32,
       "cards": 117,
       "gimmick": 65,
-      "clicks": 147
+      "clicks": 138
      },
      "chars": {
-      "plain": 4878,
-      "side": 1896,
-      "orig": 521,
+      "plain": 4510,
+      "side": 1800,
+      "orig": 442,
+      "origHan": 10
+     },
+     "byPhase": {
+      "intro": 3.5,
+      "explore": 6.1,
+      "items": 15,
+      "translate": 1.2
+     }
+    },
+    "slowTypical": {
+     "min": 26.885885185614637,
+     "parts": {
+      "readPlain": 706,
+      "readSide": 360,
+      "readOrig": 267,
+      "walk": 32,
+      "cards": 88,
+      "gimmick": 58,
+      "clicks": 102
+     },
+     "chars": {
+      "plain": 3532,
+      "side": 1800,
+      "orig": 442,
       "origHan": 10
      },
      "byPhase": {
       "intro": 4.2,
-      "explore": 7.2,
-      "items": 15,
-      "translate": 1.5
-     }
-    },
-    "slowTypical": {
-     "min": 29.37038518561462,
-     "parts": {
-      "readPlain": 780,
-      "readSide": 379,
-      "readOrig": 315,
-      "walk": 32,
-      "cards": 88,
-      "gimmick": 58,
-      "clicks": 111
-     },
-     "chars": {
-      "plain": 3899,
-      "side": 1896,
-      "orig": 521,
-      "origHan": 10
-     },
-     "byPhase": {
-      "intro": 5.1,
-      "explore": 8.8,
+      "explore": 7.5,
       "items": 13.8,
-      "translate": 1.6
+      "translate": 1.3
      }
     }
    },
    "perItem": {
     "intro": {
-     "plain": 697,
-     "side": 300,
+     "plain": 491,
+     "side": 269,
      "orig": 139,
      "origHan": 10,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 18
+     "dialogClicks": 12
     },
     "explore": {
-     "plain": 705,
-     "side": 649,
-     "orig": 382,
+     "plain": 618,
+     "side": 582,
+     "orig": 303,
      "origHan": 0,
      "walkPx": 2197,
      "ops": 0,
      "dialogClicks": 0
     },
     "items": {
-     "plain": 579,
+     "plain": 578,
      "side": 0,
      "orig": 0,
      "origHan": 0,
@@ -4198,7 +4189,7 @@
     },
     "s11.r8": {
      "plain": 267,
-     "side": 98,
+     "side": 100,
      "orig": 0,
      "origHan": 0,
      "walkPx": 0,
@@ -4224,13 +4215,13 @@
      "dialogClicks": 0
     },
     "translate": {
-     "plain": 271,
+     "plain": 197,
      "side": 0,
      "orig": 0,
      "origHan": 0,
      "walkPx": 177,
      "ops": 0,
-     "dialogClicks": 7
+     "dialogClicks": 4
     }
    }
   },
@@ -4250,114 +4241,114 @@
    },
    "est": {
     "best": {
-     "min": 11.721362756688624,
+     "min": 11.363267518593384,
      "parts": {
-      "readPlain": 425,
+      "readPlain": 408,
       "readSide": 84,
       "readOrig": 0,
       "walk": 36,
       "cards": 16,
       "gimmick": 75,
-      "clicks": 67
+      "clicks": 63
      },
      "chars": {
-      "plain": 2482,
+      "plain": 2380,
       "side": 983,
       "orig": 0,
       "origHan": 0
      },
      "byPhase": {
-      "intro": 2,
+      "intro": 1.7,
       "explore": 3.3,
       "items": 4.6,
       "translate": 1.8
      }
     },
     "typical": {
-     "min": 12.574410375736242,
+     "min": 12.216315137641006,
      "parts": {
-      "readPlain": 462,
+      "readPlain": 445,
       "readSide": 84,
       "readOrig": 0,
       "walk": 36,
       "cards": 20,
       "gimmick": 83,
-      "clicks": 70
+      "clicks": 66
      },
      "chars": {
-      "plain": 2697,
+      "plain": 2595,
       "side": 983,
       "orig": 0,
       "origHan": 0
      },
      "byPhase": {
-      "intro": 2,
+      "intro": 1.7,
       "explore": 3.3,
       "items": 5.5,
       "translate": 1.8
      }
     },
     "allWrong": {
-     "min": 13.91945799478386,
+     "min": 13.561362756688622,
      "parts": {
-      "readPlain": 523,
+      "readPlain": 506,
       "readSide": 84,
       "readOrig": 0,
       "walk": 36,
       "cards": 26,
       "gimmick": 90,
-      "clicks": 76
+      "clicks": 72
      },
      "chars": {
-      "plain": 3053,
+      "plain": 2951,
       "side": 983,
       "orig": 0,
       "origHan": 0
      },
      "byPhase": {
-      "intro": 2,
+      "intro": 1.7,
       "explore": 3.3,
       "items": 6.8,
       "translate": 1.8
      }
     },
     "slowTypical": {
-     "min": 15.731148470974341,
+     "min": 15.324481804307677,
      "parts": {
-      "readPlain": 539,
+      "readPlain": 519,
       "readSide": 197,
       "readOrig": 0,
       "walk": 36,
       "cards": 20,
       "gimmick": 83,
-      "clicks": 70
+      "clicks": 66
      },
      "chars": {
-      "plain": 2697,
+      "plain": 2595,
       "side": 983,
       "orig": 0,
       "origHan": 0
      },
      "byPhase": {
-      "intro": 2.5,
-      "explore": 4.3,
+      "intro": 2.1,
+      "explore": 4.4,
       "items": 6.9,
-      "translate": 2
+      "translate": 1.9
      }
     }
    },
    "perItem": {
     "intro": {
-     "plain": 547,
+     "plain": 453,
      "side": 118,
      "orig": 0,
      "origHan": 0,
      "walkPx": 0,
      "ops": 0,
-     "dialogClicks": 14
+     "dialogClicks": 11
     },
     "explore": {
-     "plain": 843,
+     "plain": 845,
      "side": 333,
      "orig": 0,
      "origHan": 0,
@@ -4402,13 +4393,13 @@
      "dialogClicks": 0
     },
     "translate": {
-     "plain": 332,
+     "plain": 322,
      "side": 0,
      "orig": 0,
      "origHan": 0,
      "walkPx": 1369,
      "ops": 0,
-     "dialogClicks": 7
+     "dialogClicks": 6
     }
    }
   }

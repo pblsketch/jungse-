@@ -101,5 +101,9 @@ export function estimate(events, level) {
   };
   R = M.slow;
   out.slowTypical = scen(typ);
+  // 앞 장면 규칙 안내(needs): 묶음을 차례대로 해서 그 규칙 카드를 이미 가졌으면 나오지 않는 시간(초, 보통 독자)
+  R = NORMAL;
+  out.needsSec = Math.round(events.filter(e => e.type === 'read' && e.win === 'needs').reduce((n, e) => n + readSec(e, level, R), 0)
+    + events.filter(e => e.type === 'click' && e.what === 'next' && e.needs).length * M.clickSec);
   return out;
 }

@@ -193,7 +193,8 @@
   // 중학교판: '모양을 달리한 글자(이체)'는 날개 설명으로만 보므로(spec §7) 셋째 단계(odd)를 빼고 상형·가획만 한다(시간 조정, Q2).
   const T1_M = Object.assign(t1('기본 글자 ㄱ ㄴ ㅁ ㅅ ㅇ은 소리 낼 때의 발음 기관 모양을 본떴다(상형). 소리가 세지면 획을 더했다(가획). ㆁ ㄹ ㅿ은 겉보기에 획이 더 있지만, 소리가 세져서 획을 더한 글자가 아니라 모양을 달리해 만든 글자다.'), {
     // 가획 줄도 ㄱ·ㄴ·ㅁ 세 줄만(ㄱ→ㅋ, ㄴ→ㄷ→ㅌ, ㅁ→ㅂ→ㅍ). 나머지 줄은 r2 의 풀이·규칙 카드에 그대로 있다.
-    config: { steps: ['shape', 'add'], shape: T1_CONFIG.shape, add: Object.assign({ chains: ['g', 'n', 'm'] }, T1_CONFIG.add) },
+    // 기믹 창 첫머리의 原文 카드는 줄였다: 상형 원고 다섯 장은 학사 맥락(s2.c1)에 있어 조작판이 바로 보이게 한다(플레이테스트 Q2).
+    config: { steps: ['shape', 'add'], shape: {}, add: { chains: ['g', 'n', 'm'], orig: ['O-s2-GAHOEK1'] } },
     answer: { shape: T1_ANSWER.shape, add: { 'g.1': 'k', 'n.1': 'd', 'n.2': 't', 'm.1': 'b', 'm.2': 'p' } }
   });
 
