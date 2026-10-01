@@ -228,6 +228,8 @@
         if (isAsciiAlnum(src[i - 1]) && isAsciiAlnum(src[i + 1])) { buf += ch; i++; continue; }
         flush(); underline = !underline; i++; continue;
       }
+      // '{?}' 는 규칙 문장의 빈칸 자리(js/ui/rulecard.js 가 먼저 나눈다). 다른 곳에서 그려지면 빈칸 표시로 둔다.
+      if (ch === '{' && src[i + 1] === '?' && src[i + 2] === '}') { buf += '＿＿'; i += 3; continue; }
       if (ch === '{') {
         let j = i + 1, bar = -1;
         for (; j < src.length; j++) {
