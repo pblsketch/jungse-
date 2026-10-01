@@ -25,6 +25,8 @@ param(
   [int]$WaitOnLimitSec = 600,
   [int]$Passes = 2,
   [string[]]$Only = @(),
+  [string]$CodexHome = '',
+  [string]$LogFile = '',
   [switch]$DryRun
 )
 
@@ -82,6 +84,8 @@ for ($pass = 1; $pass -le $Passes; $pass++) {
     }
     $gargs = @{ PromptFile = $pf; Out = $out; Size = $j.Size; Quality = $Quality; Retries = $Retries; WaitOnLimitSec = $WaitOnLimitSec }
     if ($refs.Count) { $gargs.Ref = $refs }
+    if ($CodexHome) { $gargs.CodexHome = $CodexHome }
+    if ($LogFile) { $gargs.LogFile = $LogFile }
     if ($DryRun) { $gargs.DryRun = $true }
     & $gen @gargs | Out-Host
     $code = $LASTEXITCODE
