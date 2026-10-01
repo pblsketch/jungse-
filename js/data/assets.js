@@ -110,4 +110,46 @@ Object.assign(NM.data.ASSETS.bg, {
   s11: 'assets/bg/s11.webp',
   s12: 'assets/bg/s12.webp',
 });
+// 장면 그림(A4): <장면>_intro / <장면>_climax, 오해 장면 반응 그림 mis_*.
+Object.assign(NM.data.ASSETS.cg, {
+  mis_child_laughing: 'assets/cg/mis_child_laughing.webp',
+  mis_commoner_puzzled: 'assets/cg/mis_commoner_puzzled.webp',
+  mis_monk_bemused: 'assets/cg/mis_monk_bemused.webp',
+  mis_official_confused: 'assets/cg/mis_official_confused.webp',
+  mis_woman_flustered: 'assets/cg/mis_woman_flustered.webp',
+  mis_yangban_offended: 'assets/cg/mis_yangban_offended.webp',
+  s0_climax: 'assets/cg/s0_climax.webp',
+  s0_intro: 'assets/cg/s0_intro.webp',
+  s10_climax: 'assets/cg/s10_climax.webp',
+  s10_intro: 'assets/cg/s10_intro.webp',
+  s11_climax: 'assets/cg/s11_climax.webp',
+  s11_intro: 'assets/cg/s11_intro.webp',
+  s12_climax: 'assets/cg/s12_climax.webp',
+  s12_intro: 'assets/cg/s12_intro.webp',
+  s1_climax: 'assets/cg/s1_climax.webp',
+  s1_intro: 'assets/cg/s1_intro.webp',
+  s2_climax: 'assets/cg/s2_climax.webp',
+  s2_intro: 'assets/cg/s2_intro.webp',
+  s3_climax: 'assets/cg/s3_climax.webp',
+  s3_intro: 'assets/cg/s3_intro.webp',
+  s4_climax: 'assets/cg/s4_climax.webp',
+  s4_intro: 'assets/cg/s4_intro.webp',
+  s5_climax: 'assets/cg/s5_climax.webp',
+  s5_intro: 'assets/cg/s5_intro.webp',
+  s6_climax: 'assets/cg/s6_climax.webp',
+  s6_intro: 'assets/cg/s6_intro.webp',
+  s7_climax: 'assets/cg/s7_climax.webp',
+  s7_intro: 'assets/cg/s7_intro.webp',
+  s8_climax: 'assets/cg/s8_climax.webp',
+  s8_intro: 'assets/cg/s8_intro.webp',
+  s9_climax: 'assets/cg/s9_climax.webp',
+  s9_intro: 'assets/cg/s9_intro.webp',
+});
+// UI 그림(A4): 아이콘·대표 이미지.
+Object.assign(NM.data.ASSETS.ui, {
+  og: 'assets/ui/og.jpg', app192: 'assets/ui/app-192.png', app512: 'assets/ui/app-512.png',
+  notebook: 'assets/ui/icon_notebook.png', settings: 'assets/ui/icon_settings.png', rulecard: 'assets/ui/icon_rulecard.png',
+  dictionary: 'assets/ui/icon_dictionary.png', plaque: 'assets/ui/icon_plaque.png', hint: 'assets/ui/icon_hint.png',
+  map: 'assets/ui/icon_map.png', soundOn: 'assets/ui/icon_sound_on.png', soundOff: 'assets/ui/icon_sound_off.png'
+});
 /* assets:end */
