@@ -1,0 +1,6 @@
+name	size	refs	prompt
+portrait_senior_tongsa	1536x1024		tools/prompts/portrait_senior_tongsa.txt
+sd_hero_1_2	1536x1024	design/art/characters/v2/L1_protagonists_lineup.png	tools/prompts/sd_hero_1_2.txt
+sd_commoner_man_woman	1536x1024	design/art/characters/v2/N1_npc_lineup_1450s.png	tools/prompts/sd_commoner_man_woman.txt
+map_market_street	1536x1024		tools/prompts/map_market_street.txt
+cg_first_meeting	1536x1024	portrait_senior_tongsa	tools/prompts/cg_first_meeting.txt
