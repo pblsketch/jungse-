@@ -1,0 +1,24 @@
+/*
+ * 게임 글꼴 (tools/build_fonts.py 가 만든다 — 외부 글꼴 서버·CDN 을 쓰지 않는다).
+ * - NMYet : 옛한글 본문용 (Noto Serif KR 바탕, 첫가끝 자모 + ljmo/vjmo/tjmo). 옛한글은 이 글꼴의 DOM 글자로 보인다.
+ * - NMSans: UI 글자용 (Noto Sans KR 바탕).
+ * 두 글꼴 모두 SIL OFL 1.1 — assets/fonts/OFL.txt. 경로는 이 CSS 파일 기준 상대 경로.
+ */
+@font-face {
+  font-family: 'NMYet';
+  src: url('../assets/fonts/NMYet.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NMSans';
+  src: url('../assets/fonts/NMSans.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+.nm-yet {
+  font-family: var(--font-yet, 'NMYet', 'NMSans', serif);
+  font-feature-settings: 'ljmo', 'vjmo', 'tjmo';
+}
