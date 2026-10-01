@@ -1,0 +1,13 @@
+name	size	refs	prompt
+pt_anc_a	1536x1024		tools/prompts/A2/pt_anc_a.txt
+pt_anc_b	1536x1024		tools/prompts/A2/pt_anc_b.txt
+pt_16c	1536x1024		tools/prompts/A2/pt_16c.txt
+pt_18c	1536x1024		tools/prompts/A2/pt_18c.txt
+pt_1896	1536x1024		tools/prompts/A2/pt_1896.txt
+sd_anc_man_woman	1536x1024	pt_anc_a;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_anc_man_woman.txt
+sd_anc_scribe_child	1536x1024	pt_anc_b;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_anc_scribe_child.txt
+sd_16c	1536x1024	pt_16c;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_16c.txt
+sd_18c	1536x1024	pt_18c;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_18c.txt
+sd_1896	1536x1024	pt_1896;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_1896.txt
+pt_teacher_modern	1024x1024	design/art/characters/v2/L1_protagonists_lineup.png	tools/prompts/A2/pt_teacher_modern.txt
+sd_teacher_modern	1024x1536	pt_teacher_modern;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_teacher_modern.txt
