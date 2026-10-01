@@ -46,13 +46,13 @@ NM.data.SCENES = NM.data.SCENES || {};
         ],
         hints: ['힌트', 'test.c3'], explain: '풀이' }
     ],
-    translate: [{ id: 's4.tr1', text: '시험 구절 넷' }]
+    translate: [{ id: 's4.tr1', text: '시험 ·구절 넷' }]
   };
 })(NM.data.SCENES);
 
 NM.data.RULE_CARDS = NM.data.RULE_CARDS || {
   'rule.araea': { id: 'rule.araea', name: '아래아', text: '시험용 규칙 문장 하나', stage: 's2' },
-  'rule.bangjeom': { id: 'rule.bangjeom', name: '방점', text: '시험용 규칙 문장 둘', stage: 's4' },
+  'rule.bangjeom': { id: 'rule.bangjeom', name: '방·점', text: '시험용 규칙 ·문장 둘', stage: 's4' },
   'rule.nomCase': { id: 'rule.nomCase', name: '주격 조사', text: '시험용 규칙 문장 셋', stage: 's6' }
 };
 NM.data.DOGAM = NM.data.DOGAM || {

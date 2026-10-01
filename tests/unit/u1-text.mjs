@@ -68,4 +68,8 @@ assert.equal(T.image.statusProgress, '진행 중');
 assert.equal(T.image.teacherMark, '교사 모드');
 for (const k of ['empty', 'tooLong', 'space', 'chars', 'profanity']) assert.equal(typeof T.setup.nicknameErrors[k], 'string');
 for (const id of ['s0', 's1', 's2', 's3', 's4', 's5', 's6', 's7', 's8', 's9', 's10', 's11', 's12']) assert.equal(typeof T.stageLabels[id], 'string');
+// 움직임 줄이기는 html.nm-reduced-motion(기기 기본 또는 직접 고른 값)만 따른다 — 직접 '끔'을 고르면 기기 설정을 이긴다
+const uiCss = readFileSync(join(ROOT, 'css/ui.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+assert.ok(!/prefers-reduced-motion/.test(uiCss), 'css/ui.css 는 prefers-reduced-motion 미디어 쿼리 대신 .nm-reduced-motion 을 쓴다');
+assert.ok(/\.nm-reduced-motion/.test(uiCss), '.nm-reduced-motion 규칙이 있어야 한다');
 console.log(`u1 text ok (${files.length} ui files)`);

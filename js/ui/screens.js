@@ -34,7 +34,7 @@
     if (app.isTeacher()) {
       box.appendChild(el('p', { class: 'nm-center' }, teacherBadge()));
       acts.appendChild(dom.button(t('title.teacherStart'), 'start', () => app.teacherStart(), { class: 'nm-btn-primary nm-btn-big', data: { primary: '1' } }));
-    } else if (app.store().hasRecord) {
+    } else if (!app.setupNeeded()) {
       acts.appendChild(dom.button(t('title.continue'), 'continue', () => app.continueGame(), { class: 'nm-btn-primary nm-btn-big', data: { primary: '1' } }));
       acts.appendChild(dom.button(t('title.newStart'), 'newstart', () => app.askNewStart(), { class: 'nm-btn-big' }));
     } else {
@@ -46,8 +46,12 @@
 
   /* ---------- 처음 정하기 ---------- */
   function stepLine(n, total) { return el('p', { class: 'nm-step', text: t('setup.step', { n, total }) }); }
-  function backRow(onBack) {
-    return el('div', { class: 'nm-row nm-row-end' }, dom.button(t('back'), 'back', onBack));
+  // 처음 정하기·교사 학교급 화면에도 설정 단추(설정은 언제든 연다)
+  function backRow(onBack, app) {
+    return el('div', { class: 'nm-row nm-row-end' }, [
+      app ? dom.button(t('title.settings'), 'settings', () => app.openSettings()) : null,
+      dom.button(t('back'), 'back', onBack)
+    ]);
   }
 
   function levelChoices(act, current, onPick) {
@@ -67,10 +71,12 @@
     box.appendChild(stepLine(1, steps));
     box.appendChild(heading(t('setup.levelTitle')));
     box.appendChild(el('p', { class: 'nm-help', text: t('setup.levelHelp') }));
-    const list = levelChoices('level', null, lv => app.setupLevel(lv));
+    // 정하기 전에 설정에서 학교급을 골라 두었으면 그 값을 미리 표시한다
+    const st = app.store();
+    const list = levelChoices('level', st.hasRecord ? st.level : null, lv => app.setupLevel(lv));
     list.firstChild.setAttribute('data-primary', '1');
     box.appendChild(list);
-    box.appendChild(backRow(() => app.go('title')));
+    box.appendChild(backRow(() => app.go('title'), app));
   }
 
   function portrait(n) {
@@ -94,7 +100,7 @@
       }));
     });
     box.appendChild(grid);
-    box.appendChild(backRow(() => app.setupBack('setup-protagonist')));
+    box.appendChild(backRow(() => app.setupBack('setup-protagonist'), app));
   }
 
   const ERRORS = ['empty', 'tooLong', 'space', 'chars', 'profanity'];
@@ -128,7 +134,7 @@
     box.appendChild(help);
     box.appendChild(warn);
     box.appendChild(form);
-    box.appendChild(backRow(() => app.setupBack('setup-nickname')));
+    box.appendChild(backRow(() => app.setupBack('setup-nickname'), app));
   }
 
   /* ---------- 교사 모드 학교급 ---------- */
@@ -139,7 +145,7 @@
     const list = levelChoices('teacher-level', null, lv => app.teacherPickLevel(lv));
     list.firstChild.setAttribute('data-primary', '1');
     box.appendChild(list);
-    box.appendChild(backRow(() => app.go('title')));
+    box.appendChild(backRow(() => app.go('title'), app));
   }
 
   /* ---------- 장면 고르기 ---------- */

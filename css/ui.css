@@ -179,6 +179,6 @@
 .nm-img-preview-box { text-align: center; }
 .nm-img-preview { display: block; width: 100%; max-width: 540px; height: auto; margin: 0 auto; border: 2px solid var(--ink); border-radius: 8px; -webkit-touch-callout: default; user-select: auto; }
 
-/* 움직임 줄이기 */
+/* 움직임 줄이기: html.nm-reduced-motion 만 따른다(app.js 가 기기 설정 기본값 또는 직접 고른 값으로 붙인다).
+   미디어 쿼리를 따로 두지 않는다 — 직접 '끔'을 고르면 기기 설정보다 앞선다. */
 .nm-reduced-motion #nm-screens *, .nm-reduced-motion .nm-modal *, .nm-reduced-motion #nm-toolbar * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
-@media (prefers-reduced-motion: reduce) { #nm-screens *, .nm-modal * { transition: none !important; animation: none !important; } }

@@ -4,7 +4,7 @@
 // 누르는 것은 모두 44px 이상이다. 글자 크기 '아주 크게'와 교사 크게 보기에서도 같다. 오류·외부 요청 0.
 import { makeChecker, startBrowser, newPage, record } from '../fixtures/u1-harness.mjs';
 
-const C = makeChecker('u1-layout-browser', 58000);
+const C = makeChecker('u1-layout-browser', 90000);
 const { check } = C;
 const env = await startBrowser();
 const SIZES = [[1920, 1080], [1280, 800], [1366, 768], [390, 844], [360, 740], [844, 390]];

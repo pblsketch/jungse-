@@ -134,7 +134,8 @@
     focusPrimary();
   }
   function refresh() {
-    if (!state.inStage && state.screen && screensEl && !screensEl.hidden) renderScreen(true);
+    // 별명 칸은 다시 그리면 쓰던 글이 사라지므로 그대로 둔다(글자 크기 등은 CSS 변수로 바로 바뀐다)
+    if (!state.inStage && state.screen && state.screen !== 'setup-nickname' && screensEl && !screensEl.hidden) renderScreen(true);
   }
 
   function renderToolbar() {
@@ -150,8 +151,8 @@
   /* ---------- 처음 정하기 ---------- */
   function setupSteps() { return state.draft.levelStep ? 3 : 2; }
   function beginSetup() {
-    const s = studentStore();
-    const levelStep = !s.hasRecord && !state.url.level;
+    // 처음 정하기를 끝냈는지는 '기록이 있는가'가 아니라 별명으로 본다(정하기 전에 설정만 바꿔도 기록은 생긴다)
+    const levelStep = setupNeeded() && !state.url.level;
     state.draft = { level: null, protagonist: null, levelStep };
     go(levelStep ? 'setup-level' : 'setup-protagonist');
   }
@@ -267,13 +268,16 @@
     const st = store();
     const noticeId = 'outside.' + st.level + '.' + id;
     if (st.bundleRole(id) === 'outside' && !st.hasSeenNotice(noticeId)) {
-      st.markNotice(noticeId);
-      checkStorageWarning();
       const box = dom.el('div', { class: 'nm-confirm' });
       box.appendChild(dom.el('p', { class: 'nm-notice-text', text: t('notice.outside', { where: outsideWhere(id) }) }));
       let wrap = null;
       box.appendChild(dom.el('div', { class: 'nm-row' }, [
-        dom.button(t('notice.enter'), 'enter', () => { dom.closeModal(wrap, true); enterStage(id); }, { class: 'nm-btn-primary', data: { autofocus: '1' } }),
+        dom.button(t('notice.enter'), 'enter', () => {
+          dom.closeModal(wrap, true);
+          st.markNotice(noticeId);   // 실제로 들어갈 때만 본 것으로 친다(다른 장면 고르기면 다음에 다시 안내)
+          checkStorageWarning();
+          enterStage(id);
+        }, { class: 'nm-btn-primary', data: { autofocus: '1' } }),
         dom.button(t('notice.pickOther'), 'cancel', () => dom.closeModal(wrap))
       ]));
       wrap = dom.openModal(box, { name: 'notice-outside', titleKey: 'notice.outsideTitle' });
@@ -373,6 +377,7 @@
     applySettings, updateSettings, setLevel,
     beginSetup, setupLevel, setupProtagonist, setupNickname, setupBack, setupSteps,
     setupDraft() { return Object.assign({}, state.draft); },
+    setupNeeded() { return !state.teacher && setupNeeded(); },
     continueGame, askNewStart, newStart,
     setTeacher, teacherStart, teacherPickLevel,
     requestStage, enterStage,

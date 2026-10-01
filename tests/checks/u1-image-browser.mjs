@@ -5,7 +5,7 @@
 import { readFileSync } from 'node:fs';
 import { makeChecker, startBrowser, newPage, record } from '../fixtures/u1-harness.mjs';
 
-const C = makeChecker('u1-image-browser', 58000);
+const C = makeChecker('u1-image-browser', 90000);
 const { check } = C;
 const env = await startBrowser();
 try {
@@ -101,6 +101,33 @@ try {
     return { old, modern, ok: document.fonts.check('48px NMYet', 'ᄆᆞᆯ') };
   });
   check('canvas old Hangul composes to one syllable with NMYet', w.ok && w.old > 0 && w.old < w.modern * 1.3, w);
+  // ── 5) 제4장 내용은 방점 끄기와 상관없이 방점을 보인다(수첩 화면 전체), 다른 장면은 설정을 따른다
+  await page.evaluate(() => NM.ui.dom.closeAll());
+  await page.evaluate(() => NM.ui.app.updateSettings({ bangjeom: false }));
+  const g = '\u302E';
+  const nbText = (s) => page.evaluate(sec => { const e = document.querySelector('.nm-modal[data-modal="notebook"] [data-section="' + sec + '"]'); return e ? Array.from(e.querySelectorAll('.nm-yet')).map(x => x.textContent).join('|') : ''; }, s);
+  await page.click('#nm-screens [data-act="notebook"]');
+  await P.waitModal('notebook');
+  await page.selectOption('#nm-nb-stage', 's2');
+  const un2 = await nbText('unlearned');
+  check('s4 rule name in unlearned list keeps bangjeom (viewed from s2)', un2.includes('점' + g), un2);
+  const it2 = await nbText('items');
+  check('s2 content follows bangjeom off', it2.length > 0 && !it2.includes(g), it2);
+  await page.evaluate(() => NM.ui.dom.closeAll());
+  await page.click('[data-stage="s4"]');
+  await P.waitModal('notice-outside');
+  await page.click('.nm-modal[data-modal="notice-outside"] [data-act="enter"]');
+  await page.waitForFunction(() => __stub.runs.length === 2);
+  await page.evaluate(() => __stub.finish());
+  await P.waitScreen('select');
+  await page.click('#nm-screens [data-act="notebook"]');
+  await P.waitModal('notebook');
+  await page.selectOption('#nm-nb-stage', 's4');
+  const s4 = { items: await nbText('items'), translations: await nbText('translations'), rules: await nbText('rules') };
+  check('s4 confirmed item keeps bangjeom', s4.items.includes(g) || s4.items.includes('\u302F'), s4);
+  check('s4 translation keeps bangjeom', s4.translations.includes(g), s4);
+  check('s4 rule card name/text keeps bangjeom', s4.rules.includes('점' + g) && s4.rules.includes('문' + g), s4);
+  await page.evaluate(() => NM.ui.dom.closeAll());
   await P.clean(check, 'image');
   await P.context.close();
 } catch (e) {

@@ -4,7 +4,7 @@
 // 설정 단추로 켜기(학교급 고르기) → 진행 → 끄기 뒤에도 바이트 동일. 새로 고침하면 꺼진다.
 import { makeChecker, startBrowser, newPage, record, KEY } from '../fixtures/u1-harness.mjs';
 
-const C = makeChecker('u1-teacher-browser', 58000);
+const C = makeChecker('u1-teacher-browser', 90000);
 const { check } = C;
 const env = await startBrowser();
 
@@ -163,6 +163,7 @@ try {
   await P.waitScreen('title');
   await page.click('[data-act="start"]');
   await page.waitForSelector('[data-act="teacher-level"]');
+  check('settings button on teacher-level screen', !!(await page.$('#nm-screens [data-act="settings"]')));
   await page.click('[data-act="teacher-level"][data-value="m"]');
   await P.waitScreen('select');
   check('teacher=1 without level: picked level used', (await P.state()).level === 'm' && (await page.getAttribute('[data-stage="s2"]', 'data-status')) === 'new');

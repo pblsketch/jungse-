@@ -101,7 +101,14 @@ assert.equal(M.stageName('s12'), '종장');
 const ts4 = NM.core.save.createStore({ storage: memStorage() });
 ts4.setup({ level: 'h1', protagonist: 1, nickname: 'abc' });
 ts4.addTranslation('s4', 's4.tr1');
-assert.deepEqual(plain(M.view(ts4, 's4')).translations.map(x => x.text), ['시험 구절 넷']);
+assert.deepEqual(plain(M.view(ts4, 's4')).translations.map(x => x.text), ['시험 ·구절 넷'], '화면용은 표기 그대로');
+// 제4장·제10장은 방점 끄기와 상관없이 늘 켠다
+ts4.setSettings({ bangjeom: false });
+assert.equal(M.bangjeomFor(ts4, 's4'), true);
+assert.equal(M.bangjeomFor(ts4, 's10'), true);
+assert.equal(M.bangjeomFor(ts4, 's2'), false);
+const img4 = plain(M.image(ts4, 's4', { now }));
+assert.ok(img4.translations[0].includes('\u302E'), '이미지의 s4 옮긴 구절에 방점');
 
 // 교사 모드: 메모리 저장소, 교사 모드 표시, 별명 없음
 const ts = NM.core.save.createStore({ teacher: true, level: 'h1' });

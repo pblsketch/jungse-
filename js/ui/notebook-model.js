@@ -36,6 +36,7 @@
   }
   const stageIds = () => (D.STAGE_IDS || []).slice();
 
+  // 그 장면의 글을 방점과 함께 보일지: 제4장·제10장은 늘 켬, 그 밖은 설정(방점 표시)
   function bangjeomFor(store, stageId) {
     if (ALWAYS_BANGJEOM.indexOf(stageId) >= 0) return true;
     const s = store.get().settings;

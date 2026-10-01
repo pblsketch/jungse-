@@ -95,7 +95,8 @@
     }
 
     build();
-    wrap = dom.openModal(body, { name: 'settings', titleKey: 'settings.title' });
+    // 닫으면 뒤 화면을 다시 그린다(정하기 전 설정 변경, 학교급 변경 등)
+    wrap = dom.openModal(body, { name: 'settings', titleKey: 'settings.title', onClose() { app.refresh(); } });
     return wrap;
   }
 

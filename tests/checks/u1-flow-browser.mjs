@@ -4,7 +4,7 @@
 // 주소 학교급(기록이 있으면 저장 안 함 / 첫 실행이면 처음 학교급으로 저장), 저장소가 막힌 기기 안내 한 번.
 import { makeChecker, startBrowser, newPage, record, KEY } from '../fixtures/u1-harness.mjs';
 
-const C = makeChecker('u1-flow-browser', 58000);
+const C = makeChecker('u1-flow-browser', 90000);
 const { check } = C;
 const env = await startBrowser();
 try {
@@ -82,6 +82,11 @@ try {
   await P.waitModal('notice-outside');
   const nt = await page.textContent('.nm-modal[data-modal="notice-outside"]');
   check('outside notice text (middle school content)', nt.includes('중학교에서 배우는 내용이에요'), nt);
+  await page.click('.nm-modal[data-modal="notice-outside"] [data-act="cancel"]');
+  check('pick other: notice not marked seen', (await P.saved()).seenNotices.length === 0 && (await page.evaluate(() => __stub.runs.length)) === 0);
+  await page.click('[data-stage="s2"]');
+  await P.waitModal('notice-outside');
+  check('notice shown again until the player enters', true);
   await page.click('.nm-modal[data-modal="notice-outside"] [data-act="enter"]');
   await page.waitForFunction(() => __stub.runs.length === 1 && __stub.runs[0].stageId === 's2');
   await page.evaluate(() => __stub.exit());
@@ -147,6 +152,43 @@ try {
   await P.waitScreen('setup-level');
   check('new start cleared the record', (await P.saved()) === null);
   await P.clean(check, 'flow');
+  await P.context.close();
+
+  // ── 6b) 처음 사용자가 정하기 전에 설정을 바꿔도 처음 정하기는 그대로(학교급 단계 포함)
+  P = await newPage(env); page = P.page;
+  await P.seed(null);
+  await P.open('');
+  await P.waitScreen('title');
+  await page.click('#nm-screens [data-act="settings"]');
+  await P.waitModal('settings');
+  await page.click('[data-setting="fontScale"] [data-value="2"]');
+  await page.click('[data-setting="level"] [data-value="h23"]');
+  await page.click('.nm-modal[data-modal="settings"] [data-act="close"]');
+  check('settings before setup: title still offers start only', !!(await page.$('[data-act="start"]')) && !(await page.$('[data-act="continue"]')) && !(await page.$('[data-act="newstart"]')));
+  await P.open('');
+  await P.waitScreen('title');
+  check('after reload: still start only (setup not done)', !!(await page.$('[data-act="start"]')) && !(await page.$('[data-act="continue"]')));
+  await page.click('[data-act="start"]');
+  await P.waitScreen('setup-level');
+  check('level step not skipped', true);
+  check('settings button on setup-level', !!(await page.$('#nm-screens [data-act="settings"]')));
+  check('level chosen in settings is preselected', (await page.getAttribute('[data-act="level"][data-value="h23"]', 'aria-pressed')) === 'true');
+  await page.click('[data-act="level"][data-value="h1"]');
+  await P.waitScreen('setup-protagonist');
+  check('settings button on setup-protagonist', !!(await page.$('#nm-screens [data-act="settings"]')));
+  await page.click('[data-act="protagonist"][data-value="4"]');
+  await P.waitScreen('setup-nickname');
+  check('settings button on setup-nickname', !!(await page.$('#nm-screens [data-act="settings"]')));
+  await page.click('#nm-screens [data-act="settings"]');
+  await P.waitModal('settings');
+  await page.keyboard.press('Escape');
+  check('setup step kept after closing settings', (await P.screen()) === 'setup-nickname');
+  await page.fill('#nm-nick', 'Bora');
+  await page.click('[data-act="nick-ok"]');
+  await page.waitForFunction(() => __stub.runs.length === 1);
+  rec = await P.saved();
+  check('chosen level saved by setup (not the default)', rec.level === 'h1' && rec.protagonist === 4 && rec.nickname === 'Bora' && rec.settings.fontScale === 2, rec);
+  await P.clean(check, 'settings-before-setup');
   await P.context.close();
 
   // ── 7) 주소 학교급: 기록이 있으면 그 접속에만

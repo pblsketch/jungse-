@@ -53,27 +53,30 @@
     function draw() {
       dom.clear(content);
       const v = M.view(app.store(), current);
+      // 제4장·제10장 내용은 방점을 늘 켠다(그 장면에 속한 글은 어디서 보이든)
+      const bj = (sid) => M.bangjeomFor(app.store(), sid || current);
+      const yt = (text, sid, opt) => dom.yet(text, Object.assign({ bangjeom: bj(sid) }, opt || {}));
       const items = v.items.map(x => el('li', { class: 'nm-nb-item' }, [
-        dom.yet(x.word, { class: 'nm-orig', bangjeom: M.bangjeomFor(app.store(), current) }),
+        yt(x.word, current, { class: 'nm-orig' }),
         el('span', { class: 'nm-arrow', text: ' ' + t('notebook.arrow') + ' ', attrs: { 'aria-hidden': 'true' } }),
         el('span', { class: 'nm-modern', text: x.modern })
       ]));
       content.appendChild(section('items', 'notebook.items', items.length ? el('ul', { class: 'nm-nb-list' }, items) : [], 'notebook.itemsEmpty'));
-      const tr = v.translations.map(x => el('li', null, dom.yet(x.text)));
+      const tr = v.translations.map(x => el('li', null, yt(x.text, current)));
       content.appendChild(section('translations', 'notebook.translations', tr.length ? el('ul', { class: 'nm-nb-list' }, tr) : [], 'notebook.translationsEmpty'));
       if (v.reflection) content.appendChild(section('reflection', 'notebook.reflection', el('p', { class: 'nm-reflection', text: v.reflection }), 'notebook.itemsEmpty'));
-      const rules = v.rulesLearned.map(r => el('li', { class: 'nm-rule' }, [el('strong', null, dom.yet(r.name)), el('span', { class: 'nm-rule-text' }, dom.yet(r.text))]));
+      const rules = v.rulesLearned.map(r => el('li', { class: 'nm-rule' }, [el('strong', null, yt(r.name, r.stage)), el('span', { class: 'nm-rule-text' }, yt(r.text, r.stage))]));
       content.appendChild(section('rules', 'notebook.rules', rules.length ? el('ul', { class: 'nm-nb-list' }, rules) : [], 'notebook.rulesEmpty'));
       const un = v.rulesUnlearned.map(r => el('li', { class: 'nm-rule nm-rule-unlearned' }, [
-        el('strong', null, dom.yet(r.name)),
+        el('strong', null, yt(r.name, r.stage)),
         r.stageName ? el('span', { class: 'nm-rule-stage', text: t('notebook.learnAt', { stage: r.stageName }) }) : null
       ]));
       content.appendChild(section('unlearned', 'notebook.unlearned', un.length ? el('ul', { class: 'nm-nb-list' }, un) : [], 'notebook.unlearnedEmpty'));
       const dg = v.dogam.map(d => el('li', { class: 'nm-dogam' + (d.found ? ' nm-dogam-found' : '') }, [
-        el('span', { class: 'nm-dogam-glyph' }, dom.yet(d.glyph)),
-        el('span', { class: 'nm-dogam-name' }, dom.yet(d.name)),
+        el('span', { class: 'nm-dogam-glyph' }, yt(d.glyph, d.stage)),
+        el('span', { class: 'nm-dogam-name' }, yt(d.name, d.stage)),
         el('span', { class: 'nm-badge', text: d.found ? t('notebook.dogamFound') : t('notebook.dogamNotYet') }),
-        d.note ? el('span', { class: 'nm-dogam-note' }, dom.yet(d.note)) : null,
+        d.note ? el('span', { class: 'nm-dogam-note' }, yt(d.note, d.stage)) : null,
         !d.found && d.stageName ? el('span', { class: 'nm-rule-stage', text: t('notebook.learnAt', { stage: d.stageName }) }) : null
       ]));
       content.appendChild(section('dogam', 'notebook.dogam', dg.length ? el('ul', { class: 'nm-dogam-list' }, dg) : [], 'notebook.dogamEmpty'));
