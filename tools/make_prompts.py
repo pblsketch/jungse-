@@ -119,7 +119,117 @@ PROTAGONISTS = {
     ),
 }
 
-CHARACTERS = {**PROTAGONISTS, **COSTUME}
+# ---- A2 additions (additive): more 15th-century people + other eras.
+# Sources and reasoning: design/research/12_bokshik_chuga_gojeung (design/research/12_*.md).
+# 15th-century keys go into COSTUME (they get the 1440s PERIOD RULE);
+# other-era keys go into OTHER_ERA with their era in ERA_OF (no 1440s rule).
+COSTUME.update({
+    "sejong": (
+        "King Sejong of early Joseon, 1440s, a dignified kind man in his late forties with a round "
+        "gentle face, slightly stout build, neat black mustache and short full beard: deep crimson "
+        "round-collared royal robe with fairly narrow sleeves reaching the ankles, round gold-embroidered "
+        "roundels on the chest and both shoulders showing a small stylized coiled dragon (simple, not "
+        "over-detailed), white inner collar, flat jade-plaque belt, black boots; black silk royal hat "
+        "(ikseongwan) with a rounded two-tier crown and two small rounded wings standing upward at the "
+        "back. No crown jewels, no golden crown, no Chinese emperor yellow robe, no long beaded hat strings."
+    ),
+    "artisan": (
+        "Early Joseon type-casting and printing workshop artisan, 1450s, a sturdy young man: long loose "
+        "hip-length hemp jacket with narrow straight collar and sleeves tied back for work, wide baggy "
+        "trousers bound below the knee with leg wrappings, straw sandals, topknot with a plain off-white "
+        "cloth headband, ink smudges on the hands, holding a small blank wooden tray. Undyed off-white "
+        "and gray-brown hemp. No hat brim, no apron with writing, no durumagi."
+    ),
+    "merchant": (
+        "Early Joseon market merchant, 1450s, a cheerful middle-aged man with a short beard: long "
+        "hip-length brown cotton jacket with narrow straight collar and side slits, wide trousers bound "
+        "below the knee with leg wrappings, straw shoes, topknot under a woven straw hat (choribi) with a "
+        "smooth rounded crown and a moderate brim, no knob on top, a cloth pouch hanging at the belt, "
+        "holding a small wooden measuring box. No wide flat black gat, no durumagi."
+    ),
+    "elder": (
+        "Early Joseon elderly farmer, 1450s, a thin old man with a white topknot, white beard and kind "
+        "wrinkles: long loose off-white hemp jacket reaching the hips with narrow straight collar, wide "
+        "trousers with leg wrappings, straw sandals, a plain black horsehair headband (manggeon), "
+        "leaning on a wooden walking stick. No wide flat black gat, no durumagi."
+    ),
+})
+
+# Other eras (not 1440s). ERA_OF value: ancient | 16c | 18c | 1896 | modern.
+OTHER_ERA = {
+    "anc_man": (
+        "Silla villager man, Korean Three Kingdoms period (6th-7th century): hip-length jacket wrapped "
+        "to the right and tied at the waist with a cloth sash, darker contrasting trim bands on the "
+        "collar, cuffs and hem, wide trousers gathered at the ankles, straw sandals, hair in a topknot "
+        "wrapped with a plain cloth kerchief. Undyed hemp beige with brown trim."
+    ),
+    "anc_woman": (
+        "Silla villager woman, Korean Three Kingdoms period (6th-7th century): hip-length jacket wrapped "
+        "to the right and tied at the waist with a cloth sash, darker contrasting trim bands on the "
+        "collar, cuffs and hem, worn over a long finely pleated skirt reaching the ground, hair coiled "
+        "up on the head simply. Muted ochre jacket, rust-brown trim, dark indigo skirt."
+    ),
+    "anc_child": (
+        "Silla village child, Korean Three Kingdoms period (about 600 AD), a lively kid who sings songs "
+        "in the street: small hip-length jacket tied with a sash, contrasting trim on collar and cuffs, "
+        "wide trousers gathered at the ankles, straw sandals, hair simply tied back. Undyed beige and "
+        "faded red-brown."
+    ),
+    "anc_scribe": (
+        "Unified Silla scribe official (8th century), a thoughtful man in his thirties with a thin "
+        "mustache: round-collared long robe (dallyeong) in muted ochre yellow, black waist belt, black "
+        "soft cloth cap (bokdu) with two short stiff tails at the back, black shoes, holding a blank "
+        "wooden writing slip and a brush. No Joseon gat, no Joseon hanbok."
+    ),
+    "teacher_16c": (
+        "Village schoolmaster (hunjang) of a late 16th-century Joseon seodang, a calm scholar in his "
+        "fifties with a gray beard: long light gray-white straight-collared robe with wide sleeves, thin "
+        "dark belt cord, cloth socks and shoes, black horsehair hat (gat) with a tall rounded crown and "
+        "a narrow brim, holding a closed blank book. No huge flat brim, no beaded hat strings."
+    ),
+    "student_16c": (
+        "Seodang schoolboy of late 16th-century Joseon, about ten years old, bright eyes: hair tied in "
+        "two small topknots on either side of the crown, long loose jacket reaching the hips and wide "
+        "trousers in pale indigo and off-white cotton, cloth socks, holding a closed blank book. No "
+        "modern items."
+    ),
+    "yeokgwan_18c": (
+        "Late 18th-century Joseon Chinese-language interpreter (yeokgwan) on a journey to the capital, "
+        "a smart man in his forties with a trimmed beard: long pale blue-gray dopo robe with wide sleeves "
+        "and a thin dark belt cord, white trousers with ankle ties, black leather shoes, black horsehair "
+        "gat with a wide brim and a simple chin strap, a cloth travel bundle on the shoulder."
+    ),
+    "noblewoman_18c": (
+        "Joseon noblewoman traveller of the 1770s, a graceful woman in her forties: very short white "
+        "jeogori with deep purple collar and cuff trim, full deep navy skirt worn high, a large braided "
+        "gache wig coiled on the head with simple pins, a dark blue jangot cloak draped over her "
+        "shoulders (face visible), holding a small folding fan."
+    ),
+    "editor_1896": (
+        "Seoul newspaper editor in 1896, a lively Korean man in his thirties with short cropped hair (no "
+        "topknot) and round spectacles: dark Western-style frock coat over a white high-collared shirt "
+        "and a simple tie, dark trousers, black leather shoes, holding a folded blank newspaper sheet."
+    ),
+    "newsboy_1896": (
+        "Seoul newspaper seller boy in 1896, about twelve years old, cheerful: white cotton jeogori and "
+        "baggy trousers tied at the ankles, a dark sleeveless vest, a single long braid down the back, "
+        "straw sandals, carrying a stack of blank folded newspapers under one arm."
+    ),
+    "teacher_modern": (
+        "Modern Korean high-school teacher in 2026, a friendly woman in her thirties with shoulder-length "
+        "brown-black hair tied low: beige knit cardigan over a white blouse, navy slacks, plain flat "
+        "shoes, holding a closed blank folder."
+    ),
+}
+ERA_OF = {
+    "anc_man": "ancient", "anc_woman": "ancient", "anc_child": "ancient", "anc_scribe": "ancient",
+    "teacher_16c": "16c", "student_16c": "16c",
+    "yeokgwan_18c": "18c", "noblewoman_18c": "18c",
+    "editor_1896": "1896", "newsboy_1896": "1896",
+    "teacher_modern": "modern",
+}
+
+CHARACTERS = {**PROTAGONISTS, **COSTUME, **OTHER_ERA}
 HISTORICAL = set(COSTUME)
 
 

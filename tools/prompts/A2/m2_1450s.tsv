@@ -1,0 +1,11 @@
+name	size	refs	prompt
+pt_sejong	1536x1024		tools/prompts/A2/pt_sejong.txt
+pt_15c_a	1024x1024	design/art/characters/v2/N1_npc_lineup_1450s.png	tools/prompts/A2/pt_15c_a.txt
+pt_15c_b	1024x1024	design/art/characters/v2/N1_npc_lineup_1450s.png	tools/prompts/A2/pt_15c_b.txt
+pt_15c_c	1536x1024	design/art/characters/v2/N1_npc_lineup_1450s.png	tools/prompts/A2/pt_15c_c.txt
+sd_sejong_official	1536x1024	pt_sejong;pt_15c_b;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_sejong_official.txt
+sd_commoner_man_woman	1536x1024	pt_15c_a;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_commoner_man_woman.txt
+sd_child_merchant	1536x1024	pt_15c_a;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_child_merchant.txt
+sd_yangban_man_woman	1536x1024	pt_15c_b;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_yangban_man_woman.txt
+sd_monk_artisan	1536x1024	pt_15c_b;pt_15c_c;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_monk_artisan.txt
+sd_elder	1024x1536	pt_15c_c;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_elder.txt

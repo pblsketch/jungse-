@@ -1,0 +1,257 @@
+{
+  "name": "senior_tongsa",
+  "image": "senior_tongsa.png",
+  "source": "assets/raw/gen/sd_senior_tongsa.png",
+  "sourceRegion": [
+    0,
+    0,
+    1536,
+    1024
+  ],
+  "frameWidth": 104,
+  "frameHeight": 124,
+  "frameCount": 12,
+  "columns": 3,
+  "rows": 4,
+  "rowOrder": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "pivot": {
+    "x": 52,
+    "y": 122
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.9839
+  },
+  "scale": 0.4876,
+  "targetHeight": 118,
+  "anims": {
+    "down": {
+      "frames": [
+        0,
+        1,
+        2,
+        1
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "left": {
+      "frames": [
+        3,
+        4,
+        5,
+        4
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "up": {
+      "frames": [
+        9,
+        10,
+        11,
+        10
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "idle": {
+      "frames": [
+        1
+      ],
+      "fps": 1,
+      "repeat": -1
+    }
+  },
+  "flip": {
+    "right": "left"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "dir": "down",
+      "step": 0,
+      "x": 0,
+      "y": 0,
+      "w": 104,
+      "h": 124,
+      "srcBBox": [
+        358,
+        9,
+        535,
+        251
+      ]
+    },
+    {
+      "index": 1,
+      "dir": "down",
+      "step": 1,
+      "x": 104,
+      "y": 0,
+      "w": 104,
+      "h": 124,
+      "srcBBox": [
+        681,
+        9,
+        857,
+        250
+      ]
+    },
+    {
+      "index": 2,
+      "dir": "down",
+      "step": 2,
+      "x": 208,
+      "y": 0,
+      "w": 104,
+      "h": 124,
+      "srcBBox": [
+        1001,
+        9,
+        1179,
+        251
+      ]
+    },
+    {
+      "index": 3,
+      "dir": "left",
+      "step": 0,
+      "x": 0,
+      "y": 124,
+      "w": 104,
+      "h": 124,
+      "srcBBox": [
+        352,
+        263,
+        527,
+        504
+      ]
+    },
+    {
+      "index": 4,
+      "dir": "left",
+      "step": 1,
+      "x": 104,
+      "y": 124,
+      "w": 104,
+      "h": 124,
+      "srcBBox": [
+        680,
+        262,
+        855,
+        506
+      ]
+    },
+    {
+      "index": 5,
+      "dir": "left",
+      "step": 2,
+      "x": 208,
+      "y": 124,
+      "w": 104,
+      "h": 124,
+      "srcBBox": [
+        998,
+        263,
+        1174,
+        504
+      ]
+    },
+    {
+      "index": 6,
+      "dir": "right",
+      "step": 0,
+      "x": 0,
+      "y": 248,
+      "w": 104,
+      "h": 124,
+      "srcBBox": [
+        357,
+        518,
+        537,
+        756
+      ]
+    },
+    {
+      "index": 7,
+      "dir": "right",
+      "step": 1,
+      "x": 104,
+      "y": 248,
+      "w": 104,
+      "h": 124,
+      "srcBBox": [
+        681,
+        518,
+        861,
+        756
+      ]
+    },
+    {
+      "index": 8,
+      "dir": "right",
+      "step": 2,
+      "x": 208,
+      "y": 248,
+      "w": 104,
+      "h": 124,
+      "srcBBox": [
+        1004,
+        517,
+        1185,
+        757
+      ]
+    },
+    {
+      "index": 9,
+      "dir": "up",
+      "step": 0,
+      "x": 0,
+      "y": 372,
+      "w": 104,
+      "h": 124,
+      "srcBBox": [
+        354,
+        766,
+        528,
+        1009
+      ]
+    },
+    {
+      "index": 10,
+      "dir": "up",
+      "step": 1,
+      "x": 104,
+      "y": 372,
+      "w": 104,
+      "h": 124,
+      "srcBBox": [
+        681,
+        763,
+        856,
+        1008
+      ]
+    },
+    {
+      "index": 11,
+      "dir": "up",
+      "step": 2,
+      "x": 208,
+      "y": 372,
+      "w": 104,
+      "h": 124,
+      "srcBBox": [
+        1003,
+        766,
+        1177,
+        1011
+      ]
+    }
+  ],
+  "warnings": []
+}

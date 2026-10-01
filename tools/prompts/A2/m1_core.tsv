@@ -1,0 +1,7 @@
+name	size	refs	prompt
+pt_hero_1	1024x1024	design/art/characters/v2/L1_protagonists_lineup.png	tools/prompts/A2/pt_hero_1.txt
+pt_hero_2	1024x1024	design/art/characters/v2/L1_protagonists_lineup.png	tools/prompts/A2/pt_hero_2.txt
+pt_hero_3	1024x1024	design/art/characters/v2/L1_protagonists_lineup.png	tools/prompts/A2/pt_hero_3.txt
+pt_hero_4	1024x1024	design/art/characters/v2/L1_protagonists_lineup.png	tools/prompts/A2/pt_hero_4.txt
+pt_senior_tongsa	1536x1024	design/art/characters/v2/L2_senior_tongsa_sheet.png	tools/prompts/A2/pt_senior_tongsa.txt
+sd_senior_tongsa	1024x1536	pt_senior_tongsa;design/art/characters/v2/S1_sd_protagonists_1_2.png	tools/prompts/A2/sd_senior_tongsa.txt

@@ -1,0 +1,257 @@
+{
+  "name": "noblewoman_18c",
+  "image": "noblewoman_18c.png",
+  "source": "assets/raw/gen/sd_18c.png",
+  "sourceRegion": [
+    768,
+    0,
+    1536,
+    1024
+  ],
+  "frameWidth": 84,
+  "frameHeight": 116,
+  "frameCount": 12,
+  "columns": 3,
+  "rows": 4,
+  "rowOrder": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "pivot": {
+    "x": 42,
+    "y": 114
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.9828
+  },
+  "scale": 0.46473,
+  "targetHeight": 112,
+  "anims": {
+    "down": {
+      "frames": [
+        0,
+        1,
+        2,
+        1
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "left": {
+      "frames": [
+        3,
+        4,
+        5,
+        4
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "up": {
+      "frames": [
+        9,
+        10,
+        11,
+        10
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "idle": {
+      "frames": [
+        1
+      ],
+      "fps": 1,
+      "repeat": -1
+    }
+  },
+  "flip": {
+    "right": "left"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "dir": "down",
+      "step": 0,
+      "x": 0,
+      "y": 0,
+      "w": 84,
+      "h": 116,
+      "srcBBox": [
+        867,
+        27,
+        1027,
+        268
+      ]
+    },
+    {
+      "index": 1,
+      "dir": "down",
+      "step": 1,
+      "x": 84,
+      "y": 0,
+      "w": 84,
+      "h": 116,
+      "srcBBox": [
+        1086,
+        27,
+        1241,
+        267
+      ]
+    },
+    {
+      "index": 2,
+      "dir": "down",
+      "step": 2,
+      "x": 168,
+      "y": 0,
+      "w": 84,
+      "h": 116,
+      "srcBBox": [
+        1303,
+        27,
+        1456,
+        268
+      ]
+    },
+    {
+      "index": 3,
+      "dir": "left",
+      "step": 0,
+      "x": 0,
+      "y": 116,
+      "w": 84,
+      "h": 116,
+      "srcBBox": [
+        874,
+        282,
+        1018,
+        513
+      ]
+    },
+    {
+      "index": 4,
+      "dir": "left",
+      "step": 1,
+      "x": 84,
+      "y": 116,
+      "w": 84,
+      "h": 116,
+      "srcBBox": [
+        1091,
+        282,
+        1233,
+        513
+      ]
+    },
+    {
+      "index": 5,
+      "dir": "left",
+      "step": 2,
+      "x": 168,
+      "y": 116,
+      "w": 84,
+      "h": 116,
+      "srcBBox": [
+        1305,
+        282,
+        1451,
+        513
+      ]
+    },
+    {
+      "index": 6,
+      "dir": "right",
+      "step": 0,
+      "x": 0,
+      "y": 232,
+      "w": 84,
+      "h": 116,
+      "srcBBox": [
+        846,
+        523,
+        997,
+        751
+      ]
+    },
+    {
+      "index": 7,
+      "dir": "right",
+      "step": 1,
+      "x": 84,
+      "y": 232,
+      "w": 84,
+      "h": 116,
+      "srcBBox": [
+        1077,
+        524,
+        1218,
+        752
+      ]
+    },
+    {
+      "index": 8,
+      "dir": "right",
+      "step": 2,
+      "x": 168,
+      "y": 232,
+      "w": 84,
+      "h": 116,
+      "srcBBox": [
+        1298,
+        523,
+        1448,
+        752
+      ]
+    },
+    {
+      "index": 9,
+      "dir": "up",
+      "step": 0,
+      "x": 0,
+      "y": 348,
+      "w": 84,
+      "h": 116,
+      "srcBBox": [
+        851,
+        764,
+        996,
+        993
+      ]
+    },
+    {
+      "index": 10,
+      "dir": "up",
+      "step": 1,
+      "x": 84,
+      "y": 348,
+      "w": 84,
+      "h": 116,
+      "srcBBox": [
+        1080,
+        763,
+        1228,
+        992
+      ]
+    },
+    {
+      "index": 11,
+      "dir": "up",
+      "step": 2,
+      "x": 168,
+      "y": 348,
+      "w": 84,
+      "h": 116,
+      "srcBBox": [
+        1298,
+        765,
+        1444,
+        993
+      ]
+    }
+  ],
+  "warnings": []
+}

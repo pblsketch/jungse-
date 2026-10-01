@@ -1,0 +1,257 @@
+{
+  "name": "yangban_man",
+  "image": "yangban_man.png",
+  "source": "assets/raw/gen/sd15_yangban.png",
+  "sourceRegion": [
+    0,
+    0,
+    768,
+    1024
+  ],
+  "frameWidth": 96,
+  "frameHeight": 120,
+  "frameCount": 12,
+  "columns": 3,
+  "rows": 4,
+  "rowOrder": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "pivot": {
+    "x": 48,
+    "y": 118
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.9833
+  },
+  "scale": 0.47303,
+  "targetHeight": 114,
+  "anims": {
+    "down": {
+      "frames": [
+        0,
+        1,
+        2,
+        1
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "left": {
+      "frames": [
+        3,
+        4,
+        5,
+        4
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "up": {
+      "frames": [
+        9,
+        10,
+        11,
+        10
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "idle": {
+      "frames": [
+        1
+      ],
+      "fps": 1,
+      "repeat": -1
+    }
+  },
+  "flip": {
+    "right": "left"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "dir": "down",
+      "step": 0,
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 120,
+      "srcBBox": [
+        73,
+        24,
+        258,
+        265
+      ]
+    },
+    {
+      "index": 1,
+      "dir": "down",
+      "step": 1,
+      "x": 96,
+      "y": 0,
+      "w": 96,
+      "h": 120,
+      "srcBBox": [
+        291,
+        23,
+        472,
+        265
+      ]
+    },
+    {
+      "index": 2,
+      "dir": "down",
+      "step": 2,
+      "x": 192,
+      "y": 0,
+      "w": 96,
+      "h": 120,
+      "srcBBox": [
+        504,
+        24,
+        685,
+        265
+      ]
+    },
+    {
+      "index": 3,
+      "dir": "left",
+      "step": 0,
+      "x": 0,
+      "y": 120,
+      "w": 96,
+      "h": 120,
+      "srcBBox": [
+        75,
+        281,
+        253,
+        514
+      ]
+    },
+    {
+      "index": 4,
+      "dir": "left",
+      "step": 1,
+      "x": 96,
+      "y": 120,
+      "w": 96,
+      "h": 120,
+      "srcBBox": [
+        290,
+        281,
+        469,
+        516
+      ]
+    },
+    {
+      "index": 5,
+      "dir": "left",
+      "step": 2,
+      "x": 192,
+      "y": 120,
+      "w": 96,
+      "h": 120,
+      "srcBBox": [
+        504,
+        281,
+        682,
+        514
+      ]
+    },
+    {
+      "index": 6,
+      "dir": "right",
+      "step": 0,
+      "x": 0,
+      "y": 240,
+      "w": 96,
+      "h": 120,
+      "srcBBox": [
+        81,
+        524,
+        258,
+        754
+      ]
+    },
+    {
+      "index": 7,
+      "dir": "right",
+      "step": 1,
+      "x": 96,
+      "y": 240,
+      "w": 96,
+      "h": 120,
+      "srcBBox": [
+        296,
+        524,
+        473,
+        755
+      ]
+    },
+    {
+      "index": 8,
+      "dir": "right",
+      "step": 2,
+      "x": 192,
+      "y": 240,
+      "w": 96,
+      "h": 120,
+      "srcBBox": [
+        509,
+        524,
+        685,
+        754
+      ]
+    },
+    {
+      "index": 9,
+      "dir": "up",
+      "step": 0,
+      "x": 0,
+      "y": 360,
+      "w": 96,
+      "h": 120,
+      "srcBBox": [
+        77,
+        763,
+        256,
+        995
+      ]
+    },
+    {
+      "index": 10,
+      "dir": "up",
+      "step": 1,
+      "x": 96,
+      "y": 360,
+      "w": 96,
+      "h": 120,
+      "srcBBox": [
+        292,
+        764,
+        471,
+        993
+      ]
+    },
+    {
+      "index": 11,
+      "dir": "up",
+      "step": 2,
+      "x": 192,
+      "y": 360,
+      "w": 96,
+      "h": 120,
+      "srcBBox": [
+        506,
+        763,
+        683,
+        994
+      ]
+    }
+  ],
+  "warnings": []
+}

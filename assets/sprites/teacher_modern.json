@@ -1,0 +1,257 @@
+{
+  "name": "teacher_modern",
+  "image": "teacher_modern.png",
+  "source": "assets/raw/gen/sd_teacher_modern.png",
+  "sourceRegion": [
+    0,
+    0,
+    1536,
+    1024
+  ],
+  "frameWidth": 92,
+  "frameHeight": 116,
+  "frameCount": 12,
+  "columns": 3,
+  "rows": 4,
+  "rowOrder": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "pivot": {
+    "x": 46,
+    "y": 114
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.9828
+  },
+  "scale": 0.41636,
+  "targetHeight": 112,
+  "anims": {
+    "down": {
+      "frames": [
+        0,
+        1,
+        2,
+        1
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "left": {
+      "frames": [
+        3,
+        4,
+        5,
+        4
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "up": {
+      "frames": [
+        9,
+        10,
+        11,
+        10
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "idle": {
+      "frames": [
+        1
+      ],
+      "fps": 1,
+      "repeat": -1
+    }
+  },
+  "flip": {
+    "right": "left"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "dir": "down",
+      "step": 0,
+      "x": 0,
+      "y": 0,
+      "w": 92,
+      "h": 116,
+      "srcBBox": [
+        305,
+        15,
+        470,
+        284
+      ]
+    },
+    {
+      "index": 1,
+      "dir": "down",
+      "step": 1,
+      "x": 92,
+      "y": 0,
+      "w": 92,
+      "h": 116,
+      "srcBBox": [
+        681,
+        15,
+        844,
+        283
+      ]
+    },
+    {
+      "index": 2,
+      "dir": "down",
+      "step": 2,
+      "x": 184,
+      "y": 0,
+      "w": 92,
+      "h": 116,
+      "srcBBox": [
+        1059,
+        15,
+        1223,
+        284
+      ]
+    },
+    {
+      "index": 3,
+      "dir": "left",
+      "step": 0,
+      "x": 0,
+      "y": 116,
+      "w": 92,
+      "h": 116,
+      "srcBBox": [
+        307,
+        290,
+        465,
+        531
+      ]
+    },
+    {
+      "index": 4,
+      "dir": "left",
+      "step": 1,
+      "x": 92,
+      "y": 116,
+      "w": 92,
+      "h": 116,
+      "srcBBox": [
+        688,
+        292,
+        843,
+        532
+      ]
+    },
+    {
+      "index": 5,
+      "dir": "left",
+      "step": 2,
+      "x": 184,
+      "y": 116,
+      "w": 92,
+      "h": 116,
+      "srcBBox": [
+        1063,
+        291,
+        1221,
+        531
+      ]
+    },
+    {
+      "index": 6,
+      "dir": "right",
+      "step": 0,
+      "x": 0,
+      "y": 232,
+      "w": 92,
+      "h": 116,
+      "srcBBox": [
+        308,
+        537,
+        468,
+        772
+      ]
+    },
+    {
+      "index": 7,
+      "dir": "right",
+      "step": 1,
+      "x": 92,
+      "y": 232,
+      "w": 92,
+      "h": 116,
+      "srcBBox": [
+        689,
+        538,
+        844,
+        774
+      ]
+    },
+    {
+      "index": 8,
+      "dir": "right",
+      "step": 2,
+      "x": 184,
+      "y": 232,
+      "w": 92,
+      "h": 116,
+      "srcBBox": [
+        1060,
+        537,
+        1220,
+        772
+      ]
+    },
+    {
+      "index": 9,
+      "dir": "up",
+      "step": 0,
+      "x": 0,
+      "y": 348,
+      "w": 92,
+      "h": 116,
+      "srcBBox": [
+        316,
+        778,
+        466,
+        1008
+      ]
+    },
+    {
+      "index": 10,
+      "dir": "up",
+      "step": 1,
+      "x": 92,
+      "y": 348,
+      "w": 92,
+      "h": 116,
+      "srcBBox": [
+        695,
+        780,
+        844,
+        1007
+      ]
+    },
+    {
+      "index": 11,
+      "dir": "up",
+      "step": 2,
+      "x": 184,
+      "y": 348,
+      "w": 92,
+      "h": 116,
+      "srcBBox": [
+        1070,
+        778,
+        1220,
+        1008
+      ]
+    }
+  ],
+  "warnings": []
+}

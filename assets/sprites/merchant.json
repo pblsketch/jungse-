@@ -1,0 +1,257 @@
+{
+  "name": "merchant",
+  "image": "merchant.png",
+  "source": "assets/raw/gen/sd_child_merchant.png",
+  "sourceRegion": [
+    768,
+    0,
+    1536,
+    1024
+  ],
+  "frameWidth": 100,
+  "frameHeight": 116,
+  "frameCount": 12,
+  "columns": 3,
+  "rows": 4,
+  "rowOrder": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "pivot": {
+    "x": 50,
+    "y": 114
+  },
+  "origin": {
+    "x": 0.5,
+    "y": 0.9828
+  },
+  "scale": 0.4358,
+  "targetHeight": 112,
+  "anims": {
+    "down": {
+      "frames": [
+        0,
+        1,
+        2,
+        1
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "left": {
+      "frames": [
+        3,
+        4,
+        5,
+        4
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "up": {
+      "frames": [
+        9,
+        10,
+        11,
+        10
+      ],
+      "fps": 8,
+      "repeat": -1
+    },
+    "idle": {
+      "frames": [
+        1
+      ],
+      "fps": 1,
+      "repeat": -1
+    }
+  },
+  "flip": {
+    "right": "left"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "dir": "down",
+      "step": 0,
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 116,
+      "srcBBox": [
+        843,
+        21,
+        1031,
+        278
+      ]
+    },
+    {
+      "index": 1,
+      "dir": "down",
+      "step": 1,
+      "x": 100,
+      "y": 0,
+      "w": 100,
+      "h": 116,
+      "srcBBox": [
+        1061,
+        21,
+        1249,
+        276
+      ]
+    },
+    {
+      "index": 2,
+      "dir": "down",
+      "step": 2,
+      "x": 200,
+      "y": 0,
+      "w": 100,
+      "h": 116,
+      "srcBBox": [
+        1279,
+        21,
+        1467,
+        279
+      ]
+    },
+    {
+      "index": 3,
+      "dir": "left",
+      "step": 0,
+      "x": 0,
+      "y": 116,
+      "w": 100,
+      "h": 116,
+      "srcBBox": [
+        842,
+        286,
+        1029,
+        527
+      ]
+    },
+    {
+      "index": 4,
+      "dir": "left",
+      "step": 1,
+      "x": 100,
+      "y": 116,
+      "w": 100,
+      "h": 116,
+      "srcBBox": [
+        1062,
+        286,
+        1249,
+        526
+      ]
+    },
+    {
+      "index": 5,
+      "dir": "left",
+      "step": 2,
+      "x": 200,
+      "y": 116,
+      "w": 100,
+      "h": 116,
+      "srcBBox": [
+        1281,
+        285,
+        1469,
+        527
+      ]
+    },
+    {
+      "index": 6,
+      "dir": "right",
+      "step": 0,
+      "x": 0,
+      "y": 232,
+      "w": 100,
+      "h": 116,
+      "srcBBox": [
+        835,
+        533,
+        1021,
+        767
+      ]
+    },
+    {
+      "index": 7,
+      "dir": "right",
+      "step": 1,
+      "x": 100,
+      "y": 232,
+      "w": 100,
+      "h": 116,
+      "srcBBox": [
+        1059,
+        533,
+        1246,
+        765
+      ]
+    },
+    {
+      "index": 8,
+      "dir": "right",
+      "step": 2,
+      "x": 200,
+      "y": 232,
+      "w": 100,
+      "h": 116,
+      "srcBBox": [
+        1278,
+        533,
+        1465,
+        767
+      ]
+    },
+    {
+      "index": 9,
+      "dir": "up",
+      "step": 0,
+      "x": 0,
+      "y": 348,
+      "w": 100,
+      "h": 116,
+      "srcBBox": [
+        845,
+        770,
+        1018,
+        1004
+      ]
+    },
+    {
+      "index": 10,
+      "dir": "up",
+      "step": 1,
+      "x": 100,
+      "y": 348,
+      "w": 100,
+      "h": 116,
+      "srcBBox": [
+        1067,
+        770,
+        1241,
+        999
+      ]
+    },
+    {
+      "index": 11,
+      "dir": "up",
+      "step": 2,
+      "x": 200,
+      "y": 348,
+      "w": 100,
+      "h": 116,
+      "srcBBox": [
+        1287,
+        770,
+        1460,
+        1004
+      ]
+    }
+  ],
+  "warnings": []
+}
