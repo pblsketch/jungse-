@@ -4,6 +4,11 @@
   "type": "module",
   "scripts": {
     "check": "node run-all.mjs",
+    "check:ci": "node run-all.mjs --no-browser",
+    "check:scene": "node run-all.mjs --no-browser --no-fonts",
+    "check:release": "node run-all.mjs --require-all-scenes",
+    "orig": "node ../tools/extract_orig.mjs",
+    "orig:check": "node ../tools/extract_orig.mjs --check",
     "e2e": "node e2e/run.mjs"
   },
   "devDependencies": {

@@ -1,0 +1,17 @@
+{
+  "why": "장면 목록 등록(STAGES)과 장면 데이터의 패 글자가 다름",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/stages.js",
+      "find": "carveGlyph: 'ㆍ'",
+      "replace": "carveGlyph: 'ㄱ'"
+    }
+  ],
+  "expect": [
+    "NM.data.STAGES.s4",
+    "carveGlyph"
+  ]
+}

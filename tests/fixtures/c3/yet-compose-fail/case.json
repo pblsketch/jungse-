@@ -1,0 +1,17 @@
+{
+  "why": "대괄호 표기가 한 음절로 조합되지 않음",
+  "checks": [
+    "c3-yet"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "혼자 시작하는 견본 도입입니다.",
+      "replace": "[ㄱㅏㄱㅏ] 도입"
+    }
+  ],
+  "expect": [
+    "NM.data.SCENES.s4.intro[0]",
+    "옛한글 조합 실패"
+  ]
+}

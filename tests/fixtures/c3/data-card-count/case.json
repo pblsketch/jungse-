@@ -1,0 +1,28 @@
+{
+  "why": "선택 카드가 2장",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "        { id: 's4.r1.c', text: '다른 지방 말이다', correct: false, why: '같은 책 안에서 일관되게 나타난다.' }\n",
+      "replace": ""
+    },
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "실수가 아니다.' },",
+      "replace": "실수가 아니다.' }"
+    },
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": ", 's4.r1.c': ['어르신: 이 고장 말이 맞다네.']",
+      "replace": ""
+    }
+  ],
+  "expect": [
+    "항목 s4.r1",
+    "3~4장",
+    "2장"
+  ]
+}

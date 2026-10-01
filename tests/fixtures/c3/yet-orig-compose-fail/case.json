@@ -1,0 +1,18 @@
+{
+  "why": "原文 줄 표기가 조합되지 않음(자동 생성 ORIG)",
+  "checks": [
+    "c3-yet"
+  ],
+  "regen": true,
+  "patch": [
+    {
+      "file": "design/research/09_fixture.md",
+      "find": "[ㅂㅅㄱㅜㄹ]",
+      "replace": "[ㅂㅅㄱㅜㄹㄹㄹㄹ]"
+    }
+  ],
+  "expect": [
+    "NM.data.ORIG.O-s4-TST1.lines[1]",
+    "옛한글 조합 실패"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "why": "중학교 묶음에서 s9 가 빠짐",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/stages.js",
+      "find": "stages: ['s2', 's3', 's9', 's12']",
+      "replace": "stages: ['s2', 's3', 's12']"
+    }
+  ],
+  "expect": [
+    "NM.data.BUNDLES.m.stages"
+  ]
+}

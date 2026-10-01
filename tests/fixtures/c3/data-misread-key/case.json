@@ -1,0 +1,17 @@
+{
+  "why": "misread 가 정답 카드를 가리킴",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "misread: { 's4.r1.b'",
+      "replace": "misread: { 's4.r1.a'"
+    }
+  ],
+  "expect": [
+    "misread",
+    "s4.r1.a"
+  ]
+}

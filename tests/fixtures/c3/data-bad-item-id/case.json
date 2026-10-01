@@ -1,0 +1,17 @@
+{
+  "why": "항목 id 형식이 틀림",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "id: 's4.t1', kind: 'task'",
+      "replace": "id: 's4.x1', kind: 'task'"
+    }
+  ],
+  "expect": [
+    "'s4.x1'",
+    "형식"
+  ]
+}

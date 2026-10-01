@@ -1,0 +1,15 @@
+{
+  "why": "손 데이터 파일이 NM.data.ORIG 를 만듦",
+  "checks": [
+    "c3-orig"
+  ],
+  "write": {
+    "js/data/hand-orig.js": [
+      "NM.data.ORIG = { 'O-s4-TST1': { title: 'x', lines: ['손으로 적은 원문'] } };"
+    ]
+  },
+  "expect": [
+    "js/data/hand-orig.js",
+    "ORIG"
+  ]
+}

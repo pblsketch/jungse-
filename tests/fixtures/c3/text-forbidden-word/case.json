@@ -1,0 +1,17 @@
+{
+  "why": "화면 문구에 금지 낱말",
+  "checks": [
+    "c3-text"
+  ],
+  "patch": [
+    {
+      "file": "js/data/text-fixture.js",
+      "find": "hello: '견본 문구입니다.",
+      "replace": "hello: '게임오버! 견본 문구입니다."
+    }
+  ],
+  "expect": [
+    "NM.data.TEXT.fixture.hello",
+    "게임오버"
+  ]
+}

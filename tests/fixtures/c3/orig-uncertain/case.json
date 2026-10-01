@@ -1,0 +1,24 @@
+{
+  "why": "확실도 △ 블록을 데이터가 참조",
+  "checks": [
+    "c3-orig"
+  ],
+  "regen": true,
+  "patch": [
+    {
+      "file": "design/research/09_fixture.md",
+      "find": "- 교과서: 없음 (점검 견본)\n",
+      "replace": "- 교과서: 없음 (점검 견본)\n\n#### O-s4-TST2\n> **原文** 「점검 견본 둘」 (실제 원문 아님)\n> 확인 못 한 견본 줄\n- 출처: https://example.org/fixture/s2\n- 대조: https://example.org/fixture/c2\n- 확실도: △\n"
+    },
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "orig: ['O-s4-TST1']",
+      "replace": "orig: ['O-s4-TST1', 'O-s4-TST2']"
+    }
+  ],
+  "expect": [
+    "O-s4-TST2",
+    "△",
+    "contexts[0].orig[1]"
+  ]
+}

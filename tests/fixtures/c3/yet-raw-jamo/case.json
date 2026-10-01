@@ -1,0 +1,17 @@
+{
+  "why": "손 데이터에 날 첫가끝 자모",
+  "checks": [
+    "c3-yet"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "title: '견본 장면'",
+      "replace": "title: '견본 {{U+1109}}{{U+119E}} 장면'"
+    }
+  ],
+  "expect": [
+    "js/data/scenes/s4.js:8",
+    "U+1109"
+  ]
+}

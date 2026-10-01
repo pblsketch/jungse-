@@ -1,0 +1,15 @@
+{
+  "why": "화면 코드에 이스케이프로 숨긴 한국어",
+  "checks": [
+    "c3-text"
+  ],
+  "write": {
+    "js/ui/bad.js": [
+      "'use strict';",
+      "NM.badLabel = '{{ESC:U+C0B4}}{{ESC:U+D53C}}';"
+    ]
+  },
+  "expect": [
+    "js/ui/bad.js:2"
+  ]
+}

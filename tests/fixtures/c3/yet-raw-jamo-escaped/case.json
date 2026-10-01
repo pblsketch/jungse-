@@ -1,0 +1,17 @@
+{
+  "why": "손 데이터에 이스케이프로 숨긴 날 자모",
+  "checks": [
+    "c3-yet"
+  ],
+  "patch": [
+    {
+      "file": "js/data/text-fixture.js",
+      "find": "hello: '견본",
+      "replace": "hello: '{{ESC:U+1100}}{{ESC:U+1161}} 견본"
+    }
+  ],
+  "expect": [
+    "js/data/text-fixture.js:7",
+    "U+1100"
+  ]
+}

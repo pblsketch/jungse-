@@ -1,0 +1,14 @@
+{
+  "why": "--require-all-scenes 이면 없음 장면이 실패",
+  "checks": [
+    "c3-data"
+  ],
+  "args": [
+    "--require-all-scenes"
+  ],
+  "expect": [
+    "없음",
+    "s0",
+    "--require-all-scenes"
+  ]
+}

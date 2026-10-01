@@ -1,0 +1,16 @@
+{
+  "why": "맥락 id 가 겹침",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "{ id: 's4.c3', label",
+      "replace": "{ id: 's4.c2', label"
+    }
+  ],
+  "expect": [
+    "맥락 id s4.c2 가 겹친다"
+  ]
+}

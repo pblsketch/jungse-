@@ -1,0 +1,17 @@
+{
+  "why": "장면에 패 글자가 없음",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "  carveGlyph: 'ㆍ',\n",
+      "replace": ""
+    }
+  ],
+  "expect": [
+    "NM.data.SCENES.s4",
+    "패 글자"
+  ]
+}

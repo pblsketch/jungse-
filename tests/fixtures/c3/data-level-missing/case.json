@@ -1,0 +1,18 @@
+{
+  "why": "h1 묶음 장면인데 h1 핵심 항목이 없음",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "levels: ['h1', 'h23']",
+      "replace": "levels: ['h23']",
+      "all": true
+    }
+  ],
+  "expect": [
+    "NM.data.SCENES.s4",
+    "h1 핵심 항목"
+  ]
+}

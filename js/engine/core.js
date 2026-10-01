@@ -1,7 +1,7 @@
 'use strict';
 /*
  * 엔진 공용: 사건(on/off/emit), 설정값, 화면 문구 찾기.
- * 화면 문구는 데이터(NM.data.TEXT 또는 NM.core.t)에서 가져온다. 엔진 코드에는 기본 단추 이름 하나만 대비용으로 둔다.
+ * 화면 문구는 데이터(NM.data.TEXT 또는 NM.core.t)에서 가져온다. 엔진의 기본 문구는 js/data/text-engine.js(NM.data.TEXT.engine)에 있다.
  */
 (function (root) {
   const NM = root.NM || (root.NM = {});
@@ -21,8 +21,10 @@
     dragThreshold: 10       // 이만큼 움직이면 '끌기', 아니면 '누르기'(CSS px)
   }, E.config || {});
 
-  const ACT_FALLBACK = '살피기';
+  // 기본 단추 이름: 'act.inspect' → 없으면 js/data/text-engine.js 의 'engine.act.inspect' → 그것도 없으면 '…'
   const ACT_KEY = 'act.inspect';
+  const ACT_FALLBACK_KEY = 'engine.act.inspect';
+  const ACT_LAST = '\u2026';
 
   // 문구 찾기: NM.core.t(key) → NM.data.TEXT[key](점 경로 포함) → 대비값
   E.text = function (key, fallback) {
@@ -41,7 +43,7 @@
     return fallback;
   };
   E.actLabel = function (actKey) {
-    const def = E.text(ACT_KEY, ACT_FALLBACK);
+    const def = E.text(ACT_KEY, E.text(ACT_FALLBACK_KEY, ACT_LAST));
     return actKey ? E.text(actKey, def) : def;
   };
 

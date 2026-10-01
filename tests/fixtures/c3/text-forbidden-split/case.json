@@ -1,0 +1,17 @@
+{
+  "why": "꾸밈으로 갈라 쓴 금지 낱말",
+  "checks": [
+    "c3-text"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "translate: ['견본 통역 장면입니다.']",
+      "replace": "translate: ['**점**수를 얻었다']"
+    }
+  ],
+  "expect": [
+    "NM.data.SCENES.s4.translate[0]",
+    "점수"
+  ]
+}

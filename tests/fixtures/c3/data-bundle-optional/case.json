@@ -1,0 +1,16 @@
+{
+  "why": "고1 추천 선택(s10)이 빠진 묶음 표",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/stages.js",
+      "find": "optional: ['s10']",
+      "replace": "optional: []"
+    }
+  ],
+  "expect": [
+    "NM.data.BUNDLES.h1.optional"
+  ]
+}
