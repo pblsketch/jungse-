@@ -10,7 +10,7 @@
   "tilewidth": 32,
   "tileheight": 32,
   "nextlayerid": 6,
-  "nextobjectid": 14,
+  "nextobjectid": 20,
   "tilesets": [],
   "layers": [
     {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s8.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
@@ -28,8 +28,16 @@
         {"id": 11, "name": "gate", "type": "", "x": 420, "y": 640, "width": 340, "height": 256, "rotation": 0, "visible": true},
         {"id": 12, "name": "trees-wall-right", "type": "", "x": 760, "y": 690, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 140, "y": 10}, {"x": 240, "y": -30}, {"x": 392, "y": -50}, {"x": 392, "y": 206}, {"x": 0, "y": 206}]}
       ]},
-    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
-    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": []},
+    {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 14, "name": "book-on-veranda", "type": "", "x": 150, "y": 352, "width": 56, "height": 40, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s8.c2"}]},
+        {"id": 15, "name": "book-on-hall-steps", "type": "", "x": 540, "y": 282, "width": 72, "height": 30, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s8.c5"}]}
+      ]},
+    {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 16, "name": "monk", "type": "", "x": 770, "y": 340, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "monk"}, {"name": "contextId", "type": "string", "value": "s8.c1"}, {"name": "sprite", "type": "string", "value": "monk"}]},
+        {"id": 17, "name": "child", "type": "", "x": 290, "y": 575, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "child"}, {"name": "contextId", "type": "string", "value": "s8.c3"}, {"name": "sprite", "type": "string", "value": "child"}]},
+        {"id": 18, "name": "scholar", "type": "", "x": 800, "y": 575, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "scholar"}, {"name": "contextId", "type": "string", "value": "s8.c4"}, {"name": "sprite", "type": "string", "value": "yangban_man"}]},
+        {"id": 19, "name": "senior", "type": "", "x": 660, "y": 600, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "senior"}, {"name": "sprite", "type": "string", "value": "senior_tongsa"}]}
+      ]},
     {"id": 5, "name": "spawn", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
         {"id": 13, "name": "spawn", "type": "", "x": 576, "y": 600, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true}
       ]}
