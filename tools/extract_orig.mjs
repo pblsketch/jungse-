@@ -10,7 +10,7 @@
 //   #### O-s4-YB2
 //   > **原文** 「용비어천가」 제2장 (1447)
 //   > (원문 한 줄. 데이터 표기 규칙으로 적음)
-//   - 출처: <URL>
+//   - 출처: <URL> 또는 교과서 쪽(예: 공통국어2 132쪽)
 //   - 대조: <URL> [, <URL>]
 //   - 확실도: ◎ | ○ | △
 //   - 교과서: <교과서·쪽> [★ 교과서 대조 필요]
@@ -28,7 +28,7 @@ import vm from 'node:vm';
 
 export const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const OUT_REL = 'js/data/orig.generated.js';
-export const BLOCK_ID_RE = /^O-s(?:[0-9]|1[0-2])-[A-Za-z0-9]+$/;
+export const BLOCK_ID_RE = /^O-s(?:[0-9]|1[0-2])-[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/;
 const CERTAINTY = ['◎', '○', '△'];
 
 function researchDocs(root) {
@@ -121,7 +121,8 @@ function parseBlock(lines, at, rel, id) {
   const src = need('출처');
   const cmp = need('대조');
   const cert = need('확실도');
-  if (src && !/https?:\/\//.test(src.value)) errors.push(`${where(src.line)}: ${id} 출처에 URL 이 없다`);
+  // 출처는 URL 또는 교과서 쪽 표시(기준 본문이 교과서인 경우, 예: 공통국어2 132쪽). 대조에는 URL 이 있어야 한다.
+  if (src && !/https?:\/\//.test(src.value) && !/[0-9]+\s*쪽/.test(src.value)) errors.push(`${where(src.line)}: ${id} 출처에 URL 이나 교과서 쪽이 없다`);
   if (cmp && !/https?:\/\//.test(cmp.value)) errors.push(`${where(cmp.line)}: ${id} 대조에 URL 이 없다`);
   let certainty = null;
   if (cert) {
@@ -140,7 +141,7 @@ export function renderGenerated(orig) {
     ' * 자동 생성 파일 — 손으로 고치지 않는다.',
     ' * 만든 도구: tools/extract_orig.mjs (원본: design/research/*.md 의 spec §19-2 原文 블록, 확실도 △ 제외)',
     ' * 다시 만들기: node tools/extract_orig.mjs    낡았는지 점검: node tools/extract_orig.mjs --check',
-    ' * NM.data.ORIG[<블록 id>] = { title, lines: [원문 줄…], src: <출처 URL>, certainty: ◎|○, doc: <리서치 문서> }',
+    ' * NM.data.ORIG[<블록 id>] = { title, lines: [원문 줄…], src: <출처 URL 또는 교과서 쪽>, certainty: ◎|○, doc: <리서치 문서> }',
     ' */',
     'window.NM = window.NM || {};',
     'NM.data = NM.data || {};',

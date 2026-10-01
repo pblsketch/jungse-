@@ -23,7 +23,7 @@ const ITEM_RE = /^(s\d+)\.([rt])([1-9]\d*)$/;
 const CTX_RE = /^(s\d+)\.c([1-9]\d*)$/;
 const CARD_RE = /^(s\d+\.[rt][1-9]\d*)\.([abcd])$/;
 const RULE_RE = /^rule\.[A-Za-z][A-Za-z0-9]*$/;
-const BLOCK_RE = /^O-s(?:[0-9]|1[0-2])-[A-Za-z0-9]+$/;
+const BLOCK_RE = /^O-s(?:[0-9]|1[0-2])-[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/;
 const ASSET_KEY_FIELDS = { cgKey: 'cg', portraitKey: 'portraits', spriteKey: 'sprites', bgKey: 'bg', uiKey: 'ui' };
 
 const R = reporter('c3-data');

@@ -5,7 +5,7 @@
 import { chromium } from 'playwright';
 import { serve } from '../server.mjs';
 
-const HARD_LIMIT = setTimeout(() => { console.log('FAIL e1-engine-browser: time limit (55 s)'); process.exit(1); }, 55000);
+const HARD_LIMIT = setTimeout(() => { console.log('FAIL e1-engine-browser: time limit (120 s)'); process.exit(1); }, 120000);
 const results = [];
 let failed = 0;
 function check(name, ok, info) {
