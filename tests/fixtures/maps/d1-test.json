@@ -1,0 +1,247 @@
+{
+ "type": "map",
+ "version": "1.10",
+ "tiledversion": "1.10.2",
+ "orientation": "orthogonal",
+ "renderorder": "right-down",
+ "infinite": false,
+ "width": 48,
+ "height": 30,
+ "tilewidth": 32,
+ "tileheight": 32,
+ "nextlayerid": 6,
+ "nextobjectid": 20,
+ "tilesets": [],
+ "layers": [
+  {
+   "id": 1,
+   "name": "bg",
+   "type": "imagelayer",
+   "image": "../../../assets/bg/test.webp",
+   "x": 0,
+   "y": 0,
+   "offsetx": 0,
+   "offsety": 0,
+   "opacity": 1,
+   "visible": true
+  },
+  {
+   "id": 2,
+   "name": "collision",
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "x": 0,
+   "y": 0,
+   "opacity": 1,
+   "visible": true,
+   "objects": [
+    {
+     "id": 1,
+     "name": "trees-top",
+     "type": "",
+     "x": 0,
+     "y": 0,
+     "width": 1536,
+     "height": 64,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 2,
+     "name": "stele",
+     "type": "",
+     "x": 180,
+     "y": 160,
+     "width": 60,
+     "height": 40,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 3,
+     "name": "house",
+     "type": "",
+     "x": 420,
+     "y": 200,
+     "width": 280,
+     "height": 220,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 4,
+     "name": "wall",
+     "type": "",
+     "x": 900,
+     "y": 0,
+     "width": 40,
+     "height": 700,
+     "rotation": 0,
+     "visible": true
+    },
+    {
+     "id": 5,
+     "name": "pond",
+     "type": "",
+     "x": 1150,
+     "y": 600,
+     "rotation": 0,
+     "visible": true,
+     "polygon": [
+      {
+       "x": 0,
+       "y": 0
+      },
+      {
+       "x": 200,
+       "y": -20
+      },
+      {
+       "x": 270,
+       "y": 100
+      },
+      {
+       "x": 150,
+       "y": 220
+      },
+      {
+       "x": 10,
+       "y": 180
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "spots",
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "x": 0,
+   "y": 0,
+   "opacity": 1,
+   "visible": true,
+   "objects": [
+    {
+     "id": 10,
+     "name": "stele",
+     "type": "",
+     "x": 180,
+     "y": 200,
+     "width": 60,
+     "height": 24,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "contextId",
+       "type": "string",
+       "value": "s6.c1"
+      }
+     ]
+    },
+    {
+     "id": 11,
+     "name": "signboard",
+     "type": "",
+     "x": 540,
+     "y": 420,
+     "width": 40,
+     "height": 20,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "act",
+       "type": "string",
+       "value": "act.read"
+      },
+      {
+       "name": "contextId",
+       "type": "string",
+       "value": "s6.c2"
+      }
+     ]
+    },
+    {
+     "id": 12,
+     "name": "stone",
+     "type": "",
+     "x": 1100,
+     "y": 300,
+     "width": 48,
+     "height": 32,
+     "rotation": 0,
+     "visible": true,
+     "properties": [
+      {
+       "name": "contextId",
+       "type": "string",
+       "value": "s6.c3"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "name": "npcs",
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "x": 0,
+   "y": 0,
+   "opacity": 1,
+   "visible": true,
+   "objects": [
+    {
+     "id": 13,
+     "name": "elder",
+     "type": "",
+     "x": 760,
+     "y": 600,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "point": true,
+     "properties": [
+      {
+       "name": "npcId",
+       "type": "string",
+       "value": "s6.elder"
+      },
+      {
+       "name": "contextId",
+       "type": "string",
+       "value": "s6.c4"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "spawn",
+   "type": "objectgroup",
+   "draworder": "topdown",
+   "x": 0,
+   "y": 0,
+   "opacity": 1,
+   "visible": true,
+   "objects": [
+    {
+     "id": 14,
+     "name": "spawn",
+     "type": "",
+     "x": 300,
+     "y": 480,
+     "width": 0,
+     "height": 0,
+     "rotation": 0,
+     "visible": true,
+     "point": true
+    }
+   ]
+  }
+ ]
+}
