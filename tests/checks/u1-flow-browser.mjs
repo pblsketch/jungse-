@@ -105,7 +105,7 @@ try {
   // ── 4) s4 끝내기 → 완료·패 글자, 칭호
   await page.evaluate(() => __stub.finish());
   await P.waitScreen('select');
-  let s4 = await page.$eval('[data-stage="s4"]', e => ({ status: e.getAttribute('data-status'), text: e.textContent, glyph: (e.querySelector('.nm-glyph') || {}).textContent }));
+  let s4 = await page.$eval('[data-stage="s4"]', e => ({ status: e.getAttribute('data-status'), text: e.textContent, glyph: (e.querySelector('.nm-glyph .nm-yet') || e.querySelector('.nm-glyph') || {}).textContent }));
   check('done scene shows done mark and glyph', s4.status === 'done' && s4.text.includes('완료') && s4.glyph === 'ㆆ', s4);
   tt = await page.textContent('[data-part="title"]');
   check('title count updated (1/5)', tt.includes('1 / 5'), tt);
