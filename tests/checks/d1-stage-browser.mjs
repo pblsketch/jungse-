@@ -9,7 +9,7 @@
 import { chromium } from 'playwright';
 import { serve } from '../server.mjs';
 
-const HARD_LIMIT = setTimeout(() => { console.log('FAIL d1-stage-browser: time limit (100 s)'); process.exit(1); }, 100000);
+const HARD_LIMIT = setTimeout(() => { console.log('FAIL d1-stage-browser: time limit (180 s, 설치된 Chrome 이 느린 기기 고려)'); process.exit(1); }, 180000);
 let failed = 0;
 function check(name, ok, info) {
   if (ok) console.log('  ok   ' + name);
@@ -110,8 +110,7 @@ try {
   check('modern reading attribute + screen-reader text', !!orig.modern && orig.modern.length > 0 && orig.sr === orig.modern && orig.visHidden && !/[〮〯]/.test(orig.modern), orig);
   check('原文 uses NMYet font', /NMYet/.test(orig.font || ''), orig.font);
   check('bangjeom drawn as left-side dot (no raw tone mark glyph)', orig.bj && orig.bj.display !== 'none' && orig.bj.dotX < (orig.bj.synLeft + orig.bj.synRight) / 2 && !orig.rawToneChars, orig.bj);
-  check('notes card (알아 두기) with source in context', await page.evaluate((sel) => { const c = document.querySelector(sel + ' .nm-card[data-mark="know"]'); return !!c && c.textContent.includes('시험 출처'); }, TOP));
-  check('non-core item shown only as 알아 두기 at m', await page.evaluate(() => true)); // r3 는 c3 에서 확인
+  check('notes card (알아 두기) with source in context', await page.evaluate((sel) => { const c = document.querySelector(sel + ' .nm-card[data-mark="know"]:not([data-item])'); return !!c && c.textContent.includes('시험 출처'); }, TOP));
 
   // ───────── 3) 맥락 수와 확정 단추 ─────────
   check('context marks r1 met', (await state(page, 's6.r1')) === 'met');
@@ -180,7 +179,7 @@ try {
   check('3rd wrong → confirmedByHelp', (await state(page, 's6.r1')) === 'confirmedByHelp');
   check('answer + explanation shown, correct card marked with symbol', help.step === '3' && help.answer && help.answer.includes('말') && help.explain && help.explain.includes('시험 풀이') && help.right === 's6.r1.b' && !help.confirm, help);
   check('glow cleared after done', (await page.evaluate(() => NM.engine.test.state().highlight)) === null);
-  check('HUD shows done state with symbol', await page.evaluate(() => { const e = document.querySelector('.nm-st-hud-item[data-item="s6.r1"]'); return e.getAttribute('data-state') === 'confirmedByHelp' && /✓/.test(e.textContent); }));
+  check('HUD shows done state with symbol', await page.evaluate(() => { const e = document.querySelector('.nm-st-hud-item[data-item="s6.r1"]'); return e.getAttribute('data-state') === 'confirmedByHelp' && /◎/.test(e.textContent); }));
   await closeAll(page);
 
   // ───────── 5) 새로 고침 → 이어 하기 ─────────
@@ -258,6 +257,17 @@ try {
   await page.waitForFunction(() => window.__exits.length === 1, null, { timeout: 3000 });
   const exit = await page.evaluate(() => ({ e: window.__exits[0], saved: window.__saved, open: NM.engine.isOverlayOpen(), hud: !!document.querySelector('.nm-st-hud') }));
   check('saveImage called then onExit(completed)', exit.saved === 1 && exit.e.completed === true && exit.e.stageId === 's6' && !exit.open && !exit.hud, exit);
+  // 끝낸 장면 다시 하기: 수첩·항목을 비우면 도입부터, 패 글자·완료는 남는다
+  const rp = await page.evaluate(async () => {
+    const r = window.__store.replay('s6');
+    await NM.ui.stage.run('s6', { store: window.__store, level: 'm', teacher: false, onExit: (x) => window.__exits.push(x) });
+    const w = document.querySelector('.nm-overlay-host > .nm-st-win:last-child');
+    const rec = window.__store.get();
+    const out = { ok: r.ok, kind: w && w.getAttribute('data-kind'), status: rec.progress.m.s6.status, glyphs: rec.glyphs.m.join(), rules: rec.progress.m.s6.rules.length };
+    NM.ui.stage.stop();
+    return out;
+  });
+  check('replay: intro again, glyph and done kept, notebook cleared', rp.ok && rp.kind === 'intro' && rp.status === 'done' && rp.glyphs === 's6' && rp.rules === 0, rp);
   let errs = await page.evaluate(() => window.__nmErrors.slice());
   check('no NM errors (student run)', errs.length === 0, errs);
   await page.close();
@@ -273,7 +283,7 @@ try {
   // ───────── 10) 교사 모드 ─────────
   page = await context.newPage();
   watch(page);
-  await page.goto(server.url + 'tests/pages/engine.html'); // 같은 출처에 학생 기록을 미리 둔다
+  await page.goto(server.url + 'tests/pages/stage.html?idle=1'); // 같은 출처에 학생 기록을 미리 둔다(장면은 돌리지 않음)
   const sentinel = JSON.stringify({ v: 1, level: 'm', protagonist: 2, nickname: '하늘', settings: { bangjeom: true, fontScale: 1, reducedMotion: 'auto', bgm: true, sfx: true }, prologueDone: true, progress: {}, glyphs: {}, seenNotices: [] });
   await page.evaluate((s) => { localStorage.clear(); localStorage.setItem('naratmalssami:v1', s); }, sentinel);
   await page.goto(server.url + 'tests/pages/stage.html?stage=s6&level=m&teacher=1');
@@ -298,23 +308,38 @@ try {
   // ───────── 11) 방점 끄기 / s4 늘 켬 ─────────
   page = await context.newPage();
   watch(page);
-  await page.goto(server.url + 'tests/pages/engine.html');
+  await page.goto(server.url + 'tests/pages/stage.html?idle=1');
   const off = JSON.stringify({ v: 1, level: 'm', protagonist: 1, nickname: '', settings: { bangjeom: false, fontScale: 3, reducedMotion: true, bgm: true, sfx: true }, prologueDone: true, progress: {}, glyphs: {}, seenNotices: [] });
   await page.evaluate((s) => { localStorage.clear(); localStorage.setItem('naratmalssami:v1', s); }, off);
   await page.goto(server.url + 'tests/pages/stage.html?stage=s6&level=m');
   await page.waitForFunction(() => window.__stageReady === true, null, { timeout: 15000 });
-  const flow2 = await page.evaluate(() => null);
-  void flow2;
   // 원문과 마주침 창까지 넘긴다
   for (let i = 0; i < 10; i++) { const w = await topWin(page); if (!w || w.kind === 'encounter') break; await page.click(TOP + ' .nm-dlg-next'); }
   const bjOff = await page.evaluate((sel) => { const b = document.querySelector(sel + ' .nm-orig .nm-bj'); return { attr: document.documentElement.getAttribute('data-nm-bangjeom'), display: b ? getComputedStyle(b).display : 'missing', fs: getComputedStyle(document.documentElement).getPropertyValue('--fs').trim(), motion: document.documentElement.getAttribute('data-nm-motion') }; }, TOP);
   check('bangjeom off setting hides dots in s6', bjOff.attr === 'off' && bjOff.display === 'none', bjOff);
   check('font scale 3 applied (--fs) and reduced motion', Number(bjOff.fs) > 1.3 && bjOff.motion === 'reduce', bjOff);
+  // U1 의 설정 알림(nm:settings): 방점 켜기는 다시 그리지 않고 점만 보인다. --fs 는 U1 몫이 된다.
+  const live = await page.evaluate((sel) => {
+    document.documentElement.style.setProperty('--fs', '1.25');
+    NM.core.yet.setBangjeom(true);
+    document.dispatchEvent(new CustomEvent('nm:settings', { detail: { settings: { bangjeom: true, fontScale: 2, reducedMotion: false, bgm: true, sfx: true }, reducedMotion: false } }));
+    const b = document.querySelector(sel + ' .nm-orig .nm-bj');
+    return { attr: document.documentElement.getAttribute('data-nm-bangjeom'), display: getComputedStyle(b).display, fs: getComputedStyle(document.documentElement).getPropertyValue('--fs').trim(), motion: document.documentElement.getAttribute('data-nm-motion') };
+  }, TOP);
+  check('nm:settings toggles bangjeom live; --fs left to U1', live.attr === 'on' && live.display !== 'none' && live.fs === '1.25' && live.motion === 'full', live);
+  const stopped = await page.evaluate(() => { const r = NM.ui.stage.stop(); return { r, exits: window.__exits.length, hud: !!document.querySelector('.nm-st-hud'), open: NM.engine.isOverlayOpen(), phase: NM.ui.stage.current().phase }; });
+  check('stop(): clean abort without onExit', stopped.r === true && stopped.exits === 0 && !stopped.hud && !stopped.open && stopped.phase === 'exited', stopped);
   await page.goto(server.url + 'tests/pages/stage.html?stage=s4&level=h1');
   await page.waitForFunction(() => window.__stageReady === true, null, { timeout: 15000 });
   for (let i = 0; i < 10; i++) { const w = await topWin(page); if (!w || w.kind === 'encounter') break; await page.click(TOP + ' .nm-dlg-next'); }
   const bjOn = await page.evaluate((sel) => { const b = document.querySelector(sel + ' .nm-orig .nm-bj'); return { attr: document.documentElement.getAttribute('data-nm-bangjeom'), display: b ? getComputedStyle(b).display : 'missing', setting: window.__store.get().settings.bangjeom }; }, TOP);
   check('s4 forces bangjeom on regardless of setting', bjOn.attr === 'on' && bjOn.display !== 'none' && bjOn.setting === false, bjOn);
+  const s4live = await page.evaluate(() => {
+    NM.core.yet.setBangjeom(false); // U1 이 설정대로 끈 뒤 알린다
+    document.dispatchEvent(new CustomEvent('nm:settings', { detail: { settings: { bangjeom: false, fontScale: 1, reducedMotion: 'auto', bgm: true, sfx: true } } }));
+    return { attr: document.documentElement.getAttribute('data-nm-bangjeom'), yet: NM.core.yet.settings.bangjeom };
+  });
+  check('s4 stays forced on after nm:settings(bangjeom off)', s4live.attr === 'on' && s4live.yet === true, s4live);
   errs = await page.evaluate(() => window.__nmErrors.slice());
   check('no NM errors (bangjeom runs)', errs.length === 0, errs);
   await page.close();

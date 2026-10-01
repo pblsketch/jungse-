@@ -51,9 +51,10 @@
   <script src="tests/fixtures/d1-gimmick.js"></script>
   <script src="tests/fixtures/d1-scene.js"></script>
   <script>
-    // 시험 진행: ?stage=s6&level=m&teacher=1&nick=하늘&reset=1
+    // 시험 진행: ?stage=s6&level=m&teacher=1&nick=하늘&reset=1&nosave=1  (idle=1 이면 아무것도 돌리지 않음 — 기록 미리 두기용)
     (function () {
       var q = new URLSearchParams(location.search);
+      if (q.get('idle') === '1') return;
       if (q.get('reset') === '1') { try { localStorage.clear(); } catch (e) { /* 무시 */ } }
       var teacher = q.get('teacher') === '1';
       var store = NM.core.save.createStore({ storage: window.localStorage, urlLevel: q.get('level') || 'm', teacher: teacher, level: q.get('level') || 'm' });

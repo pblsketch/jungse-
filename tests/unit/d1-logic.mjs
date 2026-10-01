@@ -66,7 +66,7 @@ store.seeContext(scene, 's6.c3');
 assert.deepEqual(J(L.objectives(scene, store.stage('s6'), core)), []);
 
 const solved = J(L.solvedWords(scene, store.stage('s6')));
-assert.deepEqual(solved, [{ itemId: 's6.r1', forms: [':[ㅁㆍㄹ]'], gloss: '말' }]);
+assert.deepEqual(solved, [{ itemId: 's6.r1', forms: [':[ㅁㆍㄹ]', '[ㅁㆍㄹ]'], gloss: '말' }], 'gloss 가 없으면 정답 카드 글자');
 
 // ── 아직 확인하지 않은 규칙 ──
 let unk = J(L.unknownRules(scene, store.get(), 'm'));
@@ -108,8 +108,11 @@ assert.equal(bad.error, true);
 assert.equal(ctx.__nmErrors.length, before + 1);
 ctx.__nmErrors.length = before;
 // 같은 이름 다시 등록 → 나중 것, 잘못된 정의는 거절
+const e0 = ctx.__nmErrors.length;
 assert.equal(G.register('bad', null), false);
 assert.equal(G.register('', { mount() {} }), false);
+assert.equal(ctx.__nmErrors.length, e0 + 2, '잘못된 등록은 오류로 모은다');
+ctx.__nmErrors.length = e0;
 assert.equal(G.register('x-test', { mount() {} }), true);
 assert.ok(G.list().includes('x-test'));
 

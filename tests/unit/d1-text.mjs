@@ -36,19 +36,19 @@ for (const [w, p, want] of cases) assert.equal(S.particle(w, p), want, `${w}+${p
 assert.equal(S.particle('하늘', '께서'), '께서', '짝이 없는 말은 그대로 붙인다');
 
 // ── 별명 채우기 ──
-assert.equal(S.fill('{@아}, 이리 와.', { nickname: '하늘' }), '하늘아, 이리 와.');
-assert.equal(S.fill('{@아}, 이리 와.', { nickname: '바다' }), '바다야, 이리 와.');
-assert.equal(S.fill('{@}의 차례', { nickname: '바다' }), '바다의 차례');
-assert.equal(S.fill('{@이} 왔다. {@을} 보라.', { nickname: '솔밭' }), '솔밭이 왔다. 솔밭을 보라.');
+assert.equal(S.fill('<@아>, 이리 와.', { nickname: '하늘' }), '하늘아, 이리 와.');
+assert.equal(S.fill('<@아>, 이리 와.', { nickname: '바다' }), '바다야, 이리 와.');
+assert.equal(S.fill('<@>의 차례', { nickname: '바다' }), '바다의 차례');
+assert.equal(S.fill('<@이> 왔다. <@을> 보라.', { nickname: '솔밭' }), '솔밭이 왔다. 솔밭을 보라.');
 // 교사 모드나 별명이 없으면 호칭 '통사'
 const call = S.t('call');
 assert.equal(call, '통사');
-assert.equal(S.fill('{@아}', { nickname: '하늘', teacher: true }), '통사야');
-assert.equal(S.fill('{@이} 왔다', { nickname: '' }), '통사가 왔다');
+assert.equal(S.fill('<@아>', { nickname: '하늘', teacher: true }), '통사야');
+assert.equal(S.fill('<@이> 왔다', { nickname: '' }), '통사가 왔다');
 assert.equal(S.callName({ nickname: '하늘', teacher: true }), '통사');
 assert.equal(S.callName({ nickname: '하늘' }), '하늘');
 // 루비·옛한글 표기는 건드리지 않는다
-assert.equal(S.fill('{世|셰}{@아} [ㅁㆍㄹ]', { nickname: '바다' }), '{世|셰}바다야 [ㅁㆍㄹ]');
+assert.equal(S.fill('{世|셰}<@아> [ㅁㆍㄹ]', { nickname: '바다' }), '{世|셰}바다야 [ㅁㆍㄹ]');
 
 // ── 화면 문구 ──
 assert.equal(S.t('seen', { n: 1, need: 2 }).includes('1'), true);

@@ -27,7 +27,7 @@
       mapKey: 'tests/fixtures/maps/d1-test.json', bgmKey: 'no-such-bgm', carveGlyph: '[ㆍ]',
       cast: { elder: { name: '마을 어른' } },
       intro: [
-        { who: 'senior', text: '{@아}, 오늘 일을 시작하자.' },
+        { who: 'senior', text: '<@아>, 오늘 일을 시작하자.' },
         { who: 'me', text: '네, 선배님.' }
       ],
       request: [{ who: 'elder', text: '이 글을 읽어 주시오.' }],
@@ -36,14 +36,14 @@
       needs: [{ rule: 'rule.prev', lines: [{ who: 'senior', text: '앞 장면의 규칙을 짧게 알려 줄게.' }] }],
       fiction: [{ id: 'fiction.tongsa', text: '정음 통사', real: '실제 직책이 아니다.' }],
       contexts: [
-        { id: id('.c1'), label: '비석', orig: ['O-test-A'], lines: [{ who: 'senior', text: '비석에 글이 있다.' }], items: [id('.r1'), id('.r2')] },
+        { id: id('.c1'), label: '비석', orig: ['O-test-A'], lines: [{ who: 'senior', text: '비석에 글이 있다.' }], items: [id('.r1'), id('.r2'), id('.r3')] },
         { id: id('.c2'), label: '간판', orig: ['O-test-B'], lines: ['간판에 같은 말이 보인다.'], items: [id('.r1'), id('.t1')] },
         { id: id('.c3'), label: '책', lines: [{ who: 'elder', text: ':[ㅁㆍㄹ]을 잘 들어 보시오.' }], items: [id('.r2'), id('.r3')] },
         { id: id('.c4'), label: '어른의 말', lines: [{ who: 'elder', text: '내 말을 들어 보시오.' }], items: [id('.r2')] }
       ],
       items: [
         {
-          id: id('.r1'), kind: 'read', levels: ['m', 'h1', 'h23'], label: ':[ㅁㆍㄹ]', word: [':[ㅁㆍㄹ]'], gloss: '말',
+          id: id('.r1'), kind: 'read', levels: ['m', 'h1', 'h23'], label: ':[ㅁㆍㄹ]', word: ':[ㅁㆍㄹ]', wordForms: ['[ㅁㆍㄹ]'],
           cards: [
             { id: id('.r1.a'), text: '마을', correct: false, why: '마을이 아니다.' },
             { id: id('.r1.b'), text: '말', correct: true, why: '' },
@@ -88,7 +88,7 @@
         { id: 'note.2', kind: 'variant', text: '이본 노트 시험', at: [id('.c2')] },
         { id: 'note.3', kind: 'interp', text: '해석 시험', at: [id('.c2')] }
       ],
-      translate: { id: id('.x1'), lines: [{ who: 'senior', text: '{@이} 통역했다.' }, { who: 'elder', text: '이제 알겠소!' }] }
+      translate: { id: id('.x1'), lines: [{ who: 'senior', text: '<@이> 통역했다.' }, { who: 'elder', text: '이제 알겠소!' }] }
     };
   }
 
