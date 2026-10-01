@@ -60,7 +60,7 @@ NM.data.SCENES = NM.data.SCENES || {};
           words: [{ id: 'p1.w2', match: ':말[ㅆㆍ]·미' }, { id: 'p1.w3', match: '{中|[ㄷㅠㆁ]}{國|·귁}·에' }],
           decode: [
             { word: 'p1.w2', rule: 'rule.meaningChange', cards: [{ id: 'p1.w2.a', text: '말이' }, { id: 'p1.w2.b', text: '말씀(높임말)이' }] },
-            { word: 'p1.w3', rule: 'rule.compareE', cards: [{ id: 'p1.w3.a', text: '중국과 견주어' }, { id: 'p1.w3.b', text: '중국 땅에서' }] }
+            { word: 'p1.w3', cards: [{ id: 'p1.w3.a', text: '중국과 견주어' }, { id: 'p1.w3.b', text: '중국 땅에서' }] }
           ],
           pieces: [{ id: 'p1.k1', text: '우리나라의 말소리는' }, { id: 'p1.k2', text: '중국 말과' }, { id: 'p1.k3', text: '같지 않아서' }, { id: 'p1.kx', text: '중국 땅에서' }],
           spiritWords: ['p1.w3'] },
@@ -190,14 +190,12 @@ NM.data.SCENES = NM.data.SCENES || {};
       { who: 'narrator', text: '1459년, 새 책 『월인석보』를 엮는 큰 마루방. 열린 창으로 바람이 들이치자 책장들이 하얗게 흩날린다.', cg: 's9_intro' },
       { who: 'senior', text: '<@아>, 저 종이들 좀 잡아! 책 맨 앞에 실을 서문이야.' },
       { who: 'me', text: '서문이요? 교과서에서 보다가 글자가 눈앞에서 흩어졌던, 그 서문이요?' },
-      { who: 'senior', text: '맞아. 세종 임금이 손수 지은 「세종어제훈민정음」 서문이야. <@은> 2026년에서 와서 지금 말과 옛말을 둘 다 아는 정음 통사고.' },
-      { who: 'senior', text: '흩어진 서문을 처음부터 끝까지 읽어 내면 돌아갈 길이 보일 거야. 우리 일이 바로 그거잖아.' }
+      { who: 'senior', text: '맞아. 세종 임금이 손수 지은 「세종어제훈민정음」 서문이야. 처음부터 끝까지 읽어 내면 돌아갈 길이 보일 거야.' }
     ],
 
     request: [
       { who: 'official', text: '통사들, 마침 잘 왔소. 이 서문을 책 맨 앞에 실어야 하는데, 바람에 책장이 다 흩어져 버렸소.' },
-      { who: 'official', text: '세종 임금께서 손수 지으신 글이오. 한 구절이라도 순서가 틀리거나 뜻을 잘못 풀면 안 되오.' },
-      { who: 'official', text: '흩어진 서문을 처음부터 끝까지 읽어 내 주시오. 구절마다 뜻을 쉬운 말로 풀어 주면, 글을 처음 배우는 이들에게도 들려줄 수 있겠소.' }
+      { who: 'official', text: '구절마다 뜻을 쉬운 말로 풀어 처음부터 끝까지 읽어 주시오. 글을 처음 배우는 이들에게도 들려줄 수 있게 말이오.' }
     ],
 
     encounter: {
@@ -213,16 +211,13 @@ NM.data.SCENES = NM.data.SCENES || {};
       lines: [
         { who: 'senior', text: '첫머리는 내가 풀어 볼게. \'나·랏\'은 \'나라\'에 관형격 조사 \'ㅅ\'이 붙은 말이야. \'나라의\'라는 뜻이지.' },
         { who: 'senior', text: '아래 한문은 같은 대목을 한문으로 적은 거야. \'國之語音\', 곧 나라의 말소리. 언해와 한문을 견주면 뜻을 확인하기 좋아.' },
-        { who: 'senior', text: '그다음 \':말[ㅆㆍ]·미\'와 \'{中|[ㄷㅠㆁ]}{國|·귁}·에\'부터는 <@이> 풀어 봐. 앞에서 모은 규칙 카드가 곁에 함께 보일 거야.' }
+        { who: 'senior', text: '그다음 \':말[ㅆㆍ]·미\'와 \'{中|[ㄷㅠㆁ]}{國|·귁}·에\'부터는 <@이> 풀어 봐. 이 \'·에\'는 견주는 대상을 나타내기도 하니 장소로만 읽지 마.' }
       ]
     },
 
     needs: [
       { rule: 'rule.meaningChange', lines: [
         { who: 'senior', text: '서문에는 모양은 지금과 비슷한데 뜻이 달랐던 말이 여럿 나와. 지금 뜻으로 읽으면 엉뚱하게 옮기게 되니 조심해.' }
-      ] },
-      { rule: 'rule.compareE', lines: [
-        { who: 'senior', text: '조사 \'에\'가 견주는 대상을 나타내기도 했어. 장소로만 읽지 마.' }
       ] },
       { rule: 'rule.nominalOm', lines: [
         { who: 'senior', text: '이 시대에는 \'-옴/-움\'을 붙여 움직임을 나타내는 말을 명사처럼 썼어. \'쓰다\'라면 \'씀\'에 해당하는 꼴이 되지.' }
@@ -261,7 +256,7 @@ NM.data.SCENES = NM.data.SCENES || {};
         id: 's9.c4', label: '책을 엮는 관원',
         lines: [
           { who: 'official', text: '새 글자는 임금께서 손수 지으셨소. 신하들은 그 뒤에 글자를 만든 원리와 쓰는 법을 풀이한 책을 엮었지.' },
-          { who: 'official', text: '이 책도 한자를 쓰는 곳마다 그 옆에 새 글자로 소리를 달아 함께 적었소. 한자와 새 글자가 나란히 가는 셈이오.' }
+          { who: 'official', text: '이 책도 한자 옆에 새 글자로 소리를 달아 함께 적었소.' }
         ],
         items: ['s9.r1']
       },
@@ -310,7 +305,6 @@ NM.data.SCENES = NM.data.SCENES || {};
         { who: 'me', text: '우리나라의 말소리는 중국 말과 같지 않아서, 한자로 적어서는 서로 뜻이 막힘없이 오가지 못한다…' },
         { who: 'narrator', text: '빛 속에서 붉은 옷을 입은 사람의 모습이 어렴풋이 떠오른다.', fiction: 'fiction.sejongMemory' },
         { who: 'sejong', text: '나는 이것을 가엾게 여겨 스물여덟 글자를 새로 만들었다. 누구나 쉽게 익혀 날마다 편히 쓰기를 바랄 뿐이다.' },
-        { who: 'official', text: '방금 그 말씀은, 서문의 뜻 그대로가 아니오?' },
         { who: 'narrator', text: '빛이 잦아들자 모습도 사라지고, 서안 위에는 가지런히 묶인 서문만 남았다.' },
         { who: 'senior', expr: 'smile', text: '자주, 애민, 실용. 서문 여덟 구절에 담긴 뜻을 <@이> 처음부터 끝까지 읽어 냈어. 이제 돌아갈 길이 열릴 거야.' }
       ]

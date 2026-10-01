@@ -84,7 +84,28 @@ function makeRun(page, job) {
     const newPlain = [], newOrig = [], newSide = [];
     const SKIP = /^(출처|https?:)/; // 출처 줄은 읽는다고 보지 않는다
     // 기믹 설정 글은 화면에 이미 보인 글(부분 문자열 포함)이면 세지 않는다
-    const dup = (t) => s.kind === 'task-config' && seenAll.some(x => x.includes(t));
+    // (기믹 화면은 原文을 낱말 단추로 쪼개 보이므로, 설정 글의 글자 70% 이상이 이미 본 글에 있으면 겹친 것으로 본다)
+    const dup = (t) => {
+      if (s.kind !== 'task-config') return false;
+      if (seenAll.some(x => x.includes(t))) return true;
+      const joined = seenAll.join('').replace(/\s+/g, '');
+      const words = t.split(/\s+/).filter(Boolean);
+      const total = words.reduce((n, w) => n + w.length, 0) || 1;
+      const covered = words.filter(w => joined.includes(w)).reduce((n, w) => n + w.length, 0);
+      if (covered / total >= 0.7) return true;
+      // 띄어쓰기 없는 原文 줄: 한글만 남겨(한자 뒤 루비 읽기 등 그리는 방식 차이를 피함) 이미 본 글에 들어 있는 조각(2자 이상)이 덮는 비율
+      const hg = (x) => x.replace(/[^\u1100-\u11FF\u3130-\u318F\uA960-\uA97F\uAC00-\uD7A3\uD7B0-\uD7FF]/g, '');
+      const seenHg = seenAll.map(hg).join('|');
+      const h = hg(t);
+      let covered2 = 0;
+      for (let i = 0; i < h.length;) {
+        let k = 0;
+        while (i + k < h.length && seenHg.includes(h.slice(i, i + k + 1))) k++;
+        if (k >= 2) { covered2 += k; i += k; } else i++;
+      }
+      const rest = { length: h.length - covered2 }, len0 = h.length || 1;
+      return rest.length / len0 <= 0.3;
+    };
     for (const t of s.plain) {
       if (SKIP.test(t) || dup(t)) continue;
       if (!seen.has(t)) { seen.add(t); newPlain.push(t); plain += countChars(t); }
@@ -112,7 +133,12 @@ function makeRun(page, job) {
     try { await page.locator(sel).first().click({ timeout: 1500 }); return 'mouse'; }
     catch (e) {
       const ok = await page.evaluate((s) => { const b = document.querySelector(s); if (!b || b.disabled) return false; b.click(); return true; }, sel);
-      if (ok) { note('mouse click blocked → DOM click: ' + sel); return 'dom'; }
+      if (ok) {
+        const why = String(e && e.message || '').split(/\r?\n/).filter(l => /intercepts|not stable|not visible|outside|timeout/i.test(l)).slice(-2).join(' / ').slice(0, 220);
+        const where = await page.evaluate((s) => { const b = document.querySelector(s); const w = b && b.closest('.nm-st-win'); return w ? (w.getAttribute('data-kind') || w.getAttribute('data-win')) + ': ' + (w.textContent || '').replace(/\s+/g, ' ').slice(0, 60) : ''; }, sel).catch(() => '');
+        note('mouse click blocked → DOM click: ' + sel.replace(TOP, 'TOP') + ' [' + where + '] ' + why);
+        return 'dom';
+      }
       return false;
     }
   }

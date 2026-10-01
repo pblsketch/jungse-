@@ -34,13 +34,11 @@ NM.data.SCENES['s4'] = {
   intro: [
     { who: 'narrator', text: '1447년, 한양의 한 인쇄소. 먹 냄새와 쇳물 냄새가 뒤섞여 있다.', cg: 's4_intro', fiction: 'fiction.s4press' },
     { who: 'senior', text: '<@아>, 여기가 새 책을 찍는 곳이야. 오늘은 우리 정음 통사가 할 일이 있대.', fiction: 'fiction.tongsa' },
-    { who: 'me', text: '책 찍는 데서 통사가 할 일이요?' },
     { who: 'senior', text: '찍어 낸 책을 백성들한테 소리 내어 읽어 주는 일이야. 생각보다 만만치 않을걸.', expr: 'smile' }
   ],
 
   request: [
-    { who: 'artisan', text: '오셨구려. 나라를 세운 임금님 조상들을 기리는 노래책을 막 찍어 냈소.' },
-    { who: 'artisan', text: '그런데 문 앞에 모인 사람들이 글자는 분명 정음인데 어디서 끊어 읽어야 할지, 무슨 말인지 모르겠다고 하오.' },
+    { who: 'artisan', text: '나라를 세운 임금님 조상들을 기리는 노래책을 막 찍어 냈는데, 사람들이 어디서 끊어 읽어야 할지 모르겠다고 하오.' },
     { who: 'commoner_woman', text: '새 글자를 배웠다고 좋아했는데, 막상 책을 펴 보니 앞이 캄캄하네요. 좀 읽어 주세요.' }
   ],
 
@@ -57,9 +55,7 @@ NM.data.SCENES['s4'] = {
     orig: ['O-s4-YB2a'],
     lines: [
       { who: 'senior', text: '첫 낱말은 내가 풀어 볼게. 불·휘는 지금 말로 뿌리야. 뒤에 붙은 조사가 없으니 여기서 한 번 끊으면 돼.' },
-      { who: 'senior', text: '휘 왼쪽에 점이 하나 있지? 점이 무엇을 나타내는지는 네가 직접 확인해 봐.' },
-      { who: 'me', text: '그다음 기·픈은요? 깊다랑 닮았는데 받침이 없어요.' },
-      { who: 'senior', text: '그건 네 몫이야. 인쇄소를 돌며 같은 말이 쓰인 다른 장을 찾아봐. 두 곳을 견주면 보여.', expr: 'thinking' }
+      { who: 'senior', text: '휘 왼쪽의 점, 깊다를 닮은 기·픈은 네 몫이야. 인쇄소를 돌며 같은 말이 쓰인 다른 장을 찾아 두 곳을 견주어 봐.', expr: 'thinking' }
     ]
   },
 
