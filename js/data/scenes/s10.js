@@ -206,7 +206,7 @@ NM.data.SCENES = NM.data.SCENES || {};
       {
         id: 's10.r1', kind: 'read', levels: ['h1', 'h23'], label: '16세기의 주격 조사', ruleCard: 'rule.nomI16',
         prompt: '‘{孔子|공자}ㅣ’와 ‘홈이’를 보고 규칙 문장을 완성하자.',
-        sentence: '16세기 후반 『소학언해』에서도 주격 조사는',
+        sentence: '16세기 후반 『소학언해』에서도 주격 조사는 {?}',
         cards: [
           { id: 's10.r1.a', text: '여전히 ‘이’와 ‘ㅣ’였다. ‘가’는 아직 보이지 않는다.', correct: true },
           { id: 's10.r1.b', text: '이미 ‘가’가 쓰이고 있었다.', correct: false, src: 'wrong.ga16c',
@@ -230,7 +230,7 @@ NM.data.SCENES = NM.data.SCENES || {};
       {
         id: 's10.r2', kind: 'read', levels: ['h1', 'h23'], label: '끊어 적기가 섞임', ruleCard: 'rule.separate16',
         prompt: '‘몸이며’와 ‘거시라’가 한 책에 함께 있는 까닭으로 규칙 문장을 완성하자.',
-        sentence: '『소학언해』에 ‘몸이며’와 ‘거시라’가 함께 있는 것은',
+        sentence: '『소학언해』에 ‘몸이며’와 ‘거시라’가 함께 있는 것은 {?}',
         cards: [
           { id: 's10.r2.a', text: '이어 적기 사이로 체언과 조사를 갈라 적는 끊어 적기가 가끔 섞였기 때문이다.', correct: true },
           { id: 's10.r2.b', text: '이 무렵 이미 모두 끊어 적기로 바뀌었고, ‘거시라’만 옛 버릇이 남았기 때문이다.', correct: false, src: 'wrong.modernAllSeparate (시기를 16세기로 옮김)',
@@ -254,7 +254,7 @@ NM.data.SCENES = NM.data.SCENES || {};
       {
         id: 's10.r3', kind: 'read', levels: ['h23'], label: '모음 조화의 흔들림', ruleCard: 'rule.harmony16',
         prompt: '‘[ㅅㆍㄹ][ㅎㆍㄴ]’, ‘父母[ㄹㆍㄹ]’, ‘몸을’의 조사를 견주어 규칙 문장을 완성하자.',
-        sentence: '16세기 후반 『소학언해』에서 모음 조화는',
+        sentence: '16세기 후반 『소학언해』에서 모음 조화는 {?}',
         cards: [
           { id: 's10.r3.a', text: '지킨 말과 어긴 말이 함께 나올 만큼 흔들리고 있었다.', correct: true },
           { id: 's10.r3.b', text: '이미 완전히 무너져 아무 데서도 지켜지지 않았다.', correct: false, src: 'wrong.harmonyGone16',
@@ -278,7 +278,7 @@ NM.data.SCENES = NM.data.SCENES || {};
       {
         id: 's10.r4', kind: 'read', levels: ['h1', 'h23'], label: '방점의 흔들림', ruleCard: 'rule.bangjeom16',
         prompt: '15세기 책과 훈장의 말을 견주어 규칙 문장을 완성하자.',
-        sentence: '15세기 책에는 글자마다 방점을 찍었지만, 16세기에 들어 방점은',
+        sentence: '15세기 책에는 글자마다 방점을 찍었지만, 16세기에 들어 방점은 {?}',
         cards: [
           { id: 's10.r4.a', text: '한결같이 찍히지 않고 흔들리다가, 그 뒤로는 쓰이지 않게 되었다.', correct: true },
           { id: 's10.r4.b', text: '소리의 높낮이 대신 세기나 길이를 나타내게 되었다.', correct: false, src: 'wrong.bangjeomStress',
@@ -302,7 +302,7 @@ NM.data.SCENES = NM.data.SCENES || {};
       {
         id: 's10.r5', kind: 'read', levels: ['h1', 'h23'], label: '둘째 음절의 ㆍ', ruleCard: 'rule.araea16',
         prompt: '‘사[ㅇㆍㄹ]’과 ‘사흘’을 견주고, 『소학언해』의 ‘[ㅅㆍㄹ][ㅎㆍㄴ]’도 떠올리며 규칙 문장을 완성하자.',
-        sentence: '16세기에는 둘째 음절 이하의 ㆍ가',
+        sentence: '16세기에는 둘째 음절 이하의 ㆍ가 {?}',
         cards: [
           { id: 's10.r5.a', text: 'ㅡ로 바뀌기 시작했다(사[ㅇㆍㄹ] → 사흘).', correct: true },
           { id: 's10.r5.b', text: 'ㅏ로 바뀌었다. ㆍ는 본디 ㅏ와 같은 소리였기 때문이다.', correct: false, src: 'wrong.araeaIsA',
