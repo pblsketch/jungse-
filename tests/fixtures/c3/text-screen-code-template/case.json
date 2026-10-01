@@ -1,0 +1,15 @@
+{
+  "why": "기믹 코드 템플릿 글자에 한국어",
+  "checks": [
+    "c3-text"
+  ],
+  "write": {
+    "js/gimmicks/g1/bad.js": [
+      "'use strict';",
+      "NM.left = (n) => `${n}개 남음`;"
+    ]
+  },
+  "expect": [
+    "js/gimmicks/g1/bad.js:2"
+  ]
+}

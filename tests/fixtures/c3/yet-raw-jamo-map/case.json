@@ -1,0 +1,17 @@
+{
+  "why": "맵 문자열에 날 자모",
+  "checks": [
+    "c3-yet"
+  ],
+  "patch": [
+    {
+      "file": "maps/s4.json",
+      "find": "\"value\": \"견본 책상\"",
+      "replace": "\"value\": \"견본 {{U+1100}}{{U+119E}} 책상\""
+    }
+  ],
+  "expect": [
+    "maps/s4.json",
+    "U+1100"
+  ]
+}

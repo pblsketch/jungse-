@@ -1,0 +1,17 @@
+{
+  "why": "2단계 힌트가 없는 맥락을 가리킴",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "'s4.c2'],\n      misread",
+      "replace": "'s4.c7'],\n      misread"
+    }
+  ],
+  "expect": [
+    "hints[1]",
+    "s4.c7"
+  ]
+}

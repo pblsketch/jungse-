@@ -1,0 +1,22 @@
+{
+  "why": "두 문서에 같은 原文 블록 id",
+  "checks": [
+    "c3-orig",
+    "extract"
+  ],
+  "write": {
+    "design/research/10_dup.md": [
+      "#### O-s4-TST1",
+      "> **原文** 「겹친 견본」",
+      "> 겹친 견본 줄",
+      "- 출처: https://example.org/d",
+      "- 대조: https://example.org/e",
+      "- 확실도: ○"
+    ]
+  },
+  "expect": [
+    "10_dup.md",
+    "O-s4-TST1",
+    "겹친다"
+  ]
+}

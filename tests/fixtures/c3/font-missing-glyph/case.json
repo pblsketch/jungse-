@@ -1,0 +1,16 @@
+{
+  "why": "글꼴에 없는 글자",
+  "checks": [
+    "font-coverage"
+  ],
+  "patch": [
+    {
+      "file": "js/data/text-fixture.js",
+      "find": "hello: '견본",
+      "replace": "hello: '{{U+20000}} 견본"
+    }
+  ],
+  "expect": [
+    "U+20000"
+  ]
+}

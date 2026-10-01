@@ -1,0 +1,17 @@
+{
+  "why": "없는 규칙 카드 참조",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "ruleCard: 'rule.fixtureLink'",
+      "replace": "ruleCard: 'rule.nope'"
+    }
+  ],
+  "expect": [
+    "rule.nope",
+    "RULE_CARDS"
+  ]
+}

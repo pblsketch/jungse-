@@ -1,0 +1,17 @@
+{
+  "why": "맥락은 있으나 맵에 그 조사 지점이 없음",
+  "checks": [
+    "c3-data"
+  ],
+  "removeMapObject": [
+    {
+      "file": "maps/s4.json",
+      "id": 11
+    }
+  ],
+  "expect": [
+    "항목 s4.r1",
+    "맵에 없는 맥락",
+    "s4.c2"
+  ]
+}

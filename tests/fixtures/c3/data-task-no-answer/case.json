@@ -1,0 +1,17 @@
+{
+  "why": "기믹 과제에 answer 가 없음",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": " answer: [1],",
+      "replace": ""
+    }
+  ],
+  "expect": [
+    "항목 s4.t1",
+    "answer"
+  ]
+}

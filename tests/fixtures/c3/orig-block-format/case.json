@@ -1,0 +1,19 @@
+{
+  "why": "原文 블록에 확실도 줄이 없음",
+  "checks": [
+    "c3-orig",
+    "extract"
+  ],
+  "patch": [
+    {
+      "file": "design/research/09_fixture.md",
+      "find": "- 확실도: ◎\n- 교과서",
+      "replace": "- 교과서"
+    }
+  ],
+  "expect": [
+    "09_fixture.md",
+    "O-s4-TST1",
+    "확실도"
+  ]
+}

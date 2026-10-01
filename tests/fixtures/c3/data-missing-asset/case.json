@@ -1,0 +1,17 @@
+{
+  "why": "그림 목록이 없는 파일을 가리킴",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/assets.js",
+      "find": "bg: { s4: 'assets/bg/s4.webp' }",
+      "replace": "bg: { s4: 'assets/bg/none.webp' }"
+    }
+  ],
+  "expect": [
+    "NM.data.ASSETS.bg.s4",
+    "assets/bg/none.webp"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "why": "리서치 문서에 없는 原文 블록 id 참조",
+  "checks": [
+    "c3-orig"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "orig: ['O-s4-TST1']",
+      "replace": "orig: ['O-s4-NOPE']"
+    }
+  ],
+  "expect": [
+    "O-s4-NOPE",
+    "SCENES.s4.contexts[0].orig[0]"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "why": "꾸밈 표기를 닫지 않음",
+  "checks": [
+    "c3-yet"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "explain: '견본 풀이: 소리 나는",
+      "replace": "explain: '**견본 풀이: 소리 나는"
+    }
+  ],
+  "expect": [
+    "NM.data.SCENES.s4.items[0].explain",
+    "표기 오류"
+  ]
+}

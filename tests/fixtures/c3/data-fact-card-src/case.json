@@ -1,0 +1,17 @@
+{
+  "why": "알아 두기 카드에 출처가 없음",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": ", src: 'https://example.org/fixture/note'",
+      "replace": ""
+    }
+  ],
+  "expect": [
+    "SCENES.s4.notes[0]",
+    "src"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "why": "맵 조사 지점이 없는 맥락을 가리킴",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "maps/s4.json",
+      "find": "\"value\": \"s4.c1\"",
+      "replace": "\"value\": \"s4.c9\""
+    }
+  ],
+  "expect": [
+    "maps/s4.json",
+    "s4.c9",
+    "맥락에 없다"
+  ]
+}

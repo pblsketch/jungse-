@@ -1,0 +1,17 @@
+{
+  "why": "맵 bg 그림 파일이 없음",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "maps/s4.json",
+      "find": "\"image\": \"../assets/bg/s4.webp\"",
+      "replace": "\"image\": \"../assets/bg/gone.webp\""
+    }
+  ],
+  "expect": [
+    "maps/s4.json",
+    "gone.webp"
+  ]
+}

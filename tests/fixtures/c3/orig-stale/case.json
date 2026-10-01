@@ -1,0 +1,18 @@
+{
+  "why": "자동 생성 原文 파일을 손으로 고침(낡음)",
+  "checks": [
+    "c3-orig",
+    "extract"
+  ],
+  "patch": [
+    {
+      "file": "js/data/orig.generated.js",
+      "find": "둘째 견본 줄",
+      "replace": "둘째 견본 즐"
+    }
+  ],
+  "expect": [
+    "O-s4-TST1.lines[1]",
+    "js/data/orig.generated.js"
+  ]
+}

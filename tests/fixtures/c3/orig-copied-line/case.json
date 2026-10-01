@@ -1,0 +1,17 @@
+{
+  "why": "原文 줄을 손 데이터에 옮겨 적음",
+  "checks": [
+    "c3-orig"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": "lines: ['간판에도",
+      "replace": "lines: ['[ㄱㆍ]·[ㄴㆍ][ㄷㆍ] [ㅁㆍㄹ] 견본 줄', '간판에도"
+    }
+  ],
+  "expect": [
+    "O-s4-TST1.lines[0]",
+    "SCENES.s4.contexts[1].lines[0]"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "why": "오답 카드에 '왜 아닌지'가 없음",
+  "checks": [
+    "c3-data"
+  ],
+  "patch": [
+    {
+      "file": "js/data/scenes/s4.js",
+      "find": ", why: '같은 책 안에서 일관되게 나타난다.'",
+      "replace": ""
+    }
+  ],
+  "expect": [
+    "s4.r1.c",
+    "why"
+  ]
+}

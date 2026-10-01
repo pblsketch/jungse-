@@ -1,0 +1,16 @@
+{
+  "why": "js/main.js 에 한국어 문자열",
+  "checks": [
+    "c3-text"
+  ],
+  "write": {
+    "js/main.js": [
+      "'use strict';",
+      "NM.reportError('main', '시작 실패');"
+    ]
+  },
+  "expect": [
+    "js/main.js:2",
+    "시작 실패"
+  ]
+}

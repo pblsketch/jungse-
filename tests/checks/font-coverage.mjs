@@ -3,13 +3,16 @@
 // - 대상: js/data/**/*.js 의 모든 문자열을 NM.core.yet.render 로 렌더한 결과(표기 오류 = 실패)
 //         + design/research/*.md 의 `> **原文**` 블록 글자.
 // - 글자가 빠졌으면: python tools/build_fonts.py 를 다시 돌린다.
+// - --root <폴더>: 데이터(js/data, design/research)만 그 뿌리에서 읽는다(C3 시험용 예시 데이터). 글꼴·css 는 늘 저장소 것.
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { join, relative } from 'node:path';
+import { join, relative, resolve } from 'node:path';
 import { load, ROOT } from '../lib/load.mjs';
 
-const rel = (p) => relative(ROOT, p).split('\\').join('/');
+const ri = process.argv.indexOf('--root');
+const DATA_ROOT = ri >= 0 ? resolve(process.argv[ri + 1]) : ROOT;
+const rel = (p) => relative(DATA_ROOT, p).split('\\').join('/');
 const cov = JSON.parse(readFileSync(join(ROOT, 'assets/fonts/coverage.json'), 'utf8'));
 const inRanges = (ranges) => {
   const set = new Set();
@@ -59,8 +62,8 @@ function walkFiles(dir, ext) {
   }
   return out;
 }
-const dataFiles = walkFiles(join(ROOT, 'js/data'), '.js').map(rel).filter(p => p !== 'js/data/jamo.js');
-const ctx = load(['js/core/ns.js', 'js/data/jamo.js', 'js/core/yet.js', ...dataFiles]);
+const dataFiles = walkFiles(join(DATA_ROOT, 'js/data'), '.js').map(rel).filter(p => p !== 'js/data/jamo.js');
+const ctx = load(['js/core/ns.js', 'js/data/jamo.js', 'js/core/yet.js', ...dataFiles.map(p => join(DATA_ROOT, p))]);
 const yet = ctx.NM.core.yet;
 const need = new Map(); // code point → 처음 나온 곳
 const add = (s, where) => {
@@ -93,7 +96,7 @@ assert.deepEqual(failures, [], '데이터 표기 조합 실패');
 
 // 5) 리서치 문서의 原文 블록
 let nBlocks = 0;
-for (const f of walkFiles(join(ROOT, 'design/research'), '.md')) {
+for (const f of walkFiles(join(DATA_ROOT, 'design/research'), '.md')) {
   if (rel(f).split('/').length !== 3) continue; // design/research/*.md 만
   const lines = readFileSync(f, 'utf8').split(/\r?\n/);
   let inBlock = false;

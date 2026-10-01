@@ -1,0 +1,13 @@
+{
+  "why": "장면의 맵 파일이 없음",
+  "checks": [
+    "c3-data"
+  ],
+  "remove": [
+    "maps/s4.json"
+  ],
+  "expect": [
+    "maps/s4.json",
+    "없다"
+  ]
+}

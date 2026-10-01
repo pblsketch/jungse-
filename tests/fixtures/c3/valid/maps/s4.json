@@ -1,0 +1,23 @@
+{
+  "type": "map", "version": "1.10", "orientation": "orthogonal", "infinite": false,
+  "width": 20, "height": 15, "tilewidth": 32, "tileheight": 32, "tilesets": [],
+  "layers": [
+    { "id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s4.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true },
+    { "id": 2, "name": "collision", "type": "objectgroup", "x": 0, "y": 0, "opacity": 1, "visible": true,
+      "objects": [ { "id": 1, "name": "wall", "x": 0, "y": 0, "width": 640, "height": 32, "rotation": 0, "visible": true } ] },
+    { "id": 3, "name": "spots", "type": "objectgroup", "x": 0, "y": 0, "opacity": 1, "visible": true,
+      "objects": [
+        { "id": 10, "name": "desk", "x": 100, "y": 100, "width": 40, "height": 20, "rotation": 0, "visible": true,
+          "properties": [ { "name": "contextId", "type": "string", "value": "s4.c1" }, { "name": "label", "type": "string", "value": "견본 책상" } ] },
+        { "id": 11, "name": "sign", "x": 400, "y": 300, "width": 40, "height": 20, "rotation": 0, "visible": true,
+          "properties": [ { "name": "contextId", "type": "string", "value": "s4.c2" }, { "name": "act", "type": "string", "value": "act.read" } ] }
+      ] },
+    { "id": 4, "name": "npcs", "type": "objectgroup", "x": 0, "y": 0, "opacity": 1, "visible": true,
+      "objects": [
+        { "id": 12, "name": "elder", "x": 300, "y": 200, "width": 0, "height": 0, "point": true, "rotation": 0, "visible": true,
+          "properties": [ { "name": "npcId", "type": "string", "value": "s4.elder" }, { "name": "contextId", "type": "string", "value": "s4.c3" } ] }
+      ] },
+    { "id": 5, "name": "spawn", "type": "objectgroup", "x": 0, "y": 0, "opacity": 1, "visible": true,
+      "objects": [ { "id": 13, "name": "spawn", "x": 200, "y": 240, "width": 0, "height": 0, "point": true, "rotation": 0, "visible": true } ] }
+  ]
+}

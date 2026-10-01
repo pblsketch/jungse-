@@ -1,0 +1,17 @@
+{
+  "why": "화면 코드에 한국어 문자열",
+  "checks": [
+    "c3-text"
+  ],
+  "write": {
+    "js/engine/bad.js": [
+      "'use strict';",
+      "// 주석의 한국어는 괜찮다",
+      "NM.badLabel = '살피기';"
+    ]
+  },
+  "expect": [
+    "js/engine/bad.js:3",
+    "살피기"
+  ]
+}

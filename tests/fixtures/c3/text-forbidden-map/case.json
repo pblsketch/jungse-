@@ -1,0 +1,17 @@
+{
+  "why": "맵 문자열에 금지 낱말",
+  "checks": [
+    "c3-text"
+  ],
+  "patch": [
+    {
+      "file": "maps/s4.json",
+      "find": "\"value\": \"견본 책상\"",
+      "replace": "\"value\": \"랭킹 책상\""
+    }
+  ],
+  "expect": [
+    "maps/s4.json",
+    "랭킹"
+  ]
+}
