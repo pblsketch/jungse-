@@ -75,6 +75,7 @@
       const rec = env.rec(itemId);
       if (j.correct) {
         env.sfx('confirm');
+        call(inst, 'showDone', [answer]);
         setStatus('taskDone', 'correct');
         showHelp(rec);
         return;
@@ -118,6 +119,8 @@
               item, config: item.config || {}, level: env.level, teacher: env.teacher, document, readOnly: done,
               reducedMotion: s.reducedMotion, bangjeom: s.bangjeom,
               onSubmit, text: TX().t, fill: env.fill,
+              knownRules: env.knownRules ? env.knownRules() : [],
+              addTranslation: (tid) => (env.addTranslation ? env.addTranslation(tid) : null),
               yet: (text, o) => YB().build(text, o || {}),
               rulecard: (o) => NM.ui.rulecard.build(o)
             }) || null;

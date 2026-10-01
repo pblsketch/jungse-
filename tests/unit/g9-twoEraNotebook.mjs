@@ -46,7 +46,7 @@ assert.equal(ctx.__nmErrors.length, n0);
 
 // ── README 예 항목 ──
 const md = readFileSync(join(ROOT, 'js/gimmicks/README-twoEraNotebook.md'), 'utf8');
-const blocks = [...md.matchAll(/```js\n([\s\S]*?)```/g)].map(m => m[1]).filter(s => s.trim().startsWith('{') && s.includes('gimmick:'));
+const blocks = [...md.matchAll(/```js\r?\n([\s\S]*?)```/g)].map(m => m[1]).filter(s => s.trim().startsWith('{') && s.includes('gimmick:'));
 assert.equal(blocks.length, 1);
 const ex = vm.runInContext('(' + blocks[0] + ')', ctx);
 const c = ex.config;

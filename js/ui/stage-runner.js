@@ -320,6 +320,8 @@
       ruleCard: (id) => (NM.data.RULE_CARDS && NM.data.RULE_CARDS[id]) || null,
       solved: () => L().solvedWords(sc, stageProg()),
       settings: () => cur.eff || { bangjeom: true, reducedMotion: false },
+      knownRules: () => L().knownRules(store.get(), store.level),
+      addTranslation: (tid) => (typeof tid === 'string' && tid ? store.addTranslation(cur.stageId, tid) : null),
       onItemClosed: () => afterWindowClosed()
     };
   }

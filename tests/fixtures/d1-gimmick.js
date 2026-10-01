@@ -40,6 +40,7 @@
         },
         showHint(step, target) { if (step >= 2 && buttons[target]) buttons[target].classList.add('d1tg-hint'); },
         showAnswer(answer) { if (buttons[answer]) buttons[answer].classList.add('d1tg-answer'); submit.disabled = true; },
+        showDone() { box.setAttribute('data-done', '1'); submit.disabled = true; },
         destroy() { box.remove(); }
       };
     }

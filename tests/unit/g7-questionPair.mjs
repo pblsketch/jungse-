@@ -72,7 +72,7 @@ console.log('g7-questionPair ok');
   const { ROOT } = await import('../lib/load.mjs');
   const vm = await import('node:vm');
   const md = readFileSync(join(ROOT, 'js/gimmicks/README-questionPair.md'), 'utf8');
-  const code = /```js\n([\s\S]*?)```/g;
+  const code = /```js\r?\n([\s\S]*?)```/g;
   const blocks = [...md.matchAll(code)].map(m => m[1]).filter(s => s.trim().startsWith('{') && s.includes('gimmick:'));
   assert.equal(blocks.length, 1, 'README 예 항목 1개');
   const ex = vm.runInContext('(' + blocks[0] + ')', ctx);

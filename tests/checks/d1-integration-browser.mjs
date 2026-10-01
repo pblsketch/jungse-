@@ -43,6 +43,19 @@ try {
   const imgs = await page.evaluate(() => [...document.querySelectorAll('.nm-dlg-portrait img')].map(i => i.getAttribute('src')));
   check('senior portrait resolved to senior_tongsa_*', imgs.some(s => /senior_tongsa_/.test(s)), imgs);
 
+  // 2-1) 기믹 과제를 맞게 제출하면 instance.showDone 이 불린다
+  const done = await page.evaluate(async () => {
+    const it = NM.data.SCENES.s6.items.filter(x => x.id === 's6.t1')[0];
+    NM.ui.stage.openItem('s6.t1');
+    await new Promise(r => setTimeout(r, 300));
+    const b = document.querySelector('.d1tg-choice[data-choice="' + it.answer + '"]');
+    if (!b) return { found: false };
+    b.click(); document.querySelector('.d1tg-submit').click();
+    await new Promise(r => setTimeout(r, 200));
+    return { found: true, flag: document.querySelector('.d1tg').getAttribute('data-done'), state: window.__st.stage('s6').items['s6.t1'].state };
+  });
+  check('correct task submit → showDone called, state done', done.found && done.flag === '1' && done.state === 'done', done);
+
   // 3) 原文 제목은 평문, 방점 판독 못 한 블록 안내
   const mk = await page.evaluate(() => {
     NM.data.ORIG['O-test-T'] = { title: '첫째·둘째 구절', lines: ['나·랏'], src: 'test', certainty: '◎', noBangjeom: true };

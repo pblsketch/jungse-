@@ -61,7 +61,7 @@ assert.equal(ctx.__nmErrors.length, n0);
 
 // ── README 예 항목: 블록·낱말·규칙 칸·정답이 맞물린다 ──
 const md = readFileSync(join(ROOT, 'js/gimmicks/README-prefaceDecode.md'), 'utf8');
-const blocks = [...md.matchAll(/```js\n([\s\S]*?)```/g)].map(m => m[1]).filter(s => s.trim().startsWith('{') && s.includes('gimmick:'));
+const blocks = [...md.matchAll(/```js\r?\n([\s\S]*?)```/g)].map(m => m[1]).filter(s => s.trim().startsWith('{') && s.includes('gimmick:'));
 assert.ok(blocks.length >= 2, 'README 예 항목(고등판·중학교판)');
 for (const b of blocks) {
   const ex = vm.runInContext('(' + b + ')', ctx);
