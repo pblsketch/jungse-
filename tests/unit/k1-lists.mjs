@@ -33,7 +33,7 @@ for (const id of ruleIds) {
   for (const k of Object.keys(c)) assert.ok(RULE_FIELDS.has(k), `${id}: 모르는 필드 ${k}`);
   assert.ok(isStr(c.name) && isStr(c.text) && isStr(c.src), `${id}: name·text·src`);
   assert.ok(isStage(c.stage), `${id}: stage '${c.stage}' 는 s0~s12 여야 한다`);
-  assert.ok(Array.isArray(c.levels) && c.levels.length > 0, `${id}: levels 는 비지 않은 배열`);
+  assert.ok(Array.isArray(c.levels), `${id}: levels 는 배열(빈 배열 = 알아 두기로만 다룸)`);
   assert.equal(new Set(c.levels).size, c.levels.length, `${id}: levels 겹침`);
   c.levels.forEach(lv => assert.ok(LEVELS.includes(lv), `${id}: 모르는 학교급 ${lv}`));
   // 고2~3 전용 장면의 규칙은 고2~3 범위만
@@ -81,8 +81,11 @@ for (const [s, ids] of Object.entries(SPEC_RULES)) ids.forEach(id => {
   assert.equal(RULE_CARDS[id].stage, s, `${id}: stage`);
 });
 // 고2~3에서만 더하는 내용(spec §7 학교급 차이)
-['rule.vowelHarmony', 'rule.genitiveUi', 'rule.harmonyParticle', 'rule.nativeVsSino', 'rule.loanword'].forEach(id =>
-  assert.deepEqual([...RULE_CARDS[id].levels], ['h23'], `${id}: 고2~3 추가 내용`));
+['rule.vowelHarmony', 'rule.genitiveUi', 'rule.harmonyParticle', 'rule.nativeVsSino', 'rule.loanword'].forEach(id => {
+  const lv = [...RULE_CARDS[id].levels];
+  // 빈 목록은 알아 두기로만 다루기로 뺀 경우(rule.loanword: 검증된 예 낱말이 없음)
+  assert.ok(lv.length === 0 || (lv.length === 1 && lv[0] === 'h23'), `${id}: 고2~3 추가 내용`);
+});
 // 학설이 갈리거나 교과서 밖인 것은 규칙 카드가 아니다
 assert.ok(!ruleIds.some(id => /yeonseo|dongguk|hunmong|vocative/i.test(id)), '연서·동국정운·훈몽자회·호격은 알아 두기로만');
 
@@ -183,5 +186,24 @@ walk(DOGAM, 'DOGAM');
 walk(WRONG_CARDS, 'WRONG_CARDS');
 // 옛 음절이 실제로 조합된다(예: 어두 자음군 ᄠᅳᆮ)
 assert.ok(CONJOINING.test(Y.render(RULE_CARDS['rule.initialCluster'].text)), '[ㅳㅡㄷ] 이 옛한글 음절로 조합된다');
+
+// ── 4) 규칙 카드 ↔ 장면 항목: 학교급이 적힌 카드는, 그 장면 데이터가 있으면 그 학교급의 핵심 항목(ruleCard)이 붙인다 ──
+{
+  const { readdirSync, existsSync } = await import('node:fs');
+  const dir = join(ROOT, 'js/data/scenes');
+  const files = existsSync(dir) ? readdirSync(dir).filter(f => f.endsWith('.js')).map(f => 'js/data/scenes/' + f) : [];
+  const sc = load(['js/core/ns.js', ...files]).NM.data.SCENES || {};
+  const resolve = (s, lv) => (s.editions && s.editions[lv]) ? Object.assign({}, s, s.editions[lv]) : s;
+  const gaps = [];
+  for (const id of ruleIds) {
+    const c = RULE_CARDS[id], s = sc[c.stage];
+    if (!s) continue;
+    for (const lv of c.levels) {
+      const items = (resolve(s, lv).items || []);
+      if (!items.some(it => it.ruleCard === id && (!Array.isArray(it.levels) || it.levels.includes(lv)))) gaps.push(`${id} (${c.stage}, ${lv})`);
+    }
+  }
+  assert.deepEqual(gaps, [], '학교급이 적혀 있는데 그 장면의 핵심 항목이 붙이지 않는 규칙 카드(수첩에 영영 「아직 확인하지 않은 규칙」으로 남음)');
+}
 
 console.log(`k1-lists ok: 규칙 카드 ${ruleIds.length}장, 도감 ${Object.keys(DOGAM).length}자, 오답 카드 ${wrongIds.length}장, 문자열 ${nStr}개`);

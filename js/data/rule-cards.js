@@ -11,6 +11,7 @@
  *   stage   이 규칙을 가르치는 장면 id(s0~s12). '아직 확인하지 않은 규칙' 카드에 이 장면 이름이 나온다.
  *   levels  이 규칙이 핵심인 학교급 목록(m 중학교 · h1 고1 · h23 고2~3). 그 학교급이 이 장면을 할 때 핵심 항목이 되는 규칙이다.
  *           목록에 없는 학교급에는 장면에서 알아 두기로만 보이게 한다(장면 항목의 levels 를 이 값과 맞춘다).
+ *           빈 목록 [] = 지금은 어느 학교급에서도 항목으로 다루지 않고 장면의 알아 두기 카드로만 보인다(장면 시간 10~12분에 맞춰 뺀 규칙).
  *           고2~3 전용 장면(s1 s7 s8 s11)의 규칙은 ['h23'] 이다(누가 들어가도 그 범위를 쓴다, js/data/rules-config.js).
  *   src     교과서 쪽과 리서치 문서 위치(사실 카드의 출처). 리서치 = design/research/ 의 번호 문서.
  *   orig    (있으면) 이 규칙이 드러나는 原文 블록 id 목록. 장면 작가가 맥락을 고를 때 쓴다. 原文 글자는 orig.generated.js 에만 있다.
@@ -176,28 +177,28 @@ NM.data.RULE_CARDS = {
     orig: ['O-s5-YB13', 'O-s5-DS114', 'O-s9-SEOMUN7']
   },
   'rule.prePalatal': {
-    id: 'rule.prePalatal', stage: 's5', levels: ['h1', 'h23'],
+    id: 'rule.prePalatal', stage: 's5', levels: [],
     name: '구개음화 이전',
     text: 'ㅣ나 ㅣ로 시작하는 모음 앞에서도 ㄷ, ㅌ이 ㅈ, ㅊ으로 바뀌지 않고 그대로 쓰였다(됴코 → 좋고).',
     src: '공통국어2 4단원 (리서치 05 §2, 10 §5)',
     orig: ['O-s4-YB2a', 'O-s7-WS1b']
   },
   'rule.preInitialLaw': {
-    id: 'rule.preInitialLaw', stage: 's5', levels: ['h1', 'h23'],
+    id: 'rule.preInitialLaw', stage: 's5', levels: [],
     name: '두음 법칙 이전',
     text: '낱말 첫머리의 ㄴ이 ㅣ나 ㅣ로 시작하는 모음 앞에서도 그대로 쓰였다(닐굽 → 일곱).',
     src: '공통국어2 4단원 (리서치 05 §2, 10 §5)',
     orig: ['O-s7-WS1e', 'O-s7-WS1i', 'O-s7-SS6b']
   },
   'rule.preRounding': {
-    id: 'rule.preRounding', stage: 's5', levels: ['h1', 'h23'],
+    id: 'rule.preRounding', stage: 's5', levels: [],
     name: '원순 모음화 이전',
     text: 'ㅁ ㅂ ㅍ 뒤의 ㅡ가 ㅜ로 바뀌지 않고 그대로 쓰였다(믈 → 물, 블 → 불).',
     src: '공통국어2 4단원 (리서치 05 §2, 10 §5)',
     orig: ['O-s4-YB34a', 'O-s4-YB2b', 'O-s7-WS1h']
   },
   'rule.hFinalNoun': {
-    id: 'rule.hFinalNoun', stage: 's5', levels: ['h1', 'h23'],
+    id: 'rule.hFinalNoun', stage: 's5', levels: [],
     name: 'ㅎ 종성 체언',
     text: '끝에 ㅎ을 지닌 체언이 있어서, 모음으로 시작하는 조사 앞에서 그 ㅎ이 드러났다(하[ㄴㆍㅀ] + 이 → 하[ㄴㆍㄹ]히). 안팎이라는 말에 그 흔적이 남아 있다.',
     src: '공통국어2 133쪽, 137쪽, 138쪽 (리서치 05 §2, 10 §5, 11 §5)',
@@ -211,7 +212,7 @@ NM.data.RULE_CARDS = {
     orig: ['O-s5-DS1017', 'O-s5-DS114']
   },
   'rule.loanword': {
-    id: 'rule.loanword', stage: 's5', levels: ['h23'],
+    id: 'rule.loanword', stage: 's5', levels: [],
     name: '차용어',
     text: '중세 국어에는 몽골어처럼 다른 나라 말에서 들어와 자리 잡은 낱말(차용어)도 있었다.',
     src: '화법과 언어 15세기 국어 (리서치 05 §2)'
@@ -240,7 +241,7 @@ NM.data.RULE_CARDS = {
     orig: ['O-s6-SS6e', 'O-s6-SS6j', 'O-s6-YB17a', 'O-s6-YB17b']
   },
   'rule.compareE': {
-    id: 'rule.compareE', stage: 's6', levels: ['h1', 'h23'],
+    id: 'rule.compareE', stage: 's6', levels: [],
     name: '비교의 에',
     text: '조사 \'에\'가 견주는 대상을 나타내기도 했다. 서문의 \'中國에 달아\'는 \'중국과 달라\'라는 뜻이다.',
     src: '공통국어2 136쪽 날개 (리서치 05 §2, 10 §10)',
