@@ -12,6 +12,13 @@
   font-display: swap;
 }
 @font-face {
+  font-family: 'NMYetExt'; /* KR 판에 없는 드문 한자만 (Noto Serif TC 바탕) */
+  src: url('../assets/fonts/NMYetExt.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: 'NMSans';
   src: url('../assets/fonts/NMSans.woff2') format('woff2');
   font-weight: 400;
@@ -19,6 +26,6 @@
   font-display: swap;
 }
 .nm-yet {
-  font-family: var(--font-yet, 'NMYet', 'NMSans', serif);
+  font-family: var(--font-yet, 'NMYet', 'NMYetExt', 'NMSans', serif);
   font-feature-settings: 'ljmo', 'vjmo', 'tjmo';
 }

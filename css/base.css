@@ -8,7 +8,7 @@
   --variant: #a87c3a;   /* 이본 노트 황토 */
   --interp: #34508a;    /* 해석 쪽빛 */
   --font-ui: 'NMSans', system-ui, sans-serif;
-  --font-yet: 'NMYet', 'NMSans', serif;
+  --font-yet: 'NMYet', 'NMYetExt', 'NMSans', serif;
   --fs: 1;
 }
 html, body { margin: 0; height: 100%; background: #1d1a17; color: var(--ink); font-family: var(--font-ui); }

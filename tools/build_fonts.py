@@ -29,8 +29,12 @@ BASE_URL = 'https://raw.githubusercontent.com/notofonts/noto-cjk/main/'
 SOURCES = {
     'NotoSerifKR-Regular.otf': 'Serif/SubsetOTF/KR/NotoSerifKR-Regular.otf',
     'NotoSansKR-Regular.otf': 'Sans/SubsetOTF/KR/NotoSansKR-Regular.otf',
+    'NotoSerifTC-Regular.otf': 'Serif/SubsetOTF/TC/NotoSerifTC-Regular.otf',
     'OFL-Serif.txt': 'Serif/LICENSE',
 }
+# KR 판에 없는 한자를 채우는 보조 글꼴(NMYetExt)의 바탕. 데이터에 쓰인 한자 중 NMYet 에 없는 것만 담는다.
+EXT_SRC = 'NotoSerifTC-Regular.otf'
+HANJA = [(0x2E80, 0x2FDF), (0x3400, 0x4DBF), (0x4E00, 0x9FFF), (0xF900, 0xFAFF), (0x20000, 0x3134F)]
 
 COMMON = [
     (0x0020, 0x007E),  # Basic Latin
@@ -115,7 +119,7 @@ def rename(font, family):
         if hasattr(top, 'FDArray'):
             for fd in top.FDArray:
                 if hasattr(fd, 'FontName'):
-                    fd.FontName = re.sub(r'^NotoS\w+KR-Regular', ps, fd.FontName)
+                    fd.FontName = re.sub(r'^NotoS\w+(KR|TC)-Regular', ps, fd.FontName)
 
 
 def build(family, spec, extra):
@@ -158,6 +162,11 @@ def main():
         info = build(family, spec, extra)
         result['fonts'][family] = info
         print(f'{family}: {info["bytes"] / 1024:.0f} KB, {sum(b - a + 1 for a, b in info["ranges"])} code points')
+    yet_cmap = set(c for a, b in result['fonts']['NMYet']['ranges'] for c in range(a, b + 1))
+    ext_need = {c for c in extra if c not in yet_cmap and any(a <= c <= b for a, b in HANJA)}
+    ext = build('NMYetExt', {'src': EXT_SRC, 'ranges': [(0x20, 0x20)], 'features': ['locl', 'kern']}, ext_need)
+    result['fonts']['NMYetExt'] = ext
+    print(f'NMYetExt: {ext["bytes"] / 1024:.0f} KB, {len(ext_need)} extra hanja')
     (OUT / 'coverage.json').write_text(json.dumps(result, ensure_ascii=False, indent=1) + '\n', encoding='utf-8', newline='\n')
     ofl = (SRC / 'OFL-Serif.txt').read_text(encoding='utf-8')
     header = ('NMYet and NMSans are modified versions (subset and renamed under the SIL OFL 1.1)\n'

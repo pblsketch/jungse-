@@ -28,10 +28,18 @@ for (const name of ['NMYet', 'NMSans']) {
   assert.equal(sha, f.sha256, `${f.file} 이 coverage.json 과 다르다 — build_fonts.py 를 다시 돌릴 것`);
   fonts[name] = inRanges(f.ranges);
 }
+// 보조 글꼴(NMYetExt): KR 판에 없는 한자만 담는다. 있으면 같은 방식으로 맞춰 보고 NMYet 범위에 더한다.
+const ext = cov.fonts && cov.fonts.NMYetExt;
+if (ext) {
+  const path = join(ROOT, 'assets/fonts', ext.file);
+  assert.ok(existsSync(path), `${ext.file} 없음`);
+  assert.equal(createHash('sha256').update(readFileSync(path)).digest('hex'), ext.sha256, `${ext.file} 이 coverage.json 과 다르다 — build_fonts.py 를 다시 돌릴 것`);
+}
 assert.ok(existsSync(join(ROOT, 'assets/fonts/OFL.txt')), 'OFL.txt 없음');
 
 // 2) NMYet 기본 범위
 const yetSet = fonts.NMYet;
+const yetAll = new Set([...yetSet, ...(ext ? inRanges(ext.ranges) : [])]);
 const must = [[0x1100, 0x11FF], [0xA960, 0xA97C], [0xD7B0, 0xD7C6], [0xD7CB, 0xD7FB], [0x3131, 0x318E],
   [0x302E, 0x302F], [0xAC00, 0xD7A3], [0x20, 0x7E]];
 for (const [a, b] of must) for (let c = a; c <= b; c++) {
@@ -112,7 +120,7 @@ for (const f of walkFiles(join(ROOT, 'design/research'), '.md')) {
 const missing = [];
 for (const [c, where] of need) {
   if (c === 0x20) continue;
-  if (!yetSet.has(c)) missing.push(`U+${c.toString(16).toUpperCase()} ${String.fromCodePoint(c)} (${where})`);
+  if (!yetAll.has(c)) missing.push(`U+${c.toString(16).toUpperCase()} ${String.fromCodePoint(c)} (${where})`);
 }
-assert.deepEqual(missing, [], 'NMYet 에 없는 글자 — python tools/build_fonts.py 를 다시 돌릴 것');
+assert.deepEqual(missing, [], 'NMYet·NMYetExt 에 없는 글자 — python tools/build_fonts.py 를 다시 돌릴 것');
 console.log(`font coverage ok (data strings ${nStrings}, 原文 blocks ${nBlocks}, code points ${need.size})`);
