@@ -420,3 +420,6 @@ html[data-nm-eum="off"] .nm-eum-rt { display: none; }
 .nm-st-clue-view .nm-dlg-text { font-size: 1em; }
 .nm-st-clue-view .nm-ctx-lines { gap: .4em; }
 @media (pointer: coarse) { .nm-card-toggle { min-height: 44px; } }
+
+/* 통역할 인물이 맵에 없는 장면: 통역 창을 닫은 뒤 HUD 에서 다시 시작 */
+.nm-st-hud-go { display: block; width: 100%; margin: .35em 0 0; padding: .45em .8em; font-weight: 700; background: #b8322a; color: #fff; border: 2px solid #2b2420; border-radius: 10px; cursor: pointer; }

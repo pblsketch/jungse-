@@ -168,7 +168,16 @@
       // 통역할 인물 이름(맵·장면 데이터) — 모르면 '의뢰한 사람'
       let who = null;
       try { const at = cur.scene && cur.scene.translate && cur.scene.translate.at; who = at && E().placeName ? E().placeName(at) : null; } catch (e) { who = null; }
-      hud.appendChild(el('p', 'nm-st-hud-goal', who ? TX().t('goTranslateTo', { name: who }) : TX().t('goTranslate')));
+      const at0 = cur.scene && cur.scene.translate && cur.scene.translate.at;
+      if (!at0) {
+        // 통역할 인물이 맵에 따로 없는 장면: 통역 창을 닫았으면 여기서 다시 연다(닫자마자 다시 열리지 않게)
+        hud.appendChild(el('p', 'nm-st-hud-goal', TX().t('goTranslateHere')));
+        const go = el('button', 'nm-btn nm-st-hud-go', TX().t('btn.translateStart'));
+        go.type = 'button';
+        go.setAttribute('data-act', 'translate-start');
+        go.addEventListener('click', () => { cur.translatePaused = false; startTranslate(); });
+        hud.appendChild(go);
+      } else hud.appendChild(el('p', 'nm-st-hud-goal', who ? TX().t('goTranslateTo', { name: who }) : TX().t('goTranslate')));
     }
     if (!cur.hudOpen) return;
     if (!cur.translateReady) hud.appendChild(el('p', 'nm-st-hud-sub', TX().t('hudItems')));
@@ -433,7 +442,7 @@
     if (!cur || cur.phase !== 'explore' || !coreComplete()) return;
     if (NM.ui.stageWindow.count() || E().isOverlayOpen()) return;
     const tr = cur.scene.translate || {};
-    if (tr.at) {
+    if (tr.at || cur.translatePaused) {
       if (!cur.translateReady) { cur.translateReady = true; refreshHud(); updateObjectives(); }
       return;
     }
@@ -485,6 +494,7 @@
     setPhase('explore');
     cur.hud.hidden = false;
     cur.translateReady = false;
+    cur.translatePaused = true; // 통역 창을 닫았다: 인물이 없는 장면은 HUD 의 '통역하기'로 다시 시작
     maybeTranslate();
     refreshHud();
     updateObjectives();

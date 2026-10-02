@@ -100,8 +100,9 @@ try {
   {
     const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
     const page = await openGame(context);
-    const others = await page.evaluate(() => NM.data.STAGE_IDS.filter(id => id !== 's5' && NM.data.SCENES[id] && NM.ui.stageTranslate.has(NM.data.SCENES[id].translate)));
-    check('scenes without translate.choose keep the old translate (only s5 has the choice)', others.length === 0, others);
+    // 다른 장면도 고르기를 쓸 수 있다(s0~s12) — 고르기(choose)가 없는 장면만 예전 통역 그대로인지 본다
+    const others = await page.evaluate(() => NM.data.STAGE_IDS.filter(id => { const T = NM.data.SCENES[id] && NM.data.SCENES[id].translate; return T && T.choose === undefined && NM.ui.stageTranslate.has(T); }));
+    check('scenes without translate.choose keep the old translate', others.length === 0, others);
     const st0 = await startAtTranslate(page, { level: 'h1' });
     check('s5 resumes in explore with all core items confirmed', st0.ok && st0.phase === 'explore', st0);
     let s = await stageState(page);
@@ -223,6 +224,45 @@ try {
       JSON.stringify(end.interp.first) === JSON.stringify(['s5.t1.b', 's5.t2.a']) && JSON.stringify(end.interp.picks) === JSON.stringify(['s5.t1.a', 's5.t2.a']) &&
       JSON.stringify(end.saved) === JSON.stringify(end.interp), end.interp);
     check('no game errors (student)', end.errors.length === 0, end.errors);
+    await context.close();
+  }
+
+  /* ── 통역할 인물이 맵에 없는 장면(s2, 중학교): 통역 창을 닫으면 바로 다시 열리지 않고 HUD 의 '통역하기'로 다시 연다 ── */
+  {
+    const context = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+    const page = await openGame(context);
+    const r = await page.evaluate(async () => {
+      try { localStorage.clear(); } catch (e) { /* 무시 */ }
+      const st = NM.core.save.createStore({ storage: localStorage, urlLevel: 'm', level: 'm' });
+      st.setup({ level: 'm', protagonist: 1, nickname: '하늘' }); st.markPrologueDone();
+      const sc = NM.ui.stageLogic.resolveScene(NM.data.SCENES.s2, st.level); sc.id = 's2';
+      st.coreItems(sc).forEach(it => {
+        if (it.kind === 'read') {
+          (sc.contexts || []).filter(c => (c.items || []).indexOf(it.id) >= 0).slice(0, 2).forEach(c => st.seeContext(sc, c.id));
+          st.choose(sc, it.id, it.cards.filter(c => c.correct)[0].id); st.confirm(sc, it.id);
+        } else st.submit(sc, it.id, true);
+      });
+      window.__pt = { store: st, exits: [] };
+      NM.ui.stage.stop();
+      const ok = await NM.ui.stage.run('s2', { store: st, level: 'm', teacher: false, onExit: (x) => window.__pt.exits.push(x) });
+      return { ok, core: st.coreItems(sc).every(it => NM.core.rules.isItemDone(st.stage('s2').items[it.id] || {})) };
+    });
+    check('s2 all core items done for the test', r.ok && r.core, r);
+    await pass(page);
+    let t = await waitTop(page, { win: 'interp' });
+    check('s2 translate choice opens by itself (no person on the map)', !!t && t.win === 'interp', t);
+    await click(page, TOP + ' > .nm-st-close');
+    await page.waitForTimeout(900);
+    const after = await page.evaluate(() => ({
+      wins: NM.ui.stageWindow.count(), phase: NM.ui.stage.current().phase,
+      btn: !!document.querySelector('.nm-st-hud:not([hidden]) [data-act="translate-start"]')
+    }));
+    check('closing the choice does not reopen it at once', after.wins === 0 && after.phase === 'explore', after);
+    check('HUD offers a 통역하기 button to resume', after.btn, after);
+    await click(page, '.nm-st-hud [data-act="translate-start"]');
+    await pass(page);
+    t = await waitTop(page, { win: 'interp' });
+    check('HUD 통역하기 reopens the choice', !!t && t.win === 'interp', t);
     await context.close();
   }
 

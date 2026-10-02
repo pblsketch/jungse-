@@ -21,7 +21,7 @@ NM.data.TEXT.stage = {
   speakers: { senior: '선배 통사', sejong: '세종', narrator: '' },
 
   btn: {
-    next: '다음', close: '닫기', confirm: '확정하기', exit: '장면 나가기', open: '살펴보기',
+    next: '다음', close: '닫기', confirm: '확정하기', translateStart: '통역하기', exit: '장면 나가기', open: '살펴보기',
     save: '수첩 이미지 저장하기', later: '나중에 하기', skip: '건너뛰기', done: '다 썼어요',
     teacherAnswer: '정답과 풀이 바로 보기', notebook: '수첩', skipAll: '대화 넘기기',
     moreHelp: '실마리 더 보기', helpAnswer: '선배에게 정답 듣기'
@@ -95,6 +95,7 @@ NM.data.TEXT.stage = {
   saveAsk: '해독 수첩을 이미지로 저장할까요?',
   goTranslate: '모든 말을 풀었어요. 의뢰한 사람에게 가서 통역해 주세요.',
   goTranslateTo: '모든 말을 풀었어요. %name%에게 가서 통역해 주세요.',
+  goTranslateHere: '모든 말을 풀었어요. 준비되면 통역을 시작하세요.',
   hudLabel: '장면 진행',
   // 통역 고르기(js/ui/stage-translate.js) — 해독한 뜻으로 통역 문장을 직접 고르는 창
   interp: {
