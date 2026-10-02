@@ -21,7 +21,7 @@ try {
   await page.click('[data-stage="s2"]');
   await page.waitForFunction(() => window.__stub && __stub.runs.length === 1);
   await page.evaluate(() => __stub.partial());
-  await page.evaluate(() => __stub.ctx.saveImage());
+  await page.evaluate(() => { __stub.ctx.saveImage(); }); // 미리보기를 닫을 때까지 끝나지 않는 약속이라 기다리지 않는다
   await P.waitModal('image-form');
   const ac = await page.$$eval('.nm-modal[data-modal="image-form"] input', ins => ins.map(i => i.getAttribute('autocomplete')));
   check('name/number inputs without autocomplete', ac.length === 2 && ac.every(a => a === 'off'), ac);
@@ -51,7 +51,7 @@ try {
   const raw = await P.rawStorage();
   check('name/number not stored', !raw.includes('김하나') && (await page.evaluate(() => sessionStorage.length)) === 0);
   await page.click('.nm-modal[data-modal="image-preview"] [data-act="close"]');
-  await page.evaluate(() => __stub.ctx.saveImage());
+  await page.evaluate(() => { __stub.ctx.saveImage(); }); // 미리보기를 닫을 때까지 끝나지 않는 약속이라 기다리지 않는다
   await P.waitModal('image-form');
   check('form starts empty next time', (await page.inputValue('#nm-img-name')) === '' && (await page.inputValue('#nm-img-no')) === '');
   await page.keyboard.press('Escape');
