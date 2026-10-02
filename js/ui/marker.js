@@ -9,6 +9,7 @@
  *                             variant·interp 는 '채점하지 않아요' 표시. text·title·real 은 장면 데이터 표기(옛한글 가능).
  *   orig(blockId, {solved, document, modern})  NM.data.ORIG[blockId] 원문 카드: 原文 낙관 + 제목 + 줄마다 현대 표기 읽기 + 출처.
  *                             modern: true 면 현대어 풀이(block.modern)를 붙인다 — 맥락·대사 창만(과제 화면은 답이 드러나서 붙이지 않음).
+ *                             modern: 'locked' 면 풀이 글 대신 '해독하면 열려요' 잠김 표지(풀이가 있는 블록만, 설정 '끔'이면 CSS 가 숨김).
  *                             원문 글자는 자동 생성 데이터 그대로 그린다(바꾸지 않는다). 없는 블록이면 null + 오류 모음.
  *   srcLabel(raw)             데이터 출처 칸 → 학생에게 보일 출처 글(검증 메모·파일 경로 빼고, 주소는 사이트 이름으로)
  * 필요: ns.js, ui/stage-text.js, ui/stage-yet.js
@@ -149,6 +150,23 @@
     return box;
   }
 
+  // 현대어 풀이 잠김 표지(B02): 풀이 글은 넣지 않는다(답이 드러나므로). 설정 '끔'이면 .nm-orig-modern 째로 숨는다.
+  function modernLockedBox(doc, block) {
+    const lines = Array.isArray(block.modern) ? block.modern.filter(x => typeof x === 'string' && x) : [];
+    if (!lines.length) return null;
+    const box = el(doc, 'div', 'nm-orig-modern nm-orig-modern-locked');
+    box.setAttribute('data-locked', 'true');
+    const p = el(doc, 'p', 'nm-orig-modern-lock');
+    const icon = el(doc, 'span', 'nm-orig-modern-lock-icon');
+    icon.setAttribute('aria-hidden', 'true');
+    p.appendChild(icon);
+    p.appendChild(el(doc, 'span', 'nm-orig-modern-lock-label', TX().t('marks.modernLockedLabel')));
+    p.appendChild(doc.createTextNode(' '));
+    p.appendChild(el(doc, 'span', 'nm-orig-modern-lock-text', TX().t('marks.modernLocked')));
+    box.appendChild(p);
+    return box;
+  }
+
   function orig(blockId, opts) {
     const o = opts || {};
     const doc = o.document || root.document;
@@ -166,6 +184,7 @@
     sec.appendChild(body);
     if (block.noBangjeom) sec.appendChild(el(doc, 'p', 'nm-orig-note', TX().t('marks.noBangjeom')));
     if (o.modern === true) { const m = modernBox(doc, block); if (m) sec.appendChild(m); }
+    else if (o.modern === 'locked') { const m = modernLockedBox(doc, block); if (m) sec.appendChild(m); }
     if (block.src) { const s = srcLine(doc, block.src); if (s) sec.appendChild(s); }
     return sec;
   }

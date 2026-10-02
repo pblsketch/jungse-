@@ -1,7 +1,8 @@
 'use strict';
 /*
  * 순수 규칙 (DOM·저장소·타이머 없음). spec §5·§6.
- * - 해독 항목(kind 'read') / 기믹 과제(kind 'task')의 상태 기계와 도움 3단계
+ * - 해독 항목(kind 'read') / 기믹 과제(kind 'task')의 상태 기계와 도움 3단계(오답마다 + 스스로 요청 requestHelp)
+ * - 해독 카드 보이는 순서(cardOrder: 기록 seed·항목 id 로 고정된 순열)
  * - 핵심 항목 범위(묶음 밖 규칙 포함), 장면 끝 판정, 수첩 숫자, 추천 묶음 역할, 칭호
  * 모든 함수는 입력을 바꾸지 않고 새 값을 돌려준다. 전이 함수는 { ok, record, reason } 를 낸다.
  * 판정은 카드 id(정답 카드의 correct 표시)로만 한다. 잘못된 입력에도 던지지 않는다.
@@ -86,11 +87,59 @@
       next.state = 'confirmed';
     } else {
       next.wrongs = (next.wrongs | 0) + 1;
-      next.helps = Math.min(next.wrongs, helpMax());
+      next.helps = stepUp(next);
       next.guess = null;
-      next.state = next.wrongs >= helpMax() ? 'confirmedByHelp' : 'misread';
+      next.state = next.helps >= helpMax() ? 'confirmedByHelp' : 'misread';
     }
     return { ok: true, record: next, correct, help: correct ? 0 : next.helps };
+  }
+
+  // 도움 한 단계 올리기: 오답(wrongs 를 이미 더한 next)·스스로 요청 모두 한 단계씩. 스스로 요청이 없으면 helps = wrongs 그대로다.
+  function stepUp(next) {
+    return Math.min(Math.max((next.helps | 0) + 1, next.wrongs | 0), helpMax());
+  }
+
+  // 스스로 도움 요청('실마리 더 보기', S03): 오답 없이 도움을 한 단계 올린다. wrongs 는 그대로, asks(스스로 요청 수)를 센다.
+  // 도움을 받았으므로 처음 시도는 '맞음'이 될 수 없다(firstTry 가 아직 없으면 false). 마지막 단계에 닿으면 도움으로 확정·완료.
+  // 해독 항목은 아직 만나지 않은 말(unseen)이면 요청할 수 없다(카드 고르기와 같음).
+  function requestHelp(rec, item) {
+    if (!rec || (rec.kind !== 'read' && rec.kind !== 'task')) return fail(rec, 'badRecord');
+    if (isItemDone(rec)) return fail(rec, 'alreadyDone');
+    if (rec.kind === 'read' && rec.state === 'unseen') return fail(rec, 'unseen');
+    if ((rec.helps | 0) >= helpMax()) return fail(rec, 'maxHelp');
+    const next = copyRecord(rec);
+    next.helps = Math.min((next.helps | 0) + 1, helpMax());
+    next.asks = (next.asks | 0) + 1;
+    if (next.firstTry !== true && next.firstTry !== false) next.firstTry = false;
+    if (next.helps >= helpMax()) {
+      if (next.kind === 'read') { next.state = 'confirmedByHelp'; next.guess = null; }
+      else next.state = 'doneByHelp';
+    }
+    return { ok: true, record: next, help: next.helps };
+  }
+
+  // 해독 카드 보이는 순서(S01): 항목 id 와 기록의 seed 로 정해지는 고정 순열. 같은 기록·같은 항목이면 언제나 같은 순서.
+  // 장면 데이터는 정답 카드를 맨 앞에 적으므로 화면은 이 순서를 쓴다. 판정은 카드 id 로 하므로 순서와 상관없다.
+  function hashStr(str) {
+    let h = 2166136261 >>> 0;
+    for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    return h >>> 0;
+  }
+  function cardOrder(item, seed) {
+    const cards = item && Array.isArray(item.cards) ? item.cards.slice() : [];
+    let s = hashStr(String(seed >>> 0) + '|' + String(item && item.id)) || 1;
+    const rnd = () => { // mulberry32
+      s = (s + 0x6D2B79F5) >>> 0;
+      let t = s;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(rnd() * (i + 1));
+      const tmp = cards[i]; cards[i] = cards[j]; cards[j] = tmp;
+    }
+    return cards;
   }
 
   // 기믹 과제 제출. correct 는 기믹이 판정한 참/거짓.
@@ -104,8 +153,8 @@
       next.state = 'done';
     } else {
       next.wrongs = (next.wrongs | 0) + 1;
-      next.helps = Math.min(next.wrongs, helpMax());
-      next.state = next.wrongs >= helpMax() ? 'doneByHelp' : 'open';
+      next.helps = stepUp(next);
+      next.state = next.helps >= helpMax() ? 'doneByHelp' : 'open';
     }
     return { ok: true, record: next, correct, help: correct ? 0 : next.helps };
   }
@@ -213,7 +262,7 @@
 
   NM.core.rules = {
     LEVELS, READ_STATES, TASK_STATES, DONE_STATES,
-    newItemRecord, seeContext, chooseCard, confirm, submit, isItemDone, helpView, derivePreConfirm,
+    helpMax, newItemRecord, seeContext, chooseCard, confirm, submit, requestHelp, cardOrder, isItemDone, helpView, derivePreConfirm,
     isH23Only, scopeLevel, coreItemsFor, findItem, isCoreComplete, notebookStats,
     bundleRole, titleFor
   };

@@ -10,9 +10,12 @@
  *     도움 1: 선배의 힌트(hints[0]) / 2: 단서 맥락(hints[1]) 빛남 — 지도는 진행기가 NM.engine.highlight 로 /
  *     3: 정답 카드 ○ + 풀이 → confirmedByHelp.
  *   - 정답 확정 → 풀이, 규칙 항목이면 규칙 카드가 수첩에 붙었다는 표시(store 가 같은 쓰기로 붙인다).
+ *   - '실마리 더 보기'(S03): 틀리지 않고도 도움을 한 단계씩 연다(env.requestHelp → rules.requestHelp; 오답 수는 그대로).
+ *   - 카드는 env.cardOrder(item) 순서로 보인다(기록마다 고정된 순열, S01).
  *   - 교사 모드: '정답·풀이 바로 보기' — 창에만 보이고 기록은 바꾸지 않는다.
  * env(진행기가 줌): { scene, teacher, rec(id), choose(id, cardId), confirm(id), dialog(lines, opts), contextLabel(id),
- *                    ruleCard(id), fill(text), solved(), sfx(name), onItemClosed(id) }
+ *                    ruleCard(id), fill(text), solved(), sfx(name), onItemClosed(id),
+ *                    requestHelp(id), cardOrder(item) }
  * 필요: ns.js, ui/stage-text.js, ui/stage-yet.js, ui/marker.js, ui/stage-window.js, ui/rulecard.js, ui/dialog.js, core/rules.js
  */
 (function (root) {
@@ -40,6 +43,8 @@
     const item = (env.scene.items || []).filter(i => i.id === itemId)[0];
     if (!item) { NM.reportError('stage.item', 'unknown item: ' + itemId); return null; }
     const right = (item.cards || []).filter(c => c && c.correct === true)[0] || null;
+    // 보이는 카드 순서: 기록마다 고정된 순열(S01 — 데이터는 정답 카드를 맨 앞에 적는다). 다시 열어도·새로 고쳐도 같다.
+    const shown = typeof env.cardOrder === 'function' ? env.cardOrder(item) : (item.cards || []);
     let teacherShown = false;
     let w = null;
 
@@ -72,7 +77,7 @@
 
       // 카드
       const opts = {
-        cards: item.cards, sentence: item.sentence, selected: done ? null : rec.guess, disabled: done || rec.state === 'unseen',
+        cards: shown, sentence: item.sentence, selected: done ? null : rec.guess, disabled: done || rec.state === 'unseen',
         fill: env.fill, solved: [],
         onSelect(cardId) {
           const r = env.choose(itemId, cardId);
@@ -151,6 +156,16 @@
         tb.addEventListener('click', () => { teacherShown = true; render(); w.focus(); });
         foot.appendChild(tb);
       }
+      // 실마리 더 보기(S03): 틀리지 않고도 도움을 한 단계씩 연다. 마지막 단계는 정답·풀이(도움으로 확정)라 이름을 달리한다.
+      if (!done && !teacherShown && rec.state !== 'unseen' && hv.step < NM.core.rules.helpMax()) {
+        const last = hv.step + 1 >= NM.core.rules.helpMax();
+        const hb = el('button', 'nm-st-btn nm-st-morehelp', TX().t(last ? 'btn.helpAnswer' : 'btn.moreHelp'));
+        hb.type = 'button';
+        hb.setAttribute('data-step', String(hv.step));
+        hb.title = TX().t('moreHelpNote');
+        hb.addEventListener('click', onMoreHelp);
+        foot.appendChild(hb);
+      }
       const cb = el('button', 'nm-st-btn nm-st-primary nm-st-confirm', TX().t('btn.confirm'));
       cb.type = 'button';
       cb.hidden = done;
@@ -166,6 +181,16 @@
       if (right) a.appendChild(rich(env, right.text));
       box.appendChild(a);
       box.appendChild(MK().card({ kind: 'explain', text: item.explain, fill: env.fill }));
+    }
+
+    function onMoreHelp() {
+      if (typeof env.requestHelp !== 'function') return;
+      const r = env.requestHelp(itemId);
+      if (!r || !r.ok) { NM.reportError('stage.item.help', r && r.reason); return; }
+      env.sfx('help');
+      render();
+      const hb = w.foot.querySelector('.nm-st-morehelp');
+      if (hb) hb.focus(); else w.focus();
     }
 
     function onConfirm() {

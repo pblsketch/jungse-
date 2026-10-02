@@ -71,9 +71,10 @@
   }
   function sfx(name) { try { if (E().audio) E().audio.sfx(name); } catch (e) { NM.reportError('stage.sfx', e); } }
   function stageProg() { return cur.store.stage(cur.stageId); }
-  // 原文 카드에 현대어 풀이를 붙이는가(설정이 '끔'이면 CSS 가 숨김). 그 블록으로 푸는 해독 항목을 확정하기 전에는 붙이지 않는다.
+  // 原文 카드의 현대어 풀이(설정이 '끔'이면 CSS 가 숨김): true = 붙임, 'locked' = 그 블록으로 푸는 해독 항목을 확정하기 전이라
+  // 풀이 대신 '해독하면 열려요' 잠김 표지(B02). 정답이 드러나지 않도록 풀이 글은 넣지 않는다.
   function modernOn(blockId) {
-    try { return !L().modernLocked(cur.scene, stageProg(), coreItems(), blockId); } catch (e) { return false; }
+    try { return L().modernLocked(cur.scene, stageProg(), coreItems(), blockId) ? 'locked' : true; } catch (e) { return 'locked'; }
   }
   function coreItems() { return cur.store.coreItems(cur.scene); }
   function isCore(id) { return coreItems().some(i => i.id === id); }
@@ -162,7 +163,12 @@
     head.appendChild(chev);
     head.addEventListener('click', () => { cur.hudOpen = !cur.hudOpen; refreshHud(); const h = cur.hud.querySelector('.nm-st-hud-head'); if (h) h.focus(); });
     hud.appendChild(head);
-    if (cur.translateReady) hud.appendChild(el('p', 'nm-st-hud-goal', TX().t('goTranslate')));
+    if (cur.translateReady) {
+      // 통역할 인물 이름(맵·장면 데이터) — 모르면 '의뢰한 사람'
+      let who = null;
+      try { const at = cur.scene && cur.scene.translate && cur.scene.translate.at; who = at && E().placeName ? E().placeName(at) : null; } catch (e) { who = null; }
+      hud.appendChild(el('p', 'nm-st-hud-goal', who ? TX().t('goTranslateTo', { name: who }) : TX().t('goTranslate')));
+    }
     if (!cur.hudOpen) return;
     if (!cur.translateReady) hud.appendChild(el('p', 'nm-st-hud-sub', TX().t('hudItems')));
     const ul = el('ul', 'nm-st-hud-list');
@@ -319,6 +325,8 @@
       choose: (id, cardId) => { const r = store.choose(sc, id, cardId); afterChange(); return r; },
       confirm: (id) => { const r = store.confirm(sc, id); afterChange(); return r; },
       submit: (id, ok) => { const r = store.submit(sc, id, ok); afterChange(); return r; },
+      requestHelp: (id) => { const r = store.requestHelp(sc, id); afterChange(); return r; },
+      cardOrder: (item) => NM.core.rules.cardOrder(item, store.seed),
       dialog: (lines, o) => play(lines, o),
       contextLabel: (id) => { const c = L().contextById(sc, id); return c ? plain(c.label) : id; },
       ruleCard: (id) => (NM.data.RULE_CARDS && NM.data.RULE_CARDS[id]) || null,

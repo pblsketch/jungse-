@@ -40,4 +40,20 @@ assert.equal(fresh.state, 'open');
 // firstTry 유지(다시 하기)
 const replayed = Object.assign(R.newItemRecord('task'), { firstTry: true });
 assert.equal(R.submit(replayed, false).record.firstTry, true);
+
+// ── 스스로 도움 요청(S03): 틀린 제출 없이 한 단계씩, 3단계면 doneByHelp
+{
+  let q = R.requestHelp(fresh, item);
+  assert.deepEqual([q.ok, q.help, q.record.state, q.record.wrongs, q.record.helps, q.record.asks, q.record.firstTry], [true, 1, 'open', 0, 1, 1, false]);
+  q = R.submit(q.record, true);
+  assert.deepEqual([q.record.state, q.record.firstTry, q.record.helps], ['done', false, 1], '도움 뒤 맞아도 첫 시도 정답 아님');
+  q = R.requestHelp(fresh, item);
+  q = R.submit(q.record, false);
+  assert.deepEqual([q.record.state, q.record.wrongs, q.record.helps, q.help], ['open', 1, 2, 2], '오답도 한 단계');
+  q = R.requestHelp(q.record, item);
+  assert.deepEqual([q.ok, q.record.state, q.record.helps, q.record.asks, q.record.wrongs], [true, 'doneByHelp', 3, 2, 1]);
+  assert.equal(R.helpView(item, q.record).answer, 1);
+  assert.equal(R.requestHelp(q.record, item).reason, 'alreadyDone');
+  assert.equal(fresh.helps, 0, '순수 함수');
+}
 console.log('c2 task item ok');

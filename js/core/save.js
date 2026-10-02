@@ -6,6 +6,7 @@
  *   (항목 상태 + 수첩 + 보상을 함께 쓴다). 실패한 동작은 쓰지 않는다.
  * - 보상(완료·패 글자)은 장면 id 기준으로 한 번만 들어간다(새로 고침 뒤 다시 불러도 그대로).
  * - 망가진 JSON·모르는 형식 버전 → 기록 없음(기본값). 필드 하나가 이상하면 그 필드만 기본값.
+ * - seed: 기록마다 한 번 정하는 수(해독 카드 순서용). 새 기록은 무작위, seed 없는 예전 기록은 기록 값에서 고정으로 낸다.
  * - 저장소가 막히면 메모리로 계속 돌고 storageAvailable=false. takeStorageWarning()은 처음 한 번만 true.
  * - 주소 학교급(urlLevel): 기록이 있으면 이번 접속에만 쓰고 기록의 학교급은 그대로.
  *   기록이 없으면(첫 실행) 기록의 학교급이 된다. 진행은 지금 학교급(store.level)의 칸에 쓴다.
@@ -38,10 +39,21 @@
   function defaultSettings() {
     return { bangjeom: true, modern: 'tap', eum: true, fontScale: 1, reducedMotion: 'auto', bgm: true, sfx: true };
   }
-  function defaultRecord(level) {
+  // seed: 기록마다 한 번 정하는 수(해독 카드 보이는 순서 NM.core.rules.cardOrder 용, S01). 1 ~ 2^31-1 정수.
+  const isSeed = (x) => Number.isInteger(x) && x >= 1 && x <= 0x7fffffff;
+  const newSeed = () => 1 + Math.floor(Math.random() * 0x7ffffffe);
+  // 예전 기록(seed 없음)은 기록 안의 변하지 않을 값으로 정한다 → 다음 쓰기 전에 새로 고쳐도 같은 순서. 다음 쓰기에서 저장된다.
+  function legacySeed(raw) {
+    const str = JSON.stringify([raw.level, raw.protagonist, raw.nickname, raw.glyphs]);
+    let h = 2166136261 >>> 0;
+    for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    return (h % 0x7ffffffe) + 1;
+  }
+  function defaultRecord(level, seed) {
     return {
       v: VERSION, level: isLevel(level) ? level : 'm', protagonist: 1, nickname: '',
-      settings: defaultSettings(), prologueDone: false, progress: {}, glyphs: {}, seenNotices: []
+      settings: defaultSettings(), prologueDone: false, progress: {}, glyphs: {}, seenNotices: [],
+      seed: isSeed(seed) ? seed : newSeed()
     };
   }
   function newStageProgress() {
@@ -71,6 +83,8 @@
     rec.wrongs = count(x.wrongs);
     rec.helps = Number.isInteger(x.helps) && x.helps >= 0 && x.helps <= 3 ? x.helps : 0;
     rec.firstTry = x.firstTry === true || x.firstTry === false ? x.firstTry : null;
+    // asks: 스스로 요청한 도움 수(S03). 있을 때만 둔다(없으면 0 — 예전 기록과 같은 모양).
+    if (count(x.asks) > 0) rec.asks = Math.min(count(x.asks), rec.helps);
     if (x.kind === 'task') {
       rec.state = R.TASK_STATES.indexOf(x.state) >= 0 ? x.state : 'open';
       return rec;
@@ -99,7 +113,7 @@
   // 저장된 값 → 올바른 기록. 기록으로 볼 수 없으면(형식 버전 다름 등) null.
   function normalizeRecord(raw) {
     if (!isObj(raw) || raw.v !== VERSION) return null;
-    const rec = defaultRecord(raw.level);
+    const rec = defaultRecord(raw.level, isSeed(raw.seed) ? raw.seed : legacySeed(raw));
     rec.protagonist = [1, 2, 3, 4].indexOf(raw.protagonist) >= 0 ? raw.protagonist : 1;
     rec.nickname = typeof raw.nickname === 'string' && NM.core.nickname.check(raw.nickname).ok ? raw.nickname : '';
     rec.settings = normSettings(raw.settings);
@@ -172,6 +186,7 @@
     const validStage = (stage) => !!stage && isStageId(stage.id);
 
     function itemOp(stage, itemId, kind, apply) {
+      if (kind === 'any') { const it = validStage(stage) ? coreItem(stage, itemId) : null; kind = it ? it.kind : 'read'; }
       if (!validStage(stage)) return { ok: false, reason: 'badStage' };
       const item = coreItem(stage, itemId);
       if (!item) return { ok: false, reason: 'notCore' };
@@ -185,6 +200,7 @@
         touch(p);
         const out = { ok: true, state: r.record.state };
         if ('correct' in r) { out.correct = r.correct; out.help = r.help; }
+        else if ('help' in r) out.help = r.help;
         if (R.isItemDone(r.record) && item.ruleCard && kind === 'read') {
           if (p.rules.indexOf(item.ruleCard) < 0) p.rules.push(item.ruleCard);
           out.ruleCard = item.ruleCard;
@@ -199,6 +215,7 @@
       get storageAvailable() { return storageAvailable; },
       get hasRecord() { return hasRecord; },
       get level() { return level; },
+      get seed() { return record.seed; },
       takeStorageWarning() {
         if (teacher || storageAvailable || warned) return false;
         warned = true;
@@ -274,6 +291,8 @@
       choose(stage, itemId, cardId) { return itemOp(stage, itemId, 'read', (cur, item) => R.chooseCard(cur, item, cardId)); },
       confirm(stage, itemId) { return itemOp(stage, itemId, 'read', (cur, item) => R.confirm(cur, item)); },
       submit(stage, itemId, correct) { return itemOp(stage, itemId, 'task', (cur) => R.submit(cur, correct)); },
+      // 스스로 도움 한 단계(해독 항목·기믹 과제 모두). 오답 수는 그대로.
+      requestHelp(stage, itemId) { return itemOp(stage, itemId, 'any', (cur, item) => R.requestHelp(cur, item)); },
 
       addTranslation(stageId, id) {
         if (!isStageId(stageId) || typeof id !== 'string' || !id) return { ok: false, reason: 'badId' };

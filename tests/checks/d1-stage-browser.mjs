@@ -5,6 +5,8 @@
 // - 기믹 과제: 틀린 부분 바로 표시, 3번째 → doneByHelp / 새로 고침 뒤 이어 하기(시작 자리)
 // - 장면 끝: 통역 → 패 글자 → 돌아보기 → 이미지 저장 제안 → onExit, 통역 뒤 퀴즈 없음
 // - 교사 모드(정답 바로 보기, 기록 무변경, 호칭 '통사'), 방점 끄기와 s4 늘 켬, Esc·Tab
+// - 현대어 풀이 잠김 표지(해독 전) → 해독 뒤 풀이(B02) / 카드 순서는 기록 seed 로 고정, 새로 고쳐도 같음(S01)
+// - '실마리 더 보기': 틀리지 않고 도움 1→2→3 단계(오답 0, 첫 시도 정답 아님), 기믹 과제도(S03)
 // - 오류 0, 콘솔 오류 0, 외부 요청 0
 import { chromium } from 'playwright';
 import { serve } from '../server.mjs';
@@ -111,6 +113,8 @@ try {
   check('原文 uses NMYet font', /NMYet/.test(orig.font || ''), orig.font);
   check('bangjeom drawn as left-side dot (no raw tone mark glyph)', orig.bj && orig.bj.display !== 'none' && orig.bj.dotX < (orig.bj.synLeft + orig.bj.synRight) / 2 && !orig.rawToneChars, orig.bj);
   check('notes card (알아 두기) with source in context', await page.evaluate((sel) => { const c = document.querySelector(sel + ' .nm-card[data-mark="know"]:not([data-item])'); return !!c && c.textContent.includes('시험 출처'); }, TOP));
+  const lock0 = await page.evaluate((sel) => { const w = document.querySelector(sel); const L = w.querySelector('.nm-orig .nm-orig-modern-locked'); return { has: !!L && getComputedStyle(L).display !== 'none', text: L && L.textContent, want: NM.data.TEXT.stage.marks.modernLocked, leak: !!w.querySelector('.nm-orig .nm-orig-modern-text') || w.textContent.includes('시험 현대어 풀이') }; }, TOP);
+  check('before decoding: 原文 shows locked 현대어 풀이 note (no translation in DOM)', lock0.has && lock0.text.includes(lock0.want) && !lock0.leak, lock0);
 
   // ───────── 3) 맥락 수와 확정 단추 ─────────
   check('context marks r1 met', (await state(page, 's6.r1')) === 'met');
@@ -118,6 +122,10 @@ try {
   t = await topWin(page);
   check('item window opens from context', t && t.win === 'item' && t.item === 's6.r1', t);
   check('context window inert under item window', await page.evaluate(() => document.querySelector('.nm-st-win[data-win="context"]').hasAttribute('inert')));
+  const cardIds = (page) => page.evaluate((sel) => [...document.querySelectorAll(sel + ' .nm-st-card')].map(b => b.getAttribute('data-card')), TOP);
+  const r1Order = await cardIds(page);
+  const r1Want = await page.evaluate(() => NM.core.rules.cardOrder(NM.data.SCENES.s6.items.find(i => i.id === 's6.r1'), window.__store.seed).map(c => c.id));
+  check('cards shown in the record seed order (rules.cardOrder)', r1Order.join() === r1Want.join() && r1Order.length === 4, { r1Order, r1Want });
   await page.click(TOP + ' .nm-st-card[data-card="s6.r1.a"]');
   check('choose → guessed', (await state(page, 's6.r1')) === 'guessed');
   let conf = await page.evaluate((sel) => { const b = document.querySelector(sel + ' .nm-st-confirm'); return { disabled: b.disabled, seen: document.querySelector(sel + ' .nm-st-seen').textContent }; }, TOP);
@@ -193,6 +201,10 @@ try {
   check('reload: character back at spawn', pos.x === 300 && pos.y === 480, pos);
   check('reload: item state restored', (await state(page, 's6.r1')) === 'confirmedByHelp' && await page.evaluate(() => document.querySelector('.nm-st-hud-item[data-item="s6.r1"]').getAttribute('data-state') === 'confirmedByHelp'));
   check('reload: seen contexts kept (r2 met from c1)', (await state(page, 's6.r2')) === 'met');
+  await page.click('.nm-st-hud-item[data-item="s6.r1"]');
+  const r1Again = await cardIds(page);
+  check('reload: same card order for the same item', r1Again.join() === r1Order.join(), { r1Order, r1Again });
+  await closeAll(page);
 
   // ───────── 6) 규칙 항목: 문장 완성 부품, 정답 확정, 규칙 카드, 현대어 풀이 ─────────
   await goTo(page, 's6.c3');
@@ -215,6 +227,10 @@ try {
   const res = await page.evaluate((sel) => { const w = document.querySelector(sel); return { r: w.querySelector('.nm-st-result') && w.querySelector('.nm-st-result').getAttribute('data-result'), rule: !!w.querySelector('.nm-st-rule-added'), explain: !!w.querySelector('.nm-card[data-mark="explain"]') }; }, TOP);
   check('correct confirm → confirmed, explanation, rule card added', (await state(page, 's6.r2')) === 'confirmed' && res.r === 'correct' && res.rule && res.explain, res);
   check('rule card stored in notebook', await page.evaluate(() => window.__store.stage('s6').rules.join() === 'rule.fixture'));
+  await closeAll(page);
+  await goTo(page, 's6.c1');
+  const lock1 = await page.evaluate((sel) => { const w = document.querySelector(sel); const m = w.querySelector('.nm-orig .nm-orig-modern-text'); return { locked: !!w.querySelector('.nm-orig-modern-locked'), modern: m && m.textContent }; }, TOP);
+  check('after decoding: locked note replaced by 현대어 풀이', !lock1.locked && !!lock1.modern && lock1.modern.includes('시험 현대어 풀이'), lock1);
   await closeAll(page);
 
   // ───────── 7) 기믹 과제 ─────────
@@ -278,6 +294,43 @@ try {
   await page.click('.nm-st-exit');
   await page.waitForFunction(() => window.__exits.length === 1, null, { timeout: 3000 });
   check('exit button → onExit(completed:false), cleaned up', await page.evaluate(() => window.__exits[0].completed === false && !document.querySelector('.nm-st-hud') && NM.ui.stage.current().phase === 'exited'));
+  await page.close();
+
+  // ───────── 9b) 실마리 더 보기: 틀리지 않고 도움 단계 올리기 ─────────
+  page = await openPage(context, 'stage=s6&level=m&nosave=1&reset=1');
+  await advance(page);
+  await goTo(page, 's6.c1');
+  await page.click(TOP + ' .nm-st-ctx-item[data-item="s6.r1"]');
+  const mh = () => page.evaluate((sel) => {
+    const w = document.querySelector(sel), b = w.querySelector('.nm-st-morehelp'), h = w.querySelector('.nm-st-help');
+    const r = window.__store.stage('s6').items['s6.r1'];
+    return { btn: b && b.textContent, step: h && h.getAttribute('data-step'), hint: !!w.querySelector('.nm-st-hint'), answer: !!w.querySelector('.nm-st-answer'),
+      result: w.querySelector('.nm-st-result') && w.querySelector('.nm-st-result').getAttribute('data-result'), rec: r, glow: NM.engine.test.state().highlight };
+  }, TOP);
+  const T = await page.evaluate(() => NM.data.TEXT.stage.btn);
+  let m = await mh();
+  check('more-help button offered without any wrong answer', m.btn === T.moreHelp && !m.step, m);
+  await page.click(TOP + ' .nm-st-morehelp');
+  m = await mh();
+  check('more-help 1: hint shown, no wrong counted, state unchanged', m.step === '1' && m.hint && m.rec.wrongs === 0 && m.rec.helps === 1 && m.rec.asks === 1 && m.rec.state === 'met' && m.rec.firstTry === false, m);
+  await page.click(TOP + ' .nm-st-morehelp');
+  m = await mh();
+  check('more-help 2: clue context glows; last step relabeled', m.step === '2' && m.glow === 's6.c3' && m.btn === T.helpAnswer && m.rec.wrongs === 0, m);
+  await page.click(TOP + ' .nm-st-morehelp');
+  m = await mh();
+  check('more-help 3: answer + confirmedByHelp, button gone', m.step === '3' && m.answer && m.result === 'help' && m.btn === null && m.rec.state === 'confirmedByHelp' && m.rec.wrongs === 0 && m.rec.asks === 3, m);
+  check('more-help: glow cleared after done', m.glow === null, m.glow);
+  await closeAll(page);
+  await page.click('.nm-st-hud-item[data-item="s6.t1"]');
+  await page.click(TOP + ' .nm-st-morehelp');
+  const tm = await page.evaluate((sel) => { const w = document.querySelector(sel); const b = w.querySelector('.nm-st-morehelp:not([hidden])'); return { hint: w.querySelector('.nm-st-hint') && w.querySelector('.nm-st-hint').textContent, rec: window.__store.stage('s6').items['s6.t1'], btn: b && b.textContent }; }, TOP);
+  check('task more-help: hint 1 without a wrong submit', !!tm.hint && tm.hint.includes('과제 힌트') && tm.rec.wrongs === 0 && tm.rec.helps === 1 && tm.rec.state === 'open' && tm.btn === T.moreHelp, tm);
+  await page.click(TOP + ' .nm-st-morehelp');
+  await page.click(TOP + ' .nm-st-morehelp');
+  const tm3 = await page.evaluate((sel) => { const w = document.querySelector(sel); return { ans: !!w.querySelector('.d1tg-answer'), explain: !!w.querySelector('.nm-card[data-mark="explain"]'), rec: window.__store.stage('s6').items['s6.t1'], btn: !!w.querySelector('.nm-st-morehelp:not([hidden])') }; }, TOP);
+  check('task more-help 3: doneByHelp with answer, button hidden', tm3.ans && tm3.explain && tm3.rec.state === 'doneByHelp' && tm3.rec.wrongs === 0 && !tm3.btn, tm3);
+  errs = await page.evaluate(() => window.__nmErrors.slice());
+  check('no NM errors (more-help run)', errs.length === 0, errs);
   await page.close();
 
   // ───────── 10) 교사 모드 ─────────

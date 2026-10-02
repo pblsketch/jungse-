@@ -23,7 +23,8 @@ NM.data.TEXT.stage = {
   btn: {
     next: '다음', close: '닫기', confirm: '확정하기', exit: '장면 나가기', open: '살펴보기',
     save: '수첩 이미지 저장하기', later: '나중에 하기', skip: '건너뛰기', done: '다 썼어요',
-    teacherAnswer: '정답과 풀이 바로 보기', notebook: '수첩', skipAll: '대화 넘기기'
+    teacherAnswer: '정답과 풀이 바로 보기', notebook: '수첩', skipAll: '대화 넘기기',
+    moreHelp: '실마리 더 보기', helpAnswer: '선배에게 정답 듣기'
   },
   win: {
     context: '조사', item: '해독', task: '과제', carve: '새김', reflect: '돌아보기', save: '수첩 이미지',
@@ -34,6 +35,9 @@ NM.data.TEXT.stage = {
     orig: '原文', explain: '풀이', know: '알아 두기', fiction: '게임 설정 · 虛',
     variant: '이본 노트', interp: '해석', real: '실제로는 →', src: '출처', notScored: '채점하지 않아요',
     modern: '현대어 풀이', modernShow: '현대어 풀이 보기', modernHide: '현대어 풀이 접기',
+    // 현대어 풀이 잠김 표지(그 原文으로 푸는 말을 아직 해독하지 않았을 때 — 풀이가 답을 드러내지 않도록)
+    modernLockedLabel: '현대어 풀이 잠김',
+    modernLocked: '이 原文으로 푸는 말을 해독하면 현대어 풀이가 열려요.',
     noBangjeom: '이 구절은 원본의 방점을 판독하지 못해 방점 없이 보여요(평성이라는 뜻이 아니에요)',
     // 출처 주소 → 사이트 이름(NM.ui.marker.srcLabel)
     sites: {
@@ -67,6 +71,7 @@ NM.data.TEXT.stage = {
   byHelp: '선배가 정답과 풀이를 알려 주었어요.',
   misreadNote: '그 뜻으로 통역했더니 이야기가 엉뚱해졌어요.',
   why: '왜 아닌지',
+  moreHelpNote: '틀리지 않아도 선배의 도움을 한 단계씩 받을 수 있어요. 도움을 받은 말은 첫 시도 정답으로 세지 않아요.',
   answer: '정답',
   hint: '선배의 힌트',
   glow: '단서가 있는 곳이 지도에서 빛나요.',
@@ -87,5 +92,6 @@ NM.data.TEXT.stage = {
   reflectPlaceholder: '오늘의 말과 무엇이 달랐나',
   saveAsk: '해독 수첩을 이미지로 저장할까요?',
   goTranslate: '모든 말을 풀었어요. 의뢰한 사람에게 가서 통역해 주세요.',
+  goTranslateTo: '모든 말을 풀었어요. %name%에게 가서 통역해 주세요.',
   hudLabel: '장면 진행'
 };

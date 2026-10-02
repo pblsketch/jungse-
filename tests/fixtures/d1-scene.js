@@ -13,7 +13,8 @@
   NM.data.RULE_CARDS = NM.data.RULE_CARDS || {};
 
   NM.data.ORIG['O-test-A'] = {
-    title: '시험 원문 가', lines: ['·나랏:[ㅁㆍㄹ][ㅆㆍ]·미', '[ㄱㆍ][ㄹㆍㅁ]·애 {江|강}'], src: 'test fixture', certainty: '◎'
+    title: '시험 원문 가', lines: ['·나랏:[ㅁㆍㄹ][ㅆㆍ]·미', '[ㄱㆍ][ㄹㆍㅁ]·애 {江|강}'], src: 'test fixture', certainty: '◎',
+    modern: ['시험 현대어 풀이 첫 줄', '시험 현대어 풀이 둘째 줄']
   };
   NM.data.ORIG['O-test-B'] = { title: '시험 원문 나', lines: [':[ㅁㆍㄹ]·이 ·하니'], src: 'test fixture', certainty: '◎' };
 

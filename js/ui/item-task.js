@@ -7,8 +7,9 @@
  *   틀리면 바로 instance.showWrong({ wrong, answer, wrongs, help }) — 오해 장면 없음.
  *   도움 1: 선배의 힌트(hints[0]) / 2: instance.showHint(2, hints[1]) 고칠 곳 강조 / 3: instance.showAnswer(answer) + 풀이 → doneByHelp.
  *   이미 끝난 과제를 다시 열면 readOnly 로 붙이고 정답·풀이를 보인다.
+ *   '실마리 더 보기'(S03): 틀리지 않고도 도움을 한 단계씩 연다(env.requestHelp → rules.requestHelp; 틀린 제출 수는 그대로).
  *   교사 모드: '정답·풀이 바로 보기'(기록과 상관없음).
- * env: { scene, level, teacher, rec(id), submit(id, correct), fill(text), sfx(name), onItemClosed(id), settings() }
+ * env: { scene, level, teacher, rec(id), submit(id, correct), requestHelp(id), fill(text), sfx(name), onItemClosed(id), settings() }
  * 필요: ns.js, ui/stage-text.js, ui/stage-yet.js, ui/marker.js, ui/stage-window.js, ui/stage-logic.js, ui/stage-gimmick.js, ui/rulecard.js
  */
 (function (root) {
@@ -38,7 +39,7 @@
     const item = (env.scene.items || []).filter(i => i.id === itemId)[0];
     if (!item) { NM.reportError('stage.task', 'unknown item: ' + itemId); return null; }
     const def = NM.gimmicks.get(item.gimmick);
-    let inst = null, w = null, status = null, helpBox = null, teacherShown = false;
+    let inst = null, w = null, status = null, helpBox = null, moreBtn = null, teacherShown = false;
 
     function showHelp(rec) {
       helpBox.textContent = '';
@@ -57,6 +58,31 @@
         if (teacherShown && !NM.core.rules.isItemDone(rec)) helpBox.appendChild(el('p', 'nm-st-note', TX().t('teacherNote')));
         helpBox.appendChild(MK().card({ kind: 'explain', text: item.explain, fill: env.fill }));
       }
+      updateMoreHelp(rec);
+    }
+
+    // 실마리 더 보기(S03): 틀리지 않고도 도움을 한 단계씩(해독 항목과 같은 단계·같은 보기). 마지막 단계는 정답·풀이 → doneByHelp.
+    function updateMoreHelp(rec) {
+      if (!moreBtn) return;
+      const step = NM.core.rules.helpView(item, rec).step;
+      const max = NM.core.rules.helpMax();
+      moreBtn.hidden = !def || teacherShown || NM.core.rules.isItemDone(rec) || step >= max;
+      moreBtn.textContent = TX().t(step + 1 >= max ? 'btn.helpAnswer' : 'btn.moreHelp');
+      moreBtn.setAttribute('data-step', String(step));
+    }
+    function onMoreHelp() {
+      if (typeof env.requestHelp !== 'function') return;
+      const r = env.requestHelp(itemId);
+      if (!r || !r.ok) { NM.reportError('stage.task.help', r && r.reason); return; }
+      const rec = env.rec(itemId);
+      env.sfx('help');
+      if (r.help >= 2) call(inst, 'showHint', [2, Array.isArray(item.hints) ? item.hints[1] : null]);
+      if (rec.state === 'doneByHelp') {
+        call(inst, 'showAnswer', [item.answer]);
+        setStatus('taskByHelp', 'help');
+      }
+      showHelp(rec);
+      if (moreBtn && !moreBtn.hidden) moreBtn.focus(); else if (w) w.focus();
     }
 
     function setStatus(key, kind) {
@@ -129,6 +155,11 @@
           if (done) call(inst, 'showAnswer', [item.answer]);
           else if (rec.helps >= 2) call(inst, 'showHint', [2, Array.isArray(item.hints) ? item.hints[1] : null]);
         }
+        moreBtn = el('button', 'nm-st-btn nm-st-morehelp', TX().t('btn.moreHelp'));
+        moreBtn.type = 'button';
+        moreBtn.title = TX().t('moreHelpNote');
+        moreBtn.addEventListener('click', onMoreHelp);
+        win.foot.appendChild(moreBtn);
         showHelp(rec);
         if (env.teacher && !done) {
           const tb = el('button', 'nm-st-btn nm-st-teacher-answer', TX().t('btn.teacherAnswer'));
@@ -136,6 +167,7 @@
           tb.addEventListener('click', () => {
             teacherShown = true;
             tb.hidden = true;
+            if (moreBtn) moreBtn.hidden = true;
             call(inst, 'showAnswer', [item.answer]);
             showHelp(env.rec(itemId) || rec);
           });

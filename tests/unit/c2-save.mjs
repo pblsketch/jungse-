@@ -13,8 +13,11 @@ assert.equal(typeof S.VERSION, 'number');
 const origErr = console.error;
 console.error = (...a) => { origErr(...a); throw new Error('console.error 사용 금지'); };
 
-// 기본 기록
+// 기본 기록 (seed: 기록마다 무작위로 한 번 — 해독 카드 순서용, S01)
 const def = J(S.defaultRecord('h1'));
+assert.ok(Number.isInteger(def.seed) && def.seed >= 1 && def.seed <= 0x7fffffff, 'seed 범위');
+assert.equal(S.defaultRecord('h1', 77).seed, 77, 'seed 를 넘기면 그대로');
+delete def.seed;
 assert.deepEqual(def, {
   v: S.VERSION, level: 'h1', protagonist: 1, nickname: '',
   settings: { bangjeom: true, modern: 'tap', eum: true, fontScale: 1, reducedMotion: 'auto', bgm: true, sfx: true },
@@ -235,7 +238,10 @@ assert.deepEqual(def, {
   for (const bad of ['{not json', 'null', '42', '"str"', '[]', JSON.stringify({ v: 999, level: 'h1' }), JSON.stringify({ level: 'h1' })]) {
     const store = S.createStore({ storage: fakeStorage({ [KEY]: bad }) });
     assert.equal(store.hasRecord, false, bad);
-    assert.deepEqual(J(store.get()), J(S.defaultRecord('m')), bad);
+    const got = J(store.get()), want = J(S.defaultRecord('m'));
+    assert.ok(Number.isInteger(got.seed) && got.seed >= 1, bad);
+    delete got.seed; delete want.seed;
+    assert.deepEqual(got, want, bad);
   }
   const mixed = {
     v: S.VERSION, level: 'h9', protagonist: 7, nickname: 12,
@@ -276,6 +282,68 @@ assert.deepEqual(def, {
   // normalizeRecord 직접
   assert.equal(J(S.normalizeRecord(undefined)), null);
   assert.equal(J(S.normalizeRecord({ v: 999 })), null);
+}
+
+// ── seed (S01 해독 카드 순서): 저장·복원에서 그대로, seed 없는 예전 기록은 기록 값으로 고정(새로 고쳐도 같음), 잘못된 값은 다시 냄
+{
+  const st = fakeStorage();
+  const store = S.createStore({ storage: st });
+  store.setup({ level: 'm', protagonist: 2, nickname: '' });
+  const seed = store.seed;
+  assert.ok(Number.isInteger(seed) && seed >= 1);
+  assert.equal(JSON.parse(st.data.get(KEY)).seed, seed, '기록에 저장');
+  assert.equal(S.createStore({ storage: st }).seed, seed, '다시 불러도 같은 seed');
+  const legacy = J(S.defaultRecord('h1'));
+  delete legacy.seed;
+  legacy.nickname = '세종1';
+  const a = S.createStore({ storage: fakeStorage({ [KEY]: JSON.stringify(legacy) }) }).seed;
+  const b = S.createStore({ storage: fakeStorage({ [KEY]: JSON.stringify(legacy) }) }).seed;
+  assert.ok(Number.isInteger(a) && a >= 1 && a <= 0x7fffffff);
+  assert.equal(a, b, 'seed 없는 예전 기록 → 고정 seed');
+  for (const bad of [0, -3, 1.5, 'x', 2 ** 40]) {
+    const r = S.normalizeRecord(Object.assign(J(legacy), { seed: bad }));
+    assert.equal(r.seed, a, 'bad seed ' + bad);
+  }
+  assert.equal(S.normalizeRecord(Object.assign(J(legacy), { seed: 12345 })).seed, 12345);
+  // 첫 쓰기에서 예전 기록에도 seed 가 저장된다
+  const st2 = fakeStorage({ [KEY]: JSON.stringify(legacy) });
+  const s2 = S.createStore({ storage: st2 });
+  s2.setSettings({ bgm: false });
+  assert.equal(JSON.parse(st2.data.get(KEY)).seed, a);
+}
+
+// ── 스스로 도움 요청(S03): wrongs 는 그대로, helps 한 단계씩, asks 저장·복원, 첫 시도 정답 아님
+{
+  const st = fakeStorage();
+  const store = S.createStore({ storage: st });
+  store.setup({ level: 'm', protagonist: 1, nickname: '' });
+  assert.equal(store.requestHelp(S2, 's2.r1').ok, false, '만나기 전에는 요청 못 함');
+  store.seeContext(S2, 's2.c1');
+  let r = store.requestHelp(S2, 's2.r1');
+  assert.deepEqual([r.ok, r.state, r.help], [true, 'met', 1]);
+  let it = store.stage('s2').items['s2.r1'];
+  assert.deepEqual([it.wrongs, it.helps, it.asks, it.firstTry], [0, 1, 1, false]);
+  const again = S.createStore({ storage: st });
+  assert.deepEqual(J(again.stage('s2').items['s2.r1']), J(it), '저장·복원 동일(asks 포함)');
+  r = store.requestHelp(S2, 's2.r1');
+  r = store.requestHelp(S2, 's2.r1');
+  assert.deepEqual([r.ok, r.state, r.help], [true, 'confirmedByHelp', 3]);
+  assert.equal(store.requestHelp(S2, 's2.r1').reason, 'alreadyDone');
+  it = store.stage('s2').items['s2.r1'];
+  assert.deepEqual([it.wrongs, it.helps, it.asks], [0, 3, 3]);
+  // 기믹 과제도 같은 통로
+  r = store.requestHelp(S2, 's2.t1');
+  assert.deepEqual([r.ok, r.state, r.help], [true, 'open', 1]);
+  assert.deepEqual(J(store.stats(S2)), { firstTryRate: 0, firstTryRight: 0, firstTrySet: 2, helps: 4, misreads: 0 }, '스스로 도움 → 오해 0, 첫 시도 정답 아님');
+  // 모르는 항목
+  assert.equal(store.requestHelp(S2, 'nope').ok, false);
+  // asks 정규화: 음수·소수 → 없음, helps 보다 크면 helps 까지
+  const raw = JSON.parse(st.data.get(KEY));
+  raw.progress.m.s2.items['s2.t1'].asks = 9;
+  raw.progress.m.s2.items['s2.r1'].asks = -1;
+  const n = S.normalizeRecord(raw);
+  assert.equal(n.progress.m.s2.items['s2.t1'].asks, 1);
+  assert.equal('asks' in n.progress.m.s2.items['s2.r1'], false);
 }
 
 // ── 막힌 저장소 → 메모리로 계속, 알림 한 번
