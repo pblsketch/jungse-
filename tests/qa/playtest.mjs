@@ -19,6 +19,7 @@ import { dirname, join } from 'node:path';
 import { serve } from '../server.mjs';
 import { ROOT } from '../lib/load.mjs';
 import { countChars, countHan, estimate, MODEL } from './time-model.mjs';
+import { isOpen as isChoiceOpen, answerTranslateChoice } from '../lib/translate-choice.mjs';
 
 const args = process.argv.slice(2);
 const pick = (k) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : null; };
@@ -350,6 +351,13 @@ async function playMeasured(page, job, shot) {
   }
   await page.waitForTimeout(120);
   await R.settle(160);
+  // 통역 고르기(scene.translate.choose)가 있으면 바르게 골라 통역한다(tests/lib/translate-choice.mjs)
+  if (await isChoiceOpen(page)) {
+    const c = await answerTranslateChoice(page, { wrongOnce: false });
+    c.problems.forEach(p => R.note('translate choice: ' + p));
+    await page.waitForTimeout(60);
+    await R.settle(160);
+  }
   await page.waitForTimeout(150);
   R.setPhase('end');
   await R.settle(60);

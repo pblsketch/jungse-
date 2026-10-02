@@ -5,6 +5,8 @@
 // 모든 누르기는 DOM click(겹친 화면의 영향을 받지 않음)이다.
 // 사용: const r = await playStage(page, { stageId: 's3', level: 'm' }); r.problems 가 비어 있어야 한다.
 
+import { isOpen as isChoiceOpen, answerTranslateChoice } from './translate-choice.mjs';
+
 const TOP = '.nm-overlay-host > .nm-st-win:not([inert]):last-child';
 
 export async function openGame(context, baseUrl) {
@@ -73,7 +75,8 @@ export async function playStage(page, { stageId, level, nickname = '시험', wro
         right: it.kind === 'read' ? ((it.cards || []).filter(c => c.correct)[0] || {}).id : null,
         misread: it.kind === 'read' ? !!(it.misread && Object.keys(it.misread).length) : null
       })),
-      translateAt: sc.translate && sc.translate.at || null
+      translateAt: sc.translate && sc.translate.at || null,
+      choice: !!(NM.ui.stageTranslate && NM.ui.stageTranslate.has(sc.translate))
     };
   }, { stageId });
   if (plan.phase !== 'explore') note('after intro, phase is ' + plan.phase + ' (expected explore)');
@@ -134,6 +137,13 @@ export async function playStage(page, { stageId, level, nickname = '시험', wro
   if (plan.translateAt) await page.evaluate((at) => NM.engine.goTo(at), plan.translateAt);
   await page.waitForTimeout(100);
   await settle(page, 120);
+  // 통역 고르기(scene.translate.choose)가 있으면: 한 번 틀린 통역(반응 대사) → 바른 통역
+  if (plan.choice || await isChoiceOpen(page)) {
+    const c = await answerTranslateChoice(page, { wrongOnce });
+    c.problems.forEach(p => note('translate choice: ' + p));
+    await page.waitForTimeout(60);
+    await settle(page, 120);
+  }
   await page.waitForTimeout(150);
   await settle(page, 40);
   const end = await page.evaluate(({ stageId }) => {

@@ -53,8 +53,9 @@ NM.data.SCENES['s6'] = { id: 's6', /* … */ };
 | `items` | ○ | 핵심 항목(아래) |
 | `npcs` | | 맥락이 아닌 인물의 말 `{ <npcId>: { name, lines: [줄] } }`. `name` 은 교사 모드 장소 목록에도 쓰인다 |
 | `notes` | | `[{ id, kind, text, src, at: [맥락 id], title? }]` (kind: `know` · `variant` · `interp`) — 알아 두기(사실 카드는 `src` 필수)·이본 노트·해석(둘은 채점 안 함). `at` 의 맥락 창에 보인다 |
-| `fiction` | | `[{ id, text, real }]` — `게임 설정 · 虛` 카드. 처음 보일 때만 "실제로는 → real" 이 함께 나온다(도입에서 보이고, 대사 줄의 `fiction: '<id>'` 로도 붙일 수 있다) |
+| `fiction` | | `[{ id, text, real, name? }]` — `게임 설정 · 虛` 한 줄 표지. 이름은 `name`, 없으면 `text` 의 앞머리(`정음 통사: …`·`말의 강 — …` 의 콜론·줄표 앞), 그것도 없으면 `text` 전체. `실제 역사 보기` 를 누르면 나머지 설명과 "실제로는 → real" 이 펼쳐진다(도입에서 그 장면의 표지가 모여 보이고, 대사 줄의 `fiction: '<id>'` 로도 붙일 수 있다) |
 | `translate` | ○ | 통역(의뢰 해결) 장면 `{ id?, text?, at?, lines: [줄] }`. 핵심 항목이 모두 끝나면 바로(또는 `at` 맥락/인물에 가면) 재생되고, 그 뒤 장면이 끝난다. `id` 는 수첩의 옮긴 구절로 남고(`text` 가 그 현대어), 통역 뒤에는 퀴즈가 없다 |
+| `translate.choose` | | 통역 고르기(선택, 처음 쓴 곳 s5). `[{ id, item?, prompt, options: [{ id, text, part?, correct, reaction?: [줄] }] }]` — 다 된 통역 대사 전에 학생이 해독한 뜻으로 통역을 1~2번 고른다. 고르기마다 정답 1개, 틀린 카드의 `reaction` 은 그 통역을 들은 사람의 반응(짧게)이고 다시 고를 수 있다. `compose` 는 고른 말(`part`)이 차례로 들어갈 빈칸 `{?}` 이 든 통역 문장, `chooseAt` 은 고르기 앞에 먼저 틀 `lines` 줄 수. `item` 은 근거가 되는 해독 항목 id(점검용). 없으면 예전처럼 `lines` 만 튼다(js/ui/stage-translate.js) |
 | `translations` | | 기믹이 `store.addTranslation(stageId, id)` 로 남기는 옮긴 구절 `[{ id, text, orig? }]`(수첩용) |
 | `editions` | | 학교급별 판(아래) |
 

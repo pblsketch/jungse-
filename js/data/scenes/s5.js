@@ -320,8 +320,53 @@ NM.data.SCENES['s5'] = {
     id: 's5.x1',
     text: '딱한 이웃이 많으니 쌀을 넉넉히 사서 나누겠다는 마님의 쪽지를 바르게 옮겼다.',
     at: 's5.merchant',
+    // 통역 고르기(js/ui/stage-translate.js): 앞 두 줄 뒤에 학생이 해독한 뜻(어엿브다 s5.r2, 하다 s5.r3)으로 통역 문장을 고른다.
+    // 두 항목은 고1·고2~3 모두의 핵심 항목이라(중학생은 고1 범위) 학교급마다 같은 고르기를 쓴다.
+    chooseAt: 2,
+    compose: '{?} 이웃이 {?} 쌀을 넉넉히 사서 나누어 주겠다는 거예요.',
+    choose: [
+      {
+        id: 's5.t1', item: 's5.r2',
+        prompt: '쪽지의 :어·엿븐 이웃, 장수에게 어떤 이웃이라고 옮길까?',
+        options: [
+          { id: 's5.t1.a', text: '딱하고 가엾은 이웃', part: '딱한', correct: true },
+          { id: 's5.t1.b', text: '얼굴이 예쁜 이웃', part: '예쁜', correct: false,
+            reaction: [
+              { who: 'me', text: '마님께서 예쁜 이웃에게 쌀을 나눠 주시겠대요.' },
+              { who: 'commoner_woman', text: '예쁜 사람만 골라 쌀을 준다고요? 내가 받은 절 글에도 같은 말이 있었잖아요. 끼니 걱정하는 사람 이야기였지요.', cg: 'mis_woman_flustered' },
+              { who: 'senior', text: '해독할 때 알아낸 그 말의 15세기 뜻을 떠올려 봐.' }
+            ] },
+          { id: 's5.t1.c', text: '번듯하게 사는 이웃', part: '번듯한', correct: false,
+            reaction: [
+              { who: 'me', text: '마님께서 번듯하게 사는 이웃에게 쌀을 나눠 주시겠대요.' },
+              { who: 'yangban_woman', text: '번듯하게 사는 집에 쌀을 왜 보내겠소. 내 뜻과 영 딴판이구려.' },
+              { who: 'senior', text: '어엿하다와 소리만 비슷한 다른 말이었지. 쌀을 받을 사람이 어떤 처지일지 생각해 봐.' }
+            ] }
+        ]
+      },
+      {
+        id: 's5.t2', item: 's5.r3',
+        prompt: '쪽지에서 그 이웃 뒤에 적힌 하·니, 이 하다는 어떻게 옮길까?',
+        options: [
+          { id: 's5.t2.a', text: '이웃이 많으니', part: '많으니', correct: true },
+          { id: 's5.t2.b', text: '이웃이 무언가를 하니', part: '무언가를 하니', correct: false,
+            reaction: [
+              { who: 'me', text: '딱한 이웃이 무언가를 하니, 쌀을 사신대요.' },
+              { who: 'merchant', text: '뭘 한다는 거요? 말이 중간에 끊긴 것 같구려. 그래서 쌀을 얼마나 사겠다는 거요?', cg: 'mis_official_confused' },
+              { who: 'senior', text: '15세기의 하다가 무슨 뜻이었는지 떠올려 봐. 쌀을 넉넉히 사는 까닭이 거기 있어.' }
+            ] },
+          { id: 's5.t2.c', text: '이웃이 아뢰니', part: '아뢰니', correct: false,
+            reaction: [
+              { who: 'me', text: '딱한 이웃이 아뢰니, 쌀을 사신대요.' },
+              { who: 'merchant', text: '누가 누구한테 아뢴다는 거요? 쪽지에 그런 사연까지 적혔소?', cg: 'mis_official_confused' },
+              { who: 'senior', text: '여기 하다는 말한다는 뜻이 아니야. 쌀을 넉넉히 사야 하는 까닭을 생각해 봐.' }
+            ] }
+        ]
+      }
+    ],
     lines: [
       { who: 'narrator', text: '곡식 노점 앞. 장수와 마님 사이에 쪽지 한 장이 놓여 있다.', cg: 's5_climax' },
+      { who: 'merchant', text: '자, 통사 양반. 마님 쪽지에 뭐라고 적혔는지 풀어 주시오.' },
       { who: 'me', text: '쪽지에 적힌 말을 풀면 이래요. 딱한 이웃이 많으니, 쌀을 넉넉히 사서 나누어 주겠다는 거예요.' },
       { who: 'merchant', text: '아, 그런 뜻이었구려! 나는 예쁜 이웃이 뭘 한다는 줄 알고 한참 고개를 갸웃했소.', expr: 'surprised' },
       { who: 'merchant', text: '좋은 일에 쓰신다니 값을 조금 덜 받겠소.' },

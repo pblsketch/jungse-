@@ -107,7 +107,17 @@
     p.rules = strList(x.rules);
     p.translations = strList(x.translations);
     p.reflection = typeof x.reflection === 'string' ? x.reflection.slice(0, REFLECTION_MAX) : '';
+    const it = normInterp(x.interp);
+    if (it) p.interp = it; // 있을 때만 둔다(없으면 예전 기록과 같은 모양)
     return p;
+  }
+  // 통역 고르기 기록(js/ui/stage-translate.js): { firstTry, tries, first:[처음 고른 카드 id], picks:[마지막 고른 카드 id] }
+  function normInterp(x) {
+    if (!isObj(x)) return null;
+    return {
+      firstTry: x.firstTry === true || x.firstTry === false ? x.firstTry : null,
+      tries: count(x.tries), first: strList(x.first), picks: strList(x.picks)
+    };
   }
 
   // 저장된 값 → 올바른 기록. 기록으로 볼 수 없으면(형식 버전 다름 등) null.
@@ -299,6 +309,21 @@
         return commit(rec => {
           const p = stageOf(rec, stageId);
           if (p.translations.indexOf(id) < 0) p.translations.push(id);
+          touch(p);
+          return { ok: true };
+        });
+      },
+      // 통역 고르기 결과. 첫 시도(firstTry·first)는 처음 한 번만 남기고(다시 하기에도 그대로), 시도 수·마지막 고른 것은 바꾼다.
+      recordInterp(stageId, r) {
+        if (!isStageId(stageId) || !isObj(r)) return { ok: false, reason: 'badInput' };
+        return commit(rec => {
+          const p = stageOf(rec, stageId);
+          const old = p.interp;
+          const keep = !!old && typeof old.firstTry === 'boolean';
+          p.interp = {
+            firstTry: keep ? old.firstTry : (typeof r.firstTry === 'boolean' ? r.firstTry : null),
+            tries: count(r.tries), first: keep ? old.first : strList(r.first), picks: strList(r.picks)
+          };
           touch(p);
           return { ok: true };
         });
