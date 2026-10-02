@@ -45,7 +45,7 @@ NM.data.SCENES['s0'] = {
   encounter: {
     orig: ['O-s9-SEOMUN1'],
     lines: [
-      { who: 'narrator', text: '사진 속 첫 구절이다. 글자 몇 개가 빠져나간 자리가 비어 있다.' },
+      { who: 'narrator', text: '사진 속 첫 구절이다. 글자가 빠져나간 자리에 흐릿한 자국만 남아 원래 모양을 겨우 알아볼 수 있다.' },
       { who: 'me', expr: 'thinking', text: '나랏말… 뒤는 못 읽겠다. 생긴 것부터 낯선 글자가 섞여 있어.' }
     ]
   },
