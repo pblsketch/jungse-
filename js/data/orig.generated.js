@@ -3,7 +3,7 @@
  * 자동 생성 파일 — 손으로 고치지 않는다.
  * 만든 도구: tools/extract_orig.mjs (원본: design/research/*.md 의 spec §19-2 原文 블록, 확실도 △ 제외)
  * 다시 만들기: node tools/extract_orig.mjs    낡았는지 점검: node tools/extract_orig.mjs --check
- * NM.data.ORIG[<블록 id>] = { title, lines: [원문 줄…], src: <출처 URL 또는 교과서 쪽>, certainty: ◎|○, doc: <리서치 문서>, noBangjeom?: true }
+ * NM.data.ORIG[<블록 id>] = { title, lines: [원문 줄…], src: <출처 URL 또는 교과서 쪽>, certainty: ◎|○, doc: <리서치 문서>, noBangjeom?: true, modern?: [줄마다 현대어 풀이] }
  */
 window.NM = window.NM || {};
 NM.data = NM.data || {};
@@ -15,7 +15,10 @@ NM.data.ORIG = {
     ],
     "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "우리나라의 말이 중국 말과 달라서"
+    ]
   },
   "O-s9-SEOMUN2": {
     "title": "「세종어제훈민정음」 『월인석보』 권1 (1459) — 서문 2구절",
@@ -24,7 +27,10 @@ NM.data.ORIG = {
     ],
     "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "한자와는 서로 통하지 아니하므로"
+    ]
   },
   "O-s9-SEOMUN3": {
     "title": "「세종어제훈민정음」 『월인석보』 권1 (1459) — 서문 3구절",
@@ -33,7 +39,10 @@ NM.data.ORIG = {
     ],
     "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "이런 까닭으로 어리석은 백성이 말하고자 하는 바가 있어도"
+    ]
   },
   "O-s9-SEOMUN4": {
     "title": "「세종어제훈민정음」 『월인석보』 권1 (1459) — 서문 4구절",
@@ -42,7 +51,10 @@ NM.data.ORIG = {
     ],
     "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "끝내 제 뜻을 펴지 못하는 사람이 많다."
+    ]
   },
   "O-s9-SEOMUN5": {
     "title": "「세종어제훈민정음」 『월인석보』 권1 (1459) — 서문 5구절",
@@ -51,7 +63,10 @@ NM.data.ORIG = {
     ],
     "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "내가 이를 가엾게 여겨"
+    ]
   },
   "O-s9-SEOMUN6": {
     "title": "「세종어제훈민정음」 『월인석보』 권1 (1459) — 서문 6구절",
@@ -60,7 +75,10 @@ NM.data.ORIG = {
     ],
     "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "새로 스물여덟 글자를 만드니"
+    ]
   },
   "O-s9-SEOMUN7": {
     "title": "「세종어제훈민정음」 『월인석보』 권1 (1459) — 서문 7구절",
@@ -69,7 +87,10 @@ NM.data.ORIG = {
     ],
     "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "사람마다 쉽게 익혀 날마다 쓰는 데"
+    ]
   },
   "O-s9-SEOMUN8": {
     "title": "「세종어제훈민정음」 『월인석보』 권1 (1459) — 서문 8구절",
@@ -78,7 +99,10 @@ NM.data.ORIG = {
     ],
     "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "편하게 하고자 할 따름이다."
+    ]
   },
   "O-s9-HANMUN1": {
     "title": "『훈민정음』 어제 서문 (1446) — 한문 1",
@@ -87,7 +111,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_a001",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "우리나라의 말소리가 중국과 달라서 한자와 서로 통하지 않는다."
+    ]
   },
   "O-s9-HANMUN2": {
     "title": "『훈민정음』 어제 서문 (1446) — 한문 2",
@@ -96,7 +123,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_a001",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "그러므로 어리석은 백성이 말하고 싶은 것이 있어도 끝내 제 뜻을 펴지 못하는 사람이 많다."
+    ]
   },
   "O-s9-HANMUN3": {
     "title": "『훈민정음』 어제 서문 (1446) — 한문 3",
@@ -105,7 +135,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_a001",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "내가 이를 가엾게 여겨 새로 스물여덟 글자를 만들었다."
+    ]
   },
   "O-s9-HANMUN4": {
     "title": "『훈민정음』 어제 서문 (1446) — 한문 4",
@@ -114,7 +147,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_a001",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "사람마다 쉽게 익혀 날마다 쓰기에 편하게 하고자 할 따름이다."
+    ]
   },
   "O-s2-JJ-GAK": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -123,7 +159,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "정음 스물여덟 글자는 저마다 그 꼴을 본떠서 만들었다."
+    ]
   },
   "O-s2-JJ-CHO17": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -132,7 +171,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "첫소리 글자는 모두 열일곱 자이다."
+    ]
   },
   "O-s2-SANG-G": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -141,7 +183,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "어금닛소리 ㄱ은 혀뿌리가 목구멍을 막는 모양을 본떴다."
+    ]
   },
   "O-s2-SANG-N": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -150,7 +195,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "혓소리 ㄴ은 혀가 윗잇몸에 붙는 모양을 본떴다."
+    ]
   },
   "O-s2-SANG-M": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -159,7 +207,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "입술소리 ㅁ은 입 모양을 본떴다."
+    ]
   },
   "O-s2-SANG-S": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -168,7 +219,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "잇소리 ㅅ은 이 모양을 본떴다."
+    ]
   },
   "O-s2-SANG-O": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -177,7 +231,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "목구멍소리 ㅇ은 목구멍 모양을 본떴다."
+    ]
   },
   "O-s2-GAHOEK1": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -186,7 +243,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅋ은 ㄱ에 견주어 소리가 조금 더 세게 나므로 획을 더하였다."
+    ]
   },
   "O-s2-GAHOEK2": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -195,7 +255,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㄴ에서 ㄷ, ㄷ에서 ㅌ, ㅁ에서 ㅂ, ㅂ에서 ㅍ, ㅅ에서 ㅈ, ㅈ에서 ㅊ, ㅇ에서 ㆆ, ㆆ에서 ㅎ이 된 것도 소리에 따라 획을 더한 뜻은 모두 같으나, 오직 ㆁ만은 다르다."
+    ]
   },
   "O-s2-ICHE": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -204,7 +267,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "반혓소리 ㄹ과 반잇소리 ㅿ도 혀와 이의 모양을 본떴으나 그 꼴을 달리하였으니, 획을 더한 뜻은 없다."
+    ]
   },
   "O-s2-JUNG11": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -213,7 +279,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "가운뎃소리 글자는 모두 열한 자이다."
+    ]
   },
   "O-s2-CHEON": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -222,7 +291,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㆍ는 혀가 움츠러들고 소리가 깊으니 하늘이 자시에 열린 것과 같고, 꼴이 둥근 것은 하늘을 본뜬 것이다."
+    ]
   },
   "O-s2-JI": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -231,7 +303,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅡ는 혀가 조금 움츠러들고 소리가 깊지도 얕지도 않으니 땅이 축시에 열린 것과 같고, 꼴이 평평한 것은 땅을 본뜬 것이다."
+    ]
   },
   "O-s2-IN": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -240,7 +315,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅣ는 혀가 움츠러들지 않고 소리가 얕으니 사람이 인시에 생겨난 것과 같고, 꼴이 곧게 선 것은 사람을 본뜬 것이다."
+    ]
   },
   "O-s2-HAP-O": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -249,7 +327,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅗ는 ㆍ와 소리가 같되 입을 오므리며, 그 꼴은 ㆍ와 ㅡ를 합쳐 이루었으니 하늘과 땅이 처음 어울린다는 뜻을 취한 것이다."
+    ]
   },
   "O-s2-HAP-A": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -258,7 +339,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅏ는 ㆍ와 소리가 같되 입을 벌리며, 그 꼴은 ㅣ와 ㆍ를 합쳐 이루었으니 하늘과 땅의 쓰임이 사물에서 드러나되 사람을 기다려 이루어진다는 뜻을 취한 것이다."
+    ]
   },
   "O-s2-HAP-U": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -267,7 +351,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅜ는 ㅡ와 소리가 같되 입을 오므리며, 그 꼴은 ㅡ와 ㆍ를 합쳐 이루었으니 역시 하늘과 땅이 처음 어울린다는 뜻을 취한 것이다."
+    ]
   },
   "O-s2-HAP-EO": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -276,7 +363,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅓ는 ㅡ와 소리가 같되 입을 벌리며, 그 꼴은 ㆍ와 ㅣ를 합쳐 이루었으니 역시 하늘과 땅의 쓰임이 사물에서 드러나되 사람을 기다려 이루어진다는 뜻을 취한 것이다."
+    ]
   },
   "O-s2-JAECHUL": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -285,7 +375,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅛ는 ㅗ와 같되 ㅣ에서 시작하고, ㅑ는 ㅏ와 같되 ㅣ에서 시작하며, ㅠ는 ㅜ와 같되 ㅣ에서 시작하고, ㅕ는 ㅓ와 같되 ㅣ에서 시작한다."
+    ]
   },
   "O-s2-CHOJAE": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -294,7 +387,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅗ ㅏ ㅜ ㅓ는 하늘과 땅에서 비롯하니 처음 나온 글자(초출자)이고, ㅛ ㅑ ㅠ ㅕ는 ㅣ에서 시작해 사람까지 겸하니 다시 나온 글자(재출자)이다."
+    ]
   },
   "O-s2-SAMJAE": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -303,7 +399,10 @@ NM.data.ORIG = {
     ],
     "src": "https://contents.history.go.kr/front/hm/view.do?levelId=hm_091_0030",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "하늘, 땅, 사람에서 꼴을 본떴으니 삼재(세 바탕)의 이치가 다 갖추어졌다."
+    ]
   },
   "O-s2-JIJ-GAN": {
     "title": "『훈민정음』 해례 정인지 서 (1446)",
@@ -312,7 +411,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "◎",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "스물여덟 글자만으로 끝없이 바꾸어 쓸 수 있으니, 간단하면서도 요긴하고 정밀하면서도 두루 통한다."
+    ]
   },
   "O-s2-JIJ-ZI": {
     "title": "『훈민정음』 해례 정인지 서 (1446)",
@@ -322,7 +424,11 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "슬기로운 사람은 아침나절이 다 가기 전에 깨치고",
+      "어리석은 사람도 열흘이면 배울 수 있다."
+    ]
   },
   "O-s3-HJ-SAM": {
     "title": "『훈민정음』 해례 합자해 (1446)",
@@ -331,7 +437,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "첫소리, 가운뎃소리, 끝소리 세 소리가 합쳐져야 글자를 이룬다."
+    ]
   },
   "O-s3-HJ-CHO": {
     "title": "『훈민정음』 해례 합자해 (1446)",
@@ -340,7 +449,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "첫소리는 가운뎃소리의 위에 놓이기도 하고, 가운뎃소리의 왼쪽에 놓이기도 한다."
+    ]
   },
   "O-s3-HJ-JUNG": {
     "title": "『훈민정음』 해례 합자해 (1446)",
@@ -349,7 +461,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "가운뎃소리 가운데 둥근 것과 가로로 된 것은 첫소리 아래에 놓이니 ㆍ ㅡ ㅗ ㅛ ㅜ ㅠ가 그것이고, 세로로 된 것은 첫소리 오른쪽에 놓이니 ㅣ ㅏ ㅑ ㅓ ㅕ가 그것이다."
+    ]
   },
   "O-s3-HJ-JONG": {
     "title": "『훈민정음』 해례 합자해 (1446)",
@@ -358,7 +473,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "끝소리는 첫소리와 가운뎃소리의 아래에 놓인다."
+    ]
   },
   "O-s3-HJ-HAPYONG": {
     "title": "『훈민정음』 해례 합자해 (1446)",
@@ -367,7 +485,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "첫소리 두 글자나 세 글자를 어울러 나란히 쓰는 것은, 이를테면 우리말에서 땅, 짝, 틈을 이르는 말과 같은 것이다."
+    ]
   },
   "O-s3-HJ-GAKJA": {
     "title": "『훈민정음』 해례 합자해 (1446)",
@@ -376,7 +497,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "같은 글자를 나란히 쓰는 것은, 이를테면 우리말에서 ㅎ 하나로 적은 말은 혀를, ㅎ을 겹쳐 적은 말은 끌다를 뜻하고, ㅇ 하나로 적은 말은 내가 남을 사랑함을, ㅇ을 겹쳐 적은 말은 남이 나를 사랑함을 뜻하며, 소다는 물건을 엎는 것을, 쏘다는 무엇을 쏘는 것을 뜻하는 것과 같은 것이다."
+    ]
   },
   "O-s3-HJ-JUNGHAP": {
     "title": "『훈민정음』 해례 합자해 (1446)",
@@ -385,7 +509,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "가운뎃소리 두 글자나 세 글자를 어울러 쓰는 것은, 이를테면 우리말에서 거문고 줄을 받치는 괘를 이르는 말, 횃불을 이르는 말과 같은 것이다."
+    ]
   },
   "O-s3-HJ-JONGHAP": {
     "title": "『훈민정음』 해례 합자해 (1446)",
@@ -394,7 +521,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "끝소리 두 글자나 세 글자를 어울러 쓰는 것은, 이를테면 우리말에서 흙, 낚시, 유시(저녁 무렵)를 이르는 말과 같은 것이다."
+    ]
   },
   "O-s3-HJ-JWAU": {
     "title": "『훈민정음』 해례 합자해 (1446)",
@@ -403,7 +533,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "글자를 어울러 나란히 쓸 때는 왼쪽에서 오른쪽으로 쓰니, 첫소리, 가운뎃소리, 끝소리가 모두 같다."
+    ]
   },
   "O-s3-HJ-SASEONG": {
     "title": "『훈민정음』 해례 합자해 (1446)",
@@ -412,7 +545,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "우리말의 평성, 상성, 거성, 입성은, 이를테면 활은 그 소리가 평성이고, 돌은 상성이며, 칼은 거성이고, 붓은 입성인 것과 같은 것이다."
+    ]
   },
   "O-s3-HJ-BANGJEOM": {
     "title": "『훈민정음』 해례 합자해 (1446)",
@@ -421,7 +557,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "무릇 글자의 왼쪽에 점 하나를 더하면 거성, 둘이면 상성, 점이 없으면 평성이다."
+    ]
   },
   "O-s3-YEONSEO": {
     "title": "『훈민정음』 해례 제자해 (1446)",
@@ -430,7 +569,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅇ을 입술소리 아래에 이어 쓰면 입술가벼운소리가 되니, 가벼운 소리는 입술이 잠깐 닿고 목구멍 소리가 많기 때문이다."
+    ]
   },
   "O-s3-JONG8": {
     "title": "『훈민정음』 해례 종성해 (1446)",
@@ -439,7 +581,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "그러나 ㄱ ㆁ ㄷ ㄴ ㅂ ㅁ ㅅ ㄹ 여덟 글자만으로도 넉넉히 쓸 수 있다."
+    ]
   },
   "O-s3-YJ-CHO-G": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -448,7 +593,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "첫소리 ㄱ의 예로는 감, 갈대가 있다."
+    ]
   },
   "O-s3-YJ-CHO-K": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -457,7 +605,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅋ의 예로는 아직 찧지 않은 벼, 콩이 있다."
+    ]
   },
   "O-s3-YJ-CHO-M": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -466,7 +617,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅁ의 예로는 산, 마(덩이뿌리 식물)가 있다."
+    ]
   },
   "O-s3-YJ-CHO-BB": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -475,7 +629,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅸ의 예로는 새우, 뒤웅박이 있다."
+    ]
   },
   "O-s3-YJ-CHO-J": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -484,7 +641,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅈ의 예로는 자, 종이가 있다."
+    ]
   },
   "O-s3-YJ-CHO-S": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -493,7 +653,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅅ의 예로는 손, 섬이 있다."
+    ]
   },
   "O-s3-YJ-CHO-R": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -502,7 +665,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㄹ의 예로는 우박, 얼음이 있다."
+    ]
   },
   "O-s3-YJ-CHO-Z": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -511,7 +677,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅿ의 예로는 아우, 너새(새 이름)가 있다."
+    ]
   },
   "O-s3-YJ-JUNG-EU": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -520,7 +689,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅡ의 예로는 물, 발꿈치, 기러기, 두레박이 있다."
+    ]
   },
   "O-s3-YJ-JUNG-I": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -529,7 +701,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅣ의 예로는 둥지, 밀랍, 피(곡식), 키가 있다."
+    ]
   },
   "O-s3-YJ-JUNG-O": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -538,7 +713,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅗ의 예로는 논, 톱, 호미, 벼루가 있다."
+    ]
   },
   "O-s3-YJ-JUNG-A": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -547,7 +725,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅏ의 예로는 밥, 낫, 잉아(베틀의 부품), 사슴이 있다."
+    ]
   },
   "O-s3-YJ-JUNG-U": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -556,7 +737,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅜ의 예로는 숯, 울타리, 누에, 구리가 있다."
+    ]
   },
   "O-s3-YJ-JUNG-EO": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -565,7 +749,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅓ의 예로는 부엌, 널빤지, 서리, 버들이 있다."
+    ]
   },
   "O-s3-YJ-JUNG-YO": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -574,7 +761,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅛ의 예로는 종, 고욤, 소, 삽주가 있다."
+    ]
   },
   "O-s3-YJ-JONG-G": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -583,7 +773,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "끝소리 ㄱ의 예로는 닥나무, 독이 있다."
+    ]
   },
   "O-s3-YJ-JONG-N": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -592,7 +785,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㄴ의 예로는 신, 반딧불이가 있다."
+    ]
   },
   "O-s3-YJ-JONG-M": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -601,7 +797,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅁ의 예로는 범, 샘이 있다."
+    ]
   },
   "O-s3-YJ-JONG-S": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -610,7 +809,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㅅ의 예로는 잣, 못이 있다."
+    ]
   },
   "O-s3-YJ-JONG-R": {
     "title": "『훈민정음』 해례 용자례 (1446)",
@@ -619,7 +821,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈민정음",
     "certainty": "○",
-    "doc": "design/research/09_원문_훈민정음.md"
+    "doc": "design/research/09_원문_훈민정음.md",
+    "modern": [
+      "ㄹ의 예로는 달, 별 따위가 있다."
+    ]
   },
   "O-s4-YB2a": {
     "title": "「용비어천가」 제2장 앞절 (1447)",
@@ -628,7 +833,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "뿌리가 깊은 나무는 바람에도 흔들리지 않으므로 꽃이 보기 좋고 열매가 많이 열린다."
+    ]
   },
   "O-s4-YB2b": {
     "title": "「용비어천가」 제2장 뒷절 (1447)",
@@ -637,7 +845,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "샘이 깊은 물은 가뭄에도 끊이지 않으므로 냇물을 이루어 바다로 흘러간다."
+    ]
   },
   "O-s4-YB34a": {
     "title": "「용비어천가」 제34장 앞절 (1447)",
@@ -646,7 +857,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "물이 깊고 배가 없었지만 하늘이 명하셨기에 말을 탄 채로 건너셨습니다."
+    ]
   },
   "O-s4-YB34b": {
     "title": "「용비어천가」 제34장 뒷절 (1447)",
@@ -655,7 +869,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "성이 높고 다리가 없었지만 하늘이 도우셨기에 말을 탄 채로 내려가셨습니다."
+    ]
   },
   "O-s5-YB13": {
     "title": "「용비어천가」 제13장 앞절 (1447)",
@@ -664,7 +881,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "말을 아뢰는 사람이 많았지만 하늘의 명을 의심하시므로 꿈으로 보여 주셨다."
+    ]
   },
   "O-s5-YB39a": {
     "title": "「용비어천가」 제39장 앞절 (1447)",
@@ -673,7 +893,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "초나라에 서린 천자의 기운을 몸소 행차하여 막으셨으니, 임금의 그 마음은 어리석지 않으셨다."
+    ]
   },
   "O-s5-YB39b": {
     "title": "「용비어천가」 제39장 뒷절 (1447)",
@@ -682,7 +905,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "압록강에 서린 장군의 기운을 두고 아무개를 위한 것이라 하셨으니, 임금의 그 말은 옳으셨다."
+    ]
   },
   "O-s5-YB50": {
     "title": "「용비어천가」 제50장 앞절 첫 구절 (1447)",
@@ -691,7 +917,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "내 백성을 불쌍히 여기시어"
+    ]
   },
   "O-s5-YB64": {
     "title": "「용비어천가」 제64장 앞절 끝 구절 (1447)",
@@ -700,7 +929,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "배반하는 사람을 일부러 놓아주셨으니"
+    ]
   },
   "O-s5-SS613": {
     "title": "『석보상절』 권6 13ㄱ (1447)",
@@ -709,7 +941,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0190",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "가난하고 불쌍한 사람에게 쥐여 주어"
+    ]
   },
   "O-s5-WS112": {
     "title": "『월인석보』 권1 12ㄱ 협주 (1459)",
@@ -719,7 +954,10 @@ NM.data.ORIG = {
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0180",
     "certainty": "○",
     "doc": "design/research/10_원문_15세기문헌.md",
-    "noBangjeom": true
+    "noBangjeom": true,
+    "modern": [
+      "'과'라는 글자는 열매라는 뜻이고"
+    ]
   },
   "O-s5-DS1017": {
     "title": "『분류두공부시언해』 초간본 권10 17ㄱ (1481)",
@@ -729,7 +967,10 @@ NM.data.ORIG = {
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P51_BD_v010&recordId=P51_BD_e01_v010_0180",
     "certainty": "○",
     "doc": "design/research/10_원문_15세기문헌.md",
-    "noBangjeom": true
+    "noBangjeom": true,
+    "modern": [
+      "한 번 따라 마시니 천 가지 시름이 흩어진다."
+    ]
   },
   "O-s5-DS114": {
     "title": "『분류두공부시언해』 초간본 권11 4ㄱ (1481)",
@@ -739,7 +980,10 @@ NM.data.ORIG = {
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P51_BD_v011&recordId=P51_BD_e01_v011_0060",
     "certainty": "○",
     "doc": "design/research/10_원문_15세기문헌.md",
-    "noBangjeom": true
+    "noBangjeom": true,
+    "modern": [
+      "마음에 백 가지 생각과 또 천 가지 생각을 품고 있구나."
+    ]
   },
   "O-s6-SS6a": {
     "title": "『석보상절』 권6 10ㄴ (1447)",
@@ -748,7 +992,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "라운이 어려서 놀이만 즐기고 법을 듣는 것은 싫게 여기자"
+    ]
   },
   "O-s6-SS6d": {
     "title": "『석보상절』 권6 10ㄴ~11ㄱ (1447)",
@@ -757,7 +1004,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "부처를 만나는 것도 어렵고 법을 듣는 것도 어려운데"
+    ]
   },
   "O-s6-SS6e": {
     "title": "『석보상절』 권6 11ㄱ (1447)",
@@ -766,7 +1016,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "네가 이제 사람의 몸을 얻고 부처를 만나게 되었는데"
+    ]
   },
   "O-s6-SS6j": {
     "title": "『석보상절』 권6 11ㄴ (1447)",
@@ -775,7 +1028,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "라운의 마음이 열려 깨달았다."
+    ]
   },
   "O-s6-YB17a": {
     "title": "「용비어천가」 제17장 앞절 첫 구절 (1447)",
@@ -784,7 +1040,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "궁녀 일로 놀라신 것은 궁감의 탓이었지만"
+    ]
   },
   "O-s6-YB17b": {
     "title": "「용비어천가」 제17장 뒷절 첫 구절 (1447)",
@@ -793,7 +1052,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "관기 일로 노하신 것은 관리의 탓이었지만"
+    ]
   },
   "O-s7-SS6b": {
     "title": "『석보상절』 권6 10ㄴ (1447)",
@@ -802,7 +1064,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "부처께서 자주 이르셔도 받들어 따르지 않더니"
+    ]
   },
   "O-s7-SS6c": {
     "title": "『석보상절』 권6 10ㄴ (1447)",
@@ -811,7 +1076,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "그 뒤에 부처께서 라운에게 이르시기를"
+    ]
   },
   "O-s7-SS6h": {
     "title": "『석보상절』 권6 11ㄴ (1447)",
@@ -820,7 +1088,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "능히 법을 받들어 배울 수 있겠습니다."
+    ]
   },
   "O-s7-WS1a": {
     "title": "『월인석보』 권1 9ㄱ (1459)",
@@ -829,7 +1100,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "그때의 등조왕이 보광불을 청해 모셔 공양하겠다고 하여"
+    ]
   },
   "O-s7-WS1b": {
     "title": "『월인석보』 권1 9ㄴ (1459)",
@@ -838,7 +1112,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "나라에 명을 내리기를, 좋은 꽃은 팔지 말고 모두 왕께 가져오라"
+    ]
   },
   "O-s7-WS1c": {
     "title": "『월인석보』 권1 9ㄴ (1459)",
@@ -847,7 +1124,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "선혜가 들으시고 서운하게 여겨"
+    ]
   },
   "O-s7-WS1d": {
     "title": "『월인석보』 권1 9ㄴ (1459)",
@@ -856,7 +1136,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "가시다가 구이를 만나셨는데"
+    ]
   },
   "O-s7-WS1e": {
     "title": "『월인석보』 권1 9ㄴ (1459)",
@@ -865,7 +1148,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "꽃 일곱 줄기를 가지고 계셨는데"
+    ]
   },
   "O-s7-WS1f": {
     "title": "『월인석보』 권1 9ㄴ~10ㄱ (1459)",
@@ -874,7 +1160,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "왕의 명령을 두려워하여 병 속에 감추어 두고 계셨다."
+    ]
   },
   "O-s7-WS1g": {
     "title": "『월인석보』 권1 10ㄱ (1459)",
@@ -883,7 +1172,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "선혜의 정성이 지극하셨기에 꽃이 솟아오르자"
+    ]
   },
   "O-s7-WS1h": {
     "title": "『월인석보』 권1 10ㄱ (1459)",
@@ -892,7 +1184,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "뒤쫓아 가 불러 사고 싶다고 하시자"
+    ]
   },
   "O-s7-WS1i": {
     "title": "『월인석보』 권1 10ㄱ (1459)",
@@ -901,7 +1196,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "구이가 이르시기를"
+    ]
   },
   "O-s7-WS1j": {
     "title": "『월인석보』 권1 10ㄱ (1459)",
@@ -910,7 +1208,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v001&recordId=P14_WS_e01_v001_0170",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "대궐로 보내 부처께 바칠 꽃이라 팔지 못하겠다."
+    ]
   },
   "O-s7-YB29": {
     "title": "「용비어천가」 제29장 앞절 끝 구절 (1447)",
@@ -919,7 +1220,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "귀가 큰 유비를 와룡 제갈량이 받들어 도왔으니"
+    ]
   },
   "O-s7-YB55": {
     "title": "「용비어천가」 제55장 앞절 (1447)",
@@ -928,7 +1232,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "천하를 두고 다투어 아직 승부가 나지 않았을 때, 연나라 사람이 우러러 사모하여 날랜 기병을 보내 싸움을 받들어 도왔으니"
+    ]
   },
   "O-s7-YB63": {
     "title": "「용비어천가」 제63장 뒷절 끝 구절 (1447)",
@@ -937,7 +1244,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "축하의 술잔을 받들어 올렸습니다."
+    ]
   },
   "O-s8-SS6f": {
     "title": "『석보상절』 권6 11ㄱ (1447)",
@@ -946,7 +1256,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
     "certainty": "◎",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "어찌하여 게으름을 피우며 법을 듣지 않느냐?"
+    ]
   },
   "O-s8-SS6g": {
     "title": "『석보상절』 권6 11ㄱ (1447)",
@@ -955,7 +1268,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "라운이 아뢰기를, 부처님의 법은 정밀하고 오묘하여 어린아이가 어찌 받들어 알아들을 수 있겠습니까?"
+    ]
   },
   "O-s8-SS6i": {
     "title": "『석보상절』 권6 11ㄴ (1447)",
@@ -964,7 +1280,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0150",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "너의 목숨을 믿고 자랄 때를 기다리느냐?"
+    ]
   },
   "O-s8-SS68": {
     "title": "『석보상절』 권6 8ㄱ (1447)",
@@ -973,7 +1292,10 @@ NM.data.ORIG = {
     ],
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P13_SS_v006&recordId=P13_SS_e01_v006_0110",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "네가 지나간 옛 세상에서 맹세하고 소원을 빈 일을 기억하느냐, 모르느냐?"
+    ]
   },
   "O-s8-WS894": {
     "title": "『월인석보』 권8 94ㄴ 협주 (1459)",
@@ -983,7 +1305,10 @@ NM.data.ORIG = {
     "src": "http://db.sejongkorea.org/front/detail.do?bkCode=P14_WS_v008&recordId=P14_WS_e01_v008_0940",
     "certainty": "○",
     "doc": "design/research/10_원문_15세기문헌.md",
-    "noBangjeom": true
+    "noBangjeom": true,
+    "modern": [
+      "이 딸이 너희 종인가?"
+    ]
   },
   "O-s8-YB15": {
     "title": "「용비어천가」 제15장 뒷절 끝 구절 (1447)",
@@ -992,7 +1317,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "아홉 번 바뀔 판국이 사람의 뜻이겠습니까?"
+    ]
   },
   "O-s8-YB88": {
     "title": "「용비어천가」 제88장 앞절 끝 구절 (1447)",
@@ -1001,7 +1329,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "차양의 쥐 세 마리를 맞히신 일이 옛날에도 있었던가?"
+    ]
   },
   "O-s8-YB28": {
     "title": "「용비어천가」 제28장 앞절 (1447)",
@@ -1010,7 +1341,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "고을 원의 집에 가셨을 때 원수를 피해 온 손님이 한 말은 두 한나라의 옛일에 견주어 어떠합니까?"
+    ]
   },
   "O-s8-YB47": {
     "title": "「용비어천가」 제47장 앞절 끝 구절 (1447)",
@@ -1019,7 +1353,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/%EC%9A%A9%EB%B9%84%EC%96%B4%EC%B2%9C%EA%B0%80",
     "certainty": "○",
-    "doc": "design/research/10_원문_15세기문헌.md"
+    "doc": "design/research/10_원문_15세기문헌.md",
+    "modern": [
+      "어디가 멀다고 위엄이 미치지 않겠습니까?"
+    ]
   },
   "O-s1-YEONGDONG": {
     "title": "『삼국사기』 권34 잡지3 지리1 신라 상주 (1145)",
@@ -1028,7 +1365,10 @@ NM.data.ORIG = {
     ],
     "src": "https://zh.wikisource.org/wiki/三國史記/卷34",
     "certainty": "◎",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "영동군은 본래 길동군이었는데, 경덕왕이 이름을 고쳤고 이 책을 쓴 고려 때에도 그 이름을 그대로 썼다."
+    ]
   },
   "O-s1-MILSEONG": {
     "title": "『삼국사기』 권34 잡지3 지리1 신라 양주 (1145)",
@@ -1037,7 +1377,10 @@ NM.data.ORIG = {
     ],
     "src": "https://zh.wikisource.org/wiki/三國史記/卷34",
     "certainty": "○",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "밀성군은 본래 추화군이었는데, 경덕왕이 이름을 고쳤고 이 책을 쓴 고려 때에도 그 이름을 그대로 썼다."
+    ]
   },
   "O-s1-SUSEONG": {
     "title": "『삼국사기』 권35 잡지4 지리2 신라 한주 (1145)",
@@ -1046,7 +1389,10 @@ NM.data.ORIG = {
     ],
     "src": "https://zh.wikisource.org/wiki/三國史記/卷35",
     "certainty": "○",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "수성군은 본래 고구려의 매홀군이었는데, 경덕왕이 이름을 고쳤다. 이 책을 쓴 고려 때에는 수주라고 불렀다."
+    ]
   },
   "O-s1-SEODONG1": {
     "title": "『삼국유사』 권2 기이 무왕 「서동요」 첫 구 (1281년 무렵)",
@@ -1055,7 +1401,10 @@ NM.data.ORIG = {
     ],
     "src": "https://zh.wikisource.org/wiki/三國遺事/卷第二",
     "certainty": "◎",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "선화 공주님은"
+    ]
   },
   "O-s1-SEODONG2": {
     "title": "『삼국유사』 권2 기이 무왕 「서동요」 둘째~넷째 구",
@@ -1066,7 +1415,12 @@ NM.data.ORIG = {
     ],
     "src": "https://zh.wikisource.org/wiki/三國遺事/卷第二",
     "certainty": "○",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "남몰래 짝을 맺어 두고",
+      "서동 도련님을",
+      "밤에 몰래 안고 간다"
+    ]
   },
   "O-s1-CHEOYONG1": {
     "title": "『삼국유사』 권2 기이 처용랑 망해사 「처용가」 첫째·둘째 구 (1281년 무렵)",
@@ -1076,7 +1430,11 @@ NM.data.ORIG = {
     ],
     "src": "https://zh.wikisource.org/wiki/三國遺事/卷第二",
     "certainty": "◎",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "동경 밝은 달에",
+      "밤늦도록 놀러 다니다가"
+    ]
   },
   "O-s10-SOHAK1": {
     "title": "『소학언해』 권2 명륜 (1587 언해 완성, 1588 간행)",
@@ -1085,7 +1443,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/소학언해/권2",
     "certainty": "○",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "공자께서 증자에게 이르시기를,"
+    ]
   },
   "O-s10-SOHAK2": {
     "title": "『소학언해』 권2 명륜",
@@ -1094,7 +1455,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/소학언해/권2",
     "certainty": "○",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "몸과 얼굴과 머리털과 살은 부모님께 받은 것이다."
+    ]
   },
   "O-s10-SOHAK3": {
     "title": "『소학언해』 권2 명륜",
@@ -1103,7 +1467,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/소학언해/권2",
     "certainty": "○",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "감히 헐거나 다치게 하지 않는 것이 효도의 시작이고,"
+    ]
   },
   "O-s10-SOHAK4": {
     "title": "『소학언해』 권2 명륜",
@@ -1112,7 +1479,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/소학언해/권2",
     "certainty": "○",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "몸을 바로 세우고 바른 도리를 행하여 이름을 뒷세상에 떨치고, 그로써 부모를 빛나게 하는 것이 효도의 마지막이다."
+    ]
   },
   "O-s10-HUNMONG1": {
     "title": "『훈몽자회』 범례 「언문자모」 初聲終聲通用八字 (1527)",
@@ -1121,7 +1491,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈몽자회/諺文字母",
     "certainty": "◎",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "ㄱ은 기역, ㄴ은 니은, ㄷ은 디귿, ㄹ은 리을, ㅁ은 미음, ㅂ은 비읍, ㅅ은 시옷, 옛이응은 이응이라고 부른다."
+    ]
   },
   "O-s10-HUNMONG2": {
     "title": "『훈몽자회』 범례 「언문자모」 협주",
@@ -1130,7 +1503,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈몽자회/諺文字母",
     "certainty": "○",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "동그라미를 친 두 글자는 한자의 소리가 아니라 그 글자의 우리말 새김인 '끝'과 '옷'만 따서 소리로 삼는다."
+    ]
   },
   "O-s10-HUNMONG3": {
     "title": "『훈몽자회』 범례 「언문자모」 初聲獨用八字 협주",
@@ -1139,7 +1515,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/훈몽자회/諺文字母",
     "certainty": "○",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "동그라미를 친 '키 기' 자도 마찬가지로 그 글자의 우리말 새김인 '키'를 따서 소리로 삼는다."
+    ]
   },
   "O-s11-NOGEOL1795": {
     "title": "『중간노걸대언해』 상 (1795)",
@@ -1150,7 +1529,12 @@ NM.data.ORIG = {
     ],
     "src": "http://www.davincimap.co.kr/davBase/Source/davSource.jsp?Job=Body&SourID=SOUR005668",
     "certainty": "○",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "우리가 서울에 가면 어디에 머물러야 좋을까?",
+      "우리 순성문 객점에 가서 머물자. 거기서는 말 시장에 가기도 꽤 가깝다.",
+      "네 말이 옳다. 나도 속으로 그렇게 생각했는데, 네 말이 꼭 내 뜻과 같다."
+    ]
   },
   "O-s11-NOGEOL1670": {
     "title": "『노걸대언해』 상 (1670) — 같은 대목의 앞선 판",
@@ -1163,7 +1547,14 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/노걸대언해",
     "certainty": "○",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "우리가 가면 어디에 묵어야 좋을까?",
+      "우리 순성문 객점 쪽으로 묵으러 가자.",
+      "거기서는 말 시장에 가기도 바로 가깝다.",
+      "네 말이 옳다.",
+      "나도 속으로 그렇게 생각했는데, 네 말이 꼭 내 뜻과 같다."
+    ]
   },
   "O-s11-DOKRIP1": {
     "title": "『독립신문』 창간호 논설 (1896.4.7.)",
@@ -1172,7 +1563,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/독립신문/1896년/4월/7일",
     "certainty": "◎",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "우리 신문이 한문은 쓰지 않고 오직 국문으로만 쓰는 까닭은 신분이 높든 낮든 누구나 다 읽게 하려는 것이다. 또 국문을 이렇게 구절마다 띄어 쓰는 것은 누구라도 이 신문을 쉽게 읽고, 신문에 실린 말을 자세히 알아보게 하려는 것이다."
+    ]
   },
   "O-s11-DOKRIP2": {
     "title": "『독립신문』 창간호 논설 (1896.4.7.)",
@@ -1181,7 +1575,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/독립신문/1896년/4월/7일",
     "certainty": "◎",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "다른 나라 사람들은 남녀를 가리지 않고 제 나라 글을 먼저 배워 익힌 뒤에야 외국 글을 배우는데, 조선 사람들은 조선 국문은 배우지 않아도 한문만 공부하기 때문에 국문을 잘 아는 사람이 드물다."
+    ]
   },
   "O-s11-DOKRIP3": {
     "title": "『독립신문』 창간호 논설 (1896.4.7.)",
@@ -1190,7 +1587,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/독립신문/1896년/4월/7일",
     "certainty": "◎",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "조선 국문과 한문을 견주어 보면, 조선 국문이 한문보다 나은 점은 무엇인가? 첫째, 배우기가 쉬우니 좋은 글이다. 둘째, 이 글은 조선의 글이니 조선 사람들이 깨달아 모든 일을 한문 대신 국문으로 써야 신분이 높든 낮든 모두가 읽고 알아보기 쉬울 것이다."
+    ]
   },
   "O-s11-DOKRIP4": {
     "title": "『독립신문』 창간호 논설 (1896.4.7.)",
@@ -1199,7 +1599,10 @@ NM.data.ORIG = {
     ],
     "src": "https://ko.wikisource.org/wiki/독립신문/1896년/4월/7일",
     "certainty": "◎",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "한문만 늘 쓰는 버릇이 들고 국문은 내버려 둔 탓에, 조선 사람들이 국문으로 쓴 글은 도리어 잘 알아보지 못하고 한문은 잘 알아보니, 그것이 어찌 한심하지 않겠는가."
+    ]
   },
   "O-s11-AD1902": {
     "title": "『제국신문』 광고 「泥峴木島平時計舖」 (1902.8.25. 등)",
@@ -1208,6 +1611,9 @@ NM.data.ORIG = {
     ],
     "src": "http://waks.aks.ac.kr/rsh/dir/rdirItem.aspx?rshID=AKS-2011-EBZ-3103&rptID=AKS-2011-EBZ-3103_NEWS",
     "certainty": "○",
-    "doc": "design/research/11_원문_고대_근대.md"
+    "doc": "design/research/11_원문_고대_근대.md",
+    "modern": [
+      "여러 나라의 시계와 탁상시계와 여러 가지 자전거와 그 부속품을 넉넉히 갖추어 싸게 팝니다. 또 이번에 기술자를 더 두어 고장 난 시계나 자전거를 고치는 일도 솜씨 있게 잘합니다."
+    ]
   }
 };

@@ -3,7 +3,7 @@
  * 자동 생성 파일 — 손으로 고치지 않는다.
  * 만든 도구: tools/extract_orig.mjs (원본: design/research/*.md 의 spec §19-2 原文 블록, 확실도 △ 제외)
  * 다시 만들기: node tools/extract_orig.mjs    낡았는지 점검: node tools/extract_orig.mjs --check
- * NM.data.ORIG[<블록 id>] = { title, lines: [원문 줄…], src: <출처 URL 또는 교과서 쪽>, certainty: ◎|○, doc: <리서치 문서>, noBangjeom?: true }
+ * NM.data.ORIG[<블록 id>] = { title, lines: [원문 줄…], src: <출처 URL 또는 교과서 쪽>, certainty: ◎|○, doc: <리서치 문서>, noBangjeom?: true, modern?: [줄마다 현대어 풀이] }
  */
 window.NM = window.NM || {};
 NM.data = NM.data || {};

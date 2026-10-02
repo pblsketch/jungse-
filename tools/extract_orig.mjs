@@ -136,6 +136,19 @@ function parseBlock(lines, at, rel, id) {
   const block = { title, lines: body, src: srcUrl, certainty, doc: rel };
   // '- 방점: 표기 안 함' 블록은 방점을 판독하지 못한 구절이다(평성이라는 뜻이 아님). 화면은 방점 설정과 상관없이 방점 없이 보인다.
   if (meta['방점'] && /^표기\s*안\s*함/.test(meta['방점'].value)) block.noBangjeom = true;
+  // '- 현대어: …' 화면의 현대어 풀이(설정으로 켜고 끔). 原文 줄이 여럿이면 ' / ' 로 나눠 줄마다 하나씩.
+  if (meta['현대어'] && meta['현대어'].value) {
+    const parts = meta['현대어'].value.split(/\s+\/\s+/).map(x => x.trim());
+    if (parts.length !== body.length || parts.some(x => !x)) {
+      errors.push(`${where(meta['현대어'].line)}: ${id} 현대어 풀이는 原文 줄 수(${body.length})만큼 ' / ' 로 나눠 쓴다 (지금 ${parts.length}개)`);
+      return { block: null, errors, consumed };
+    }
+    if (parts.some(x => /[\[\]{}|]/.test(x))) {
+      errors.push(`${where(meta['현대어'].line)}: ${id} 현대어 풀이에 표기 기호([ ] { } |)가 있다 — 오늘날 글자로만 쓴다`);
+      return { block: null, errors, consumed };
+    }
+    block.modern = parts;
+  }
   return { block, errors, consumed };
 }
 
@@ -146,7 +159,7 @@ export function renderGenerated(orig) {
     ' * 자동 생성 파일 — 손으로 고치지 않는다.',
     ' * 만든 도구: tools/extract_orig.mjs (원본: design/research/*.md 의 spec §19-2 原文 블록, 확실도 △ 제외)',
     ' * 다시 만들기: node tools/extract_orig.mjs    낡았는지 점검: node tools/extract_orig.mjs --check',
-    ' * NM.data.ORIG[<블록 id>] = { title, lines: [원문 줄…], src: <출처 URL 또는 교과서 쪽>, certainty: ◎|○, doc: <리서치 문서>, noBangjeom?: true }',
+    ' * NM.data.ORIG[<블록 id>] = { title, lines: [원문 줄…], src: <출처 URL 또는 교과서 쪽>, certainty: ◎|○, doc: <리서치 문서>, noBangjeom?: true, modern?: [줄마다 현대어 풀이] }',
     ' */',
     'window.NM = window.NM || {};',
     'NM.data = NM.data || {};',
@@ -180,6 +193,7 @@ export function diffOrig(have, want, skipped = {}) {
     for (let i = 0; i < Math.max(al.length, bl.length); i++) {
       if (al[i] !== bl[i]) out.push([`${OUT_REL} ${id}.lines[${i}]`, `原文 글자가 리서치 문서(${b.doc})와 다르다: ${JSON.stringify(al[i])} ≠ ${JSON.stringify(bl[i])}`]);
     }
+    if (JSON.stringify(a.modern || null) !== JSON.stringify(b.modern || null)) out.push([`${OUT_REL} ${id}.modern`, `현대어 풀이가 리서치 문서(${b.doc})와 다르다 — 추출 도구를 다시 돌린다`]);
     for (const k of ['title', 'src', 'certainty', 'doc']) {
       if (a[k] !== b[k]) out.push([`${OUT_REL} ${id}.${k}`, `리서치 문서와 다르다: ${JSON.stringify(a[k])} ≠ ${JSON.stringify(b[k])}`]);
     }
