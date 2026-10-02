@@ -29,7 +29,7 @@ NM.data.SCENES['s6'] = {
   },
 
   fiction: [
-    { id: 'fiction.tongsa', text: '정음 통사 — 새 글자와 사람들의 말 사이를 잇는 통역관',
+    { id: 'fiction.tongsa', text: '정음 통사: 새 글자로 적은 글을 읽고, 그 뜻을 사람들에게 전해 주는 통역관',
       real: '정음 통사라는 직책은 없었어요. 이 게임에서 만든 역할이에요.' },
     { id: 'fiction.s6record', text: '관아가 백성의 진술을 새 글자로 받아 적는 일',
       real: '이 무렵 관아의 공식 문서는 한문으로 적었어요. 진술을 새 글자로 받아 적는 장면은 이야기를 위해 만든 설정이에요.' }
@@ -40,7 +40,7 @@ NM.data.SCENES['s6'] = {
     { who: 'commoner', text: '나리, 억울합니다! 저는 그런 짓을 하지 않았는데, 적힌 글에는 제가 했다고 되어 있답니다.' },
     { who: 'official', text: '아전이 이 사람의 말을 새 글자로 받아 적었는데, 말과 말을 잇는 끈이 엉망이라 누가 무엇을 했는지 알 수가 없네.', fiction: 'fiction.s6record' },
     { who: 'senior', expr: 'thinking', text: '<@아>, 끈이란 낱말 뒤에 붙어 말을 이어 주는 조사와 어미를 말해. 끈 하나가 바뀌면 한 일의 주인도 바뀌어 버리지.' },
-    { who: 'senior', text: '새 글자와 사람들의 말 사이를 잇는 게 우리 정음 통사의 일이잖아. 끈만 제대로 이으면 이분 말이 그대로 적힐 거야.', fiction: 'fiction.tongsa' }
+    { who: 'senior', text: '새 글자로 적은 글과 사람들의 말을 이어 주는 게 우리 정음 통사의 일이잖아. 끈만 제대로 이으면 이분 말이 그대로 적힐 거야.', fiction: 'fiction.tongsa' }
   ],
 
   request: [

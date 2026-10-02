@@ -25,14 +25,14 @@ NM.data.SCENES['s12'] = {
     voice: { name: '종이배의 말소리' }
   },
   fiction: [
-    { id: 'fiction.tongsa', text: "정음 통사 — 새 글자를 백성에게 알리며 말을 옮겨 주는 사람", real: "이 게임이 지어낸 일이다. 실제 조선에 그런 직책은 없었다." },
+    { id: 'fiction.tongsa', text: "정음 통사: 새 글자로 적은 글을 읽고, 그 뜻을 사람들에게 전해 주는 통역관", real: "이 게임이 지어낸 일이다. 실제 조선에 그런 직책은 없었다." },
     { id: 'fiction.wordRiver', text: "말의 강 — 옛말이 물길을 따라 지금 말까지 흘러오는 곳", real: "이야기를 위해 지어낸 장소다. 실제로 말은 사람들이 쓰는 동안 오랜 세월에 걸쳐 조금씩 바뀐다." }
   ],
 
   intro: [
     { who: 'narrator', text: "물소리가 들린다. 발밑으로 빛나는 강이 흐르고, 물 위로 종이배와 종잇조각이 떠내려간다.", cg: 's12_intro' },
     { who: 'senior', text: "<@아>, 여기가 말의 강이다. 옛날에서 흘러온 말이 이 물길을 따라 네가 살던 2026년까지 내려간다." },
-    { who: 'senior', text: "너는 그동안 새 글자와 사람들 사이에서 말을 옮기는 정음 통사로 일했지. 이제 돌아갈 때가 됐다.", fiction: 'fiction.tongsa' },
+    { who: 'senior', text: "너는 그동안 새 글자로 적은 글을 읽어 사람들에게 뜻을 전해 주는 정음 통사로 일했지. 이제 돌아갈 때가 됐다.", fiction: 'fiction.tongsa' },
     { who: 'senior', text: "나는 이 강물에 들어설 수 없는 사람이라 여기까지만 왔다. 네 통사 패가 빛나는 동안은 내 목소리가 들릴 게다.", expr: 'smile' }
   ],
   request: [
@@ -286,7 +286,7 @@ NM.data.SCENES['s12'] = {
         { who: 'narrator', text: "물소리가 들린다. 발밑으로 빛나는 강이 흐르고, 물 위로 종이배와 종잇조각이 떠내려간다.", cg: 's12_intro' },
         { who: 'senior', text: "<@아>, 여기가 말의 강이다. 이 물길을 따라가면 네가 살던 2026년이 나온다." },
         { who: 'me', text: "집에 갈 수 있는 거예요?", expr: 'surprised' },
-        { who: 'senior', text: "그래. 너는 2026년에서 옛날로 떨어진 학생이었고, 그동안 새 글자를 백성에게 알리는 정음 통사로 일했지. 이제 돌아갈 때다.", fiction: 'fiction.tongsa' },
+        { who: 'senior', text: "그래. 너는 2026년에서 옛날로 떨어진 학생이었고, 그동안 새 글자로 적은 글을 읽어 백성에게 뜻을 전해 주는 정음 통사로 일했지. 이제 돌아갈 때다.", fiction: 'fiction.tongsa' },
         { who: 'senior', text: "나는 이 강물에 들어설 수 없는 사람이라 여기까지만 왔다. 네 통사 패가 빛나는 동안은 내 목소리가 들릴 게다.", expr: 'smile' }
       ],
       request: [
