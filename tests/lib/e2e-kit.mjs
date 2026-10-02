@@ -13,6 +13,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { serve } from '../server.mjs';
 import { pickWrongAnswer, WRONG_MARK_SELECTOR } from './wrong-answer.mjs';
+import { answerTranslateChoice } from './translate-choice.mjs';
 
 export const KEY = 'naratmalssami:v1';
 export const LEVELS = ['m', 'h1', 'h23'];
@@ -338,6 +339,7 @@ export async function stagePlan(page, stageId) {
         right: it.kind === 'read' ? ((it.cards || []).filter(c => c.correct)[0] || {}).id : null
       })),
       translateAt: (sc.translate && sc.translate.at) || null,
+      choice: !!(NM.ui.stageTranslate && NM.ui.stageTranslate.has(sc.translate)),
       carveGlyph: sc.carveGlyph || null
     };
   }, stageId);
@@ -446,6 +448,14 @@ async function finishStage(S, C, stageId, plan, { tag, saveAtEnd, reflection }) 
   let t = await waitTop(page, { win: 'dialog', kind: 'translate' });
   C.check(`${tag}: translate scene starts`, !!t && t.win === 'dialog' && t.kind === 'translate', t);
   await settleDialogs(page);
+  // 통역 고르기(scene.translate.choose): 한 번 틀린 통역 → 반응 대사 → 다시 골라 바른 통역 → 다 된 통역 대사
+  if (plan.choice) {
+    const ch = await answerTranslateChoice(page, { wrongOnce: true });
+    C.check(`${tag}: translate choice — wrong interpretation gets a reaction, right one goes on`, ch.shown && ch.delivered && !ch.problems.length, ch);
+    await page.waitForTimeout(60);
+    const after = await settleDialogs(page);
+    C.check(`${tag}: finished translation plays after the choice`, after[0] === 'translate', after);
+  }
   await waitTop(page, { win: 'carve' });
   const carve = await page.evaluate((sel) => { const w = document.querySelector(sel); const g = w && w.querySelector('.nm-st-glyph'); return w ? { win: w.getAttribute('data-win'), glyph: g ? g.textContent : null } : null; }, TOP);
   C.check(`${tag}: carve window with glyph`, carve && carve.win === 'carve' && (stageId === 's0' || (carve.glyph && carve.glyph.length > 0)), carve);

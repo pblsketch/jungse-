@@ -1,7 +1,8 @@
 'use strict';
 /*
  * NM.ui.stageWindow — 지도 위에 열리는 DOM 창(엔진 openOverlay 위). 창이 열려 있는 동안 지도는 멈춘다.
- *   open({ win, kind, title, data:{key:value}, closable(기본 true), build(창), onClose(reason) }) → 창
+ *   open({ win, kind, title, eyebrow?, data:{key:value}, closable(기본 true), build(창), onClose(reason) }) → 창
+ *     title: 글 또는 DOM(<h2 class="nm-st-title"> 안 .nm-st-title-main). eyebrow: 제목 위 작은 갈래 글(.nm-st-eyebrow)
  *     build 는 지도 위에 올리기 전에 부른다(내용을 채운 뒤 연다).
  *     창 = { el, body, foot, close(reason), isOpen(), focus(el?) }
  *     focus(el) 은 그 요소로, focus() 는 아래 '처음 초점' 규칙대로 옮긴다.
@@ -88,8 +89,19 @@
     h.className = 'nm-st-title';
     h.id = id + '-t';
     h.setAttribute('tabindex', '-1');
-    if (o.title && o.title.nodeType) h.appendChild(o.title);
-    else h.appendChild(doc.createTextNode(o.title == null ? '' : String(o.title)));
+    // 작은 윗글(eyebrow): 창 갈래('해독'·'과제'·'조사'). 제목은 지금 할 일(항목 이름·장소 이름)
+    if (o.eyebrow != null && o.eyebrow !== '') {
+      const eb = doc.createElement('span');
+      eb.className = 'nm-st-eyebrow';
+      eb.appendChild(doc.createTextNode(String(o.eyebrow)));
+      h.appendChild(eb);
+      h.classList.add('has-eyebrow');
+    }
+    const main = doc.createElement('span');
+    main.className = 'nm-st-title-main';
+    if (o.title && o.title.nodeType) main.appendChild(o.title);
+    else main.appendChild(doc.createTextNode(o.title == null ? '' : String(o.title)));
+    h.appendChild(main);
     head.appendChild(h);
     el.setAttribute('aria-labelledby', h.id);
     const body = doc.createElement('div');

@@ -50,7 +50,11 @@ assert.equal(img.teacherText, '');
 assert.equal(img.items.length, 0);
 assert.equal(img.glyph, '', '끝내기 전엔 패 글자 없음');
 assert.equal(img.stats.helps, 1);
-assert.equal(img.stats.firstTryText, '0%');
+assert.equal(img.stats.self, 0);
+assert.equal(img.stats.byHelp, 0);
+assert.equal(img.stats.growthText, '스스로 확정한 말 0 · 도움 받아 확정한 말 0');
+assert.equal(img.stats.misreadText, '0번');
+assert.ok(!('firstTryText' in img.stats) && !('firstTryRate' in img.stats), '첫 시도 정확도(%)는 이미지에 싣지 않는다');
 assert.ok(/2026/.test(img.createdText) && /14:05/.test(img.createdText), img.createdText);
 assert.equal(typeof img.title, 'string');
 assert.ok(img.title.length > 0);
@@ -77,7 +81,9 @@ assert.ok(!/[[\]]/.test(img.items[0].orig), '표기 기호가 남으면 안 된�
 assert.deepEqual(img.translations, ['시험으로 옮긴 구절']);
 assert.deepEqual(img.rules.map(r => r.name), ['아래아']);
 assert.equal(img.reflection, '아래아가 재미있었다');
-assert.equal(img.stats.firstTryText, '50%', '해독 정답(참) + 과제 오답(거짓)');
+assert.equal(img.stats.self, 1, '해독 항목을 스스로 확정');
+assert.equal(img.stats.byHelp, 0);
+assert.equal(img.stats.growthText, '스스로 확정한 말 1 · 도움 받아 확정한 말 0');
 assert.equal(img.stats.misreads, 0);
 assert.equal(img.title, '견습 통사', 'm 묶음 4개 중 s2 하나 → 절반 미만');
 
@@ -85,6 +91,7 @@ assert.equal(img.title, '견습 통사', 'm 묶음 4개 중 s2 하나 → 절반
 const v = plain(M.view(store, 's2'));
 assert.equal(v.status, 'done');
 assert.equal(v.items.length, 1);
+assert.deepEqual(plain(v.growth), { self: 1, byHelp: 0, growthText: '스스로 확정한 말 1 · 도움 받아 확정한 말 0' });
 assert.equal(v.items[0].word, '·[ㅁㆍㄹ][ㅆㆍ]·미', '화면용은 표기 그대로(화면이 조합)');
 assert.deepEqual(v.translations.map(x => x.text), ['시험으로 옮긴 구절']);
 assert.deepEqual(v.rulesLearned.map(r => r.id), ['rule.araea']);
@@ -124,5 +131,18 @@ assert.equal(img.teacherText, '교사 모드');
 assert.equal(img.levelLabel, '고1');
 assert.equal(img.nickname, '');
 assert.equal(img.status, 'progress');
-assert.equal(img.stats.firstTryText, '—');
+assert.equal(img.stats.growthText, '스스로 확정한 말 0 · 도움 받아 확정한 말 0');
+// 도움 받아 확정한 말: 선배가 정답을 알려 주면(도움 마지막 단계) '도움 받아'로 센다. 첫 시도 정확도와 달리 비율은 없다.
+{
+  const hs = NM.core.save.createStore({ storage: memStorage() });
+  hs.setup({ level: 'm', protagonist: 1, nickname: 'abc' });
+  hs.seeContext(S2, 'test.c1'); hs.seeContext(S2, 'test.c2');
+  for (let i = 0; i < NM.core.rules.helpMax(); i++) hs.requestHelp(S2, 's2.r1');
+  assert.equal(hs.stage('s2').items['s2.r1'].state, 'confirmedByHelp');
+  const hi = plain(M.image(hs, 's2', { now }));
+  assert.equal(hi.stats.self, 0);
+  assert.equal(hi.stats.byHelp, 1);
+  assert.equal(hi.stats.growthText, '스스로 확정한 말 0 · 도움 받아 확정한 말 1');
+  assert.equal(plain(M.view(hs, 's2')).growth.byHelp, 1);
+}
 console.log('u1 model ok');

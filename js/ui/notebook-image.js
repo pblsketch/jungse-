@@ -99,9 +99,8 @@
     block(t('image.titleLabel') + '   ' + m.title, font(32, SANS, 700), 32);
     // 기록
     head('image.record');
-    block(t('image.firstTry') + '   ' + m.stats.firstTryText, font(30, SANS), 30);
-    block(t('image.helps') + '   ' + t('image.timesUnit', { n: m.stats.helps }), font(30, SANS), 30);
-    block(t('image.misreads') + '   ' + t('image.timesUnit', { n: m.stats.misreads }), font(30, SANS), 30);
+    block(m.stats.growthText, font(30, SANS, 700), 30);
+    block(t('image.misreads') + '   ' + m.stats.misreadText, font(28, SANS), 28, C.soft);
     rule();
     head('image.items');
     if (!m.items.length) block(none, font(30, SANS), 30, C.soft);

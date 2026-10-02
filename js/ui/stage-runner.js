@@ -22,7 +22,7 @@
  *   openContext(contextId), openItem(itemId)  교사 진행·점검용(보통은 맵의 살피기와 HUD 가 부른다)
  *
  * ■ 장면 데이터 모양 (NM.data.SCENES[id], 파일 js/data/scenes/<id>.js — 자세한 설명은 js/data/scenes/README.md)
- *   { id, title, era, mapKey, bgmKey, carveGlyph, bangjeomAlways?,
+ *   { id, title, era, mapKey, bgmKey, carveGlyph, bangjeomAlways?, startItem?(처음 들어오면 도입 뒤 바로 여는 항목),
  *     cast: { <who>: { name, portrait } },               대사의 who 키(선배 'senior'·'sejong'·'me'·'narrator' 는 따로 없어도 됨)
  *     intro: [줄], request: [줄],
  *     encounter: { orig: [원문 블록 id], lines: [줄] },    원문과 마주침(선택)
@@ -35,13 +35,14 @@
  *     npcs?: { <npcId>: { name, lines: [줄] } },          맥락이 아닌 인물의 말(선택). name 은 장소 목록 이름표로도 쓰인다
  *     notes: [{ id, kind:'know'|'variant'|'interp', text, src, at: [맥락 id] }],
  *     fiction: [{ id, text, real }],
- *     translate: { id?, text?, at?(맥락 id 또는 npcId — 있으면 그곳에서 통역), lines: [줄] },
+ *     translate: { id?, text?, at?(맥락 id 또는 npcId — 있으면 그곳에서 통역), lines: [줄],
+ *                  choose?, compose?, chooseAt? (통역 고르기 — js/ui/stage-translate.js) },
  *     translations?: [{ id, text, orig? }],               기믹이 store.addTranslation 으로 남기는 옮긴 구절(수첩용)
  *     editions?: { m: { ...그 학교급 판에서 바꿀 필드 } } }
  *   줄 = 문자열 또는 { who, text, portrait?, expr?(표정: neutral|surprised|smile|thinking), cg?(ASSETS.cg 키), fiction?, mark?, src? } (js/ui/dialog.js)
  *   원문 글자는 장면 데이터에 쓰지 않는다 — 블록 id 로만 가리키고 NM.data.ORIG(자동 생성)에서 그린다.
  * 필요: core(yet·rules·save), engine(api), ui(stage-text·stage-logic·stage-yet·marker·stage-window·dialog·rulecard·
- *       stage-gimmick·item-read·item-task·stage-end), data/text-stage.js
+ *       stage-gimmick·item-read·item-task·stage-end·stage-translate(없으면 고르기 없이)), data/text-stage.js
  */
 (function (root) {
   const NM = root.NM;
@@ -246,10 +247,8 @@
   }
 
   /* ---------- 맥락 창 ---------- */
-  function renderContext(w, cx) {
-    const body = w.body;
-    body.textContent = '';
-    const solved = L().solvedWords(cur.scene, stageProg());
+  // 맥락의 원문 카드(현대어 풀이 잠금 규칙: modernOn)와 대사를 body 에 붙인다 — 맥락 창과 해독 창의 '살핀 곳' 칩이 같이 쓴다
+  function appendContextView(body, cx, solved) {
     (Array.isArray(cx.orig) ? cx.orig : []).forEach(id => { const o = MK().orig(id, { solved, modern: modernOn(id) }); if (o) body.appendChild(o); });
     const lines = Array.isArray(cx.lines) ? cx.lines : [];
     if (lines.length) {
@@ -258,6 +257,21 @@
       lines.forEach(ln => box.appendChild(NM.ui.dialog.lineEl(ln, env)));
       body.appendChild(box);
     }
+  }
+  // 해독 창 안 '살핀 곳' 칩을 펼쳤을 때 보일 것(맥락 창을 열지 않고 다시 보기)
+  function clueView(contextId) {
+    if (!cur) return null;
+    const cx = L().contextById(cur.scene, contextId);
+    if (!cx) return null;
+    const box = el('div', 'nm-st-clue-view');
+    appendContextView(box, cx, L().solvedWords(cur.scene, stageProg()));
+    return box;
+  }
+  function renderContext(w, cx) {
+    const body = w.body;
+    body.textContent = '';
+    const solved = L().solvedWords(cur.scene, stageProg());
+    appendContextView(body, cx, solved);
     (Array.isArray(cur.scene.notes) ? cur.scene.notes : []).forEach(n => {
       if (!n || !Array.isArray(n.at) || n.at.indexOf(cx.id) < 0) return;
       body.appendChild(MK().card({ kind: n.kind, text: n.text, src: n.src, title: n.title, fill, solved }));
@@ -304,7 +318,7 @@
     updateGlow();
     const view = { w: null, cx };
     view.w = NM.ui.stageWindow.open({
-      win: 'context', title: titleNode(cx.label), data: { context: contextId }, className: 'nm-st-ctxwin',
+      win: 'context', eyebrow: TX().t('win.context'), title: titleNode(cx.label), data: { context: contextId }, className: 'nm-st-ctxwin',
       build(w) { renderContext(w, cx); },
       onClose(reason) {
         const i = cur ? cur.ctxWins.indexOf(view) : -1;
@@ -329,6 +343,7 @@
       cardOrder: (item) => NM.core.rules.cardOrder(item, store.seed),
       dialog: (lines, o) => play(lines, o),
       contextLabel: (id) => { const c = L().contextById(sc, id); return c ? plain(c.label) : id; },
+      clue: (id) => clueView(id),
       ruleCard: (id) => (NM.data.RULE_CARDS && NM.data.RULE_CARDS[id]) || null,
       solved: () => L().solvedWords(sc, stageProg()),
       settings: () => cur.eff || { bangjeom: true, reducedMotion: false },
@@ -372,7 +387,8 @@
   function intro(my) {
     const sc = cur.scene;
     const fic = (Array.isArray(sc.fiction) ? sc.fiction : []).filter(f => f && f.id && !cur.store.hasSeenNotice('fiction:' + f.id)).map(f => {
-      const card = MK().card({ kind: 'fiction', text: f.text, real: f.real, showReal: true, fill });
+      // 이야기 앞에 크게 늘어놓지 않고 한 줄 표지로(펼치면 "실제로는 →") — 처음 나올 때 실제 설명이 바로 열린다
+      const card = MK().card({ kind: 'fiction', compact: true, id: f.id, name: f.name, text: f.text, real: f.real, showReal: true, fill });
       cur.store.markNotice('fiction:' + f.id);
       return card;
     });
@@ -392,7 +408,13 @@
     ];
     let p = Promise.resolve();
     steps.forEach(step => { p = p.then(() => (alive(my) ? step() : null)); });
-    return p.then(() => { if (alive(my)) enterExplore(); })
+    return p.then(() => {
+      if (!alive(my)) return;
+      enterExplore();
+      // scene.startItem: 처음 들어온 장면은 도입이 끝나자마자 그 항목 창을 연다(서장: 첫 행동을 앞당김)
+      const first = sc.startItem && L().itemById(sc, sc.startItem);
+      if (first && coreItems().some(it => it.id === first.id)) openItem(first.id);
+    })
       .catch(e => NM.reportError('stage.intro', e));
   }
 
@@ -429,8 +451,9 @@
     E().setObjective([]);
     cur.glow = null;
     E().highlight(null);
-    play(tr.lines, { kind: 'translate', title: TX().t('win.translate') }).then(() => {
+    translateFlow(tr, my).then((go) => {
       if (!alive(my)) return null;
+      if (go === false) { backToExplore(); return null; }
       if (typeof tr.id === 'string' && tr.id) cur.store.addTranslation(cur.stageId, tr.id);
       const res = cur.store.completeStage(sc);
       if (!res || !res.ok) NM.reportError('stage.complete', res && res.reason);
@@ -445,6 +468,26 @@
         finish(true, 'done', { newlyDone: !!(res && res.newlyDone), glyphAdded: !!(res && res.glyphAdded), saved: !!(r && r.saved) });
       });
     }).catch(e => NM.reportError('stage.translate', e));
+  }
+
+  // 통역 고르기(scene.translate.choose, js/ui/stage-translate.js)가 있으면 학생이 통역 문장을 고른 뒤 다 된 통역을 튼다.
+  // 없으면 예전처럼 translate.lines 만. 고르기 창을 닫으면 false → 탐색으로 돌아간다(다시 말을 걸면 처음부터).
+  function translateFlow(tr, my) {
+    const ST = NM.ui.stageTranslate;
+    if (!ST || !ST.has(tr)) return play(tr.lines, { kind: 'translate', title: TX().t('win.translate') }).then(() => true);
+    return ST.run({
+      tr, teacher: cur.teacher, fill, sfx, alive: () => alive(my), memo: cur.interpMemo || (cur.interpMemo = {}),
+      dialog: (lines, o) => play(lines, o),
+      record: (r) => (typeof cur.store.recordInterp === 'function' ? cur.store.recordInterp(cur.stageId, r) : null)
+    });
+  }
+  function backToExplore() {
+    setPhase('explore');
+    cur.hud.hidden = false;
+    cur.translateReady = false;
+    maybeTranslate();
+    refreshHud();
+    updateObjectives();
   }
 
   /* ---------- 시작·끝 ---------- */

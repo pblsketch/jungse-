@@ -2,10 +2,12 @@
 /*
  * NM.ui.notebookModel — 해독 수첩 화면과 수첩 이미지가 그릴 데이터(DOM 없음, 저장소에 쓰지 않음).
  *   stageLabel(id) / stageName(id) / sceneOf(id) / carveGlyph(id)
- *   view(store, stageId)  → 수첩 화면: 확정 항목(표기 그대로), 옮긴 구절, 돌아보기, 얻은 규칙 카드(지금 학교급 전체),
+ *   view(store, stageId)  → 수첩 화면: 확정 항목(표기 그대로)과 그 수(growth: 스스로 / 도움 받아), 옮긴 구절, 돌아보기, 얻은 규칙 카드(지금 학교급 전체),
  *                           아직 확인하지 않은 규칙(배우는 장면 이름과 함께), 옛글자 도감(만남 여부)
  *   image(store, stageId, { name, number, teacher, now }) → 수첩 이미지(spec §14): 모든 글은 렌더된 평문.
  *                           이름·번호는 이 값에만 들어가고 어디에도 저장하지 않는다.
+ *                           stats: { self, byHelp, growthText('스스로 확정한 말 n · 도움 받아 확정한 말 n'), misreads, misreadText, helps }
+ *                           — 첫 시도 정확도(%)는 싣지 않는다.
  * 읽는 데이터(없어도 된다):
  *   NM.data.SCENES[id]      장면 데이터(spec §19-3). title, carveGlyph, items[{id, kind, word|label, cards}], translate
  *                           확정 항목의 원문 글은 item.word(없으면 item.label)를 쓴다. 현대어는 정답 카드 text.
@@ -64,6 +66,13 @@
     return out;
   }
 
+  // 확정한 말 수: 스스로(정답 카드를 직접 골라 확정 — 힌트를 본 뒤여도) / 도움 받아(선배가 정답을 알려 줌)
+  function growth(store, stageId) {
+    const list = confirmedItems(store, stageId);
+    const self = list.filter(x => !x.byHelp).length, byHelp = list.length - self;
+    return { self, byHelp, growthText: t('image.growth', { self, help: byHelp }) };
+  }
+
   function translationLines(sc) {
     if (!sc) return [];
     const src = [];
@@ -111,6 +120,7 @@
       stageName: stageName(stageId),
       status: prog.status,
       items: confirmedItems(store, stageId),
+      growth: growth(store, stageId),
       translations: translations(store, stageId),
       reflection: prog.reflection || '',
       rulesLearned: learned.map(ruleCard),
@@ -167,12 +177,13 @@
       reflection: prog.reflection || '',
       glyph: glyphs.indexOf(stageId) >= 0 ? glyphText(carveGlyph(stageId)) : '',
       title: store.title().title,
-      stats: {
-        firstTryRate: st.firstTryRate,
-        firstTryText: st.firstTryRate === null ? t('image.none') : t('image.percent', { n: Math.round(st.firstTryRate * 100) }),
+      // 기록: 첫 시도 정확도(%) 대신 스스로 확정한 말·도움 받아 확정한 말 수(자진해서 받은 도움도 첫 시도에서 빠지므로
+      // 비율은 벌처럼 느껴질 수 있다). 오해 장면 수는 그대로.
+      stats: Object.assign(growth(store, stageId), {
         helps: st.helps,
-        misreads: st.misreads
-      },
+        misreads: st.misreads,
+        misreadText: t('image.timesUnit', { n: st.misreads })
+      }),
       status: done ? 'done' : 'progress',
       statusText: done ? t('image.statusDone') : t('image.statusProgress'),
       teacher,

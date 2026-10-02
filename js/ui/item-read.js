@@ -4,7 +4,8 @@
  *   open(env, itemId) → 창
  * 창의 내용(상태에 따라 다시 그림):
  *   - 항목 이름표(item.label, 옛한글 DOM)와 물음(item.prompt 또는 TEXT readPrompt / 규칙 항목은 rulePrompt)
- *   - 살핀 맥락 수 'n / 2'와 살핀 곳 이름. 서로 다른 맥락이 2곳 이상이어야 확정 단추가 열린다.
+ *   - 살핀 맥락 수 'n / 2'와 살핀 곳 칩(펼치면 그곳의 원문 카드·대사를 창 안에서 다시 본다 — env.clue).
+ *     서로 다른 맥락이 2곳 이상이어야 확정 단추가 열린다.
  *   - 카드: item.sentence 가 있으면 규칙 카드 문장 완성 부품, 없으면 카드 묶음. 확정 전에는 정오를 알리지 않는다.
  *   - 오답 확정 → 그 카드의 오해 장면(item.misread[cardId]) 재생 → 창으로 돌아와 '왜 아닌지'(card.why)와 도움.
  *     도움 1: 선배의 힌트(hints[0]) / 2: 단서 맥락(hints[1]) 빛남 — 지도는 진행기가 NM.engine.highlight 로 /
@@ -15,7 +16,7 @@
  *   - 교사 모드: '정답·풀이 바로 보기' — 창에만 보이고 기록은 바꾸지 않는다.
  * env(진행기가 줌): { scene, teacher, rec(id), choose(id, cardId), confirm(id), dialog(lines, opts), contextLabel(id),
  *                    ruleCard(id), fill(text), solved(), sfx(name), onItemClosed(id),
- *                    requestHelp(id), cardOrder(item) }
+ *                    requestHelp(id), cardOrder(item), clue(contextId) → 그 맥락 다시 보기 DOM }
  * 필요: ns.js, ui/stage-text.js, ui/stage-yet.js, ui/marker.js, ui/stage-window.js, ui/rulecard.js, ui/dialog.js, core/rules.js
  */
 (function (root) {
@@ -38,6 +39,13 @@
     return s;
   }
   const isDone = (rec) => NM.core.rules.isItemDone(rec);
+  // 창 제목: 이 항목에서 할 일(item.label, 옛한글 DOM). 이름표가 없으면 창 갈래 이름.
+  function itemTitle(env, item) {
+    if (!item.label) return TX().t('win.item');
+    const s = el('span', 'nm-st-item-title nm-yet');
+    s.appendChild(YB().build(env.fill(item.label), {}));
+    return s;
+  }
 
   function open(env, itemId) {
     const item = (env.scene.items || []).filter(i => i.id === itemId)[0];
@@ -47,6 +55,7 @@
     const shown = typeof env.cardOrder === 'function' ? env.cardOrder(item) : (item.cards || []);
     let teacherShown = false;
     let w = null;
+    const openClues = new Set(); // 펼친 '살핀 곳' 칩(맥락 id)
 
     function render() {
       const rec = env.rec(itemId) || NM.core.rules.newItemRecord('read');
@@ -54,9 +63,7 @@
       const body = w.body, foot = w.foot;
       body.textContent = ''; foot.textContent = '';
 
-      const label = el('div', 'nm-st-item-label nm-yet');
-      label.appendChild(YB().build(env.fill(item.label || ''), {}));
-      body.appendChild(label);
+      // 항목 이름표(item.label)는 창 제목에 있다(지금 할 일). 본문은 물음부터.
       const prompt = item.prompt ? item.prompt : TX().t(item.sentence ? 'rulePrompt' : 'readPrompt');
       body.appendChild(rich(env, prompt, 'nm-st-prompt'));
 
@@ -65,7 +72,7 @@
       const seenBox = el('div', 'nm-st-seenbox');
       const count = el('p', 'nm-st-seen', TX().t('seen', { n: seen.length, need: 2 }));
       seenBox.appendChild(count);
-      if (seen.length) seenBox.appendChild(el('p', 'nm-st-seen-list', TX().t('seenList', { list: seen.map(env.contextLabel).join(', ') })));
+      if (seen.length) seenBox.appendChild(clues(seen));
       if (!done) {
         let status;
         if (rec.state === 'misread') status = TX().t('pickAgain');
@@ -174,6 +181,43 @@
       foot.appendChild(cb);
     }
 
+    // 살핀 곳 다시 보기: 살핀 맥락마다 접힌 칩. 펼치면 그 맥락의 원문 카드(현대어 풀이 잠금 규칙 그대로)와 대사를
+    // 이 창 안에서 작게 보인다(env.clue — 진행기가 맥락 창과 같은 부품으로 만든다). 펼친 칩은 다시 그려도 펼친 채로 둔다.
+    function clues(seen) {
+      const box = el('div', 'nm-st-clues');
+      box.appendChild(el('p', 'nm-st-clues-label', TX().t('clues')));
+      seen.forEach(cid => {
+        const wrap = el('div', 'nm-st-clue');
+        wrap.setAttribute('data-context', cid);
+        const btn = el('button', 'nm-st-clue-btn');
+        btn.type = 'button';
+        const sym = el('span', 'nm-st-clue-sym');
+        sym.setAttribute('aria-hidden', 'true');
+        btn.appendChild(sym);
+        btn.appendChild(el('span', 'nm-st-clue-name', env.contextLabel(cid)));
+        const panel = el('div', 'nm-st-clue-body');
+        panel.id = 'nm-clue-' + itemId.replace(/[^A-Za-z0-9_-]/g, '_') + '-' + cid.replace(/[^A-Za-z0-9_-]/g, '_');
+        btn.setAttribute('aria-controls', panel.id);
+        function set(open) {
+          if (open) openClues.add(cid); else openClues.delete(cid);
+          btn.setAttribute('aria-expanded', String(open));
+          wrap.classList.toggle('is-open', open);
+          panel.hidden = !open;
+          panel.textContent = '';
+          if (open) {
+            const v = typeof env.clue === 'function' ? env.clue(cid) : null;
+            if (v) panel.appendChild(v);
+          }
+        }
+        btn.addEventListener('click', () => set(!openClues.has(cid)));
+        wrap.appendChild(btn);
+        wrap.appendChild(panel);
+        set(openClues.has(cid));
+        box.appendChild(wrap);
+      });
+      return box;
+    }
+
     function appendAnswer(box) {
       const a = el('p', 'nm-st-answer');
       a.appendChild(el('span', 'nm-st-answer-label', TX().t('answer')));
@@ -219,7 +263,7 @@
     }
 
     w = NM.ui.stageWindow.open({
-      win: 'item', title: TX().t('win.item'), data: { item: itemId }, className: 'nm-st-itemwin',
+      win: 'item', eyebrow: item.label ? TX().t('win.item') : null, title: itemTitle(env, item), data: { item: itemId }, className: 'nm-st-itemwin',
       build(win) { w = win; render(); },
       onClose(reason) { if (reason !== 'all') env.onItemClosed(itemId); }
     });

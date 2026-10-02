@@ -32,12 +32,14 @@ NM.data.TEXT.stage = {
     needs: '선배의 짧은 설명', misread: '오해 장면', translate: '통역'
   },
   marks: {
-    orig: '原文', explain: '풀이', know: '알아 두기', fiction: '게임 설정 · 虛',
+    orig: '원문', explain: '풀이', know: '알아 두기', fiction: '게임 설정 · 虛',
     variant: '이본 노트', interp: '해석', real: '실제로는 →', src: '출처', notScored: '채점하지 않아요',
+    // 虛 표지 한 줄을 펼치는 단추(펼치면 설정 설명과 "실제로는 →")
+    realShow: '실제 역사 보기', realHide: '실제 역사 접기',
     modern: '현대어 풀이', modernShow: '현대어 풀이 보기', modernHide: '현대어 풀이 접기',
-    // 현대어 풀이 잠김 표지(그 原文으로 푸는 말을 아직 해독하지 않았을 때 — 풀이가 답을 드러내지 않도록)
+    // 현대어 풀이 잠김 표지(그 원문으로 푸는 말을 아직 해독하지 않았을 때 — 풀이가 답을 드러내지 않도록)
     modernLockedLabel: '현대어 풀이 잠김',
-    modernLocked: '이 原文으로 푸는 말을 해독하면 현대어 풀이가 열려요.',
+    modernLocked: '이 원문으로 푸는 말을 해독하면 현대어 풀이가 열려요.',
     noBangjeom: '이 구절은 방점 없이 보여요(점이 없다고 평성이라는 뜻은 아니에요)',
     // 출처 주소 → 사이트 이름(NM.ui.marker.srcLabel)
     sites: {
@@ -57,7 +59,7 @@ NM.data.TEXT.stage = {
 
   hudItems: '풀어야 할 것',
   seen: '살핀 맥락 %n% / %need%',
-  seenList: '살핀 곳: %list%',
+  clues: '살핀 곳 (눌러서 다시 보기)',
   needMore: '같은 말이 쓰인 다른 곳을 하나 더 살펴야 확정할 수 있어요.',
   canConfirm: '두 곳 이상 살폈어요. 카드를 골라 확정해 보세요.',
   pickAgain: '다른 카드를 골라 다시 확정해 보세요.',
@@ -93,5 +95,18 @@ NM.data.TEXT.stage = {
   saveAsk: '해독 수첩을 이미지로 저장할까요?',
   goTranslate: '모든 말을 풀었어요. 의뢰한 사람에게 가서 통역해 주세요.',
   goTranslateTo: '모든 말을 풀었어요. %name%에게 가서 통역해 주세요.',
-  hudLabel: '장면 진행'
+  hudLabel: '장면 진행',
+  // 통역 고르기(js/ui/stage-translate.js) — 해독한 뜻으로 통역 문장을 직접 고르는 창
+  interp: {
+    title: '통역하기',
+    lead: '해독한 뜻을 떠올려 어떻게 옮길지 골라 보세요.',
+    preview: '내가 옮길 말',
+    stepNo: '%n% / %total%',
+    pickAll: '모두 골라야 통역할 수 있어요.',
+    deliver: '이렇게 통역하기',
+    again: '이 부분이 엉뚱하게 전해졌어요. 다시 골라 보세요.',
+    tried: '엉뚱했던 통역',
+    react: '통역을 들은 사람들',
+    misNote: '그렇게 옮겼더니 이야기가 엉뚱해졌어요.'
+  }
 };

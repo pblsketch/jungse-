@@ -70,6 +70,21 @@ try {
   check('intro dialog opens first', t && t.win === 'dialog' && t.kind === 'intro', t);
   check('nickname with vowel-final particle (바다야)', t && t.text.includes('바다야'), t && t.text);
   check('map paused while dialog open', (await page.evaluate(() => NM.engine.test.state().paused)) === true);
+  // 虛 표지는 이야기 앞에 한 줄로(접힘) — '실제 역사 보기'(aria-expanded)를 누르면 "실제로는 →"
+  const ficTag = await page.evaluate((sel) => {
+    const c = document.querySelector(sel + ' .nm-dlg-extras .nm-card-fiction');
+    if (!c) return null;
+    const b = c.querySelector('.nm-card-toggle'), more = c.querySelector('.nm-card-more');
+    const r = { compact: c.classList.contains('is-compact'), mark: c.querySelector('[data-mark="fiction"]').textContent, name: c.querySelector('.nm-card-fname').textContent,
+      label: b && b.textContent, expanded0: b && b.getAttribute('aria-expanded'), controls: b && b.getAttribute('aria-controls') === more.id, hidden0: more.hidden, h0: c.getBoundingClientRect().height };
+    b.click();
+    r.expanded1 = b.getAttribute('aria-expanded'); r.visible1 = !more.hidden && more.getBoundingClientRect().height > 0; r.real = more.textContent; r.label1 = b.textContent;
+    b.click();
+    r.expanded2 = b.getAttribute('aria-expanded'); r.hidden2 = more.hidden;
+    return r;
+  }, TOP);
+  check('intro fiction is a compact one-line tag (collapsed, button with aria-expanded)', !!ficTag && ficTag.compact && ficTag.mark === '게임 설정 · 虛' && ficTag.name === '정음 통사' && ficTag.label === '실제 역사 보기' && ficTag.expanded0 === 'false' && ficTag.controls && ficTag.hidden0 && ficTag.h0 < 70, ficTag);
+  check('fiction toggle expands "실제로는 →" real text and collapses again', !!ficTag && ficTag.expanded1 === 'true' && ficTag.visible1 && ficTag.real.includes('실제로는 →') && ficTag.real.includes('실제 직책이 아니다') && ficTag.label1 === '실제 역사 접기' && ficTag.expanded2 === 'false' && ficTag.hidden2, ficTag);
   const flow = await advance(page);
   const kinds = flow.map(x => x.kind).filter((k, i, a) => a.indexOf(k) === i);
   check('flow order: intro → request → encounter → example → needs', kinds.join() === 'intro,request,encounter,example,needs', kinds);
@@ -89,6 +104,8 @@ try {
   await page.waitForTimeout(50);
   t = await topWin(page);
   check('E near spot opens context window', t && t.win === 'context' && t.context === 's6.c1', t);
+  const ctxTitle = await page.evaluate((sel) => { const h = document.querySelector(sel + ' .nm-st-title'); return { eyebrow: h.querySelector('.nm-st-eyebrow') && h.querySelector('.nm-st-eyebrow').textContent, main: h.querySelector('.nm-st-title-main').textContent }; }, TOP);
+  check('context window title = place name, kind as small eyebrow', ctxTitle.eyebrow === '조사' && ctxTitle.main === '비석', ctxTitle);
   const orig = await page.evaluate((sel) => {
     const w = document.querySelector(sel);
     const lines = [...w.querySelectorAll('.nm-orig .nm-orig-line')];
@@ -122,6 +139,23 @@ try {
   t = await topWin(page);
   check('item window opens from context', t && t.win === 'item' && t.item === 's6.r1', t);
   check('context window inert under item window', await page.evaluate(() => document.querySelector('.nm-st-win[data-win="context"]').hasAttribute('inert')));
+  const itemTitle = await page.evaluate((sel) => { const h = document.querySelector(sel + ' .nm-st-title'); const m = h.querySelector('.nm-st-title-main'); return { eyebrow: h.querySelector('.nm-st-eyebrow') && h.querySelector('.nm-st-eyebrow').textContent, yet: !!m.querySelector('.nm-st-item-title.nm-yet'), sr: m.textContent, bodyLabel: !!document.querySelector(sel + ' .nm-st-body .nm-st-item-label') }; }, TOP);
+  check('item window title = item label (old Hangul DOM), "해독" as eyebrow, no duplicate body label', itemTitle.eyebrow === '해독' && itemTitle.yet && itemTitle.sr.length > 0 && !itemTitle.bodyLabel, itemTitle);
+  // 살핀 곳 칩: 살핀 맥락(s6.c1)만, 접힘 → 펼치면 그 맥락의 원문 카드(현대어 풀이 잠김)와 대사를 창 안에서
+  const clue = await page.evaluate((sel) => {
+    const w = document.querySelector(sel);
+    const chips = [...w.querySelectorAll('.nm-st-clue')];
+    const c = chips[0], b = c && c.querySelector('.nm-st-clue-btn'), body = c && c.querySelector('.nm-st-clue-body');
+    const r = { n: chips.length, ctx: c && c.getAttribute('data-context'), name: b && b.textContent, exp0: b && b.getAttribute('aria-expanded'), ctrl: b && b.getAttribute('aria-controls') === body.id, hidden0: body && body.hidden };
+    b.click();
+    r.exp1 = b.getAttribute('aria-expanded'); r.vis1 = !body.hidden && body.getBoundingClientRect().height > 0;
+    r.orig = [...body.querySelectorAll('.nm-orig')].map(o => o.getAttribute('data-orig')).join();
+    r.locked = !!body.querySelector('.nm-orig-modern-locked'); r.leak = !!body.querySelector('.nm-orig-modern-text') || body.textContent.includes('시험 현대어 풀이');
+    r.line = body.textContent.includes('비석에 글이 있다'); r.stillItem = w.getAttribute('data-win') === 'item' && document.querySelector(sel) === w;
+    return r;
+  }, TOP);
+  check('clue chip per examined context (collapsed, aria-expanded/controls)', clue.n === 1 && clue.ctx === 's6.c1' && clue.name.includes('비석') && clue.exp0 === 'false' && clue.ctrl && clue.hidden0, clue);
+  check('clue chip expands 원문 card (locked 현대어 풀이) + dialog lines inside the item window', clue.exp1 === 'true' && clue.vis1 && clue.orig === 'O-test-A' && clue.locked && !clue.leak && clue.line && clue.stillItem, clue);
   const cardIds = (page) => page.evaluate((sel) => [...document.querySelectorAll(sel + ' .nm-st-card')].map(b => b.getAttribute('data-card')), TOP);
   const r1Order = await cardIds(page);
   const r1Want = await page.evaluate(() => NM.core.rules.cardOrder(NM.data.SCENES.s6.items.find(i => i.id === 's6.r1'), window.__store.seed).map(c => c.id));
@@ -150,6 +184,7 @@ try {
   await page.click(TOP + ' .nm-st-ctx-item[data-item="s6.r1"]');
   conf = await page.evaluate((sel) => { const b = document.querySelector(sel + ' .nm-st-confirm'); return { disabled: b.disabled, seen: document.querySelector(sel + ' .nm-st-seen').textContent }; }, TOP);
   check('2 contexts → confirm enabled', conf.disabled === false && conf.seen.includes('2'), conf);
+  check('2 clue chips after 2 contexts', (await page.evaluate((sel) => [...document.querySelectorAll(sel + ' .nm-st-clue')].map(c => c.getAttribute('data-context')).join(), TOP)) === 's6.c1,s6.c2');
   check('guess restored as checked card', await page.evaluate((sel) => document.querySelector(sel + ' .nm-st-card[data-card="s6.r1.a"]').getAttribute('aria-checked') === 'true', TOP));
 
   // ───────── 4) 오답 확정 → 오해 장면 → 도움 ─────────

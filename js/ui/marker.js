@@ -4,10 +4,11 @@
  *   KINDS                     orig(原文·붉은 낙관) explain(풀이) know(알아 두기) fiction(게임 설정 · 虛)
  *                             variant(이본 노트·채점 안 함) interp(해석·채점 안 함)
  *   badge(kind, opts)         <span class="nm-mark" data-mark>이름표</span>
- *   card({kind, text, src, real, showReal, title, item, fill, solved, document})
+ *   card({kind, text, src, real, showReal, title, item, fill, solved, document, compact, name, id})
  *                             표지 카드. know 는 출처(src), fiction 은 showReal 이면 "실제로는 → real",
+ *                             fiction + compact 면 한 줄 표지(짧은 이름 name, 없으면 text 앞머리) + '실제 역사 보기' 단추(펼치면 text·real),
  *                             variant·interp 는 '채점하지 않아요' 표시. text·title·real 은 장면 데이터 표기(옛한글 가능).
- *   orig(blockId, {solved, document, modern})  NM.data.ORIG[blockId] 원문 카드: 原文 낙관 + 제목 + 줄마다 현대 표기 읽기 + 출처.
+ *   orig(blockId, {solved, document, modern})  NM.data.ORIG[blockId] 원문 카드: '원문' 낙관 + 제목 + 줄마다 현대 표기 읽기 + 출처.
  *                             modern: true 면 현대어 풀이(block.modern)를 붙인다 — 맥락·대사 창만(과제 화면은 답이 드러나서 붙이지 않음).
  *                             modern: 'locked' 면 풀이 글 대신 '해독하면 열려요' 잠김 표지(풀이가 있는 블록만, 설정 '끔'이면 CSS 가 숨김).
  *                             원문 글자는 자동 생성 데이터 그대로 그린다(바꾸지 않는다). 없는 블록이면 null + 오류 모음.
@@ -108,9 +109,60 @@
     return span;
   }
 
+  // 虛 카드의 짧은 이름: o.name, 없으면 설명 글의 앞머리('정음 통사: …', '말의 강 — …'), 그것도 없으면 설명 글 전체
+  // → { name, rest }: rest 는 펼쳤을 때 보일 설명(앞머리를 이름으로 뗐으면 그 뒤만, 이름과 같으면 '')
+  function fictionName(o) {
+    const s = String(o.text || '');
+    if (typeof o.name === 'string' && o.name) return { name: o.name, rest: s };
+    const m = s.match(/^(.{1,30}?)(?::\s|\s[—–]\s)/);
+    return m ? { name: m[1], rest: s.slice(m[0].length) } : { name: s, rest: '' };
+  }
+  // 虛 카드 짧은 꼴(compact): 한 줄 표지(게임 설정 · 虛 — 짧은 이름) + '실제 역사 보기' 단추(aria-expanded).
+  // 펼치면 설명 글과 "실제로는 →" 줄. 실제 설명은 처음부터 DOM 에 있고(접힘), 누르면 바로 보인다.
+  let ficSeq = 0;
+  function fictionCompact(o, doc) {
+    const c = el(doc, 'div', 'nm-card nm-card-fiction is-compact');
+    c.setAttribute('data-mark', 'fiction');
+    if (o.id) c.setAttribute('data-fiction', o.id);
+    const head = el(doc, 'div', 'nm-card-head');
+    head.appendChild(badge('fiction', { document: doc }));
+    const fn = fictionName(o);
+    const t = el(doc, 'span', 'nm-card-title nm-card-fname');
+    t.appendChild(rich(doc, fn.name, o));
+    head.appendChild(t);
+    c.appendChild(head);
+    const more = el(doc, 'div', 'nm-card-more');
+    more.id = 'nm-fic-' + (++ficSeq);
+    more.hidden = true;
+    if (fn.rest && fn.rest !== fn.name) { const p = el(doc, 'p', 'nm-card-text'); p.appendChild(rich(doc, fn.rest, o)); more.appendChild(p); }
+    if (o.real) {
+      const r = el(doc, 'p', 'nm-card-real');
+      r.appendChild(el(doc, 'span', 'nm-card-real-label', TX().t('marks.real')));
+      r.appendChild(doc.createTextNode(' '));
+      r.appendChild(rich(doc, o.real, o));
+      more.appendChild(r);
+    }
+    if (!more.childNodes.length) return c;
+    const btn = el(doc, 'button', 'nm-card-toggle', TX().t('marks.realShow'));
+    btn.type = 'button';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', more.id);
+    btn.addEventListener('click', () => {
+      const open = more.hidden;
+      more.hidden = !open;
+      c.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = TX().t(open ? 'marks.realHide' : 'marks.realShow');
+    });
+    head.appendChild(btn);
+    c.appendChild(more);
+    return c;
+  }
+
   function card(o) {
     const doc = o.document || root.document;
     const k = KINDS.indexOf(o.kind) >= 0 ? o.kind : 'know';
+    if (k === 'fiction' && o.compact) return fictionCompact(o, doc);
     const c = el(doc, 'div', 'nm-card nm-card-' + k);
     c.setAttribute('data-mark', k);
     if (o.item) c.setAttribute('data-item', o.item);

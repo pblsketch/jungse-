@@ -85,7 +85,7 @@ try {
     });
     check(`${env.tag} title: key art is a local file and loads`, tt.url && tt.url.startsWith(server.url) && /assets\/ui\/title-bg[\w-]*\.webp$/.test(tt.url) && tt.loaded, { url: tt.url, loaded: tt.loaded });
     check(`${env.tag} title: art covers the whole screen`, tt.artBox && tt.artBox.l <= 0 && tt.artBox.t <= 0 && tt.artBox.r >= tt.vw - 1 && tt.artBox.b >= tt.vh - 1, tt.artBox);
-    check(`${env.tag} title: title, seal (aria-hidden 原文), subtitle inside the screen`, inView(tt.title, tt) && inView(tt.sub, tt) && tt.seal && tt.seal.hidden === 'true' && tt.seal.text === '原文' && inView(tt.seal.box, tt), { title: tt.title, seal: tt.seal, sub: tt.sub });
+    check(`${env.tag} title: title, seal (aria-hidden 원문), subtitle inside the screen`, inView(tt.title, tt) && inView(tt.sub, tt) && tt.seal && tt.seal.hidden === 'true' && tt.seal.text === '원문' && inView(tt.seal.box, tt), { title: tt.title, seal: tt.seal, sub: tt.sub });
     check(`${env.tag} title: start / settings / credits buttons inside the screen without scrolling, >= 44px`, ['start', 'settings', 'credits'].every(a => tt.btns.some(b => b.act === a)) && tt.btns.every(b => inView(b, tt) && b.w >= 44 && b.h >= 44) && tt.scrollTop === 0, tt.btns);
     check(`${env.tag} title: first focus on the start button with a visible focus ring`, tt.focusAct === 'start' && /solid|auto/.test(tt.outline) && !/^\w+ 0px/.test(tt.outline), { focus: tt.focusAct, outline: tt.outline });
     check(`${env.tag} title: drifting glyph motes present`, tt.motes >= 8 && tt.motesShown, tt.motes);

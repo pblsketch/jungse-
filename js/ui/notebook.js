@@ -2,7 +2,7 @@
 /*
  * NM.ui.notebook — 해독 수첩 창 (plan U1). 장면 고르기 머리 단추, 장면 중 도구 막대, 끝낸 장면 창에서 연다.
  *   open(app, stageId)   stageId 가 없으면 진행 중인 장면 → 마지막으로 끝낸 장면 → 첫 추천 장면 순으로 고른다.
- * 칸: [data-section="items"] 확정한 항목(원문 → 현대어, 원문은 옛한글 글꼴) · translations 옮긴 구절 · reflection 돌아보기 ·
+ * 칸: [data-section="items"] 확정한 항목(원문 → 현대어, 원문은 옛한글 글꼴)과 그 수(.nm-nb-growth: 스스로 / 도움 받아) · translations 옮긴 구절 · reflection 돌아보기 ·
  *     rules 규칙 카드(지금 학교급에서 얻은 것) · unlearned 아직 확인하지 않은 규칙(배우는 장면 이름) · dogam 옛글자 도감(● 만남 / ○ 아직)
  * 장면 고르기 칸 #nm-nb-stage, 이미지 저장 단추 [data-act="save-image"] → NM.ui.notebookImage.open
  */
@@ -61,7 +61,9 @@
         el('span', { class: 'nm-arrow', text: ' ' + t('notebook.arrow') + ' ', attrs: { 'aria-hidden': 'true' } }),
         el('span', { class: 'nm-modern', text: x.modern })
       ]));
-      content.appendChild(section('items', 'notebook.items', items.length ? el('ul', { class: 'nm-nb-list' }, items) : [], 'notebook.itemsEmpty'));
+      // 확정한 말 수(스스로 / 도움 받아) — 첫 시도 정확도 대신
+      const growth = items.length ? el('p', { class: 'nm-nb-growth', text: v.growth.growthText }) : null;
+      content.appendChild(section('items', 'notebook.items', items.length ? [growth, el('ul', { class: 'nm-nb-list' }, items)] : [], 'notebook.itemsEmpty'));
       const tr = v.translations.map(x => el('li', null, yt(x.text, current)));
       content.appendChild(section('translations', 'notebook.translations', tr.length ? el('ul', { class: 'nm-nb-list' }, tr) : [], 'notebook.translationsEmpty'));
       if (v.reflection) content.appendChild(section('reflection', 'notebook.reflection', el('p', { class: 'nm-reflection', text: v.reflection }), 'notebook.itemsEmpty'));

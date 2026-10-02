@@ -32,9 +32,10 @@ try {
   let li = await page.evaluate(() => NM.ui.app.test.lastImage());
   const m = li.model;
   check('in-progress image model', m.status === 'progress' && m.statusText === '진행 중' && m.stageName === '시험 장면 둘' && m.levelLabel === '중학교' && m.name === '김하나' && m.number === '7' && m.nickname === '해솔' && m.teacher === false, m);
-  const need = ['김하나', '7', '해솔', '진행 중', '시험 장면 둘', '중학교', m.createdText, m.title, m.gameTitle, '첫 시도 정확도', '도움 사용', '오해 장면'];
+  const need = ['김하나', '7', '해솔', '진행 중', '시험 장면 둘', '중학교', m.createdText, m.title, m.gameTitle, '스스로 확정한 말 0 · 도움 받아 확정한 말 0', '오해 장면'];
   check('drawn texts include required elements', need.every(n => li.texts.some(t => t.includes(n))), { need, texts: li.texts });
   check('no teacher mark for student', !li.texts.some(t => t.includes('교사 모드')));
+  check('no first-try percentage drawn', !li.texts.some(t => t.includes('첫 시도') || /\d%/.test(t)), li.texts);
   check('canvas size sane', li.width === 1080 && li.height > 600, { w: li.width, h: li.height });
   check('png blob produced', li.blobType === 'image/png' && li.blobSize > 5000, { type: li.blobType, size: li.blobSize });
   check('canvas has drawn pixels', li.inkPixels > 2000, li.inkPixels);
@@ -79,6 +80,8 @@ try {
   await page.selectOption('#nm-nb-stage', 's2');
   const nb2 = await page.$eval('.nm-modal[data-modal="notebook"]', e => e.textContent);
   check('notebook shows confirmed item, translation, rule, reflection', nb2.includes('말씀이') && nb2.includes('시험으로 옮긴 구절') && nb2.includes('시험용 규칙 문장 하나') && nb2.includes('아래아를 찾았다'), nb2.slice(0, 400));
+  const growth = await page.$eval('.nm-modal[data-modal="notebook"] [data-section="items"] .nm-nb-growth', e => e.textContent).catch(() => null);
+  check('notebook items show growth counts (no first-try %)', growth === '스스로 확정한 말 1 · 도움 받아 확정한 말 0' && !nb2.includes('첫 시도'), growth);
   check('confirmed item original rendered with yet font', await page.$eval('.nm-modal[data-modal="notebook"] [data-section="items"] .nm-yet', e => getComputedStyle(e).fontFamily.includes('NMYet')));
   await page.click('.nm-modal[data-modal="notebook"] [data-act="save-image"]');
   await P.waitModal('image-form');
@@ -87,8 +90,8 @@ try {
   li = await page.evaluate(() => NM.ui.app.test.lastImage());
   const d = li.model;
   check('done image model', d.status === 'done' && d.statusText === '완료' && d.glyph === 'ㆍ' && d.items.length === 1 && d.items[0].modern === '말씀이' && d.translations[0] === '시험으로 옮긴 구절' && d.rules[0].name === '아래아' && d.reflection === '아래아를 찾았다', d);
-  check('done image stats (first try 0%, helps 2, misread 1)', d.stats.firstTryText === '0%' && d.stats.helps === 2 && d.stats.misreads === 1, d.stats);
-  const need2 = ['완료', 'ㆍ', '말씀이', d.items[0].orig, '시험으로 옮긴 구절', '아래아', '아래아를 찾았다', '0%'];
+  check('done image stats (self 1, by help 0, misread 1)', d.stats.self === 1 && d.stats.byHelp === 0 && d.stats.misreads === 1 && d.stats.growthText === '스스로 확정한 말 1 · 도움 받아 확정한 말 0', d.stats);
+  const need2 = ['완료', 'ㆍ', '말씀이', d.items[0].orig, '시험으로 옮긴 구절', '아래아', '아래아를 찾았다', '스스로 확정한 말 1', '오해 장면   1번'];
   check('done image draws items/rules/reflection/glyph', need2.every(n => li.texts.some(t => t.includes(n))), { need2, texts: li.texts });
   check('fonts loaded before drawing', li.fontsReady === true);
   // ── 4) 캔버스 옛한글: NMYet 로 조합되어 한 음절 너비

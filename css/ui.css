@@ -412,6 +412,7 @@
 .nm-nb-section { margin: 1em 0; }
 .nm-nb-title { margin: 0 0 .3em; font-size: calc(18px * var(--fs, 1)); color: var(--interp); border-bottom: 2px solid #d8c9ad; }
 .nm-nb-list, .nm-dogam-list { list-style: none; margin: 0; padding: 0; }
+.nm-nb-growth { margin: 0 0 .3em; font-weight: 600; font-size: calc(15px * var(--fs, 1)); }
 .nm-nb-list > li, .nm-dogam-list > li { padding: .35em 0; border-bottom: 1px dashed #d8c9ad; }
 /* 수첩의 확정한 말(옛 형태). 이름을 .nm-orig 로 쓰면 장면 原文 카드(.nm-orig, css/stage.css)와 겹쳐
    原文 카드·기믹 원문 줄 안의 옛한글만 24px 로 커지고, 수첩 낱말에는 原文 카드 테두리가 씌워진다. */

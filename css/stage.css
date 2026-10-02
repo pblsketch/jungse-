@@ -372,3 +372,51 @@ html[data-nm-eum="off"] .nm-eum-rt { display: none; }
 
 /* 실마리 더 보기(S03) — 확정 단추보다 덜 눈에 띄게 */
 .nm-st-morehelp { opacity: .92; }
+
+/* 창 제목: 작은 윗글(갈래 — 해독·과제·조사) + 지금 할 일(항목 이름·장소 이름) */
+.nm-st-title.has-eyebrow { display: flex; flex-direction: column; gap: 0; line-height: 1.3; }
+.nm-st-eyebrow { font-size: .72em; font-weight: 700; letter-spacing: .08em; opacity: .7; }
+.nm-st-title-main { min-width: 0; }
+.nm-st-itemwin .nm-st-title-main, .nm-st-taskwin .nm-st-title-main { font-size: 1.22em; letter-spacing: .03em; }
+
+/* 虛 한 줄 표지(compact) — 이야기 앞에 크게 늘어놓지 않는다. '실제 역사 보기'를 누르면 설정 설명과 "실제로는 →" */
+.nm-card-fiction.is-compact { padding: .3em .6em; font-size: .9em; border-left-width: 4px; }
+.nm-card-fiction.is-compact .nm-card-head { gap: .25em .5em; }
+.nm-card-fiction.is-compact .nm-mark { font-size: .82em; }
+.nm-card-fname { flex: 1 1 4em; min-width: 0; font-weight: 600; }
+.nm-card-toggle {
+  margin-left: auto; min-height: 2.2em; padding: .15em .75em; cursor: pointer;
+  font: 600 .85em/1.3 var(--font-ui, system-ui, sans-serif); color: var(--fiction, #2f8a86);
+  border: 1.5px solid currentColor; border-radius: 999px; background: #fffdf7;
+}
+.nm-card-toggle:hover { background: #e3f1ee; }
+.nm-card-toggle::after { content: '\00a0\25BE'; }
+.nm-card-fiction.is-open .nm-card-toggle::after { content: '\00a0\25B4'; }
+.nm-card-more { padding: .1em 0 .2em; }
+.nm-card-more[hidden] { display: none; }
+.nm-dlg-extras:has(> .nm-card-fiction.is-compact) { gap: .35em; }
+
+/* 해독 창의 '살핀 곳' 칩 — 펼치면 그 맥락의 원문 카드·대사를 창 안에서 작게 다시 본다 */
+.nm-st-clues { display: flex; flex-direction: column; gap: .35em; margin-top: .35em; }
+.nm-st-seenbox p.nm-st-clues-label { margin: 0; font-size: .85em; font-weight: 600; opacity: .85; }
+.nm-st-clue { border-radius: 10px; }
+.nm-st-clue-btn {
+  display: flex; align-items: center; gap: .45em; width: 100%; min-height: 44px; padding: .3em .75em; text-align: left; cursor: pointer;
+  border: 1.5px solid var(--st-line); border-radius: 10px; background: #fffdf7; color: var(--ink, #2b2420);
+  font: 600 .92em/1.35 var(--font-ui, system-ui, sans-serif);
+}
+.nm-st-clue-btn:hover { border-color: var(--ink, #2b2420); }
+.nm-st-clue-sym::before { content: '\25B8'; display: inline-block; width: 1em; text-align: center; }
+.nm-st-clue.is-open .nm-st-clue-sym::before { content: '\25BE'; }
+.nm-st-clue.is-open .nm-st-clue-btn { border-color: var(--ink, #2b2420); border-radius: 10px 10px 0 0; background: var(--hanji, #efe4cf); }
+.nm-st-clue-body { padding: .55em .65em; border: 1.5px solid var(--ink, #2b2420); border-top: 0; border-radius: 0 0 10px 10px; background: var(--paper, #f6efe2); font-size: .9em; }
+.nm-st-clue-body[hidden] { display: none; }
+.nm-st-clue-view { display: flex; flex-direction: column; gap: .55em; }
+.nm-st-clue-view .nm-orig { padding: .55em .7em .5em; }
+.nm-st-clue-view .nm-orig-line { font-size: 1.2em; }
+.nm-st-clue-view .nm-dlg-cg { display: none; }
+.nm-st-clue-view .nm-dlg-line.has-cg { flex-wrap: nowrap; }
+.nm-st-clue-view .nm-dlg-portrait { width: 2.3em; height: 2.3em; }
+.nm-st-clue-view .nm-dlg-text { font-size: 1em; }
+.nm-st-clue-view .nm-ctx-lines { gap: .4em; }
+@media (pointer: coarse) { .nm-card-toggle { min-height: 44px; } }

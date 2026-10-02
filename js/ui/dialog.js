@@ -8,8 +8,8 @@
  * 대사 줄: 문자열(해설) 또는 { who, text, portrait, fiction, mark, src }
  *   who: 'me'(주인공 — 별명 또는 '통사'), 'senior'·'sejong'·'narrator'(TEXT.stage.speakers), 또는 scene.cast 의 키
  *   text: 장면 데이터 표기(옛한글·루비·꾸밈) + 별명 자리 <@> <@이> …
- *   fiction: true 면 이름 옆에 '게임 설정 · 虛' 표지. scene.fiction 의 카드 id 면 그 카드를 줄 아래에 붙이고,
- *            처음 나올 때만 "실제로는 →" 을 함께 보인다(본 것은 store.markNotice('fiction:<id>')).
+ *   fiction: true 면 이름 옆에 '게임 설정 · 虛' 표지. scene.fiction 의 카드 id 면 그 카드를 줄 아래에 한 줄 표지로 붙인다
+ *            ('실제 역사 보기'를 누르면 설정 설명과 "실제로는 →"; 본 것은 store.markNotice('fiction:<id>')).
  *   mark: 'know'|'variant'|'interp'|'explain' 이면 대사 대신 표지 카드로 보인다(src 는 출처).
  *   portrait: NM.data.ASSETS.portraits 의 키(없으면 cast[who].portrait → who). 그림이 없으면 이름 첫 글자 동그라미.
  * env: 진행기가 주는 { scene, store, teacher, fill(text), callName(), solved(), seenFiction(id), markFiction(id) }
@@ -83,7 +83,8 @@
     const f = list.filter(x => x && x.id === id)[0];
     if (!f) { NM.reportError('stage.dialog', 'unknown fiction card: ' + id); return null; }
     const first = !(env.seenFiction && env.seenFiction(id));
-    const c = MK().card({ kind: 'fiction', text: f.text, real: f.real, showReal: first, fill: env.fill });
+    // 한 줄 표지 + '실제 역사 보기'(펼치면 설정 설명과 "실제로는 →"). 접혀 있으니 처음이 아니어도 실제 설명을 둔다.
+    const c = MK().card({ kind: 'fiction', compact: true, id: f.id, name: f.name, text: f.text, real: f.real, showReal: true, fill: env.fill });
     if (first && env.markFiction) env.markFiction(id);
     return c;
   }

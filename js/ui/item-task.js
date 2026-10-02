@@ -85,6 +85,12 @@
       if (moreBtn && !moreBtn.hidden) moreBtn.focus(); else if (w) w.focus();
     }
 
+    function taskTitle() {
+      const s = el('span', 'nm-st-item-title');
+      s.appendChild(YB().build(env.fill(item.label), {}));
+      return s;
+    }
+
     function setStatus(key, kind) {
       status.textContent = key ? TX().t(key) : '';
       status.setAttribute('data-result', kind || '');
@@ -121,11 +127,12 @@
     }
 
     w = NM.ui.stageWindow.open({
-      win: 'task', title: TX().t('win.task'), data: { item: itemId }, className: 'nm-st-taskwin',
+      // 창 제목은 이 과제에서 할 일(item.label), 그 위 작은 글로 갈래('과제')
+      win: 'task', eyebrow: item.label ? TX().t('win.task') : null, title: item.label ? taskTitle() : TX().t('win.task'),
+      data: { item: itemId }, className: 'nm-st-taskwin',
       build(win) {
         const rec = env.rec(itemId) || NM.core.rules.newItemRecord('task');
         const done = NM.core.rules.isItemDone(rec);
-        if (item.label) { const l = el('div', 'nm-st-item-label'); l.appendChild(YB().build(env.fill(item.label), {})); win.body.appendChild(l); }
         if (item.prompt) win.body.appendChild(rich(env, item.prompt, 'nm-st-prompt'));
         const mount = el('div', 'nm-st-gimmick');
         mount.setAttribute('data-gimmick', String(item.gimmick || ''));
