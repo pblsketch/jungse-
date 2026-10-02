@@ -3,7 +3,7 @@
  * NM.ui.settings — 설정 창 (spec §11 표 전부, §9 교사 모드 켜기·끄기). 언제든 연다(첫 화면·장면 고르기·장면 중 도구 막대).
  *   open(app)
  * 줄마다 [data-setting="<이름>"] 안에 data-value 단추. 고른 값은 aria-pressed="true" + 기호(●)로도 보인다.
- *   level(m|h1|h23) · bangjeom(on|off) · modern(tap|always|off: 原文 현대어 풀이) · fontScale(1|2|3) · reducedMotion(auto|on|off) · bgm(on|off) · sfx(on|off)
+ *   level(m|h1|h23) · bangjeom(on|off) · modern(tap|always|off: 原文 현대어 풀이) · eum(on|off: 한자 음) · fontScale(1|2|3) · reducedMotion(auto|on|off) · bgm(on|off) · sfx(on|off)
  *   teacher: [data-act="teacher-on"] / [data-act="teacher-off"], 학교급을 모르면 [data-act="teacher-level"][data-value]
  *   newstart: [data-act="newstart"] (확인 창 뒤 지움)
  * 장면 중에는 학교급·교사 모드·새로 시작을 잠근다(장면이 그 학교급·기록으로 돌고 있으므로). 교사 모드에서는 새로 시작을 잠근다.
@@ -61,6 +61,8 @@
       body.appendChild(row('modern', 'settings.modern', 'settings.modernHelp',
         seg('modern', ['tap', 'always', 'off'].map(v => ({ value: v, label: t('settings.moderns.' + v) })), s.modern || 'tap',
           v => app.updateSettings({ modern: v }))));
+      body.appendChild(row('eum', 'settings.eum', 'settings.eumHelp',
+        seg('eum', onOff(), s.eum === false ? 'off' : 'on', v => app.updateSettings({ eum: v === 'on' }))));
       body.appendChild(row('fontScale', 'settings.fontScale', null,
         seg('fontScale', [1, 2, 3].map(v => ({ value: String(v), label: t('settings.fontScales.' + v) })), String(s.fontScale), v => app.updateSettings({ fontScale: Number(v) }))));
       const rm = s.reducedMotion === 'auto' ? 'auto' : (s.reducedMotion ? 'on' : 'off');

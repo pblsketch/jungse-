@@ -107,6 +107,8 @@ NM.data.TEXT.ui = {
     modern: '현대어 풀이',
     modernHelp: '原文 아래에 오늘날 말로 옮긴 풀이를 보여 줘요. 과제 화면에는 나오지 않아요.',
     moderns: { tap: '눌러서 보기', always: '늘 보기', off: '끔' },
+    eum: '한자 음 달기',
+    eumHelp: '한자 아래에 오늘날 음을 작게 달아요. 原文에 원래 적힌 옛 읽기는 늘 보여요.',
     fontScale: '글자 크기',
     fontScales: { 1: '보통', 2: '크게', 3: '아주 크게' },
     reducedMotion: '움직임 줄이기',

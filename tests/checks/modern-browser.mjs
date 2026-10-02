@@ -1,4 +1,4 @@
-// 현대어 풀이 설정: 原文 카드(맥락·대사 창, modern: true) 아래 현대어 풀이가
+// 현대어 풀이·한자 음 설정: 原文 카드(맥락·대사 창, modern: true) 아래 현대어 풀이가
 // '눌러서 보기'(처음 값)면 단추로 펼치고, '늘 보기'면 바로 보이고, '끔'이면 숨는다. 과제 화면용 카드(modern 없음)에는 없다.
 // 실제 데이터: 현대어 풀이가 있는 原文 블록은 줄마다 풀이가 하나씩 있다. 콘솔 오류 0.
 import { chromium } from 'playwright';
@@ -69,6 +69,32 @@ try {
   await page.click('[data-setting="modern"] [data-value="tap"]');
   v = await vis();
   check('back to tap', v.attr === 'tap' && v.btn, v);
+  // 한자 음 달기: 맨 한자 아래 오늘날 음(rt.nm-eum-rt), 原文에 원래 있던 읽기({中|듕})는 음을 달지 않고 그대로, 모두 글자 아래
+  await page.evaluate(() => {
+    const c = NM.ui.marker.orig('O-s9-HANMUN4', {}); c.id = 'card-eum';
+    const d = NM.ui.marker.orig('O-s9-SEOMUN1', {}); d.id = 'card-ruby';
+    document.getElementById('modern-host').append(c, d);
+  });
+  const eum = () => page.evaluate(() => {
+    const shown = (e) => !!e && getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().height > 0;
+    const rts = [...document.querySelectorAll('#card-eum rt.nm-eum-rt')];
+    const ruby = document.querySelector('#card-ruby ruby:not(.nm-eum)');
+    return {
+      attr: document.documentElement.getAttribute('data-nm-eum'), text: rts.map(r => r.textContent).join(''),
+      shown: rts.length > 0 && rts.every(shown), under: ruby ? getComputedStyle(ruby).rubyPosition : null,
+      srcRubyEum: document.querySelectorAll('#card-ruby ruby:not(.nm-eum) rt.nm-eum-rt, #card-ruby ruby:not(.nm-eum) ruby').length
+    };
+  });
+  let e = await eum();
+  check('eum on by default, readings under bare hanja', e.attr === 'on' && e.shown && e.text === '욕사인인이습편어일용이', e);
+  check('ruby readings sit under the hanja', e.under === 'under', e.under);
+  check('source ruby ({中|듕}) gets no added eum', e.srcRubyEum === 0, e);
+  await page.evaluate(() => document.querySelector('[data-setting="eum"] [data-value="off"]').click());
+  e = await eum();
+  check('eum off hides added readings', e.attr === 'off' && !e.shown, e);
+  await page.evaluate(() => document.querySelector('[data-setting="eum"] [data-value="on"]').click());
+  e = await eum();
+  check('eum on again', e.attr === 'on' && e.shown, e);
   check('no console errors', errors.length === 0, errors);
 } catch (e) { failed++; console.log('  FAIL exception — ' + (e && e.stack || e)); }
 finally { if (browser) await browser.close(); await server.close(); clearTimeout(HARD_LIMIT); }

@@ -313,3 +313,10 @@ html[data-nm-motion="reduce"] .nm-st-glyph, html.nm-reduced-motion .nm-st-glyph 
 html[data-nm-modern="always"] .nm-orig-modern-btn { display: none; }
 html[data-nm-modern="always"] .nm-orig-modern-text { display: block; }
 html[data-nm-modern="off"] .nm-orig-modern { display: none; }
+
+/* 한자 음 — 모든 루비 읽기는 글자 아래. 맨 한자에 단 오늘날 음(.nm-eum-rt)은 연한 색·본문 글꼴로 原文 읽기와 구별,
+   설정 '한자 음 달기'가 끔이면 <html data-nm-eum="off"> 로 숨긴다 */
+ruby { ruby-position: under; }
+rt.nm-eum-rt { font-family: var(--font-ui); color: #8a6d4b; font-size: .62em; }
+.nm-gbs-eum { display: block; font-family: var(--font-ui); color: #8a6d4b; font-size: .8em; line-height: 1.1; text-align: center; }
+html[data-nm-eum="off"] .nm-eum-rt { display: none; }

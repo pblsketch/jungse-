@@ -78,6 +78,7 @@
     html.classList.toggle('nm-reduced-motion', reduced);
     const Y = NM.core.yet;
     if (Y && typeof Y.setBangjeom === 'function') Y.setBangjeom(s.bangjeom !== false);
+    html.setAttribute('data-nm-eum', s.eum === false ? 'off' : 'on');
     html.setAttribute('data-nm-modern', s.modern === 'always' || s.modern === 'off' ? s.modern : 'tap');
     const E = NM.engine;
     if (E && typeof E.setReducedMotion === 'function') E.setReducedMotion(reduced);

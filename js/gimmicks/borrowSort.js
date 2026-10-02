@@ -113,6 +113,7 @@
       const row = el('div', 'nm-gbs-row');
       const interpAt = {};
       ln.notes.forEach(n => n.at.forEach(i => { interpAt[i] = n.kind; }));
+      const eum = NM.ui.stageYet && NM.ui.stageYet.eums ? NM.ui.stageYet.eums(ln.chars) : [];
       ln.chars.forEach((ch, i) => {
         if (/\s/.test(ch)) { const g = el('span', 'nm-gbs-gap'); g.setAttribute('aria-hidden', 'true'); row.appendChild(g); return; }
         const t = ln.targets.filter(x => x.at === i)[0];
@@ -120,6 +121,7 @@
         const c = el('span', 'nm-gbs-char nm-yet', ch);
         c.setAttribute('aria-hidden', 'true');
         cell.appendChild(c);
+        if (eum[i]) { const e = el('span', 'nm-eum-rt nm-gbs-eum', eum[i]); e.setAttribute('aria-hidden', 'true'); cell.appendChild(e); }
         if (!t) {
           if (interpAt[i]) { cell.classList.add('is-note'); cell.setAttribute('data-note', interpAt[i]); }
           row.appendChild(cell);

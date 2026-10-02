@@ -17,7 +17,7 @@ console.error = (...a) => { origErr(...a); throw new Error('console.error 사용
 const def = J(S.defaultRecord('h1'));
 assert.deepEqual(def, {
   v: S.VERSION, level: 'h1', protagonist: 1, nickname: '',
-  settings: { bangjeom: true, modern: 'tap', fontScale: 1, reducedMotion: 'auto', bgm: true, sfx: true },
+  settings: { bangjeom: true, modern: 'tap', eum: true, fontScale: 1, reducedMotion: 'auto', bgm: true, sfx: true },
   prologueDone: false, progress: {}, glyphs: {}, seenNotices: []
 });
 
@@ -36,7 +36,7 @@ assert.deepEqual(def, {
   assert.equal(store.get().nickname, '세종1');
   store.setSettings({ fontScale: 3, bgm: false, reducedMotion: true, junk: 1, sfx: 'x' });
   const s = J(store.get().settings);
-  assert.deepEqual(s, { bangjeom: true, modern: 'tap', fontScale: 3, reducedMotion: true, bgm: false, sfx: true });
+  assert.deepEqual(s, { bangjeom: true, modern: 'tap', eum: true, fontScale: 3, reducedMotion: true, bgm: false, sfx: true });
   // 서장
   const r0 = clearStage(ctx, store, S0);
   assert.equal(r0.ok, true);
@@ -261,7 +261,7 @@ assert.deepEqual(def, {
   assert.equal(g.level, 'm');
   assert.equal(g.protagonist, 1);
   assert.equal(g.nickname, '');
-  assert.deepEqual(g.settings, { bangjeom: true, modern: 'tap', fontScale: 1, reducedMotion: 'auto', bgm: false, sfx: true });
+  assert.deepEqual(g.settings, { bangjeom: true, modern: 'tap', eum: true, fontScale: 1, reducedMotion: 'auto', bgm: false, sfx: true });
   assert.equal(g.prologueDone, false);
   assert.deepEqual(Object.keys(g.progress), ['h1']);
   assert.deepEqual(Object.keys(g.progress.h1), ['s4']);
