@@ -6,13 +6,18 @@
  *   opts: { document, solved: [{itemId, forms, gloss}], yetAll(true면 전체를 NMYet 으로) }
  *
  * ■ 방점을 음절 왼쪽에 찍는 방법 (spec §13, 결정 기록 0001 의 '알려진 한계' 해결)
- *   NMYet 글꼴은 U+302E/302F 방점을 음절 오른쪽에 그린다. 교과서·판본은 왼쪽이다.
+ *   방점 글자 U+302E/302F 는 글꼴이 그린다 — 그리는 자리·간격이 글꼴마다 다르고, 음절 뒤가 아니면 점선 동그라미(◌)와
+ *   함께 그려지며, 켜기/끄기 때마다 글을 다시 그려야 한다.
  *   그래서 화면에서는 방점 글자를 글자열에서 빼고, 음절을 <span class="nm-bj-syl" data-bj="1|2"> 로 감싼 뒤
  *   그 안 왼쪽 끝에 점 요소 <span class="nm-bj" aria-hidden="true"> 를 둔다(점은 css/stage.css 가 그린다:
  *   1점 거성, 2점 상성 — 위아래 두 점). 음절 글자 자체는 그대로 DOM 글자다.
  *   방점 켜기/끄기: <html data-nm-bangjeom="on|off"> 로 점만 숨긴다(다시 그리지 않음). 진행기가 설정·장면(s4·s10 늘 켬)에 맞춰 바꾼다.
  *   화면 낭독기: 원문 줄은 눈에 보이는 글자(aria-hidden)와 따로 현대 표기 읽기(.nm-sr, data-modern)를 둔다.
- *   옛한글 음절(첫가끝 자모가 든 음절)은 <span class="nm-yet"> 로 감싸 NMYet 글꼴의 조합 기능을 쓰게 한다.
+ *   옛말 낱말은 <span class="nm-yet"> 로 감싸 NMYet 글꼴(옛한글 조합 기능)로 그린다. 감싸는 단위는 음절 하나가 아니라
+ *   '낱말'(띄어쓰기·문장 부호로 끊기는 한글·한자 글자 묶음)이다: 묶음 안에 옛한글 음절이나 방점 찍힌 음절이 하나라도
+ *   있으면 묶음 전체를 감싼다. 음절 하나만 감싸면 한 낱말 안에서 글꼴이 바뀌어(나랏말[ㅆㆍ]미 → 고딕·명조·고딕)
+ *   굵기·크기·기준선이 들쭉날쭉해진다. 옛말 낱말 안의 한자도 함께 명조로 그린다(父母[ㄹㆍㄹ]).
+ *   루비(한자+읽기)는 바탕이나 읽기가 옛말이면 <ruby class="nm-yet">. yetAll(원문 줄)이면 바깥이 이미 .nm-yet 이다.
  * ■ 확정한 말의 현대어 풀이: solved 의 forms(데이터 표기)와 방점을 뺀 음절열이 같은 곳을
  *   <span class="nm-solved" data-item> 로 감싸고 뒤에 <span class="nm-gloss">풀이</span> 를 붙인다(표시만, 판정과 무관).
  * 필요: ns.js, core/yet.js
@@ -59,15 +64,41 @@
     return out.sort((a, b) => a.start - b.start);
   }
 
-  // 음절 묶음 배열을 parent 에 그린다(방점 → 왼쪽 점, 옛한글 → .nm-yet)
-  function appendUnits(doc, parent, units, yetAll) {
-    let textBuf = '', yetSpan = null;
-    const flushText = () => { if (textBuf) { parent.appendChild(doc.createTextNode(textBuf)); textBuf = ''; } };
-    const endYet = () => { yetSpan = null; };
-    units.forEach(u => {
-      const info = unitInfo(u);
+  // 낱말을 이루는 글자: 한글 음절·첫가끝 자모·호환 자모·한자
+  const WORDCH = /^(?:[ᄀ-ᇿꥠ-꥿ힰ-퟿가-힣ㄱ-ㆎ㐀-䶿一-鿿豈-﫿]|[\u{20000}-\u{3134F}])/u;
+  // 옛말 낱말 자리: 낱말 글자 묶음 안에 옛한글 음절이나 방점 음절이 있으면 그 묶음 전체가 true
+  function medievalMask(infos) {
+    const med = new Array(infos.length).fill(false);
+    let i = 0;
+    while (i < infos.length) {
+      if (!WORDCH.test(infos[i].base)) { i++; continue; }
+      let j = i, hit = false;
+      while (j < infos.length && WORDCH.test(infos[j].base)) { if (infos[j].archaic || infos[j].tone) hit = true; j++; }
+      if (hit) for (let k = i; k < j; k++) med[k] = true;
+      i = j;
+    }
+    return med;
+  }
+  function isMedieval(str) {
+    try { return Y().splitSyllables(str).some(u => { const f = unitInfo(u); return f.archaic || f.tone > 0; }); }
+    catch (e) { return false; }
+  }
+
+  // 음절 묶음 배열을 parent 에 그린다(방점 → 왼쪽 점, 옛말 낱말 → .nm-yet)
+  // mask: 옛말 낱말 자리(build 가 꾸밈·루비 경계를 넘어 미리 셈). 없으면 이 음절들만 보고 센다.
+  function appendUnits(doc, parent, units, yetAll, mask) {
+    const infos = units.map(unitInfo);
+    const med = yetAll ? null : (mask || medievalMask(infos));
+    let buf = '', bufTo = null, yetSpan = null;
+    const flush = () => { if (buf) { bufTo.appendChild(doc.createTextNode(buf)); buf = ''; } };
+    infos.forEach((info, i) => {
+      let to = parent;
+      if (med && med[i]) {
+        if (!yetSpan) { flush(); yetSpan = doc.createElement('span'); yetSpan.className = 'nm-yet'; parent.appendChild(yetSpan); }
+        to = yetSpan;
+      } else if (yetSpan) { flush(); yetSpan = null; }
       if (info.tone) {
-        flushText(); endYet();
+        flush();
         const syl = doc.createElement('span');
         syl.className = 'nm-bj-syl';
         syl.setAttribute('data-bj', String(info.tone));
@@ -75,34 +106,27 @@
         dot.className = 'nm-bj';
         dot.setAttribute('aria-hidden', 'true');
         syl.appendChild(dot);
-        if (info.archaic && !yetAll) {
-          const y = doc.createElement('span'); y.className = 'nm-yet'; y.appendChild(doc.createTextNode(info.base)); syl.appendChild(y);
-        } else syl.appendChild(doc.createTextNode(info.base));
-        parent.appendChild(syl);
+        syl.appendChild(doc.createTextNode(info.base));
+        to.appendChild(syl);
         return;
       }
-      if (info.archaic && !yetAll) {
-        flushText();
-        if (!yetSpan) { yetSpan = doc.createElement('span'); yetSpan.className = 'nm-yet'; parent.appendChild(yetSpan); }
-        yetSpan.appendChild(doc.createTextNode(info.base));
-        return;
-      }
-      endYet();
-      textBuf += info.base;
+      if (bufTo !== to) { flush(); bufTo = to; }
+      buf += info.base;
     });
-    flushText();
+    flush();
   }
 
-  function appendString(doc, parent, str, opts) {
+  function appendString(doc, parent, str, opts, mask) {
     const units = Y().splitSyllables(str);
     const matches = findMatches(units, opts.solved);
+    const part = (a, b) => (mask ? mask.slice(a, b) : null);
     let i = 0;
     matches.forEach(m => {
-      if (m.start > i) appendUnits(doc, parent, units.slice(i, m.start), opts.yetAll);
+      if (m.start > i) appendUnits(doc, parent, units.slice(i, m.start), opts.yetAll, part(i, m.start));
       const wrap = doc.createElement('span');
       wrap.className = 'nm-solved';
       wrap.setAttribute('data-item', m.s.itemId);
-      appendUnits(doc, wrap, units.slice(m.start, m.start + m.len), opts.yetAll);
+      appendUnits(doc, wrap, units.slice(m.start, m.start + m.len), opts.yetAll, part(m.start, m.start + m.len));
       const g = doc.createElement('span');
       g.className = 'nm-gloss';
       g.appendChild(doc.createTextNode(m.s.gloss));
@@ -110,7 +134,22 @@
       parent.appendChild(wrap);
       i = m.start + m.len;
     });
-    if (i < units.length) appendUnits(doc, parent, units.slice(i), opts.yetAll);
+    if (i < units.length) appendUnits(doc, parent, units.slice(i), opts.yetAll, part(i, units.length));
+  }
+
+  // 옛말 낱말 자리를 꾸밈(**굵게** _밑줄_)·루비 경계를 넘어 센다: 'tk.mask'(글 토큰의 음절마다), 'tk.med'(루비).
+  // 루비는 한자 한 글자처럼 보고, 바탕이나 읽기가 옛말이면 그 자체로 옛말이다({中|[ㄷㅠㆁ]}·에 · {羅雲|라운}·의).
+  function maskTokens(tokens) {
+    const flat = [];
+    const out = tokens.map((tk, ti) => {
+      if (tk.type === 'ruby') { flat.push({ ti, k: -1, info: { base: '漢', tone: 0, archaic: isMedieval(tk.base) || isMedieval(tk.reading) } }); return { med: false }; }
+      const units = Y().splitSyllables(tk.text);
+      units.forEach((u, k) => flat.push({ ti, k, info: unitInfo(u) }));
+      return { mask: new Array(units.length).fill(false) };
+    });
+    const m = medievalMask(flat.map(f => f.info));
+    flat.forEach((f, i) => { if (f.k < 0) out[f.ti].med = m[i]; else out[f.ti].mask[f.k] = m[i]; });
+    return out;
   }
 
   function build(text, opts) {
@@ -120,10 +159,12 @@
     let tokens;
     try { tokens = Y().parse(String(text == null ? '' : text), { bangjeom: true }); }
     catch (e) { NM.reportError('stageYet.build', e); frag.appendChild(doc.createTextNode(String(text))); return frag; }
-    tokens.forEach(tk => {
+    const marks = o.yetAll ? null : maskTokens(tokens);
+    tokens.forEach((tk, ti) => {
       let node;
       if (tk.type === 'ruby') {
         node = doc.createElement('ruby');
+        if (marks && marks[ti].med) node.className = 'nm-yet';
         appendString(doc, node, tk.base, { yetAll: o.yetAll });
         const rp1 = doc.createElement('rp'); rp1.appendChild(doc.createTextNode('('));
         const rt = doc.createElement('rt'); appendString(doc, rt, tk.reading, { yetAll: o.yetAll });
@@ -132,7 +173,7 @@
       } else {
         node = doc.createElement('span');
         node.className = 'nm-tk';
-        appendString(doc, node, tk.text, o);
+        appendString(doc, node, tk.text, o, marks ? marks[ti].mask : null);
       }
       if (tk.underline) { const u = doc.createElement('u'); u.appendChild(node); node = u; }
       if (tk.bold) { const b = doc.createElement('strong'); b.appendChild(node); node = b; }

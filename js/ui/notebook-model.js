@@ -133,8 +133,8 @@
   function stamp(d) {
     return '' + d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '-' + pad(d.getHours()) + pad(d.getMinutes());
   }
-  // 패 글자 평문: 표기([ㅳ] 등)를 풀고, 방점 하나(〮·〯)는 그대로 둔다
-  function glyphText(g) { return /^[〮〯]$/.test(g) ? g : plain(g, true); }
+  // 패 글자 평문: 표기를 풀고, 방점 하나(〮·〯)는 점 글자로(글꼴이 홀로 선 방점을 ◌ 와 함께 그리므로 — yet.soloTone)
+  function glyphText(g) { return /^[〮〯]$/.test(g) ? NM.core.yet.soloTone(g) : plain(g, true); }
   function plain(text, bangjeom) {
     const Y = NM.core.yet;
     try { return Y.render(String(text || ''), { bangjeom }); } catch (e) { NM.reportError('ui.notebookModel.render', e); return String(text || ''); }

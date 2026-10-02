@@ -4,8 +4,8 @@
   "NMYet": {
    "file": "NMYet.woff2",
    "source": "NotoSerifKR-Regular.otf (notofonts/noto-cjk, SIL OFL 1.1)",
-   "bytes": 2129356,
-   "sha256": "388866050ba78a85a00bde3da50656a59812e17855bde7ebf461e0b7fbe7a4ea",
+   "bytes": 2129768,
+   "sha256": "4159c7ce94e19a6302c47b32e678c309753b37f66b116d36a3d03bb81de0c309",
    "features": [
     "ccmp",
     "ljmo",
@@ -186,6 +186,10 @@
      12351
     ],
     [
+     12539,
+     12539
+    ],
+    [
      12593,
      12686
     ],
@@ -300,6 +304,10 @@
     [
      20351,
      20351
+    ],
+    [
+     20363,
+     20363
     ],
     [
      20379,
@@ -2014,8 +2022,8 @@
   "NMSans": {
    "file": "NMSans.woff2",
    "source": "NotoSansKR-Regular.otf (notofonts/noto-cjk, SIL OFL 1.1)",
-   "bytes": 1171828,
-   "sha256": "850de14c11b16ece7502e8b6e3ef57945bff46bac333ab224cdd0a588e6ba92b",
+   "bytes": 1173180,
+   "sha256": "a546c810def4dfbbd37319843533ccde9fe75d4040821ac722667cd778a8fce3",
    "features": [
     "ccmp",
     "locl",
@@ -2311,6 +2319,10 @@
     [
      20351,
      20351
+    ],
+    [
+     20363,
+     20363
     ],
     [
      20379,

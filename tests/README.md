@@ -42,3 +42,12 @@ node tests/e2e/screens.mjs --only 390x844
 걷기는 `NM.engine.goTo`(교사 모드 장소 목록과 같은 길)로 건너뛰고, 기믹 과제의 답은 점검 통로
 `NM.ui.itemTask.test.submit`으로 낸다(기믹 화면 조작은 `tests/checks/g-*-browser.mjs`가 맡는다).
 화면 그림은 `tests/shots/e2e/`에 남는다(git이 무시하는 폴더).
+
+## 옛한글·한자·루비·방점 화면 검수
+
+- `tests/checks/yet-render-browser.mjs`(`check`에 들어 있음, 20초 안팎) — `tests/pages/yet-audit.html`이 데이터의 표기 글을
+  실제 그리기 코드로 모두 그린 뒤(原文 블록·장면 글·규칙 카드·도감·오답 카드·기믹 문구·장면 고르기·수첩·수첩 이미지·기믹),
+  글꼴에 없는 글자, ◌, 모이지 않은 자모, 풀리지 않은 표기, 한 낱말 안 글꼴 섞임, 한 줄 안 글자 크기 들쭉날쭉,
+  방점 점 위치, 루비 겹침, 상자 밖으로 나간 글자, 가로 넘침이 없는지 본다.
+- `node tests/qa/yet-audit.mjs [--sec orig,scenes,data,ui,gimmicks] [--cfg normal,large,phone] [--per-win]` — 같은 화면을
+  보통·글자 크게(1.5)·전화(390px)로 찍어 `tests/shots/yet-audit/`에 남긴다(사람이 훑어볼 때). 자동 탐지 목록은 `report.json`.

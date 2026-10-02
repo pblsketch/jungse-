@@ -67,13 +67,18 @@ html[data-nm-teacher="1"]:not(.nm-teacher) { --st-big: 1.35; }
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
-/* 방점: 음절 왼쪽에 점(거성 1점, 상성 위아래 2점) */
-.nm-bj-syl { position: relative; padding-left: .2em; }
+/* 방점: 음절 왼쪽에 점(거성 1점, 상성 위아래 2점).
+   점은 제 음절 쪽에 바짝 붙인다(앞 음절과의 틈 .09em > 제 음절과의 틈 .02em) — 가운데에 두면 앞 음절의 점이나 가운뎃점처럼 읽힌다. */
+.nm-bj-syl { position: relative; padding-left: .26em; }
 .nm-bj {
-  position: absolute; left: 0; top: 50%; width: .15em; height: .15em; margin-top: -.075em;
+  position: absolute; left: .09em; top: 50%; width: .15em; height: .15em; margin-top: -.075em;
   border-radius: 50%; background: currentColor;
 }
 .nm-bj-syl[data-bj="2"] > .nm-bj { margin-top: -.25em; box-shadow: 0 .34em 0 currentColor; }
+/* 루비(한자 읽기) — js/ui/stage-yet.js build 와 js/core/yet.js buildDom 이 <ruby>바탕<rp>(</rp><rt>읽기</rt><rp>)</rp></ruby> 로 만든다.
+   읽기 글자는 옛한글(받침 ㆁ 등)이 들어 있어 기본 50% 로는 뭉개진다 → 조금 키우고, 굵기·자간은 바탕을 따르지 않는다.
+   줄 높이를 1 로 두어 읽기 줄이 위(또는 아래) 줄 글자에 닿지 않게 줄 상자를 덜 키운다. */
+rt { font-size: .58em; line-height: 1; font-weight: 400; letter-spacing: 0; }
 html[data-nm-bangjeom="off"] .nm-bj { display: none; }
 html[data-nm-bangjeom="off"] .nm-bj-syl { padding-left: 0; }
 

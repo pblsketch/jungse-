@@ -56,6 +56,10 @@ FONTS = {
         'src': 'NotoSerifKR-Regular.otf',
         'ranges': COMMON + OLD_HANGUL,
         'features': ['ccmp', 'ljmo', 'vjmo', 'tjmo', 'locl', 'kern', 'mark', 'mkmk'],
+        # 홀로 쓴 아래아 ㆍ(U+318D): Noto Serif KR 은 붓으로 찍은 비스듬한 획을 칸 왼쪽 위에 그려 쉼표(、)처럼 보인다.
+        # 게임은 ㆍ를 '둥근 점'으로 가르치므로(서장) 가운데 둥근 점 ・(U+30FB, 같은 글꼴의 전각 가운뎃점)의 그림을 쓴다.
+        # 음절 안의 ㆍ(첫가끝 U+119E)는 그대로다.
+        'remap': {0x318D: 0x30FB},
     },
     'NMSans': {
         'src': 'NotoSansKR-Regular.otf',
@@ -126,6 +130,8 @@ def build(family, spec, extra):
     unicodes = set(extra)
     for a, b in spec['ranges']:
         unicodes.update(range(a, b + 1))
+    remap = spec.get('remap', {})
+    unicodes.update(remap.values())
     opts = subset.Options()
     opts.flavor = 'woff2'
     opts.layout_features = spec['features']
@@ -138,6 +144,10 @@ def build(family, spec, extra):
     sub = subset.Subsetter(opts)
     sub.populate(unicodes=unicodes)
     sub.subset(font)
+    for cp, like in remap.items():  # cp 가 like 의 글자 그림을 쓰게 한다(advance 도 같이 따라간다)
+        for table in font['cmap'].tables:
+            if table.isUnicode() and like in table.cmap and cp in table.cmap:
+                table.cmap[cp] = table.cmap[like]
     rename(font, family)
     out = OUT / f'{family}.woff2'
     subset.save_font(font, str(out), opts)

@@ -19,7 +19,7 @@ NM.data.SCENES['s5'] = {
   era: '1450년대 강가 장터',
   mapKey: 's5',
   bgmKey: 'bgm_s5',
-  carveGlyph: '[ㅳ]',
+  carveGlyph: 'ㅳ',
 
   cast: {
     merchant: { name: '곡식 장수', portrait: 'merchant' },
@@ -237,8 +237,8 @@ NM.data.SCENES['s5'] = {
     },
     {
       id: 's5.r5', kind: 'read', levels: ['h1', 'h23'],
-      label: '[ㅳ], [ㅺ] 같은 첫소리', ruleCard: 'rule.initialCluster',
-      sentence: '[ㅳㅡ]·들의 [ㅳ], ·[ㅺㅜ]므·로의 [ㅺ]처럼, 15세기에는 {?}.',
+      label: 'ㅳ, ㅺ 같은 첫소리', ruleCard: 'rule.initialCluster',
+      sentence: '[ㅳㅡ]·들의 ㅳ, ·[ㅺㅜ]므·로의 ㅺ처럼, 15세기에는 {?}.',
       cards: [
         { id: 's5.r5.a', text: '낱말 첫머리에 서로 다른 자음이 둘이나 셋 함께 올 수 있었다', correct: true },
         { id: 's5.r5.b', text: '첫머리의 ㅂ, ㅅ은 소리 내지 않고 모양만 낸 글자였다', correct: false,

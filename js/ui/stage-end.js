@@ -36,8 +36,8 @@
           const plate = el('div', 'nm-st-plate' + (env.reducedMotion() ? ' is-still' : ''));
           const g = el('span', 'nm-st-glyph nm-yet');
           const cg = env.scene.carveGlyph || '';
-          // 방점 하나(〮·〯)가 패 글자면 음절이 없어 점 그리기에서 빠지므로 글자 그대로 보인다(s4)
-          if (/^[〮〯]$/.test(cg)) g.appendChild(document.createTextNode(cg));
+          // 방점 하나(〮·〯)가 패 글자면(s4) 음절이 없어 점 그리기에서 빠진다. 글꼴은 홀로 선 방점을 ◌ 와 함께 그리므로 점 글자로(yet.soloTone)
+          if (/^[〮〯]$/.test(cg)) g.appendChild(document.createTextNode(NM.core.yet.soloTone(cg)));
           else g.appendChild(YB().build(cg, {}));
           plate.appendChild(g);
           w.body.appendChild(plate);

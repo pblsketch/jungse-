@@ -26,6 +26,8 @@
  *   buildDom(text|tokens, {document, bangjeom}) → DocumentFragment. createElement/createTextNode 만 쓴다(innerHTML 없음).
  *                            표기 오류면 NM.reportError 로 보고하고 원문 글자를 그대로 보인다(점검은 오류 모음으로 실패).
  *   setBangjeom(on)          전역 방점 보이기/숨기기 (settings.bangjeom)
+ *   soloTone(s)              홀로 선 방점 하나('〮' '〯', s4 패 글자) → 화면·그림용 점 글자('•' ':'). 그 밖의 글은 그대로.
+ *                            (글꼴은 음절 뒤가 아닌 방점을 점선 동그라미 ◌ 와 함께 그린다)
  *   splitSyllables(shown)    렌더된 문자열 → 음절 단위 배열(완성형 또는 첫가끝 묶음 + 뒤따르는 방점·결합 부호)
  *   modernReading(text, {modern})  화면 읽기용 현대 글자 어림 (방점 제거, 규칙은 NM.data.JAMO.READING). modern 이 있으면 그것.
  *   normalize(s, {tone}) / same(a, b, {tone})  화면 비교용 정규화(NFC + 자모 묶음 정규형). tone:false 면 방점 무시.
@@ -303,6 +305,8 @@
   }
 
   function setBangjeom(on) { settings.bangjeom = !!on; return settings.bangjeom; }
+  // 홀로 선 방점 하나(s4 패 글자 '〮'): 글꼴은 음절 뒤가 아닌 방점을 점선 동그라미(◌)와 함께 그린다 → 같은 모양의 점 글자로
+  function soloTone(s) { return s === GEOSEONG ? '•' : s === SANGSEONG ? ':' : s; }
 
   // ── 음절 묶음 ↔ 원자 열쇠 ──
   // 첫가끝 묶음(완성형은 NFD 로 풀어 넣는다) → [초성, 중성, 종성] 원자 열쇠. 한글 묶음이 아니면 null.
@@ -396,7 +400,7 @@
 
   NM.core.yet = {
     GEOSEONG, SANGSEONG, settings,
-    syllable, parse, toPlain, render, buildDom, setBangjeom,
+    syllable, parse, toPlain, render, buildDom, setBangjeom, soloTone,
     splitSyllables, modernReading, normalize, same
   };
 })(typeof window !== 'undefined' ? window : globalThis);

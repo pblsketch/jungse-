@@ -18,8 +18,9 @@
 
   const W = 1080, PAD = 64, INNER = W - PAD * 2;
   const C = { paper: '#f6efe2', ink: '#2b2420', soft: '#6b5d52', seal: '#b8322a', line: '#d8c9ad', interp: '#34508a', box: '#fffaf0' };
-  const SANS = "'NMSans', system-ui, sans-serif";
-  const YET = "'NMYet', 'NMSans', serif";
+  // css/base.css 의 --font-ui·--font-yet 과 같은 차례(NMSans 에 없는 옛한글·드문 한자는 NMYet·NMYetExt 로)
+  const SANS = "'NMSans', 'NMYet', 'NMYetExt', system-ui, sans-serif";
+  const YET = "'NMYet', 'NMYetExt', 'NMSans', serif";
   let lastInfo = null;
 
   function font(px, family, weight) { return (weight || 400) + ' ' + px + 'px ' + family; }
@@ -145,7 +146,7 @@
     const F = document.fonts;
     if (!F || typeof F.load !== 'function') return Promise.resolve(false);
     const sample = [model.gameTitle, model.stageName, model.glyph].concat(model.items.map(i => i.orig)).join('');
-    return Promise.all([F.load(font(40, "'NMYet'"), sample || 'a'), F.load(font(32, "'NMSans'"), 'a'), F.load(font(32, "'NMSans'", 700), 'a')])
+    return Promise.all([F.load(font(40, "'NMYet'"), sample || 'a'), F.load(font(40, "'NMYetExt'"), sample || 'a'), F.load(font(32, "'NMSans'"), 'a'), F.load(font(32, "'NMSans'", 700), 'a')])
       .then(() => F.check(font(40, "'NMYet'"), sample || 'a'))
       .catch(() => false);
   }

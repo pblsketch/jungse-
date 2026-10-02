@@ -586,7 +586,7 @@ export async function checkLevelComplete(S, C, level) {
       const e = document.querySelector(`[data-stage="${id}"]`);
       const g = e && e.querySelector('.nm-glyph');
       const want = NM.ui.notebookModel.carveGlyph(id);
-      const ref = want ? (/^[〮〯]$/.test(want) ? want : NM.ui.dom.yet(want, { bangjeom: true }).textContent) : '';
+      const ref = want ? (/^[〮〯]$/.test(want) ? NM.core.yet.soloTone(want) : NM.ui.dom.yet(want, { bangjeom: true }).textContent) : '';
       out[id] = { role: e && e.getAttribute('data-role'), status: e && e.getAttribute('data-status'), glyph: g ? g.textContent : null, want: ref };
     });
     const tt = st.title();

@@ -57,7 +57,7 @@
       const bj = (sid) => M.bangjeomFor(app.store(), sid || current);
       const yt = (text, sid, opt) => dom.yet(text, Object.assign({ bangjeom: bj(sid) }, opt || {}));
       const items = v.items.map(x => el('li', { class: 'nm-nb-item' }, [
-        yt(x.word, current, { class: 'nm-orig' }),
+        yt(x.word, current, { class: 'nm-nb-word' }),
         el('span', { class: 'nm-arrow', text: ' ' + t('notebook.arrow') + ' ', attrs: { 'aria-hidden': 'true' } }),
         el('span', { class: 'nm-modern', text: x.modern })
       ]));
