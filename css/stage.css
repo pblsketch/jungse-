@@ -274,7 +274,7 @@ html[data-nm-bangjeom="off"] .nm-bj-syl { padding-left: 0; }
 }
 #ui-layer > .nm-st-hud[hidden] { display: none; }
 .nm-st-hud-head {
-  width: 100%; display: flex; flex-wrap: wrap; gap: .1em .45em; align-items: baseline; text-align: left;
+  width: 100%; display: flex; flex-wrap: wrap; gap: .1em .45em; align-items: baseline; align-content: center; text-align: left;
   min-height: 40px; padding: .1em .2em; border: 0; border-radius: 8px; background: transparent; color: inherit; font: inherit; cursor: pointer;
 }
 .nm-st-hud-head:hover { background: var(--st-shade); }
@@ -302,7 +302,25 @@ html[data-nm-bangjeom="off"] .nm-bj-syl { padding-left: 0; }
   .nm-st-foot { padding: .5em .8em .8em; }
   .nm-st-foot .nm-st-btn { flex: 1 1 auto; }
   .nm-orig-line { font-size: 1.2em; }
-  #ui-layer > .nm-st-hud { width: min(240px, calc(100% - 24px)); max-height: 45%; }
+}
+/* 좁은·낮은 화면의 HUD: 작게, 도구 막대(오른쪽 위 한 줄) 왼쪽에. 옆자리가 좁으면(html.nm-tb-crowded) 도구 막대 아래로.
+   아래쪽은 살피기 단추 자리(약 100px)를 비운다. --nm-tb-w·--nm-tb-b 는 js/ui/app.js measureToolbar 가 둔다. */
+@media (max-width: 520px), (max-height: 520px) {
+  #ui-layer > .nm-st-hud {
+    --hud-top: max(6px, env(safe-area-inset-top));
+    top: var(--hud-top); left: max(6px, env(safe-area-inset-left));
+    width: min(300px, calc(100% - 12px - var(--nm-tb-w, 0px) - 8px));
+    max-height: calc(100% - var(--hud-top) - 104px);
+    padding: .35em .5em; border-radius: 10px;
+    font-size: calc(13px * var(--fs, 1) * var(--st-big, 1));
+  }
+  html.nm-tb-crowded #ui-layer > .nm-st-hud {
+    --hud-top: calc(var(--nm-tb-b, 0px) + 6px);
+    width: min(360px, calc(100% - 12px));
+  }
+  .nm-st-hud-head { min-height: 44px; }
+  .nm-st-hud-title { font-size: 1.05em; }
+  .nm-st-hud-goal, .nm-st-hud-sub { margin: .2em 0; }
 }
 
 /* 움직임 줄이기 */

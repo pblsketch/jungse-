@@ -1,6 +1,6 @@
 // A4 그림 점검: 장면 그림(cg)·오해 장면 그림·UI 아이콘·대표 이미지(OG)·앱 아이콘.
 // - 목록의 파일이 모두 있고, 형식(시그니처)과 크기 규칙을 지키는가.
-//   cg: webp, 가로 ≤ 1280 / og.jpg: jpeg 1200×630 / 아이콘·앱 아이콘: png 정사각형
+//   cg: webp, 가로 ≤ 1280 / og.jpg: jpeg 1200×630 / 첫 화면·종이 화면 그림(assets/ui/title-bg*·level_*·paper·thumbs): webp, 크기·용량 상한 / 아이콘·앱 아이콘: png 정사각형
 // - manifest.webmanifest 의 icons 가 실제 파일을 가리키고, 적힌 sizes 와 실제 크기가 같은가.
 // 외부 모듈 없이 파일 머리만 읽는다.
 import assert from 'node:assert/strict';
@@ -66,6 +66,25 @@ const og = size('assets/ui/og.jpg');
 assert.deepEqual([og.fmt, og.w, og.h], ['jpg', 1200, 630], 'og.jpg 는 1200×630 jpeg');
 assert.ok(og.bytes <= 600 * 1024, 'og.jpg 600 KB 이하');
 n++;
+// 첫 화면·종이 화면 그림(assets/ui): webp, 크기·용량 상한(첫 화면이 늦게 뜨지 않게)
+//   title-bg(넓은 화면) 가로 ≤ 1920·300 KB / title-bg-tall(세로 화면) 가로 ≤ 1080·300 KB /
+//   level_*(학교급 카드) 정사각형 ≤ 640·60 KB / paper(한지 타일) ≤ 1024·120 KB / thumbs/<장면>(장면 카드) 가로 ≤ 480·40 KB
+const UI_ART = [
+  ['assets/ui/title-bg.webp', { maxW: 1920, minW: 960, kb: 300 }],
+  ['assets/ui/title-bg-tall.webp', { maxW: 1080, minW: 540, kb: 300, tall: true }],
+  ...['m', 'h1', 'h23'].map((k) => [`assets/ui/level_${k}.webp`, { maxW: 640, minW: 240, kb: 60, square: true }]),
+  ['assets/ui/paper.webp', { maxW: 1024, minW: 256, kb: 120 }],
+  ...STAGES.map((s) => [`assets/ui/thumbs/${s}.webp`, { maxW: 480, minW: 160, kb: 40 }])
+];
+for (const [rel, r] of UI_ART) {
+  const s = size(rel);
+  assert.equal(s.fmt, 'webp', `${rel} 형식`);
+  assert.ok(s.w >= r.minW && s.w <= r.maxW, `${rel} 가로 ${s.w} (${r.minW}~${r.maxW})`);
+  if (r.square) assert.equal(s.w, s.h, `${rel} 정사각형 아님 (${s.w}×${s.h})`);
+  if (r.tall) assert.ok(s.h > s.w, `${rel} 세로가 더 길어야 한다 (${s.w}×${s.h})`);
+  assert.ok(s.bytes <= r.kb * 1024, `${rel} ${Math.round(s.bytes / 1024)} KB > ${r.kb} KB`);
+  n++;
+}
 for (const rel of ICONS) {
   const s = size(rel);
   assert.equal(s.fmt, 'png', `${rel} 형식`);

@@ -523,7 +523,7 @@
     const my = ++token;
     cur = { token: my, stageId, ctx: c, store, scene, teacher: c.teacher === true || store.isTeacher === true,
       phase: 'loading', offs: [], hud: null, ctxWins: [], translateReady: false, glow: null, eff: null, tearing: false,
-      hudOpen: !(root.matchMedia && root.matchMedia('(max-width: 520px)').matches),
+      hudOpen: !(root.matchMedia && root.matchMedia('(max-width: 520px), (max-height: 520px)').matches),
       settingsOverride: null, reducedOverride: null,
       fsOwned: !document.documentElement.style.getPropertyValue('--fs') };
     setPhase('loading');

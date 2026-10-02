@@ -35,6 +35,16 @@
     W.dpr = Math.min(root.devicePixelRatio || 1, cfg.dprMax);
   }
 
+  // 확대 배율(CSS px 당 월드 px 의 역수). 기본은 cfg.viewWorld 넓이가 보이게.
+  // 세로로 긴 화면(휴대 전화 세로)에서는 맵 높이에 더 맞춰 위아래 빈 띠를 줄인다 — 단 가로로 cfg.minViewW 월드 px 는 보이게 한다.
+  function fitZoom() {
+    let z = Math.min(W.cssW / cfg.viewWorld.w, W.cssH / cfg.viewWorld.h);
+    if (W.map && W.map.height > 0 && W.cssH > W.cssW * cfg.tallRatio) {
+      z = Math.max(z, Math.min(W.cssH / W.map.height, W.cssW / cfg.minViewW));
+    }
+    return Math.min(cfg.zoomMax, Math.max(cfg.zoomMin, z));
+  }
+
   function applySize() {
     if (!W.game) return;
     measure();
@@ -44,8 +54,7 @@
     sm.setZoom(1 / W.dpr);
     const c = W.game.canvas;
     c.style.width = W.cssW + 'px'; c.style.height = W.cssH + 'px';
-    const base = Math.min(W.cssW / cfg.viewWorld.w, W.cssH / cfg.viewWorld.h);
-    W.zoom = W.dpr * Math.min(cfg.zoomMax, Math.max(cfg.zoomMin, base));
+    W.zoom = W.dpr * fitZoom();
     if (W.scene) {
       const cam = W.scene.cameras.main;
       cam.setSize(gw, gh); cam.setZoom(W.zoom);
@@ -88,7 +97,16 @@
         c.setAttribute('aria-label', E.text('engine.canvas.label', ''));
       } catch (e) { /* 캔버스가 아직 없으면 무시 */ }
       let t = null;
-      root.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { try { applySize(); } catch (e) { NM.reportError('engine.resize', e); } }, 60); });
+      const later = () => { clearTimeout(t); t = setTimeout(() => { try { applySize(); } catch (e) { NM.reportError('engine.resize', e); } }, 60); };
+      root.addEventListener('resize', later);
+      // 보이는 높이가 바뀌면(휴대 전화 안 브라우저의 주소 줄, js/main.js 의 --nm-app-h) #game 크기만 바뀌고 창 resize 는 안 올 수 있다
+      if (root.visualViewport) root.visualViewport.addEventListener('resize', later);
+      if (typeof root.ResizeObserver === 'function') {
+        let last = '';
+        new root.ResizeObserver(() => { const k = parent.clientWidth + 'x' + parent.clientHeight; if (k !== last) { last = k; later(); } }).observe(parent);
+      }
+      // 맵마다 높이가 달라 세로 화면의 확대 배율이 달라진다
+      E.on('mapready', () => { try { applySize(); } catch (e) { NM.reportError('engine.resize', e); } });
     } catch (e) {
       NM.reportError('engine.boot', e);
     }

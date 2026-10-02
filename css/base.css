@@ -13,8 +13,17 @@
   --font-yet: 'NMYet', 'NMYetExt', 'NMSans', serif;
   --fs: 1;
 }
-html, body { margin: 0; height: 100%; background: #1d1a17; color: var(--ink); font-family: var(--font-ui); }
-#app { position: relative; width: 100%; height: 100%; overflow: hidden; }
+/* 화면 높이: 휴대 전화 안 브라우저(카카오톡 등)는 주소 줄·아래 단추 줄 때문에 100vh·100% 가 보이는 높이보다 클 수 있다.
+   그래서 문서는 스크롤하지 않고(#app 고정), 높이는 보이는 높이를 따른다:
+   inset:0 → 되면 100dvh → js/main.js 가 visualViewport 높이를 --nm-app-h 로 두면(html[data-nm-vh]) 그것. */
+html, body {
+  margin: 0; height: 100%; overflow: hidden; overscroll-behavior: none;
+  background: #1d1a17; color: var(--ink); font-family: var(--font-ui);
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+}
+#app { position: fixed; inset: 0; width: 100%; overflow: hidden; }
+@supports (height: 100dvh) { #app { bottom: auto; height: 100dvh; } }
+html[data-nm-vh] #app { bottom: auto; height: var(--nm-app-h); }
 #game { position: absolute; inset: 0; }
 #ui-layer { position: absolute; inset: 0; pointer-events: none; }
 #ui-layer > * { pointer-events: auto; }

@@ -114,6 +114,7 @@
     if (!toolbarEl || !document.contains(toolbarEl)) {
       toolbarEl = dom.el('nav', { attrs: { id: 'nm-toolbar', hidden: true, 'aria-label': t('toolbar.label') } });
       layer.appendChild(toolbarEl);
+      watchToolbar();
     }
   }
   function renderScreen(keepScroll) {
@@ -140,17 +141,52 @@
     if (!state.inStage && state.screen && state.screen !== 'setup-nickname' && screensEl && !screensEl.hidden) renderScreen(true);
   }
 
+  // 도구 단추: 아이콘(꾸밈, 낭독기에서 숨김) + 짧은 이름. 좁거나 낮은 화면에서는 아이콘 위·이름 아래의 작은 단추 한 줄(css/ui.css)
+  function toolButton(label, act, iconKey, onClick) {
+    const A = NM.data.ASSETS && NM.data.ASSETS.ui;
+    const src = A && typeof A[iconKey] === 'string' ? A[iconKey] : null;
+    return dom.button(null, act, onClick, { class: 'nm-tb-btn', kids: [
+      src ? dom.el('img', { class: 'nm-tb-icon', attrs: { src, alt: '', 'aria-hidden': 'true', draggable: 'false' } }) : null,
+      dom.el('span', { class: 'nm-tb-label', text: label })
+    ] });
+  }
   function renderToolbar() {
     dom.clear(toolbarEl);
     if (state.teacher) {
       toolbarEl.appendChild(dom.el('span', { class: 'nm-badge nm-badge-teacher', text: t('title.teacherBadge') }));
-      toolbarEl.appendChild(dom.button(t('teacher.places'), 'places', () => UI.teacher.openPlaces(api)));
+      toolbarEl.appendChild(toolButton(t('teacher.places'), 'places', 'map', () => UI.teacher.openPlaces(api)));
     } else if (UI.places) {
       // 학생 장소 목록: 이름·목표·살핌 여부를 보고 골라 걸어간다(지도를 보지 않고도 갈 수 있는 길)
-      toolbarEl.appendChild(dom.button(t('places.button'), 'student-places', () => UI.places.open(api)));
+      toolbarEl.appendChild(toolButton(t('places.button'), 'student-places', 'map', () => UI.places.open(api)));
     }
-    toolbarEl.appendChild(dom.button(t('toolbar.notebook'), 'notebook', () => openNotebook(state.stageId)));
-    toolbarEl.appendChild(dom.button(t('toolbar.settings'), 'settings', () => openSettings()));
+    toolbarEl.appendChild(toolButton(t('toolbar.notebook'), 'notebook', 'notebook', () => openNotebook(state.stageId)));
+    toolbarEl.appendChild(toolButton(t('toolbar.settings'), 'settings', 'settings', () => openSettings()));
+    measureToolbar();
+  }
+  /*
+   * 도구 막대가 차지한 자리를 CSS 변수로 알린다 — 장면 진행 판(HUD, css/stage.css)이 겹치지 않게 그 왼쪽(또는 아래)에 선다.
+   *   --nm-tb-w  오른쪽 끝에서 도구 막대 왼쪽 끝까지(px)   --nm-tb-b  위 끝에서 도구 막대 아래 끝까지(px)
+   *   html.nm-tb-crowded  옆자리가 좁으면(HUD 너비 < HUD_MIN) HUD 를 도구 막대 아래로 내린다
+   */
+  const HUD_MIN = 150;
+  function measureToolbar() {
+    const html = document.documentElement;
+    if (!toolbarEl || toolbarEl.hidden || !toolbarEl.getClientRects().length) {
+      html.style.removeProperty('--nm-tb-w'); html.style.removeProperty('--nm-tb-b'); html.classList.remove('nm-tb-crowded');
+      return;
+    }
+    const layer = toolbarEl.parentNode.getBoundingClientRect(), r = toolbarEl.getBoundingClientRect();
+    const w = Math.max(0, Math.round(layer.right - r.left)), b = Math.max(0, Math.round(r.bottom - layer.top));
+    html.style.setProperty('--nm-tb-w', w + 'px');
+    html.style.setProperty('--nm-tb-b', b + 'px');
+    html.classList.toggle('nm-tb-crowded', layer.width - w - 12 - 8 < HUD_MIN);
+  }
+  function watchToolbar() {
+    let raf = 0;
+    const later = () => { if (raf) return; raf = requestAnimationFrame(() => { raf = 0; measureToolbar(); }); };
+    if (typeof root.ResizeObserver === 'function') new root.ResizeObserver(later).observe(toolbarEl);
+    root.addEventListener('resize', later);
+    if (root.visualViewport) root.visualViewport.addEventListener('resize', later);
   }
 
   /* ---------- 처음 정하기 ---------- */
@@ -305,6 +341,7 @@
     screensEl.hidden = true;
     renderToolbar();
     toolbarEl.hidden = false;
+    measureToolbar();
     let exited = false;
     const ctx = {
       store: st,
@@ -329,6 +366,7 @@
     state.stageId = null;
     toolbarEl.hidden = true;
     dom.clear(toolbarEl);
+    measureToolbar();
     dom.closeAll();
     state.lastExit = { stageId: id, result: result || null };
     if (canSelectStage()) go('select');

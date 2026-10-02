@@ -54,11 +54,111 @@
 .nm-row-end { justify-content: flex-end; }
 .nm-stack { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 420px; margin: 1.4em auto 0; }
 
-/* 첫 화면 */
-.nm-title-screen { min-height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: center; }
-.nm-game-title { margin: .4em 0 .1em; font-size: calc(56px * var(--fs, 1)); line-height: 1.2; font-weight: 400; color: var(--ink); }
+/* 첫 화면 — 노을 진 도성 그림 위 먹빛 가림막, 한지색 큰 제목에 붉은 原文 낙관을 찍는다.
+   넓은 화면: 선배 통사가 가리키는 오른쪽(도성 쪽)에 글 / 세로 화면: 그림은 위, 글은 아래.
+   움직임은 한 번의 드러남(그림 → 제목 → 낙관 찍힘 → 단추)과 천천히 떠오르는 옛 글자 조각뿐. */
+#nm-screens[data-screen="title"] {
+  --tt-ink: #17120d; --tt-paper: #f4ead4; --tt-dim: #e2d3b4; --tt-glow: #f6c56a;
+  background: var(--tt-ink); color: var(--tt-paper);
+}
+.nm-title-art, .nm-title-scrim, .nm-title-motes {
+  position: fixed; left: 0; top: 0; width: 100%; height: var(--nm-app-h, 100%); pointer-events: none;
+}
+.nm-title-art {
+  background: #2a1f1a var(--nm-art-wide, none) 50% 50% / cover no-repeat;
+  animation: nm-tt-art 1.8s cubic-bezier(.2, .7, .2, 1) both;
+}
+.nm-title-scrim {
+  /* 그림의 오른쪽 위 하늘이 비어 있다 — 글 뒤만 먹빛으로 눌러 읽히게 하고 나머지는 그림 그대로 */
+  background:
+    radial-gradient(ellipse 62% 80% at 80% 34%, rgba(23, 18, 13, .7), rgba(23, 18, 13, .35) 55%, rgba(23, 18, 13, 0) 78%),
+    linear-gradient(0deg, rgba(23, 18, 13, .4), rgba(23, 18, 13, 0) 30%);
+}
+.nm-title-motes { overflow: hidden; }
+.nm-title-mote {
+  position: absolute; left: var(--x); top: var(--y); opacity: 0;
+  font: 400 var(--sz) / 1 var(--font-yet); color: var(--tt-glow);
+  text-shadow: 0 0 6px rgba(255, 196, 96, .95), 0 0 18px rgba(255, 150, 60, .55);
+  animation: nm-tt-mote var(--dur) linear var(--delay) infinite;
+}
+@keyframes nm-tt-art { from { opacity: 0; transform: scale(1.06); } to { opacity: 1; transform: none; } }
+@keyframes nm-tt-mote {
+  0% { opacity: 0; transform: translate(0, 0) rotate(-8deg); }
+  15% { opacity: .9; }
+  70% { opacity: .55; }
+  100% { opacity: 0; transform: translate(var(--dx), -42vh) rotate(10deg); }
+}
+@keyframes nm-tt-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes nm-tt-stamp { 0% { opacity: 0; transform: scale(1.7) rotate(-14deg); } 60% { opacity: 1; transform: scale(.94) rotate(-4deg); } 100% { opacity: 1; transform: rotate(-6deg); } }
+.nm-reduced-motion .nm-title-motes { display: none; }
+
+.nm-title-screen {
+  position: relative; z-index: 1; min-height: 100%; max-width: none;
+  display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-end;
+  padding-top: max(9vh, env(safe-area-inset-top)); padding-left: max(24px, env(safe-area-inset-left)); padding-right: max(6vw, env(safe-area-inset-right));
+}
+.nm-title-card { width: min(500px, 100%); text-align: left; container-type: inline-size; }
+.nm-game-title {
+  display: flex; align-items: flex-start; gap: .18em; margin: 0 0 .15em;
+  font-family: var(--font-yet); font-weight: 400; line-height: 1.1; letter-spacing: .02em;
+  font-size: calc(clamp(44px, 5.6vw, 78px) * var(--fs, 1));
+  /* 글자 크기 3단계에서도 제목 한 줄(다섯 글자 + 낙관)이 글 상자 너비를 넘지 않게 */
+  font-size: min(calc(clamp(44px, 5.6vw, 78px) * var(--fs, 1)), 16cqi);
+  color: var(--tt-paper); text-shadow: 0 2px 0 rgba(0, 0, 0, .35), 0 0 28px rgba(246, 197, 106, .28);
+  animation: nm-tt-rise .7s ease-out .3s both;
+}
 .nm-game-title:focus { outline: none; }
-.nm-game-sub { margin: 0; color: #6b5d52; }
+.nm-game-title-text { min-width: 0; }
+/* 原文 낙관: 붉은 네모 도장, 한지색 글자를 위아래로 */
+.nm-title-seal {
+  flex: none; display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 1.02em; padding: .1em 0; margin-top: .12em; border-radius: 4px;
+  font-size: .38em; line-height: 1.04; color: #fbf1dc; background: var(--seal);
+  box-shadow: inset 0 0 0 .07em #fbf1dc, inset 0 0 0 .13em var(--seal), 0 2px 6px rgba(0, 0, 0, .35);
+  text-shadow: none; transform: rotate(-6deg);
+  animation: nm-tt-stamp .5s cubic-bezier(.3, 1.4, .5, 1) .9s both;
+}
+.nm-game-sub {
+  margin: 0 0 1.4em; color: var(--tt-dim); font-size: calc(17px * var(--fs, 1)); letter-spacing: .02em;
+  animation: nm-tt-rise .7s ease-out .5s both;
+}
+.nm-title-badge { margin: -.6em 0 1em; }
+.nm-title-acts { margin: 0; max-width: none; gap: 10px; animation: nm-tt-rise .7s ease-out .75s both; }
+.nm-title-acts .nm-btn-primary {
+  border-color: #d6544a; box-shadow: 0 3px 0 #6e1c16, 0 10px 24px rgba(0, 0, 0, .35); letter-spacing: .06em;
+}
+.nm-title-acts .nm-btn-primary:hover { background: #c63a31; }
+.nm-title-acts .nm-btn-primary:active { transform: translateY(2px); box-shadow: 0 1px 0 #6e1c16, 0 6px 16px rgba(0, 0, 0, .35); }
+/* 새로 시작: 한지 테두리만 / 설정·만든 사람들: 더 조용한 단추 둘이 한 줄 */
+.nm-btn.nm-btn-ghost { color: var(--tt-paper); background: rgba(23, 18, 13, .58); border-color: rgba(244, 234, 212, .75); }
+.nm-btn.nm-btn-ghost:hover { background: rgba(244, 234, 212, .14); }
+.nm-title-minor { display: flex; flex-wrap: wrap; gap: 8px; }
+.nm-btn.nm-btn-quiet {
+  flex: 1 1 8em; color: var(--tt-paper); background: rgba(23, 18, 13, .5);
+  border: 1.5px solid rgba(244, 234, 212, .4); font-size: calc(16px * var(--fs, 1));
+}
+.nm-btn.nm-btn-quiet:hover { background: rgba(244, 234, 212, .12); border-color: rgba(244, 234, 212, .7); }
+#nm-screens[data-screen="title"] .nm-btn:focus-visible { outline: 3px solid var(--tt-glow); outline-offset: 3px; }
+
+/* 세로로 긴 화면(휴대 전화 세로·좁은 창): 그림은 위(선배 통사가 보이게), 글과 단추는 아래 가림막 위 */
+@media (max-aspect-ratio: 1/1) {
+  /* 세로 그림은 위 삼분의 일이 고요한 밤하늘, 아래는 빛이 나오는 책 — 글과 단추는 하늘 쪽, 책은 가리지 않는다 */
+  .nm-title-art { background-image: var(--nm-art-tall, var(--nm-art-wide, none)); background-position: 50% 100%; }
+  .nm-title-scrim {
+    background: linear-gradient(180deg, rgba(23, 18, 13, .62) 0%, rgba(23, 18, 13, .45) 38%, rgba(23, 18, 13, .12) 58%, rgba(23, 18, 13, 0) 70%);
+  }
+  .nm-title-screen { justify-content: flex-start; align-items: stretch; padding-top: max(7vh, env(safe-area-inset-top)); padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+  .nm-title-card { width: 100%; max-width: 460px; margin: 0 auto; }
+  .nm-game-title { font-size: calc(clamp(44px, 14vw, 72px) * var(--fs, 1)); font-size: min(calc(clamp(44px, 14vw, 72px) * var(--fs, 1)), 16cqi); }
+}
+/* 낮은 화면(가로로 든 휴대 전화): 글자·사이를 줄여 한 화면에 */
+@media (max-height: 520px) and (min-aspect-ratio: 1/1) {
+  .nm-title-screen { padding-top: max(12px, env(safe-area-inset-top)); padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+  .nm-game-title { font-size: calc(clamp(36px, 10vh, 56px) * var(--fs, 1)); font-size: min(calc(clamp(36px, 10vh, 56px) * var(--fs, 1)), 16cqi); }
+  .nm-game-sub { margin-bottom: .8em; font-size: calc(15px * var(--fs, 1)); }
+  .nm-title-acts { gap: 8px; }
+  .nm-title-acts .nm-btn-big { min-height: 48px; font-size: calc(18px * var(--fs, 1)); }
+}
 
 /* 배지 */
 .nm-badge {
@@ -118,6 +218,134 @@
 .nm-card-bottom { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: auto; padding-top: .4em; }
 .nm-card-glyph .nm-glyph { font-size: calc(30px * var(--fs, 1)); line-height: 1; color: var(--seal); }
 
+/* ── 종이 화면(처음 정하기·교사 학교급·장면 고르기) ──
+   한지 바탕, 위에는 노을 그림 띠(먹빛 가림막 + 한지색 명조 제목, 아래 끝은 찢은 종이 가장자리),
+   고르는 카드는 그림이 든 두꺼운 한지 카드(먹 테두리), 고른 것은 붉은 테와 ● 표. 그림은 모두 꾸밈(낭독기에서 숨김). */
+#nm-screens:not([data-screen="title"]) {
+  --pp-paper: #f1e5cc; --pp-card: #fcf6e9; --pp-hanji: #f4ead4; --pp-dim: #e6d6b6; --pp-seal-light: #ff9a88;
+  background-color: var(--pp-paper);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 251, 240, .65), rgba(255, 251, 240, 0) 70%),
+    radial-gradient(ellipse 90% 60% at 50% 110%, rgba(150, 110, 60, .16), rgba(150, 110, 60, 0) 70%),
+    url('../assets/ui/paper.webp');
+  background-size: auto, auto, 640px 640px;
+  background-attachment: local;
+}
+.nm-banner { position: relative; isolation: isolate; overflow: hidden; color: var(--pp-hanji); background: #241b15; }
+.nm-banner-art {
+  position: absolute; inset: 0; z-index: -2;
+  background: #3a2a20 var(--nm-art-wide, none) 50% 40% / cover no-repeat;
+}
+.nm-banner::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, rgba(23, 18, 13, .9) 0%, rgba(23, 18, 13, .66) 55%, rgba(23, 18, 13, .4) 100%),
+              linear-gradient(0deg, rgba(23, 18, 13, .55), rgba(23, 18, 13, 0) 70%);
+}
+/* 찢은 한지 가장자리 */
+.nm-banner::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 12px;
+  background: radial-gradient(circle at 9px -3px, rgba(0, 0, 0, 0) 9px, var(--pp-paper) 10px) repeat-x 0 0 / 18px 12px;
+}
+.nm-banner-inner {
+  max-width: 980px; margin: 0 auto;
+  padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 30px max(16px, env(safe-area-inset-left));
+}
+.nm-banner .nm-heading {
+  margin: .25em 0 0; color: var(--pp-hanji); font-family: var(--font-yet); font-weight: 400;
+  font-size: calc(clamp(26px, 6.4vw, 38px) * var(--fs, 1)); line-height: 1.25; letter-spacing: .01em;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, .35);
+}
+.nm-banner-badge { margin: 0 0 .3em; }
+.nm-step { display: flex; align-items: center; gap: .7em; color: var(--pp-dim); font-size: calc(15px * var(--fs, 1)); }
+.nm-step-dots { display: inline-flex; gap: 6px; align-items: center; }
+.nm-step-dot { width: 11px; height: 11px; border-radius: 2px; border: 1.5px solid var(--pp-dim); transform: rotate(-6deg); }
+.nm-step-dot.is-done { background: var(--seal); border-color: var(--seal); }
+.nm-step-dot.is-now { width: 15px; height: 15px; background: var(--seal); border-color: var(--pp-hanji); }
+.nm-paper-inner { padding-top: 16px; }
+.nm-paper-inner > .nm-heading { font-family: var(--font-yet); font-weight: 400; font-size: calc(28px * var(--fs, 1)); }
+.nm-paper-inner .nm-help { font-size: calc(17px * var(--fs, 1)); }
+/* 뒤로·설정: 조용한 단추 */
+.nm-paper-inner .nm-row-end .nm-btn { background: transparent; border-width: 1.5px; }
+.nm-paper-inner .nm-row-end .nm-btn:hover { background: rgba(255, 250, 240, .7); }
+
+/* 학교급 카드: 그림 + 글. 좁으면 그림 왼쪽, 넓으면 세 장이 나란히(그림 위) */
+.nm-choice-list { gap: 14px; }
+.nm-btn.nm-choice-level {
+  position: relative; flex-direction: row; align-items: center; justify-content: flex-start; gap: 14px; padding: 10px 14px 10px 10px;
+  background: var(--pp-card); border: 2px solid var(--ink); border-radius: 16px; box-shadow: 0 3px 0 rgba(43, 36, 32, .3);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.nm-btn.nm-choice-level:hover { background: #fff8ea; transform: translateY(-2px); box-shadow: 0 5px 0 rgba(43, 36, 32, .3); }
+.nm-choice-art {
+  flex: none; display: block; width: 96px; height: 96px; object-fit: cover; border-radius: 10px;
+  border: 1.5px solid rgba(43, 36, 32, .55); background: #d9c6a2;
+}
+.nm-choice-text { display: flex; flex-direction: column; gap: .15em; min-width: 0; }
+.nm-choice-level .nm-choice-main { font-size: calc(24px * var(--fs, 1)); line-height: 1.25; }
+.nm-choice-level .nm-choice-sub { opacity: 1; color: #4a3f37; }
+.nm-btn.nm-choice-level[aria-pressed="true"] {
+  color: var(--ink); background: #fff6e2; border-color: var(--seal);
+  box-shadow: 0 0 0 2px var(--seal), 0 3px 0 rgba(43, 36, 32, .3);
+}
+.nm-btn.nm-choice-level[aria-pressed="true"]::before {
+  position: absolute; top: 6px; right: 10px; color: var(--seal); font-size: calc(18px * var(--fs, 1));
+}
+.nm-btn.nm-choice-level[aria-pressed="false"]::before { content: none; }
+@media (min-width: 760px) {
+  .nm-choice-list.nm-level-list { grid-template-columns: repeat(3, 1fr); }
+  .nm-btn.nm-choice-level { flex-direction: column; align-items: stretch; padding: 10px 10px 16px; }
+  .nm-choice-art { width: 100%; height: auto; aspect-ratio: 4 / 3; }
+  .nm-choice-text { padding: 0 6px; }
+}
+
+/* 주인공 카드: 노을빛 둥근 틀 안의 얼굴 */
+.nm-hero-grid { gap: 14px; }
+.nm-btn.nm-hero {
+  position: relative; gap: .5em; padding: 14px 10px 12px; min-height: 0;
+  background: var(--pp-card); border: 2px solid var(--ink); border-radius: 16px; box-shadow: 0 3px 0 rgba(43, 36, 32, .3);
+}
+.nm-btn.nm-hero:hover { background: #fff8ea; }
+.nm-hero .nm-portrait {
+  width: 112px; height: 112px; border-radius: 50%; object-fit: cover; object-position: 50% 12%;
+  background: radial-gradient(circle at 50% 30%, #f8dcaa, #d79a62 62%, #8a5238);
+  border: 2px solid var(--ink); box-shadow: inset 0 0 0 3px rgba(255, 246, 225, .6);
+}
+.nm-hero-name { font-size: calc(18px * var(--fs, 1)); }
+.nm-btn.nm-hero[aria-pressed="true"] { color: var(--ink); background: #fff6e2; border-color: var(--seal); box-shadow: 0 0 0 2px var(--seal), 0 3px 0 rgba(43, 36, 32, .3); }
+.nm-btn.nm-hero[aria-pressed="true"]::before { position: absolute; top: 6px; right: 10px; color: var(--seal); }
+.nm-btn.nm-hero[aria-pressed="false"]::before { content: none; }
+
+/* 별명 */
+.nm-paper-inner .nm-form { max-width: 560px; }
+.nm-paper-inner .nm-form input { min-height: 58px; font-size: calc(22px * var(--fs, 1)); background: #fffdf6; border-radius: 12px; box-shadow: inset 0 2px 0 rgba(43, 36, 32, .08); }
+.nm-paper-inner .nm-warn { padding: .4em .7em; border-left: 4px solid var(--seal); background: rgba(184, 50, 42, .07); border-radius: 0 8px 8px 0; }
+
+/* 장면 고르기: 머리 띠 안에 이름·학교급·칭호·도구, 아래는 그림이 든 장면 카드 */
+.nm-banner-select .nm-select-head { border-bottom: 0; padding-bottom: 0; }
+.nm-banner-select .nm-who-name { color: var(--pp-hanji); font-family: var(--font-yet); font-weight: 400; font-size: calc(30px * var(--fs, 1)); }
+.nm-banner-select .nm-badge-level { color: var(--pp-hanji); }
+.nm-banner-select .nm-title-line { color: var(--pp-dim); }
+.nm-banner-select .nm-title-value { color: var(--pp-seal-light); }
+.nm-banner .nm-btn { color: var(--pp-hanji); background: rgba(23, 18, 13, .35); border: 1.5px solid rgba(244, 234, 212, .65); }
+.nm-banner .nm-btn:hover { background: rgba(244, 234, 212, .16); }
+.nm-banner .nm-btn:focus-visible { outline-color: #f6c56a; }
+.nm-select-tools { margin-bottom: 0; }
+.nm-select-tools .nm-tb-icon { width: 1.5em; height: 1.5em; }
+.nm-paper-inner.nm-select-screen > .nm-heading { margin-top: .2em; }
+.nm-stage-card { background: var(--pp-card); box-shadow: 0 3px 0 rgba(43, 36, 32, .22); }
+.nm-stage-card.has-thumb { flex-direction: row; align-items: stretch; padding: 0; overflow: hidden; }
+.nm-card-thumb { flex: none; display: block; width: 33%; max-width: 132px; min-height: 100%; object-fit: cover; background: #d9c6a2; border-right: 2px solid rgba(43, 36, 32, .5); }
+.nm-card-body { display: flex; flex-direction: column; flex: 1 1 auto; min-width: 0; padding: .6em .8em; }
+.nm-card-outside .nm-card-thumb { filter: grayscale(.75); opacity: .75; }
+.nm-card-done .nm-card-thumb { filter: saturate(.85); }
+.nm-card-name { font-size: calc(21px * var(--fs, 1)); }
+.nm-btn.nm-stage-card:hover { background: #fff8ea; }
+.nm-btn.nm-card-done { background: #f2f0ea; }
+@media (min-width: 700px) {
+  .nm-stage-card.has-thumb { flex-direction: column; }
+  .nm-card-thumb { width: 100%; max-width: none; min-height: 0; height: auto; aspect-ratio: 16 / 9; border-right: 0; border-bottom: 2px solid rgba(43, 36, 32, .5); }
+}
+
 /* 창 */
 .nm-modal-host { position: absolute; inset: 0; z-index: 20; }
 .nm-modal {
@@ -150,10 +378,19 @@
   font-size: calc(16px * var(--fs, 1));
 }
 #nm-toolbar .nm-btn { background: rgba(255, 250, 240, .95); box-shadow: 0 2px 0 rgba(0, 0, 0, .3); }
-/* 좁은 화면: 도구 단추를 오른쪽에 세로로 쌓아 왼쪽 장면 진행 판과 덜 겹치게 한다 */
-@media (max-width: 520px) {
-  #nm-toolbar { flex-direction: column; align-items: stretch; gap: 6px; }
-  #nm-toolbar .nm-btn { padding: .35em .7em; }
+#nm-toolbar .nm-tb-btn { gap: .35em; padding: .3em .8em .3em .55em; }
+.nm-tb-icon { display: block; flex: none; width: 1.6em; height: 1.6em; object-fit: contain; pointer-events: none; }
+.nm-tb-label { white-space: nowrap; }
+/* 좁은 화면(휴대 전화 세로)·낮은 화면(가로): 아이콘 위·이름 아래의 작은 단추를 가로 한 줄로 오른쪽 위에 둔다.
+   장면 진행 판(HUD)은 그 왼쪽에, 자리가 모자라면 아래에 선다(app.js measureToolbar → --nm-tb-w·--nm-tb-b, css/stage.css). */
+@media (max-width: 520px), (max-height: 520px) {
+  #nm-toolbar { gap: 4px; top: max(6px, env(safe-area-inset-top)); right: max(6px, env(safe-area-inset-right)); max-width: calc(100% - 12px); }
+  #nm-toolbar .nm-tb-btn {
+    flex-direction: column; gap: 1px; min-width: 52px; min-height: 52px; padding: 4px 5px 3px; border-radius: 12px;
+    font-size: calc(12.5px * var(--fs, 1)); line-height: 1.15; font-weight: 700;
+  }
+  #nm-toolbar .nm-tb-icon { width: 24px; height: 24px; }
+  #nm-toolbar .nm-badge { font-size: calc(12px * var(--fs, 1)); padding: .05em .45em; }
 }
 
 /* 교사 장소 목록 */

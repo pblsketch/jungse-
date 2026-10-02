@@ -150,6 +150,19 @@ Object.assign(NM.data.ASSETS.ui, {
   og: 'assets/ui/og.jpg', app192: 'assets/ui/app-192.png', app512: 'assets/ui/app-512.png',
   notebook: 'assets/ui/icon_notebook.png', settings: 'assets/ui/icon_settings.png', rulecard: 'assets/ui/icon_rulecard.png',
   dictionary: 'assets/ui/icon_dictionary.png', plaque: 'assets/ui/icon_plaque.png', hint: 'assets/ui/icon_hint.png',
-  map: 'assets/ui/icon_map.png', soundOn: 'assets/ui/icon_sound_on.png', soundOff: 'assets/ui/icon_sound_off.png'
+  map: 'assets/ui/icon_map.png', soundOn: 'assets/ui/icon_sound_on.png', soundOff: 'assets/ui/icon_sound_off.png',
+  // 첫 화면 배경 그림: 넓은 화면용·세로 화면용(assets/raw/gen/ui_title_wide·tall.png 를 웹용 webp 로 줄인 것)
+  titleBg: 'assets/ui/title-bg.webp', titleBgTall: 'assets/ui/title-bg-tall.webp',
+  // 종이 화면 바탕 한지 무늬(거울 반복 타일 — 이음매 없음)
+  paper: 'assets/ui/paper.webp',
+  // 학교급 고르기 카드 그림(중학교·고1·고2~3)
+  levelM: 'assets/ui/level_m.webp', levelH1: 'assets/ui/level_h1.webp', levelH23: 'assets/ui/level_h23.webp'
+});
+// 장면 고르기 카드의 작은 그림(장면 첫 그림 assets/cg/<id>_intro.webp 를 320×240 으로 줄인 것)
+NM.data.ASSETS.thumbs = Object.assign(NM.data.ASSETS.thumbs || {}, {
+  s0: 'assets/ui/thumbs/s0.webp', s1: 'assets/ui/thumbs/s1.webp', s2: 'assets/ui/thumbs/s2.webp', s3: 'assets/ui/thumbs/s3.webp',
+  s4: 'assets/ui/thumbs/s4.webp', s5: 'assets/ui/thumbs/s5.webp', s6: 'assets/ui/thumbs/s6.webp', s7: 'assets/ui/thumbs/s7.webp',
+  s8: 'assets/ui/thumbs/s8.webp', s9: 'assets/ui/thumbs/s9.webp', s10: 'assets/ui/thumbs/s10.webp', s11: 'assets/ui/thumbs/s11.webp',
+  s12: 'assets/ui/thumbs/s12.webp'
 });
 /* assets:end */

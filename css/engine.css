@@ -12,6 +12,14 @@
 }
 #ui-layer > .nm-hud > .nm-act:focus-visible { outline: 4px solid #ffd76a; outline-offset: 3px; }
 #ui-layer > .nm-hud > .nm-act[hidden] { display: none; }
+/* 좁은 화면(휴대 전화 세로): 살피기 단추를 조금 작게, 가장자리에 조금 더 붙여 지도를 덜 가린다 */
+@media (max-width: 520px) {
+  #ui-layer > .nm-hud > .nm-act {
+    right: max(14px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom));
+    min-width: 112px; min-height: 56px; padding: 10px 22px; max-width: calc(100% - 28px);
+    font-size: calc(19px * var(--fs, 1));
+  }
+}
 .nm-joy {
   position: absolute; width: 112px; height: 112px; margin: -56px 0 0 -56px; border-radius: 50%;
   background: rgba(246, 239, 226, .18); border: 3px solid rgba(246, 239, 226, .55); pointer-events: none;
