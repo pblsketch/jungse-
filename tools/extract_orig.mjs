@@ -132,7 +132,9 @@ function parseBlock(lines, at, rel, id) {
     if (!certainty) errors.push(`${where(cert.line)}: ${id} 확실도는 ◎ ○ △ 중 하나여야 한다 ('${cert.value}')`);
   }
   if (errors.length) return { block: null, errors, consumed };
-  const srcUrl = (src.value.match(/https?:\/\/[^\s<>]+/) || [src.value])[0].replace(/[,.;]+$/, '');
+  // 화면 출처는 URL: 출처 칸에 URL 이 없고 교과서 쪽만 있으면 대조 칸의 첫 URL 을 쓴다(교과서 출판사·쪽은 화면에 적지 않음)
+  const firstUrl = (v) => { const m = v && v.match(/https?:\/\/[^\s<>]+/); return m ? m[0].replace(/[,.;]+$/, '') : null; };
+  const srcUrl = firstUrl(src.value) || firstUrl(cmp && cmp.value) || src.value;
   const block = { title, lines: body, src: srcUrl, certainty, doc: rel };
   // '- 방점: 표기 안 함' 블록은 방점을 판독하지 못한 구절이다(평성이라는 뜻이 아님). 화면은 방점 설정과 상관없이 방점 없이 보인다.
   if (meta['방점'] && /^표기\s*안\s*함/.test(meta['방점'].value)) block.noBangjeom = true;

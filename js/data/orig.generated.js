@@ -13,7 +13,7 @@ NM.data.ORIG = {
     "lines": [
       "나·랏:말[ㅆㆍ]·미{中|[ㄷㅠㆁ]}{國|·귁}·에달·아"
     ],
-    "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
+    "src": "https://ko.wikisource.org/wiki/훈민정음언해",
     "certainty": "◎",
     "doc": "design/research/09_원문_훈민정음.md",
     "modern": [
@@ -25,7 +25,7 @@ NM.data.ORIG = {
     "lines": [
       "{文|문}{字|·[ㅉㆍㅇ]}·와·로서르[ㅅㆍ][ㅁㆍㅅ]·디아·니[ㅎㆍㄹ]·[ㅆㆎ]"
     ],
-    "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
+    "src": "https://ko.wikisource.org/wiki/훈민정음언해",
     "certainty": "◎",
     "doc": "design/research/09_원문_훈민정음.md",
     "modern": [
@@ -37,7 +37,7 @@ NM.data.ORIG = {
     "lines": [
       "·이런젼·[ㅊㆍ]·로어·린{百|·[ㅂㆎㄱ]}{姓|·[ㅅㅕㆁ]}·이니르·고·져·[ㅎㅗㅭ]·배이·셔·도"
     ],
-    "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
+    "src": "https://ko.wikisource.org/wiki/훈민정음언해",
     "certainty": "◎",
     "doc": "design/research/09_원문_훈민정음.md",
     "modern": [
@@ -49,7 +49,7 @@ NM.data.ORIG = {
     "lines": [
       "[ㅁㆍ]·[ㅊㆍㅁ]:내제·[ㅳㅡ]·들시·러펴·디:몯[ㅎㆍㅭ]·노·미하·니·라"
     ],
-    "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
+    "src": "https://ko.wikisource.org/wiki/훈민정음언해",
     "certainty": "◎",
     "doc": "design/research/09_원문_훈민정음.md",
     "modern": [
@@ -61,7 +61,7 @@ NM.data.ORIG = {
     "lines": [
       "·내·이·[ㄹㆍㄹ]{爲|·윙}·[ㅎㆍ]·야:어엿·비너·겨"
     ],
-    "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
+    "src": "https://ko.wikisource.org/wiki/훈민정음언해",
     "certainty": "◎",
     "doc": "design/research/09_원문_훈민정음.md",
     "modern": [
@@ -73,7 +73,7 @@ NM.data.ORIG = {
     "lines": [
       "·새·로·스·믈여·듧{字|·[ㅉㆍㅇ]}·[ㄹㆍㄹ][ㅁㆎㆁ]·[ㄱㆍ]노·니"
     ],
-    "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
+    "src": "https://ko.wikisource.org/wiki/훈민정음언해",
     "certainty": "◎",
     "doc": "design/research/09_원문_훈민정음.md",
     "modern": [
@@ -85,7 +85,7 @@ NM.data.ORIG = {
     "lines": [
       ":사[ㄹㆍㅁ]:마·다:[ㅎㆎ]·[ㆀㅕ]:수·[ㅸㅣ]니·겨·날·로·[ㅄㅜ]·메"
     ],
-    "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
+    "src": "https://ko.wikisource.org/wiki/훈민정음언해",
     "certainty": "◎",
     "doc": "design/research/09_원문_훈민정음.md",
     "modern": [
@@ -97,7 +97,7 @@ NM.data.ORIG = {
     "lines": [
       "{便|뼌}{安|[ㆆㅏㄴ]}·킈[ㅎㆍ]·고·져[ㅎㆍㅭ][ㅼㆍ][ㄹㆍ]·미니·라"
     ],
-    "src": "지학사 공통국어2 132쪽(PDF 글자 층) — `source_cache/tb_gongtong2_p132_seomun.txt`",
+    "src": "https://ko.wikisource.org/wiki/훈민정음언해",
     "certainty": "◎",
     "doc": "design/research/09_원문_훈민정음.md",
     "modern": [

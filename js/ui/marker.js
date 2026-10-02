@@ -30,7 +30,7 @@
 
   /* ---------- 출처 글: 데이터의 출처 칸 → 학생에게 보일 글 ----------
    * 데이터의 출처 칸에는 검증용 메모가 섞여 있다(리서치 문서 절, 오해 id, 내려받은 파일 경로, 'PDF 글자 층').
-   * 화면에는 교과서 쪽·문헌 이름·사이트 이름만 보인다. 원래 글은 title(마우스를 올리면 보임)로 남긴다.
+   * 화면에는 문헌 이름·사이트 이름만 보인다(교과서 출판사·쪽은 빼고). 원래 글은 title(마우스를 올리면 보임)로 남긴다.
    * 남는 것이 없으면 '' → 출처 줄을 그리지 않는다. */
   const SITES = [
     [/^ko\.wikisource\.org\/wiki\//, 'wikisource'], [/^zh\.wikisource\.org\/wiki\//, 'wikisourceZh'],
@@ -38,6 +38,8 @@
     [/^waks\.aks\.ac\.kr\//, 'aks'], [/^www\.davincimap\.co\.kr\//, 'davinci']
   ];
   const INTERNAL = /리서치|spec\s*§|(^|[\s(,])(rule|wrong)\.[A-Za-z]|source_cache|\.txt\b/;
+  // 교과서 쪽(어느 교과서에나 있는 내용이라 학생 화면에는 출판사·쪽을 적지 않는다)
+  const TEXTBOOK = /지학사|공통국어|중학 국어|화법과 언어|지도서|교과서/;
   const SOURCEISH = /쪽|『|「|사전|영인|DB|우리말샘|위키문헌|포털|발음법|신문|보도|지도서|\(\d{4}\)/;
   function urlLabel(u) {
     const rest = u.replace(/^https?:\/\//, '');
@@ -72,11 +74,13 @@
       // '리서치 …(교과서 쪽, 문헌)', 'rule.x (교과서 쪽)' → 괄호 안의 출처만
       const m = t.match(/^(?:리서치|rule\.|wrong\.|O-s\d)[^(]*\(([^()]*)\)\s*$/);
       if (m && !INTERNAL.test(m[1]) && SOURCEISH.test(m[1])) t = m[1].trim();
-      t = t.replace(/\s*\(([^()]*)\)/g, (all, inner) => INTERNAL.test(inner) ? '' : all)
+      t = t.replace(/\s*\(([^()]*)\)/g, (all, inner) => INTERNAL.test(inner) || TEXTBOOK.test(inner) ? '' : all)
         .replace(/\s*\bO-s\d+-[A-Za-z0-9-]+(\s*블록)?/g, '').trim().replace(/^\(([^()]*)\)$/, '$1');
       if (!t || /^§/.test(t) || /^\d+번$/.test(t) || /^(리서치|spec|rule\.|wrong\.)/.test(t) || INTERNAL.test(t)) return;
-      t = t.replace(/\u0000(\d+)\u0000/g, (all, k) => urls[+k]);
-      if (out.indexOf(t) < 0) out.push(t);
+      t.split(/, /).map(x => x.trim()).filter(x => x && !TEXTBOOK.test(x)).forEach(x => {
+        x = x.replace(/\u0000(\d+)\u0000/g, (all, k) => urls[+k]);
+        if (out.indexOf(x) < 0) out.push(x);
+      });
     });
     return out.join(' · ');
   }
