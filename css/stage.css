@@ -294,3 +294,17 @@ html[data-nm-motion="reduce"] .nm-st-glyph, html.nm-reduced-motion .nm-st-glyph 
 .nm-dlg-line.has-cg { flex-wrap: wrap; }
 .nm-dlg-cg { flex: 1 0 100%; margin: 0 0 .5em; }
 .nm-dlg-cg img { display: block; width: 100%; max-height: 42vh; object-fit: contain; border-radius: 8px; background: var(--hanji); }
+
+/* 原文 현대어 풀이 — <html data-nm-modern="tap|always|off">(설정 '현대어 풀이') */
+.nm-orig-modern { margin: .5em 0 0; }
+.nm-orig-modern-btn {
+  font: inherit; font-size: .85em; padding: .3em .8em; min-height: 2.2em; cursor: pointer;
+  border: 1.5px solid currentColor; border-radius: 999px; background: transparent; color: inherit; opacity: .85;
+}
+.nm-orig-modern-text { display: none; margin: .45em 0 0; padding: .5em .75em; border-left: 3px solid #b5651d; background: rgba(181, 101, 29, .08); border-radius: 4px; }
+.nm-orig-modern.is-open .nm-orig-modern-text { display: block; }
+.nm-orig-modern-label { display: block; font-size: .78em; font-weight: 700; opacity: .8; margin-bottom: .15em; }
+.nm-orig-modern-line { margin: .1em 0; line-height: 1.6; }
+html[data-nm-modern="always"] .nm-orig-modern-btn { display: none; }
+html[data-nm-modern="always"] .nm-orig-modern-text { display: block; }
+html[data-nm-modern="off"] .nm-orig-modern { display: none; }

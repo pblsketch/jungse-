@@ -121,5 +121,23 @@ assert.ok(L.stageName('s0').length > 0);
 assert.ok(L.stageName('s12').length > 0);
 assert.notEqual(L.stageName('s0'), L.stageName('s12'));
 
+// ── 현대어 풀이 잠금: 그 原文 블록이 든 맥락을 쓰는 핵심 해독 항목을 확정하기 전에는 감춘다 ──
+{
+  const sc = {
+    items: [{ id: 'x.r1', kind: 'read' }, { id: 'x.t1', kind: 'task' }],
+    contexts: [{ id: 'x.c1', items: ['x.r1'], orig: ['B1'] }, { id: 'x.c2', items: ['x.r1'], orig: ['B2'] }, { id: 'x.c3', items: [], orig: ['B3'] }]
+  };
+  const core = sc.items;
+  const prog = (state, status) => ({ status: status || 'progress', items: { 'x.r1': { kind: 'read', state } } });
+  assert.equal(L.modernLocked(sc, prog('met'), core, 'B1'), true, '확정 전: 항목 맥락의 블록은 잠김');
+  assert.equal(L.modernLocked(sc, prog('met'), core, 'B2'), true);
+  assert.equal(L.modernLocked(sc, prog('met'), core, 'B3'), false, '항목과 상관없는 블록은 열림');
+  assert.equal(L.modernLocked(sc, prog('confirmed'), core, 'B1'), false, '확정 뒤 열림');
+  assert.equal(L.modernLocked(sc, prog('confirmedByHelp'), core, 'B1'), false);
+  assert.equal(L.modernLocked(sc, prog('met', 'done'), core, 'B1'), false, '끝낸 장면은 열림');
+  assert.equal(L.modernLocked(sc, prog('met'), [], 'B1'), false, '이 학교급 핵심이 아니면 열림');
+  assert.equal(L.modernLocked(sc, null, core, 'B1'), true, '기록 없음 = 확정 전');
+}
+
 assert.equal(ctx.__nmErrors.length, 0, JSON.stringify(ctx.__nmErrors));
 console.log('d1 logic ok');

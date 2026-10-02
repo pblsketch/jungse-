@@ -71,6 +71,10 @@
   }
   function sfx(name) { try { if (E().audio) E().audio.sfx(name); } catch (e) { NM.reportError('stage.sfx', e); } }
   function stageProg() { return cur.store.stage(cur.stageId); }
+  // 原文 카드에 현대어 풀이를 붙이는가(설정이 '끔'이면 CSS 가 숨김). 그 블록으로 푸는 해독 항목을 확정하기 전에는 붙이지 않는다.
+  function modernOn(blockId) {
+    try { return !L().modernLocked(cur.scene, stageProg(), coreItems(), blockId); } catch (e) { return false; }
+  }
   function coreItems() { return cur.store.coreItems(cur.scene); }
   function isCore(id) { return coreItems().some(i => i.id === id); }
 
@@ -240,7 +244,7 @@
     const body = w.body;
     body.textContent = '';
     const solved = L().solvedWords(cur.scene, stageProg());
-    (Array.isArray(cx.orig) ? cx.orig : []).forEach(id => { const o = MK().orig(id, { solved }); if (o) body.appendChild(o); });
+    (Array.isArray(cx.orig) ? cx.orig : []).forEach(id => { const o = MK().orig(id, { solved, modern: modernOn(id) }); if (o) body.appendChild(o); });
     const lines = Array.isArray(cx.lines) ? cx.lines : [];
     if (lines.length) {
       const box = el('div', 'nm-ctx-lines');
@@ -364,7 +368,7 @@
       cur.store.markNotice('fiction:' + f.id);
       return card;
     });
-    const origs = (part) => (part && Array.isArray(part.orig) ? part.orig : []).map(id => MK().orig(id, { solved: [] })).filter(Boolean);
+    const origs = (part) => (part && Array.isArray(part.orig) ? part.orig : []).map(id => MK().orig(id, { solved: [], modern: modernOn(id) })).filter(Boolean);
     const steps = [
       () => play(sc.intro, { kind: 'intro', title: titleNode(sc.title), extras: fic }),
       () => play(sc.request, { kind: 'request', title: TX().t('win.request') }),

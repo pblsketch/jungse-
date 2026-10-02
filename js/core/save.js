@@ -36,7 +36,7 @@
   }
 
   function defaultSettings() {
-    return { bangjeom: true, fontScale: 1, reducedMotion: 'auto', bgm: true, sfx: true };
+    return { bangjeom: true, modern: 'tap', fontScale: 1, reducedMotion: 'auto', bgm: true, sfx: true };
   }
   function defaultRecord(level) {
     return {
@@ -50,6 +50,7 @@
 
   const SETTING_OK = {
     bangjeom: (v) => typeof v === 'boolean',
+    modern: (v) => v === 'tap' || v === 'always' || v === 'off',
     fontScale: (v) => v === 1 || v === 2 || v === 3,
     reducedMotion: (v) => v === 'auto' || v === true || v === false,
     bgm: (v) => typeof v === 'boolean',

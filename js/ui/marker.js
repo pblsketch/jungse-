@@ -7,7 +7,8 @@
  *   card({kind, text, src, real, showReal, title, item, fill, solved, document})
  *                             표지 카드. know 는 출처(src), fiction 은 showReal 이면 "실제로는 → real",
  *                             variant·interp 는 '채점하지 않아요' 표시. text·title·real 은 장면 데이터 표기(옛한글 가능).
- *   orig(blockId, {solved, document})  NM.data.ORIG[blockId] 원문 카드: 原文 낙관 + 제목 + 줄마다 현대 표기 읽기 + 출처.
+ *   orig(blockId, {solved, document, modern})  NM.data.ORIG[blockId] 원문 카드: 原文 낙관 + 제목 + 줄마다 현대 표기 읽기 + 출처.
+ *                             modern: true 면 현대어 풀이(block.modern)를 붙인다 — 맥락·대사 창만(과제 화면은 답이 드러나서 붙이지 않음).
  *                             원문 글자는 자동 생성 데이터 그대로 그린다(바꾸지 않는다). 없는 블록이면 null + 오류 모음.
  *   srcLabel(raw)             데이터 출처 칸 → 학생에게 보일 출처 글(검증 메모·파일 경로 빼고, 주소는 사이트 이름으로)
  * 필요: ns.js, ui/stage-text.js, ui/stage-yet.js
@@ -125,6 +126,29 @@
     return c;
   }
 
+  // 原文 아래 현대어 풀이(block.modern: 줄마다 하나). 보이는 방식은 <html data-nm-modern="tap|always|off">(설정)로 CSS 가 가른다:
+  // tap 이면 단추를 눌러 펼치고, always 면 늘 펼쳐 보이고, off 면 통째로 숨긴다(다시 그리지 않음).
+  function modernBox(doc, block) {
+    const lines = Array.isArray(block.modern) ? block.modern.filter(x => typeof x === 'string' && x) : [];
+    if (!lines.length) return null;
+    const box = el(doc, 'div', 'nm-orig-modern');
+    const btn = el(doc, 'button', 'nm-orig-modern-btn', TX().t('marks.modernShow'));
+    btn.type = 'button';
+    btn.setAttribute('aria-expanded', 'false');
+    const txt = el(doc, 'div', 'nm-orig-modern-text');
+    txt.appendChild(el(doc, 'span', 'nm-orig-modern-label', TX().t('marks.modern')));
+    lines.forEach(m => txt.appendChild(el(doc, 'p', 'nm-orig-modern-line', m)));
+    btn.addEventListener('click', () => {
+      const open = !box.classList.contains('is-open');
+      box.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = TX().t(open ? 'marks.modernHide' : 'marks.modernShow');
+    });
+    box.appendChild(btn);
+    box.appendChild(txt);
+    return box;
+  }
+
   function orig(blockId, opts) {
     const o = opts || {};
     const doc = o.document || root.document;
@@ -141,6 +165,7 @@
     block.lines.forEach(ln => body.appendChild(YB().line(ln, { document: doc, solved: o.solved })));
     sec.appendChild(body);
     if (block.noBangjeom) sec.appendChild(el(doc, 'p', 'nm-orig-note', TX().t('marks.noBangjeom')));
+    if (o.modern === true) { const m = modernBox(doc, block); if (m) sec.appendChild(m); }
     if (block.src) { const s = srcLine(doc, block.src); if (s) sec.appendChild(s); }
     return sec;
   }

@@ -6,6 +6,9 @@
  *   nonCoreItems(scene, core)      이 학교급에서 핵심이 아닌 항목(알아 두기로만 보인다)
  *   bangjeomFor(stageId, scene, settings)  방점 보이기: s4·s10 또는 scene.bangjeomAlways 면 늘 켬, 아니면 설정
  *   objectives(scene, stageProg, core)     목표 맥락: 확정 전 핵심 해독 항목이 아직 두 곳을 못 보았을 때 그 항목이 든 안 본 맥락
+ *   modernLocked(scene, stageProg, core, blockId)
+ *                                  原文 블록의 현대어 풀이를 아직 감추는가: 장면을 끝내지 않았고, 그 블록이 든 맥락을 쓰는
+ *                                  핵심 해독 항목 가운데 확정하지 않은 것이 있으면 참(풀이가 답을 알려 주지 않게)
  *   solvedWords(scene, stageProg)  확정한 항목의 { itemId, forms(item.word + item.wordForms), gloss(item.gloss 또는 정답 카드 글자) }
  *                                  — 화면 곳곳 현대어 풀이용
  *   knownRules(record, level) / unknownRules(scene, record, level)
@@ -60,6 +63,13 @@
       contextsOf(scene, it.id).forEach(c => { if (seen.indexOf(c.id) < 0 && want.indexOf(c.id) < 0) want.push(c.id); });
     });
     return list(scene && scene.contexts).map(c => c.id).filter(id => want.indexOf(id) >= 0);
+  }
+
+  function modernLocked(scene, prog, core, blockId) {
+    if (prog && prog.status === 'done') return false;
+    const items = (prog && prog.items) || {};
+    return list(core).some(it => it.kind === 'read' && !R().isItemDone(items[it.id]) &&
+      contextsOf(scene, it.id).some(c => list(c.orig).indexOf(blockId) >= 0));
   }
 
   function solvedWords(scene, prog) {
@@ -145,7 +155,7 @@
   }
 
   NM.ui.stageLogic = {
-    ALWAYS_BANGJEOM, resolveScene, itemById, contextById, contextsOf, nonCoreItems, bangjeomFor,
+    ALWAYS_BANGJEOM, resolveScene, itemById, contextById, contextsOf, nonCoreItems, bangjeomFor, modernLocked,
     objectives, solvedWords, knownRules, unknownRules, judge, stageName
   };
 })(typeof window !== 'undefined' ? window : globalThis);
