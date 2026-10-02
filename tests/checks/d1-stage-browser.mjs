@@ -164,13 +164,18 @@ try {
   check('choose → guessed', (await state(page, 's6.r1')) === 'guessed');
   let conf = await page.evaluate((sel) => { const b = document.querySelector(sel + ' .nm-st-confirm'); return { disabled: b.disabled, seen: document.querySelector(sel + ' .nm-st-seen').textContent }; }, TOP);
   check('1 context seen → confirm disabled', conf.disabled === true && conf.seen.includes('1'), conf);
+  const gs = await page.evaluate((sel) => { const g = document.querySelector(sel + ' .nm-st-guess'), c = document.querySelector(sel + ' .nm-st-confirm'); return { guess: !!g && !g.hidden && !g.disabled && g.textContent, confirmHidden: !!c && c.hidden }; }, TOP);
+  check('1 context seen → 추측하기 button instead of confirm', gs.guess === '추측하기' && gs.confirmHidden, gs);
   check('no correctness shown before confirm', await page.evaluate((sel) => !document.querySelector(sel + ' .is-correct, ' + sel + ' .nm-st-answer, ' + sel + ' .nm-st-result'), TOP));
   // Tab 은 창 안에서 돈다
   for (let i = 0; i < 12; i++) await page.keyboard.press('Tab');
   check('Tab keeps focus inside top window', await page.evaluate((sel) => !!document.activeElement.closest(sel), TOP));
-  await page.keyboard.press('Escape');
+  await page.click(TOP + ' .nm-st-guess');
   t = await topWin(page);
-  check('Esc closes top window only', t && t.win === 'context', t);
+  const toast = await page.evaluate(() => { const e = document.querySelector('.nm-st-toast'); return e ? { text: e.textContent, role: e.getAttribute('role') } : null; });
+  check('추측하기 closes only the item window (context stays)', t && t.win === 'context', t);
+  check('추측하기 shows a short notice (role=status)', !!toast && toast.role === 'status' && toast.text.includes('한 곳 더'), toast);
+  check('guess kept after 추측하기', (await state(page, 's6.r1')) === 'guessed');
   await page.keyboard.press('Escape');
   check('Esc closes context; map resumes', !(await page.evaluate(() => NM.engine.isOverlayOpen())));
   // 같은 맥락 다시 → 그대로 1곳

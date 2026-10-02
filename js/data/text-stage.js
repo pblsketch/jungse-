@@ -21,7 +21,7 @@ NM.data.TEXT.stage = {
   speakers: { senior: '선배 통사', sejong: '세종', narrator: '' },
 
   btn: {
-    next: '다음', close: '닫기', confirm: '확정하기', translateStart: '통역하기', exit: '장면 나가기', open: '살펴보기',
+    next: '다음', close: '닫기', confirm: '확정하기', guess: '추측하기', translateStart: '통역하기', exit: '장면 나가기', open: '살펴보기',
     save: '수첩 이미지 저장하기', later: '나중에 하기', skip: '건너뛰기', done: '다 썼어요',
     teacherAnswer: '정답과 풀이 바로 보기', notebook: '수첩', skipAll: '대화 넘기기',
     moreHelp: '실마리 더 보기', helpAnswer: '선배에게 정답 듣기'
@@ -64,6 +64,8 @@ NM.data.TEXT.stage = {
   canConfirm: '두 곳 이상 살폈어요. 카드를 골라 확정해 보세요.',
   pickAgain: '다른 카드를 골라 다시 확정해 보세요.',
   pickCard: '확정하기 전에는 맞았는지 알 수 없어요.',
+  pickGuess: '카드를 골라 추측해 두고, 이 말이 나오는 곳을 한 곳 더 살펴보세요.',
+  guessSaved: '추측해 두었어요. 이 말이 나오는 곳을 한 곳 더 살피면 확정할 수 있어요.',
   readPrompt: '이 말은 무슨 뜻일까?',
   rulePrompt: '빈칸에 알맞은 카드를 골라 규칙 문장을 완성해 보세요.',
   cardsLabel: '카드',

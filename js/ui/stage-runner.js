@@ -358,8 +358,19 @@
       settings: () => cur.eff || { bangjeom: true, reducedMotion: false },
       knownRules: () => L().knownRules(store.get(), store.level),
       addTranslation: (tid) => (typeof tid === 'string' && tid ? store.addTranslation(cur.stageId, tid) : null),
-      onItemClosed: () => afterWindowClosed()
+      onItemClosed: () => afterWindowClosed(),
+      notice: (text) => notice(text)
     };
+  }
+  // 잠깐 보였다 사라지는 안내(화면 낭독기에도 알림)
+  function notice(text) {
+    const host = document.getElementById('ui-layer') || document.body;
+    const old = host.querySelector('.nm-st-toast');
+    if (old) old.remove();
+    const t = el('div', 'nm-st-toast', text);
+    t.setAttribute('role', 'status');
+    host.appendChild(t);
+    setTimeout(() => { if (t.parentNode) t.remove(); }, 4200);
   }
   function openItem(itemId) {
     if (!cur) return null;

@@ -423,3 +423,11 @@ html[data-nm-eum="off"] .nm-eum-rt { display: none; }
 
 /* 통역할 인물이 맵에 없는 장면: 통역 창을 닫은 뒤 HUD 에서 다시 시작 */
 .nm-st-hud-go { display: block; width: 100%; margin: .35em 0 0; padding: .45em .8em; font-weight: 700; background: #b8322a; color: #fff; border: 2px solid #2b2420; border-radius: 10px; cursor: pointer; }
+
+/* 추측해 두었다는 잠깐 안내(해독 창의 '추측하기' 뒤) */
+.nm-st-toast { position: absolute; left: 50%; bottom: calc(110px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 60;
+  max-width: min(92vw, 520px); padding: .7em 1.1em; border-radius: 12px; background: rgba(29, 26, 23, .92); color: #fff8ea;
+  font-size: calc(15px * var(--fs, 1)); line-height: 1.5; text-align: center; box-shadow: 0 6px 20px rgba(0,0,0,.35); pointer-events: none;
+  animation: nm-toast-in .25s ease-out; }
+@keyframes nm-toast-in { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+html.nm-reduced-motion .nm-st-toast { animation: none; }

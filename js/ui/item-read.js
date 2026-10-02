@@ -96,7 +96,9 @@
       };
       const comp = item.sentence ? NM.ui.rulecard.build(opts) : NM.ui.rulecard.cards(opts);
       body.appendChild(comp.el);
-      if (!done && rec.guess == null) body.appendChild(el('p', 'nm-st-note', TX().t('pickCard')));
+      // 단서를 두 곳 살피기 전: 확정 대신 '추측하기'(고른 카드를 추측으로 적어 두고 다른 단서를 찾으러 간다)
+      const needMore = !done && !teacherShown && rec.state !== 'unseen' && seen.length < 2;
+      if (!done && rec.guess == null) body.appendChild(el('p', 'nm-st-note', TX().t(needMore ? 'pickGuess' : 'pickCard')));
 
       // 왜 아닌지 (방금 오답 확정한 카드)
       const lw = lastWrong[itemId];
@@ -173,9 +175,16 @@
         hb.addEventListener('click', onMoreHelp);
         foot.appendChild(hb);
       }
+      if (needMore) {
+        const gb = el('button', 'nm-st-btn nm-st-primary nm-st-guess', TX().t('btn.guess'));
+        gb.type = 'button';
+        gb.disabled = rec.guess == null;
+        gb.addEventListener('click', onGuess);
+        foot.appendChild(gb);
+      }
       const cb = el('button', 'nm-st-btn nm-st-primary nm-st-confirm', TX().t('btn.confirm'));
       cb.type = 'button';
-      cb.hidden = done;
+      cb.hidden = done || needMore;
       cb.disabled = !((rec.state === 'confirmable' || rec.state === 'misread') && rec.guess != null && seen.length >= 2);
       cb.addEventListener('click', onConfirm);
       foot.appendChild(cb);
@@ -235,6 +244,14 @@
       render();
       const hb = w.foot.querySelector('.nm-st-morehelp');
       if (hb) hb.focus(); else w.focus();
+    }
+
+    // 추측하기: 카드는 고를 때 이미 추측으로 적힌다(rules.chooseCard → guessed). 창을 닫고 다른 단서를 찾으라고 알린다.
+    function onGuess() {
+      const rec = env.rec(itemId);
+      if (!rec || rec.guess == null) return;
+      w.close('guess');
+      if (env.notice) env.notice(TX().t('guessSaved'));
     }
 
     function onConfirm() {
