@@ -44,9 +44,40 @@
     } catch (e) { NM.reportError('engine.text', e); }
     return fallback;
   };
-  E.actLabel = function (actKey) {
+  // 문구의 %이름% 자리 채우기
+  E.fill = function (s, vars) {
+    return String(s == null ? '' : s).replace(/%(\w+)%/g, (m, k) => (vars && vars[k] != null ? String(vars[k]) : m));
+  };
+  // 조사 고르기: pair = [받침 있을 때, 없을 때]. 이름 끝의 마지막 한글 음절을 본다(』 ) 같은 닫는 표는 건너뜀).
+  E.josa = function (word, pair) {
+    if (!Array.isArray(pair) || pair.length < 2) return '';
+    const s = String(word || '');
+    for (let i = s.length - 1; i >= 0; i--) {
+      const c = s.charCodeAt(i);
+      if (c >= 0xAC00 && c <= 0xD7A3) return (c - 0xAC00) % 28 ? pair[0] : pair[1];
+      if (/[0-9A-Za-zㄱ-ㆎᄀ-ᇿ]/.test(s[i])) return pair[1];
+    }
+    return pair[1];
+  };
+  // 살피기 단추 이름. info = { name, person } (대상 이름을 알면). 맵 객체의 act 키 문구가 있으면 그것이 먼저다.
+  E.actLabel = function (actKey, info) {
     const def = E.text(ACT_KEY, E.text(ACT_FALLBACK_KEY, ACT_LAST));
-    return actKey ? E.text(actKey, def) : def;
+    if (actKey) {
+      const v = E.text(actKey, null);
+      if (v) return E.fill(v, { name: info && info.name ? info.name : '' });
+    }
+    if (info && info.name) {
+      const key = info.person ? 'engine.act.talkNamed' : 'engine.act.inspectNamed';
+      const tpl = E.text(key, null);
+      if (tpl) return E.fill(tpl, { name: info.name, wa: E.josa(info.name, E.textList('engine.josa.wa')) });
+    }
+    return def;
+  };
+  // 문구 목록(배열) 찾기
+  E.textList = function (key) {
+    const T = NM.data && NM.data.TEXT;
+    const v = T && String(key).split('.').reduce((o, k) => (o && typeof o === 'object') ? o[k] : undefined, T);
+    return Array.isArray(v) ? v : null;
   };
 
   // 사건

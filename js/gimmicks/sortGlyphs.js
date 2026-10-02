@@ -17,6 +17,8 @@
  *   기믹 뿌리 요소에 data-dogam="open" 을 단다(장면·수첩이 쓸 수 있는 표지). 도감 화면 자체는 수첩(U1) 몫이다.
  *   도감 설명은 NM.data.DOGAM 에서 같은 글자(glyph)를 찾아 쓴다. 없으면 칸 설명만 보인다.
  * ■ 조작: 글자 단추를 눌러 고르고(Enter·Space), 칸의 '여기에 놓기' 단추로 놓는다. 끌어 놓기는 쓰지 않는다.
+ *   놓으면 다음 글자를 미리 고르고 초점을 옮긴다. 알림 줄(.nm-gsg-now, aria-live)이 '미리 골라 둔 다음 글자'를 보이고 읽어 준다.
+ *   미리 고른 글자를 한 번 더 눌러도 고름이 풀리지 않는다(안내대로 '고른 뒤 놓기'를 해도 헷갈리지 않게). 직접 고른 글자를 다시 누르면 풀린다.
  * 필요: core/ns.js, ui/stage-gimmick.js, data/text-g-sortGlyphs.js (도감 설명은 data DOGAM 이 있으면)
  */
 (function (root) {
@@ -92,7 +94,8 @@
     }
     const place = {};
     ids.forEach(id => { place[id] = null; });
-    let selected = null, locked = false, finished = false, wrongCalled = false, lastWrong = [];
+    // auto: 놓은 뒤 기믹이 미리 고른 글자 id. 그 글자를 한 번 더 눌러도 고름이 풀리지 않는다(안내대로 '고른 뒤 놓기').
+    let selected = null, auto = null, locked = false, finished = false, wrongCalled = false, lastWrong = [];
 
     function el(tag, cls, text) {
       const e = doc.createElement(tag);
@@ -109,6 +112,11 @@
     const box = el('div', 'nm-gsg');
     box.setAttribute('data-state', 'open');
     box.appendChild(el('p', 'nm-gsg-lead', tx('lead')));
+    // 지금 고른 글자 알림: 놓은 뒤 다음 글자를 미리 고르면 그 사실을 보이고 읽어 준다(aria-live)
+    const now = el('p', 'nm-gsg-now');
+    now.setAttribute('aria-live', 'polite');
+    now.hidden = true;
+    box.appendChild(now);
 
     // 흩어진 글자
     const pool = el('section', 'nm-gsg-pool');
@@ -138,7 +146,11 @@
       b.appendChild(flag);
       const sr = el('span', 'nm-sr nm-gsg-sr');
       b.appendChild(sr);
-      b.addEventListener('click', () => { if (!locked) select(selected === id ? null : id); });
+      b.addEventListener('click', () => {
+        if (locked) return;
+        if (selected === id && auto === id) { auto = null; refresh(); return; } // 미리 골라 둔 글자: 고름을 그대로 둔다
+        select(selected === id ? null : id);
+      });
       tiles[id] = { btn: b, flag, sr, marks: {} };
       poolTiles.appendChild(b);
     });
@@ -224,6 +236,7 @@
       poolEmpty.hidden = n > 0;
       submit.disabled = locked || n > 0;
       BINS.forEach(b => { bins[b].put.disabled = locked || !selected; });
+      showNow();
       ids.forEach(id => {
         tiles[id].btn.setAttribute('aria-pressed', String(id === selected));
         tiles[id].btn.classList.toggle('is-selected', id === selected);
@@ -231,7 +244,24 @@
         refreshTile(id);
       });
     }
-    function select(id) { selected = id; refresh(); }
+    // 고른 글자 알림 줄: 고른 글자가 없으면 숨긴다. 바뀔 때만 다시 쓴다(화면 낭독기가 같은 말을 거듭 읽지 않게).
+    let nowSig = '';
+    function showNow() {
+      const sig = locked || !selected ? '' : (auto === selected ? 'auto:' : 'pick:') + selected;
+      if (sig === nowSig) return;
+      nowSig = sig;
+      now.textContent = '';
+      now.hidden = !sig;
+      if (!sig) { now.removeAttribute('data-glyph'); now.removeAttribute('data-auto'); return; }
+      now.setAttribute('data-glyph', selected);
+      now.setAttribute('data-auto', auto === selected ? '1' : '0');
+      const parts = tx(auto === selected ? 'nowAuto' : 'now').split('%glyph%');
+      parts.forEach((p, i) => {
+        if (i) now.appendChild(el('span', 'nm-gsg-now-glyph nm-yet', glyphChar(selected)));
+        if (p) now.appendChild(doc.createTextNode(p));
+      });
+    }
+    function select(id) { selected = id; auto = null; refresh(); }
     function putTo(bid) {
       if (locked || !selected) return;
       const id = selected;
@@ -239,9 +269,9 @@
       setMark(id, 'wrong', false);
       setMark(id, 'hint', false);
       bins[bid].tiles.appendChild(tiles[id].btn);
-      selected = null;
+      selected = null; auto = null;
       const next = ids.filter(x => !place[x])[0];
-      if (next) { selected = next; refresh(); tiles[next].btn.focus(); }
+      if (next) { selected = next; auto = next; refresh(); tiles[next].btn.focus(); }
       else { refresh(); submit.focus(); }
     }
     function doSubmit() {
@@ -252,7 +282,7 @@
       o.onSubmit(answer);
       if (!wrongCalled && check(answer, item) === true) finish(false);
     }
-    function lock() { locked = true; selected = null; refresh(); box.setAttribute('data-state', 'locked'); }
+    function lock() { locked = true; selected = null; auto = null; refresh(); box.setAttribute('data-state', 'locked'); }
     function finish(byHelp) {
       lock();
       if (finished) return;

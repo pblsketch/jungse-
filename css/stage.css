@@ -19,7 +19,7 @@ html[data-nm-teacher="1"]:not(.nm-teacher) { --st-big: 1.35; }
 #ui-layer > .nm-overlay-host > .nm-st-win {
   position: absolute; inset: 0; margin: auto;
   width: min(760px, calc(100% - 24px)); height: fit-content; max-height: calc(100% - 24px);
-  box-sizing: border-box; overflow: auto; overscroll-behavior: contain;
+  box-sizing: border-box; overflow: hidden;
   display: flex; flex-direction: column;
   background: var(--paper, #f6efe2); color: var(--ink, #2b2420);
   border: 2px solid var(--ink, #2b2420); border-radius: 14px;
@@ -32,11 +32,18 @@ html[data-nm-teacher="1"]:not(.nm-teacher) { --st-big: 1.35; }
 .nm-st-head {
   display: flex; align-items: center; gap: .5em; padding: .7em 3.2em .5em 1.1em;
   border-bottom: 1px solid var(--st-line); background: var(--hanji, #efe4cf); border-radius: 12px 12px 0 0;
-  position: sticky; top: 0; z-index: 1;
+  flex: 0 0 auto; position: relative; z-index: 1;
 }
 .nm-st-title { margin: 0; font-size: 1.05em; font-weight: 700; letter-spacing: .02em; }
-.nm-st-body { padding: .9em 1.1em; display: flex; flex-direction: column; gap: .8em; }
-.nm-st-foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .6em; padding: 0 1.1em 1em; }
+.nm-st-title:focus { outline: none; }
+.nm-st-title:focus-visible { outline: 3px solid var(--st-focus); outline-offset: 2px; }
+/* 머리글(제목·×)과 아래 단추 줄은 제자리에 두고 본문만 스크롤한다(긴 창·글자 크기 3에서도 ×가 화면 밖으로 밀려나지 않게). */
+.nm-st-body {
+  padding: .9em 1.1em; display: flex; flex-direction: column; gap: .8em;
+  flex: 1 1 auto; min-height: 0; overflow: auto; overscroll-behavior: contain;
+}
+.nm-st-body > * { flex-shrink: 0; }
+.nm-st-foot { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .6em; padding: .6em 1.1em 1em; flex: 0 0 auto; border-top: 1px solid var(--st-line); }
 .nm-st-foot:empty { display: none; }
 .nm-st-close {
   position: absolute; top: .35em; right: .45em; z-index: 2;
@@ -45,6 +52,13 @@ html[data-nm-teacher="1"]:not(.nm-teacher) { --st-big: 1.35; }
   font: 700 1.3em/1 var(--font-ui, system-ui, sans-serif); cursor: pointer;
 }
 .nm-st-close:hover { background: var(--st-shade); }
+/* 낮은 화면(가로로 든 휴대 전화): 머리글·아래 단추 줄을 얇게 해서 본문 자리를 늘린다 */
+@media (max-height: 520px) {
+  .nm-st-head { padding-top: .4em; padding-bottom: .3em; }
+  .nm-st-close { top: .15em; }
+  .nm-st-foot { padding-top: .35em; padding-bottom: .45em; }
+  .nm-st-foot .nm-st-btn { min-height: 44px; padding-top: .2em; padding-bottom: .2em; }
+}
 
 /* ── 단추 ── */
 .nm-st-btn {
@@ -285,7 +299,7 @@ html[data-nm-bangjeom="off"] .nm-bj-syl { padding-left: 0; }
 @media (max-width: 520px) {
   #ui-layer > .nm-overlay-host > .nm-st-win { width: calc(100% - 16px); max-height: calc(100% - 16px); border-radius: 12px; }
   .nm-st-body { padding: .75em .8em; }
-  .nm-st-foot { padding: 0 .8em .8em; }
+  .nm-st-foot { padding: .5em .8em .8em; }
   .nm-st-foot .nm-st-btn { flex: 1 1 auto; }
   .nm-orig-line { font-size: 1.2em; }
   #ui-layer > .nm-st-hud { width: min(240px, calc(100% - 24px)); max-height: 45%; }
@@ -320,3 +334,23 @@ ruby { ruby-position: under; }
 rt.nm-eum-rt { font-family: var(--font-ui); color: #8a6d4b; font-size: .62em; }
 .nm-gbs-eum { display: block; font-family: var(--font-ui); color: #8a6d4b; font-size: .8em; line-height: 1.1; text-align: center; }
 html[data-nm-eum="off"] .nm-eum-rt { display: none; }
+
+/* 현대어 풀이 잠김 표지(B02) — 그 原文으로 푸는 말을 해독하기 전. 설정 '끔'이면 위의 .nm-orig-modern 규칙으로 숨는다.
+   자물쇠는 글꼴 글자 대신 테두리로 그린다(글꼴 범위 밖 그림 문자를 쓰지 않음). */
+.nm-orig-modern-lock {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: .1em .4em; margin: 0; padding: .4em .7em;
+  font-size: .85em; line-height: 1.5; border: 1.5px dashed rgba(181, 101, 29, .55); border-radius: 6px; background: rgba(181, 101, 29, .05);
+}
+.nm-orig-modern-lock-icon {
+  position: relative; display: inline-block; flex: none; width: .7em; height: .55em; margin: 0 .1em 0 .05em;
+  border-radius: 2px; background: #b5651d; align-self: center; transform: translateY(.15em);
+}
+.nm-orig-modern-lock-icon::before {
+  content: ''; position: absolute; left: .12em; right: .12em; bottom: 100%; height: .38em;
+  border: .1em solid #b5651d; border-bottom: 0; border-radius: .3em .3em 0 0;
+}
+.nm-orig-modern-lock-label { font-weight: 700; color: #8a4b12; }
+.nm-orig-modern-lock-text { opacity: .9; }
+
+/* 실마리 더 보기(S03) — 확정 단추보다 덜 눈에 띄게 */
+.nm-st-morehelp { opacity: .92; }

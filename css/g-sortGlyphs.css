@@ -7,6 +7,13 @@
  */
 .nm-gsg { display: flex; flex-direction: column; gap: .8em; }
 .nm-gsg-lead { margin: 0; font-size: .95em; }
+/* 지금 고른 글자 알림(미리 고른 다음 글자 포함) */
+.nm-gsg-now {
+  margin: 0; padding: .35em .7em; border-radius: 8px; font-size: .95em; font-weight: 600;
+  border: 2px dashed var(--st-focus, #d08a12); background: #fff7e0;
+}
+.nm-gsg-now[hidden] { display: none; }
+.nm-gsg-now-glyph { font-size: 1.3em; padding: 0 .15em; }
 .nm-gsg-head, .nm-gsg-binname, .nm-gsg-grouphead { margin: 0; font-size: 1em; font-weight: 700; }
 .nm-gsg-pool { border: 2px dashed var(--st-line, rgba(43, 36, 32, .22)); border-radius: 12px; padding: .6em .7em; background: #fffaf0; }
 .nm-gsg-tiles { display: flex; flex-wrap: wrap; gap: .5em; min-height: 3.2em; align-items: center; }

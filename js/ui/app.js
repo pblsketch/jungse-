@@ -9,7 +9,7 @@
  *   - 주소 학교급(?level=)은 store 의 urlLevel 로만 넘긴다(기록이 있으면 그 접속에만, 첫 실행이면 처음 학교급으로 저장).
  * ■ 화면: #ui-layer 안 #nm-screens(첫 화면·처음 정하기·장면 고르기). 창(설정·수첩·안내)은 NM.ui.dom.openModal.
  * ■ 장면: NM.ui.stage.run(stageId, ctx) — D1. ctx = { store, level, teacher, onExit(result), saveImage }
- *   장면 중에는 #nm-screens 를 숨기고 도구 막대 #nm-toolbar(수첩·설정·교사 모드 장소 목록)를 보인다.
+ *   장면 중에는 #nm-screens 를 숨기고 도구 막대 #nm-toolbar(수첩·설정·장소 목록: 교사는 바로 옮기기, 학생은 걸어가기)를 보인다.
  * ■ 설정 적용: --fs(글자 크기, 교사 크게 보기 ×1.4), html 의 nm-teacher / nm-large / nm-reduced-motion,
  *   NM.core.yet.setBangjeom, NM.engine.setReducedMotion, NM.engine.audio.setBgmEnabled / setSfxEnabled.
  *   바뀔 때마다 document 에 'nm:settings' 사건(detail: { settings, teacher, reducedMotion, fontScale })을 보낸다.
@@ -145,6 +145,9 @@
     if (state.teacher) {
       toolbarEl.appendChild(dom.el('span', { class: 'nm-badge nm-badge-teacher', text: t('title.teacherBadge') }));
       toolbarEl.appendChild(dom.button(t('teacher.places'), 'places', () => UI.teacher.openPlaces(api)));
+    } else if (UI.places) {
+      // 학생 장소 목록: 이름·목표·살핌 여부를 보고 골라 걸어간다(지도를 보지 않고도 갈 수 있는 길)
+      toolbarEl.appendChild(dom.button(t('places.button'), 'student-places', () => UI.places.open(api)));
     }
     toolbarEl.appendChild(dom.button(t('toolbar.notebook'), 'notebook', () => openNotebook(state.stageId)));
     toolbarEl.appendChild(dom.button(t('toolbar.settings'), 'settings', () => openSettings()));

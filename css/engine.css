@@ -4,6 +4,7 @@
 #ui-layer > .nm-hud > .nm-act {
   position: absolute; right: max(24px, env(safe-area-inset-right)); bottom: max(28px, env(safe-area-inset-bottom));
   min-width: 128px; min-height: 64px; padding: 12px 28px; pointer-events: auto;
+  max-width: min(420px, calc(100% - 48px)); text-align: center; word-break: keep-all; overflow-wrap: anywhere;
   font: 700 calc(22px * var(--fs, 1)) / 1.2 var(--font-ui, system-ui, sans-serif);
   color: var(--paper, #f6efe2); background: var(--seal, #b8322a);
   border: 3px solid var(--paper, #f6efe2); border-radius: 999px;
@@ -20,13 +21,30 @@
   position: absolute; left: 50%; top: 50%; width: 52px; height: 52px; border-radius: 50%;
   background: rgba(246, 239, 226, .8); border: 3px solid rgba(43, 36, 32, .5); transform: translate(-50%, -50%);
 }
-.nm-arrows { position: absolute; inset: 0; pointer-events: none; }
-.nm-edge-arrow {
-  position: absolute; width: 0; height: 0; pointer-events: none;
+.nm-arrows, .nm-mark-tags { position: absolute; inset: 0; pointer-events: none; }
+/* 화면 밖 목표 화살표: 자리(0×0) 안에 뾰족한 표(돌림)와 이름표(화면 가운데 쪽) */
+.nm-edge-arrow { position: absolute; width: 0; height: 0; pointer-events: none; }
+.nm-edge-tip {
+  position: absolute; left: 0; top: 0; width: 0; height: 0;
   border-top: 16px solid transparent; border-bottom: 16px solid transparent; border-left: 28px solid #ffd76a;
   filter: drop-shadow(0 0 2px #2b2420) drop-shadow(0 2px 2px rgba(0, 0, 0, .5));
 }
-.nm-edge-arrow[hidden] { display: none; }
+.nm-edge-arrow[hidden], .nm-edge-name[hidden], .nm-mark-tag[hidden] { display: none; }
+/* 목표 이름표(화살표 곁, 화면 안 '!' 위) */
+.nm-edge-name, .nm-mark-tag {
+  position: absolute; box-sizing: border-box; width: max-content; max-width: min(11em, 42vw);
+  padding: .15em .5em; border-radius: 8px; border: 2px solid #2b2420;
+  background: rgba(255, 246, 216, .94); color: #2b2420; text-align: center;
+  font: 700 calc(14px * min(var(--fs, 1), 1.25)) / 1.25 var(--font-ui, system-ui, sans-serif);
+  word-break: keep-all; overflow-wrap: anywhere; white-space: normal;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .3);
+}
+.nm-mark-tag { transform: translate(-50%, -100%); }
+/* 화면 낭독기 알림(보이지 않음) */
+.nm-hud-live {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
 #ui-layer > .nm-overlay-host {
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
   background: rgba(20, 16, 12, .45); pointer-events: auto; z-index: 10;

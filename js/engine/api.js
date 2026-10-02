@@ -9,7 +9,15 @@
  *   setObjective([id]), highlight(id|null)
  *   openOverlay(el), closeOverlay(el?), isOverlayOpen()
  *   setReducedMotion(bool)
- *   listPlaces(), goTo(id)          교사 모드: 장소 목록, 그 자리로 옮겨 살피기
+ *   listPlaces()                    장소 목록 [{ kind, id, contextId, npcId?, label(맵), name(대상 이름|null), person, objective, visited }]
+ *   goTo(id)                        교사 모드: 그 자리로 옮겨(순간 이동) 살피기
+ *   walkTo(id, { focusAct })        학생 장소 목록: 그 대상 곁까지 걸어간다(누른 곳으로 걷기와 같은 길 찾기, 순간 이동 없음).
+ *                                   닿으면 'arrive' 사건, focusAct 면 살피기 단추로 초점. 길이 없으면 false(화면 낭독기에 알림)
+ *   setPlaceNamer(fn), placeName(id) 대상 이름: fn(place) → '이름' | { name, person } | null. 없으면 장면 데이터
+ *                                   (NM.data.SCENES[loadStage 의 장면].contexts[].label / npcs[].name), 그다음 한글 맵 이름.
+ *                                   살피기 단추('○○ 살피기' / '○○와 말하기'), 목표 이름표·화살표 읽기 이름이 이 이름을 쓴다
+ *   objective()                     지금 목표 id 목록(setObjective 로 준 것)
+ *   say(text)                       화면 낭독기 알림(aria-live)
  *   setPlayerSprite(key)            주인공 그림(ASSETS.sprites 키, 예: hero_2) — 다음 맵부터
  *   audio                           audio.js
  *   test                            점검용 통로(화면에 드러내지 않음)
@@ -73,6 +81,12 @@
         audio: { noAudio: true },
         scene: [Scene]
       });
+      // 지도 그림의 읽기 이름(화면 낭독기). 조작 안내는 문구 데이터에 있다
+      try {
+        const c = W.game.canvas;
+        c.setAttribute('role', 'img');
+        c.setAttribute('aria-label', E.text('engine.canvas.label', ''));
+      } catch (e) { /* 캔버스가 아직 없으면 무시 */ }
       let t = null;
       root.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { try { applySize(); } catch (e) { NM.reportError('engine.resize', e); } }, 60); });
     } catch (e) {
@@ -88,6 +102,7 @@
   E.loadStage = function (stageId) {
     const st = (NM.data && NM.data.STAGES && NM.data.STAGES[stageId]) || {};
     const mapKey = st.mapKey || stageId;
+    W.stageId = stageId;
     return E.loadMap(mapKey).then(r => {
       if (r && E.audio) { if (st.bgmKey) E.audio.playBgm(st.bgmKey); else E.audio.stopBgm(); }
       return r;
@@ -101,13 +116,19 @@
   E.setPlayerSprite = function (key) { W.setPlayerSprite(key); };
   E.listPlaces = function () { return W.listPlaces(); };
   E.goTo = function (id) { try { return W.goTo(id); } catch (e) { NM.reportError('engine.goTo', e); return false; } };
+  E.walkTo = function (id, opts) { try { return W.walkTo(id, opts); } catch (e) { NM.reportError('engine.walkTo', e); return false; } };
+  E.setPlaceNamer = function (fn) { try { W.setPlaceNamer(fn); } catch (e) { NM.reportError('engine.setPlaceNamer', e); } };
+  E.placeName = function (id) { try { return W.placeName(id); } catch (e) { NM.reportError('engine.placeName', e); return null; } };
+  E.objective = function () { return W.objective.slice(); };
+  E.say = function (text) { E.hud.init(); E.hud.say(text); };
 
   /* ---------- DOM 창 ---------- */
   function focusFirst(el) {
     const f = el.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-    if (f) { f.focus(); return; }
+    // 첫 단추로 초점을 옮겨도 창 안 내용이 저절로 스크롤되지 않게 한다(창이 스스로 처음 초점을 다시 정할 수 있다)
+    if (f) { f.focus({ preventScroll: true }); return; }
     if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
-    el.focus();
+    el.focus({ preventScroll: true });
   }
   E.openOverlay = function (el) {
     if (!el || el.nodeType !== 1) return false;
@@ -175,8 +196,9 @@
         paused: W.paused, overlayOpen: W.overlays.length > 0,
         path: W.path.map(p => ({ x: p.x, y: p.y })), pathMarker: !!(W.path.length && W.destGfx && W.destGfx.visible),
         joystick: W.joy.active, joy: { dx: W.joy.dx, dy: W.joy.dy },
-        prompt: n ? { kind: n.kind, contextId: n.contextId || null, npcId: n.npcId || null, label: E.actLabel(n.act) } : null,
-        objective: W.objective.slice(), objectiveMarkers: W.objMarkers.length,
+        prompt: n ? { kind: n.kind, contextId: n.contextId || null, npcId: n.npcId || null, label: W.nearestLabel || E.actLabel(n.act) } : null,
+        objective: W.objective.slice(), objectiveMarkers: W.objMarkers.length, visited: Array.from(W.visited),
+        walking: !!W.walkGoal,
         arrows: E.hud.els ? [...E.hud.els.arrows.children].filter(a => !a.hidden).length : 0,
         highlight: W.highlight, reducedMotion: W.reduced,
         camera: { cx: W.cam.cx, cy: W.cam.cy, zoom: W.zoom, dpr: W.dpr, cssW: W.cssW, cssH: W.cssH },

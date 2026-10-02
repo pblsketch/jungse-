@@ -60,6 +60,22 @@ try {
     focus: document.activeElement && document.activeElement.getAttribute('data-glyph')
   }), TOP);
   check('keyboard Enter on put places the glyph; next glyph selected and focused', v.inKnown && v.nextSel === 'va' && v.focus === 'va', v);
+  // D03: 미리 고른 다음 글자를 보이고 읽어 준다(aria-live). 그 글자를 다시 눌러도 고름이 풀리지 않는다.
+  const nowLine = () => page.evaluate((sel) => {
+    const n = document.querySelector(sel + ' .nm-gsg-now');
+    return { hidden: n.hidden, live: n.getAttribute('aria-live'), glyph: n.getAttribute('data-glyph'), auto: n.getAttribute('data-auto'), text: n.textContent,
+      pressed: document.querySelector(sel + ' .nm-gsg-tile[data-glyph="va"]').getAttribute('aria-pressed'),
+      puts: [...document.querySelectorAll(sel + ' .nm-gsg-put')].every(b => !b.disabled) };
+  }, TOP);
+  v = await nowLine();
+  check('auto-selected next glyph is announced visibly and via aria-live', !v.hidden && v.live === 'polite' && v.glyph === 'va' && v.auto === '1' && v.text.includes('ㅏ') && v.text.includes('미리 골라'), v);
+  await page.click(TOP + ' .nm-gsg-tile[data-glyph="va"]');
+  v = await nowLine();
+  check('clicking the auto-selected glyph keeps it selected (put buttons stay enabled)', v.pressed === 'true' && v.puts && v.auto === '0' && v.text.includes('고른 글자'), v);
+  await page.click(TOP + ' .nm-gsg-tile[data-glyph="va"]');
+  v = await nowLine();
+  check('clicking a hand-picked glyph again deselects it; the line hides', v.pressed === 'false' && !v.puts && v.hidden, v);
+  await page.click(TOP + ' .nm-gsg-tile[data-glyph="va"]');
   await placeAll(Object.fromEntries(Object.entries(wrongPlan).slice(1)), true);
   check('all placed → submit enabled', await page.evaluate((sel) => !document.querySelector(sel + ' .nm-gsg-submit').disabled && document.querySelector(sel + ' .nm-gsg-empty').hidden === false, TOP));
 

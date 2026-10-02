@@ -150,11 +150,23 @@
   font-size: calc(16px * var(--fs, 1));
 }
 #nm-toolbar .nm-btn { background: rgba(255, 250, 240, .95); box-shadow: 0 2px 0 rgba(0, 0, 0, .3); }
+/* 좁은 화면: 도구 단추를 오른쪽에 세로로 쌓아 왼쪽 장면 진행 판과 덜 겹치게 한다 */
+@media (max-width: 520px) {
+  #nm-toolbar { flex-direction: column; align-items: stretch; gap: 6px; }
+  #nm-toolbar .nm-btn { padding: .35em .7em; }
+}
 
 /* 교사 장소 목록 */
 .nm-place-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14em), 1fr)); gap: 10px; }
 .nm-place { width: 100%; justify-content: flex-start; text-align: left; }
 .nm-place-kind { color: var(--fiction); }
+/* 학생 장소 목록: 이름 아래 종류·목표·살핌 표(색만으로 나누지 않음 — 글자 이름표) */
+.nm-places-student .nm-place { flex-direction: column; align-items: flex-start; gap: .3em; }
+.nm-place-name { font-weight: 700; }
+.nm-place-tags { display: flex; flex-wrap: wrap; gap: .3em; }
+.nm-place-goal { color: var(--paper); background: var(--seal); border-color: var(--seal); }
+.nm-place-goal::before { content: '! '; }
+.nm-place-seen.is-seen::before { content: '✓ '; }
 
 /* 수첩 */
 .nm-nb-pick { align-items: flex-end; }

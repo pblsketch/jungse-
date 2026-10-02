@@ -105,7 +105,7 @@ NM.data.TEXT.ui = {
     bangjeom: '방점 표시',
     bangjeomHelp: '제4장과 제10장에서는 늘 보여요.',
     modern: '현대어 풀이',
-    modernHelp: '原文 아래에 오늘날 말로 옮긴 풀이를 보여 줘요. 과제 화면에는 나오지 않아요.',
+    modernHelp: '原文 아래에 오늘날 말로 옮긴 풀이를 보여 줘요. 그 原文으로 푸는 말을 해독한 뒤에 열려요(그 전에는 잠김 표지만 보여요). 과제 화면에는 나오지 않아요.',
     moderns: { tap: '눌러서 보기', always: '늘 보기', off: '끔' },
     eum: '한자 음 달기',
     eumHelp: '한자 아래에 오늘날 음을 작게 달아요. 原文에 원래 적힌 옛 읽기는 늘 보여요.',
@@ -197,5 +197,19 @@ NM.data.TEXT.ui = {
     statusProgress: '진행 중',
     teacherMark: '교사 모드',
     createdAt: '만든 때'
+  },
+
+  // 학생 장소 목록(도구 막대) — js/ui/places.js. 고르면 그곳까지 걸어간다
+  places: {
+    button: '장소 목록',
+    title: '장소 목록',
+    help: '고르면 그곳까지 걸어가요. 닿으면 살피기 단추로 살펴보세요. 목표인 곳이 먼저 나와요.',
+    empty: '아직 갈 수 있는 장소가 없어요.',
+    unnamed: '이름 없는 곳',
+    person: '인물',
+    spot: '살필 곳',
+    goal: '목표',
+    visited: '살펴봄',
+    notVisited: '아직 안 봄'
   }
 };

@@ -17,7 +17,7 @@ const T = ctx.NM.data.TEXT.ui;
 assert.ok(T && typeof T === 'object', 'TEXT.ui 가 있어야 한다');
 
 // 2) 화면 코드 파일들
-const MINE = /^(app|screen|settings|teacher|notebook)[\w-]*\.js$/;
+const MINE = /^(app|screen|settings|teacher|notebook|places)[\w-]*\.js$/;
 const uiDir = join(ROOT, 'js/ui');
 const files = readdirSync(uiDir).filter(f => MINE.test(f)).sort();
 for (const need of ['app.js', 'app-dom.js', 'app-url.js', 'screens.js', 'settings.js', 'teacher.js', 'notebook.js', 'notebook-model.js', 'notebook-image.js']) {

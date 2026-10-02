@@ -2,14 +2,18 @@
 /*
  * NM.ui.stageWindow — 지도 위에 열리는 DOM 창(엔진 openOverlay 위). 창이 열려 있는 동안 지도는 멈춘다.
  *   open({ win, kind, title, data:{key:value}, closable(기본 true), build(창), onClose(reason) }) → 창
- *     build 는 지도 위에 올리기 전에 부른다(내용을 채운 뒤 열어야 첫 단추가 초점을 받는다).
+ *     build 는 지도 위에 올리기 전에 부른다(내용을 채운 뒤 연다).
  *     창 = { el, body, foot, close(reason), isOpen(), focus(el?) }
+ *     focus(el) 은 그 요소로, focus() 는 아래 '처음 초점' 규칙대로 옮긴다.
  *     el: <section class="nm-st-win" data-win role="dialog" aria-modal="true">
  *   top(), closeAll(), count()
  * 키보드: 맨 위 창 안에서 Tab/Shift+Tab 이 돈다(창 밖으로 나가지 않음). Esc 는 맨 위 창만 닫는다(closable 일 때).
  * 여러 창이 겹치면 아래 창은 inert(누르기·초점 막힘)가 된다. 닫으면 연 단추로 초점을 돌려준다.
  * onClose(reason): 'button'(×) | 'esc' | 'all'(closeAll — 진행기 정리 중) | 'external'(엔진 closeOverlay 로 닫힘) | 부른 쪽이 준 값.
- * 닫기 단추(×)는 DOM 끝에 두고 css 로 오른쪽 위에 놓는다 → 창을 열면 내용의 첫 단추가 초점을 받는다.
+ * 닫기 단추(×)는 DOM 끝에 두고 css 로 오른쪽 위에 놓는다(Tab 순서는 내용 → ×).
+ * 스크롤: 머리글(제목·×)과 아래 단추 줄(foot)은 제자리, 본문(body)만 스크롤한다(css/stage.css) → 긴 창에서도 ×가 보인다.
+ * 처음 초점: 스크롤하지 않고 보이는 첫 단추(본문 첫 화면이나 아래 단추 줄 안). 그런 단추가 없으면 제목(h2, tabindex -1).
+ *   초점 때문에 본문이 저절로 내려가 위 내용을 가리는 일이 없게 한다(preventScroll, 본문 scrollTop 0).
  * 필요: ns.js, engine/api.js, ui/stage-text.js
  */
 (function (root) {
@@ -83,6 +87,7 @@
     const h = doc.createElement('h2');
     h.className = 'nm-st-title';
     h.id = id + '-t';
+    h.setAttribute('tabindex', '-1');
     if (o.title && o.title.nodeType) h.appendChild(o.title);
     else h.appendChild(doc.createTextNode(o.title == null ? '' : String(o.title)));
     head.appendChild(h);
@@ -110,8 +115,8 @@
       isOpen: () => open,
       focus(target) {
         try {
-          const t = target || focusables(el)[0] || el;
-          t.focus();
+          if (target) target.focus();
+          else focusStart();
         } catch (e) { /* 초점 실패는 무시 */ }
       },
       close(reason) {
@@ -136,10 +141,25 @@
     if (typeof o.build === 'function') {
       try { o.build(w); } catch (e) { NM.reportError('stageWindow.build', e); }
     }
+    // 처음 초점: 본문을 스크롤하지 않고 보이는 첫 단추, 없으면 제목
+    function inView(e) {
+      const r = e.getBoundingClientRect();
+      if (!r.width && !r.height) return false;
+      if (!body.contains(e)) return true; // 머리글·아래 단추 줄은 늘 보인다
+      const b = body.getBoundingClientRect();
+      return r.top >= b.top - 1 && r.bottom <= b.bottom + 1;
+    }
+    function focusStart() {
+      const first = focusables(el).filter(e => e.className !== 'nm-st-close').find(inView);
+      const target = first || h;
+      try { target.focus({ preventScroll: true }); } catch (e) { target.focus(); }
+    }
     const prev = top();
     if (prev) setInert(prev.el, true);
     stack.push(w);
     NM.engine.openOverlay(el);
+    body.scrollTop = 0;
+    focusStart();
     return w;
   }
 

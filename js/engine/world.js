@@ -30,7 +30,8 @@
     objective: [], objMarkers: [], arrowSig: '',
     highlight: null, hlGfx: null,
     nearest: null, cam: { cx: 0, cy: 0 }, errCount: 0, lastInteract: null,
-    playerKey: null, sheets: {}
+    playerKey: null, sheets: {},
+    stageId: null, namer: null, visited: new Set(), walkGoal: null, tagSig: ''
   };
   E._w = W;
   // 주인공 그림 키(ASSETS.sprites). 다음 loadMap 부터 쓴다.
@@ -241,6 +242,7 @@
     map.problems.forEach(p => NM.reportError('engine.map', url + ': ' + p));
     clearWorld();
     const s = W.scene;
+    W.visited = new Set(); W.walkGoal = null;
     W.mapUrl = url;
     let bgOk = false;
     if (map.bg) {
@@ -305,6 +307,50 @@
     return W.spots.find(s => s.contextId === id) || W.npcs.find(n => n.npcId === id) || W.npcs.find(n => n.contextId === id) || null;
   }
   function markerPoint(t) { return t.kind === 'npc' ? { x: t.x, y: t.y - 70 } : { x: t.cx, y: t.y - 10 }; }
+  function targetId(t) { return t.kind === 'npc' ? t.npcId : t.contextId; }
+  function placeOf(t) {
+    return t.kind === 'npc'
+      ? { kind: 'npc', id: t.npcId, npcId: t.npcId, contextId: t.contextId || null, label: t.label || t.npcId }
+      : { kind: 'spot', id: t.contextId, contextId: t.contextId, label: t.label || t.contextId };
+  }
+  // 대상 이름 { name, person }. 1) setPlaceNamer 로 받은 함수 2) 장면 데이터(NM.data.SCENES[장면]) 맥락 이름·인물 이름
+  // 3) 맵 객체 이름이 한글이면 그것. 모르면 null(단추는 그냥 '살피기').
+  const HANGUL = /[가-힣]/;
+  function sceneInfo(t) {
+    const S = NM.data && NM.data.SCENES, sc = S && W.stageId ? S[W.stageId] : null;
+    if (!sc) return null;
+    if (t.kind === 'npc' && t.npcId && sc.npcs) {
+      const n = Array.isArray(sc.npcs) ? sc.npcs.find(x => x && x.id === t.npcId) : sc.npcs[t.npcId];
+      if (n && typeof n.name === 'string' && n.name) return { name: n.name, person: true };
+    }
+    if (t.contextId && Array.isArray(sc.contexts)) {
+      const c = sc.contexts.find(x => x && x.id === t.contextId);
+      if (c && typeof c.label === 'string' && c.label) return { name: c.label, person: false };
+    }
+    return null;
+  }
+  function plainName(s) {
+    // 장면 문구에 옛한글 표기가 섞여 있으면 화면 글자로 푼다(루비는 바탕 글자만)
+    const Y = NM.core && NM.core.yet;
+    if (Y && typeof Y.render === 'function') { try { return Y.render(s, { ruby: 'base' }); } catch (e) { /* 그대로 */ } }
+    return s;
+  }
+  function placeInfo(t) {
+    if (!t) return null;
+    let info = null;
+    if (typeof W.namer === 'function') {
+      try {
+        const r = W.namer(placeOf(t));
+        if (typeof r === 'string' && r) info = { name: r, person: false };
+        else if (r && typeof r.name === 'string' && r.name) info = { name: r.name, person: !!r.person };
+      } catch (e) { NM.reportError('engine.placeName', e); }
+    }
+    if (!info) info = sceneInfo(t);
+    if (!info && t.label && HANGUL.test(t.label)) info = { name: t.label, person: false };
+    if (info) info = { name: plainName(info.name), person: info.person };
+    return info;
+  }
+  function actText(t) { return E.actLabel(t.act, placeInfo(t)); }
   function updateNearest() {
     let best = null, bd = Infinity;
     if (W.map && !W.paused) {
@@ -314,8 +360,9 @@
         if (d <= cfg.reach && d < bd) { bd = d; best = t; }
       });
     }
+    if (best !== W.nearest || (best && W.nearestLabel == null)) W.nearestLabel = best ? actText(best) : null;
     W.nearest = best;
-    if (best) E.hud.showAct(E.actLabel(best.act)); else E.hud.hideAct();
+    if (best) E.hud.showAct(W.nearestLabel); else E.hud.hideAct();
   }
 
   function faceToward(x, y) {
@@ -329,6 +376,8 @@
     applyAnim();
     const payload = { kind: t.kind, contextId: t.contextId || null, npcId: t.npcId || null, act: t.act || null };
     W.lastInteract = payload;
+    W.visited.add(targetId(t));
+    W.walkGoal = null;
     E.audio && E.audio.sfx('inspect');
     E.emit('interact', payload);
     return true;
@@ -372,7 +421,7 @@
 
   /* ---------- 이동 ---------- */
   function cancelPath() {
-    W.path = []; W.pathFace = null; W.pathNudged = false; W.stuck = 0;
+    W.path = []; W.pathFace = null; W.pathNudged = false; W.stuck = 0; W.walkGoal = null;
     if (W.pathGfx) W.pathGfx.clear();
     if (W.destGfx) { if (W.scene) W.scene.tweens.killTweensOf(W.destGfx); W.destGfx.clear(); W.destGfx.setScale(1); }
   }
@@ -423,16 +472,24 @@
       goal = c ? P.cellCenter(g, c.c, c.r) : null;
     }
     if (!goal) { flashNoPath(wx, wy); return false; }
+    if (!pathTo(goal, target)) { flashNoPath(wx, wy); return false; }
+    return true;
+  }
+
+  // 지금 자리에서 goal 까지 길을 놓는다(target 이 있으면 끝에서 그쪽을 본다). 길이 없으면 false.
+  function pathTo(goal, target) {
+    const g = W.grid, hw = cfg.feet.hw, hh = cfg.feet.hh;
     let s0 = P.cellOf(g, W.pos.x, W.pos.y);
     if (!W.mask[s0.r * g.cols + s0.c]) s0 = P.nearestOpen(g, W.mask, s0.c, s0.r, 3) || s0;
     let g0 = P.cellOf(g, goal.x, goal.y);
     if (!W.mask[g0.r * g.cols + g0.c]) g0 = P.nearestOpen(g, W.mask, g0.c, g0.r, 3) || g0;
     const cells = P.findPath(g, W.mask, s0.c, s0.r, g0.c, g0.r);
-    if (!cells) { flashNoPath(wx, wy); return false; }
+    if (!cells) return false;
     const pts = [{ x: W.pos.x, y: W.pos.y }].concat(cells.slice(1).map(c => P.cellCenter(g, c.c, c.r)));
     const last = pts[pts.length - 1];
     if (!P.collides(g, goal.x, goal.y, hw, hh) && P.lineClear(g, last.x, last.y, goal.x, goal.y, hw, hh)) pts.push({ x: goal.x, y: goal.y });
     const simple = P.simplify(g, pts, hw, hh);
+    W.walkGoal = null;
     W.path = simple.slice(1);
     if (!W.path.length) { cancelPath(); return true; }
     W.pathFace = target; W.pathNudged = false; W.stuck = 0;
@@ -505,8 +562,10 @@
               const extra = face && !W.pathNudged ? nudgePoint(face) : null;
               if (extra) { W.path = [extra]; W.pathNudged = true; drawPath(); }
               else {
+                const wg = W.walkGoal;
                 cancelPath();
                 if (face) { const r = targetRect(face); faceToward(r.x + r.w / 2, r.y + r.h / 2); }
+                if (wg) W.arrived = wg;
               }
             } else drawPath();
           }
@@ -532,14 +591,50 @@
     applyAnim();
     updateFronts(dt, false);
     updateNearest();
+    if (W.arrived) { const a = W.arrived; W.arrived = null; walkArrived(a); }
     updateCamera(dt, false);
     updateArrows();
+  }
+
+  // 장소 목록에서 고른 곳에 닿았을 때: 알리고, 살피기 단추가 그 대상이면 단추로 초점(키보드·화면 낭독기)
+  function walkArrived(a) {
+    const info = placeInfo(a.t), name = info ? info.name : targetId(a.t);
+    E.hud.say(E.fill(E.text('engine.walk.arrived', ''), { name }));
+    if (a.focusAct && W.nearest === a.t && E.hud.els && !E.hud.els.act.hidden) {
+      try { E.hud.els.act.focus({ preventScroll: true }); } catch (e) { /* 무시 */ }
+    }
+    E.emit('arrive', { kind: a.t.kind, contextId: a.t.contextId || null, npcId: a.t.npcId || null, near: W.nearest === a.t });
+  }
+
+  // 장소 목록(학생): 그 대상 곁까지 걸어간다(순간 이동 없음). 길을 놓으면 true.
+  function walkTo(id, opts) {
+    const t = findTarget(id), o = opts || {};
+    if (!t || !W.map || W.paused) return false;
+    const info = placeInfo(t), name = info ? info.name : String(id);
+    const goal = approachPoint(t);
+    const fy = W.pos.y - cfg.feet.hh;
+    if (distRect(W.pos.x, fy, targetRect(t)) <= cfg.reach) {
+      // 이미 곁에 있다
+      cancelPath();
+      const r = targetRect(t); faceToward(r.x + r.w / 2, r.y + r.h / 2); applyAnim();
+      updateNearest();
+      walkArrived({ t, focusAct: !!o.focusAct });
+      return true;
+    }
+    if (!goal || !pathTo(goal, t)) {
+      E.hud.say(E.fill(E.text('engine.walk.noPath', ''), { name }));
+      return false;
+    }
+    if (!W.path.length) { W.arrived = { t, focusAct: !!o.focusAct }; return true; }
+    W.walkGoal = { t, focusAct: !!o.focusAct };
+    E.hud.say(E.fill(E.text('engine.walk.start', ''), { name }));
+    return true;
   }
 
   /* ---------- 목표 표시 · 빛내기 ---------- */
   function clearObjectiveMarkers() {
     W.objMarkers.forEach(m => { try { if (W.scene) W.scene.tweens.killTweensOf(m.obj); m.obj.destroy(); } catch (e) { /* 없음 */ } });
-    W.objMarkers = []; W.arrowSig = ''; E.hud.setArrows([]);
+    W.objMarkers = []; W.arrowSig = ''; W.tagSig = ''; E.hud.setArrows([]); E.hud.setTags([]);
   }
   function buildObjectiveMarkers() {
     clearObjectiveMarkers();
@@ -551,8 +646,10 @@
       const obj = W.scene.add.text(p.x, p.y, '!', { fontFamily: 'system-ui, sans-serif', fontSize: '40px', fontStyle: 'bold', color: '#ffd76a', stroke: '#2b2420', strokeThickness: 7 })
         .setOrigin(0.5, 1).setDepth(1e6);
       if (!W.reduced) W.scene.tweens.add({ targets: obj, y: p.y - 8, duration: 520, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
-      W.objMarkers.push({ id, obj, x: p.x, y: p.y - 20 });
+      const info = placeInfo(t);
+      W.objMarkers.push({ id, obj, x: p.x, y: p.y - 20, top: p.y - 52, name: info ? info.name : '' });
     });
+    W.tagSig = '';
     updateArrows();
   }
   function setObjective(ids) {
@@ -561,17 +658,24 @@
   }
   function updateArrows() {
     if (!W.map) return;
-    const m = 34, list = [];
+    const m = 34, list = [], tags = [];
     const cx = W.cssW / 2, cy = W.cssH / 2;
     W.objMarkers.forEach(mk => {
       const p = worldToCss(mk.x, mk.y);
-      if (p.x >= m && p.x <= W.cssW - m && p.y >= m && p.y <= W.cssH - m) return;
+      if (p.x >= m && p.x <= W.cssW - m && p.y >= m && p.y <= W.cssH - m) {
+        // 화면 안: '!' 위에 이름표
+        if (mk.name) { const q = worldToCss(mk.x, mk.top); tags.push({ id: mk.id, x: Math.round(q.x), y: Math.round(q.y), name: mk.name }); }
+        return;
+      }
       const dx = p.x - cx, dy = p.y - cy, ang = Math.atan2(dy, dx);
       const sx = (cx - m) / Math.max(Math.abs(dx), 1e-6), sy = (cy - m) / Math.max(Math.abs(dy), 1e-6), s = Math.min(sx, sy);
-      list.push({ id: mk.id, x: Math.round(cx + dx * s), y: Math.round(cy + dy * s), angle: Math.round(ang * 100) / 100 });
+      const dir = Math.abs(dx) * (cy - m) >= Math.abs(dy) * (cx - m) ? (dx < 0 ? 'left' : 'right') : (dy < 0 ? 'up' : 'down');
+      list.push({ id: mk.id, x: Math.round(cx + dx * s), y: Math.round(cy + dy * s), angle: Math.round(ang * 100) / 100, name: mk.name, dir });
     });
     const sig = JSON.stringify(list);
     if (sig !== W.arrowSig) { W.arrowSig = sig; E.hud.setArrows(list); }
+    const tsig = JSON.stringify(tags);
+    if (tsig !== W.tagSig) { W.tagSig = tsig; E.hud.setTags(tags); }
   }
 
   function setHighlightObj(id) {
@@ -697,10 +801,23 @@
     return fireInteract(t);
   }
 
+  // 장소 목록: 맵 순서(조사 지점 → 인물). name(대상 이름, 모르면 null)·person·objective(지금 목표)·visited(이 맵에서 살핌)
   function listPlaces() {
-    return W.spots.map(s => ({ kind: 'spot', id: s.contextId, contextId: s.contextId, label: s.label || s.contextId }))
-      .concat(W.npcs.map(n => ({ kind: 'npc', id: n.npcId, npcId: n.npcId, contextId: n.contextId || null, label: n.label || n.npcId })));
+    return W.spots.concat(W.npcs).map(t => {
+      const p = placeOf(t), info = placeInfo(t), id = p.id;
+      return Object.assign(p, {
+        name: info ? info.name : null, person: !!(info && info.person),
+        objective: W.objective.indexOf(id) >= 0 || (t.kind === 'npc' && !!t.contextId && W.objective.indexOf(t.contextId) >= 0),
+        visited: W.visited.has(id)
+      });
+    });
   }
+  function setPlaceNamer(fn) {
+    W.namer = typeof fn === 'function' ? fn : null;
+    W.nearestLabel = null;
+    if (W.objMarkers.length) buildObjectiveMarkers();
+  }
+  function placeName(id) { const info = placeInfo(findTarget(id)); return info ? info.name : null; }
 
   /* ---------- Phaser 장면 ---------- */
   function makeSceneClass(onReady) {
@@ -720,6 +837,6 @@
 
   Object.assign(W, {
     makeSceneClass, attachInput, loadMap, tapAt, interact, setPaused, setReduced, setObjective, setHighlightObj,
-    teleport, goTo, listPlaces, findTarget, worldToCss, cssToWorld, updateCamera, updateArrows, cancelPath, releaseJoy, clearKeys, targetRect
+    teleport, goTo, walkTo, listPlaces, setPlaceNamer, placeName, findTarget, worldToCss, cssToWorld, updateCamera, updateArrows, cancelPath, releaseJoy, clearKeys, targetRect
   });
 })(typeof window !== 'undefined' ? window : globalThis);
