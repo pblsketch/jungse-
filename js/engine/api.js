@@ -163,6 +163,8 @@
       return { player: p ? p.texture.key : null, frame: p ? p.frame.name : null, flip: p ? p.flipX : null,
         anim: p && p.anims.isPlaying ? p.anims.currentAnim.key : null, npcs: W.npcs.map(n => n.spr.texture.key) };
     },
+    fronts() { return W.fronts.map(f => ({ name: f.name, x: f.x, y: f.y, w: f.w, h: f.h, baseY: f.baseY, depth: f.img.depth, alpha: f.img.alpha, visible: f.img.visible })); },
+    depths() { return { player: W.player ? W.player.depth : null, npcs: W.npcs.map(n => ({ id: n.npcId, depth: n.spr.depth })) }; },
     collides(x, y) { return W.grid ? E.path.collides(W.grid, x, y, cfg.feet.hw, cfg.feet.hh) : null; },
     state() {
       const n = W.nearest;

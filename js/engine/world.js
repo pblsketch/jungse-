@@ -1,8 +1,15 @@
 'use strict';
 /*
  * 지도 세계: Phaser 장면, 맵 짓기, 주인공 이동(키보드·조이스틱·목적지 누르기), 충돌, 카메라,
- * 살피기 대상 찾기, 목표 표시('!'·화면 밖 화살표), 빛내기.
+ * 살피기 대상 찾기, 목표 표시('!'·화면 밖 화살표), 빛내기, 앞 그림.
  * 내부 상태는 NM.engine._w 에 두고, 바깥에 내는 함수는 api.js 가 묶는다.
+ *
+ * 그리는 순서(깊이): 배경 그림 -100000 < 길 점·목적지·빛내기 < 인물·주인공(발 y) · 앞 그림(baseY) < '!' 1e6.
+ * 앞 그림(맵의 front 층): 배경은 한 장짜리 그림이라 나무 우듬지·문 지붕·탑 뒤로 걸어가면 주인공이 그 위에 올라탄다.
+ * 그래서 그 모양만큼 배경을 오려 낸 조각을 깊이 baseY 로 한 번 더 그린다. 발 y < baseY 인 인물(물건 뒤)은 조각 아래,
+ * 발 y >= baseY 인 인물(물건 앞)은 조각 위에 그려진다. 주인공이 조각 뒤에 서서 몸이 조각과 겹치면 조각을
+ * 반투명(cfg.frontFade)하게 해서 주인공이 보이게 한다. 조각은 맵을 부를 때 캔버스 한 장씩 만들고, 매 장면마다는
+ * 겹침 검사만 한다(조각 수만큼의 사각형 비교).
  */
 (function (root) {
   const NM = root.NM || (root.NM = {});
@@ -13,7 +20,7 @@
   const W = E._w = {
     game: null, scene: null, ready: false,
     dpr: 1, cssW: 0, cssH: 0, zoom: 1,
-    mapUrl: null, map: null, grid: null, mask: null, objs: [], bgKey: null,
+    mapUrl: null, map: null, grid: null, mask: null, objs: [], bgKey: null, fronts: [], frontKeys: [],
     player: null, pos: { x: 0, y: 0 }, facing: 'down', moving: false,
     npcs: [], spots: [],
     keys: { up: false, down: false, left: false, right: false },
@@ -113,6 +120,9 @@
     const s = W.scene;
     W.objs.forEach(o => { try { o.destroy(); } catch (e) { /* 이미 없음 */ } });
     W.objs = []; W.npcs = []; W.spots = []; W.player = null; W.map = null; W.grid = null; W.mask = null;
+    W.fronts = [];
+    W.frontKeys.forEach(k => { if (s.textures.exists(k)) s.textures.remove(k); });
+    W.frontKeys = [];
     clearObjectiveMarkers(); W.objective = []; setHighlightObj(null); cancelPath();
     if (W.bgKey && s.textures.exists(W.bgKey)) s.textures.remove(W.bgKey);
     W.bgKey = null; W.nearest = null; E.hud.hideAct(); E.hud.setArrows([]);
@@ -173,6 +183,48 @@
     return W.sheets[key];
   }
 
+  /* ---------- 앞 그림 (맵의 front 층) ---------- */
+  // 배경 그림에서 다각형만큼 오려 캔버스 텍스처로 만들고, 깊이 baseY 로 놓는다.
+  function buildFronts(map) {
+    const s = W.scene;
+    if (!map.fronts.length || !W.bgKey || !s.textures.exists(W.bgKey)) return;
+    const src = s.textures.get(W.bgKey).getSourceImage();
+    map.fronts.forEach((f, i) => {
+      const x0 = Math.max(0, Math.floor(f.x)), y0 = Math.max(0, Math.floor(f.y));
+      const x1 = Math.min(map.width, Math.ceil(f.x + f.w)), y1 = Math.min(map.height, Math.ceil(f.y + f.h));
+      if (x1 - x0 < 1 || y1 - y0 < 1) return;
+      const cv = document.createElement('canvas');
+      cv.width = x1 - x0; cv.height = y1 - y0;
+      const c = cv.getContext('2d');
+      c.beginPath();
+      f.pts.forEach((p, k) => (k ? c.lineTo(p.x - x0, p.y - y0) : c.moveTo(p.x - x0, p.y - y0)));
+      c.closePath(); c.clip();
+      c.drawImage(src, map.bg.x - x0, map.bg.y - y0);
+      const key = 'nm-front:' + W.mapUrl + ':' + i;
+      if (s.textures.exists(key)) s.textures.remove(key);
+      s.textures.addCanvas(key, cv);
+      W.frontKeys.push(key);
+      const img = s.add.image(x0, y0, key).setOrigin(0, 0).setDepth(f.baseY);
+      W.objs.push(img);
+      W.fronts.push({ name: f.name, x: x0, y: y0, w: x1 - x0, h: y1 - y0, baseY: f.baseY, img, alpha: 1 });
+    });
+  }
+  // 주인공이 조각 뒤에 서서 몸(발 위 cfg.bodyH, 좌우 cfg.bodyHw)이 조각과 겹치면 조각을 흐리게
+  function updateFronts(dt, snap) {
+    if (!W.fronts.length) return;
+    const bx0 = W.pos.x - cfg.bodyHw, bx1 = W.pos.x + cfg.bodyHw, by0 = W.pos.y - cfg.bodyH, by1 = W.pos.y;
+    const a = snap || W.reduced ? 1 : 1 - Math.exp(-dt * 10);
+    W.fronts.forEach(f => {
+      const hit = W.pos.y < f.baseY && bx1 > f.x && bx0 < f.x + f.w && by1 > f.y && by0 < f.y + f.h;
+      const t = hit ? cfg.frontFade : 1;
+      if (f.alpha !== t) {
+        f.alpha += (t - f.alpha) * a;
+        if (Math.abs(t - f.alpha) < 0.01) f.alpha = t;
+        f.img.setAlpha(f.alpha);
+      }
+    });
+  }
+
   function resolveMapUrl(keyOrUrl) {
     const A = NM.data && NM.data.ASSETS;
     if (A && A.maps && typeof A.maps[keyOrUrl] === 'string') return A.maps[keyOrUrl];
@@ -199,6 +251,7 @@
     }
     if (bgOk) W.objs.push(s.add.image(map.bg.x, map.bg.y, W.bgKey).setOrigin(0, 0).setDepth(-100000));
     else W.objs.push(s.add.rectangle(0, 0, map.width, map.height, 0x8fa86a).setOrigin(0, 0).setDepth(-100000));
+    if (bgOk) buildFronts(map);
 
     const grid = P.buildGrid({ width: map.width, height: map.height, cell: cfg.cell, rects: map.rects, polys: map.polys, tiles: map.tiles });
     map.npcs.forEach(n => P.markRect(grid, { x: n.x - cfg.npcFeet.hw, y: n.y - cfg.npcFeet.hh * 2, w: cfg.npcFeet.hw * 2, h: cfg.npcFeet.hh * 2 }));
@@ -231,6 +284,7 @@
       ? s.add.sprite(sp.x, sp.y, psh.tex, psh.stand.down).setOrigin(psh.ox, psh.oy).setDepth(sp.y)
       : s.add.sprite(sp.x, sp.y, 'nm-ph-player', 'down-0').setOrigin(0.5, 62 / 64).setDepth(sp.y);
     W.objs.push(W.player);
+    updateFronts(0, true);
     W.pathGfx = s.add.graphics().setDepth(-50000); W.objs.push(W.pathGfx);
     W.destGfx = s.add.graphics().setDepth(-49999); W.objs.push(W.destGfx);
     W.hlGfx = s.add.graphics().setDepth(-49000); W.objs.push(W.hlGfx);
@@ -476,6 +530,7 @@
     W.moving = moved > 0.01 || fromPath === true;
     W.player.setPosition(W.pos.x, W.pos.y).setDepth(W.pos.y);
     applyAnim();
+    updateFronts(dt, false);
     updateNearest();
     updateCamera(dt, false);
     updateArrows();
@@ -629,6 +684,7 @@
     cancelPath();
     W.pos.x = x; W.pos.y = y;
     if (W.player) W.player.setPosition(x, y).setDepth(y);
+    updateFronts(0, true);
     updateNearest(); updateCamera(0, true); updateArrows();
     return true;
   }

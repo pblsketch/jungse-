@@ -6,6 +6,10 @@
  *   spots     객체 층: contextId(필수), act(선택), label(선택)
  *   npcs      객체 층: npcId(필수), contextId(선택), label(선택)
  *   spawn     객체 층: 점 하나
+ *   front     객체 층(선택): 다각형·사각형·타원 → fronts. 배경 그림에서 그 모양만큼 오려 낸 조각을
+ *             '앞 그림'으로 다시 그린다(나무 우듬지·문 지붕·탑처럼 인물보다 앞에 와야 하는 것).
+ *             속성 baseY(선택, 수) = 그 물건이 땅에 닿는 선의 y. 없으면 모양의 아래 끝.
+ *             발 y 가 baseY 보다 작은(그 물건 뒤에 선) 인물 위에 그려진다. 자세한 것은 world.js 의 '앞 그림'.
  * 잘못된 데이터는 problems 에 모은다(부르는 쪽이 NM.reportError 로 알린다).
  */
 (function (root) {
@@ -49,7 +53,7 @@
     const tw = json.tilewidth || 32, th = json.tileheight || 32;
     const map = {
       width: (json.width || 0) * tw, height: (json.height || 0) * th, tileW: tw, tileH: th,
-      bg: null, rects: [], polys: [], tiles: null, spots: [], npcs: [], spawn: null, problems
+      bg: null, rects: [], polys: [], tiles: null, spots: [], npcs: [], spawn: null, fronts: [], problems
     };
     if (!map.width || !map.height) problems.push('map size missing');
 
@@ -80,6 +84,26 @@
           }
         });
       }
+    });
+
+    byName('front').forEach(l => {
+      if (l.type !== 'objectgroup') { problems.push('front layer must be an object layer'); return; }
+      (l.objects || []).forEach(o => {
+        let pts = null;
+        if (Array.isArray(o.polygon)) pts = rotate(o.polygon.map(p => ({ x: o.x + p.x, y: o.y + p.y })), o.x, o.y, o.rotation);
+        else if (o.ellipse) pts = rotate(ellipsePts(o.x, o.y, o.width, o.height), o.x, o.y, o.rotation);
+        else if (!o.point && !o.polyline && o.width > 0 && o.height > 0) pts = rotate([{ x: o.x, y: o.y }, { x: o.x + o.width, y: o.y }, { x: o.x + o.width, y: o.y + o.height }, { x: o.x, y: o.y + o.height }], o.x, o.y, o.rotation);
+        if (!pts || pts.length < 3) { problems.push('front ' + (o.id != null ? o.id : '?') + ' needs a polygon or rectangle'); return; }
+        const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+        const x = Math.min(...xs), y = Math.min(...ys), w = Math.max(...xs) - x, h = Math.max(...ys) - y;
+        const p = props(o);
+        let baseY = y + h;
+        if (p.baseY !== undefined) {
+          if (typeof p.baseY === 'number' && isFinite(p.baseY)) baseY = p.baseY;
+          else problems.push('front ' + (o.id != null ? o.id : '?') + ' baseY must be a number');
+        }
+        map.fronts.push({ name: o.name || null, pts, x, y, w, h, baseY });
+      });
     });
 
     byName('spots').forEach(l => (l.objects || []).forEach(o => {

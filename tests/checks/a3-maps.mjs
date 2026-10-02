@@ -4,6 +4,8 @@
 //  - 시작 자리에 발밑 상자를 놓아도 막히지 않는다
 //  - 엔진의 격자(path.js, 칸 16px, NM.engine.config.feet)에서 걸을 수 있는 칸이 모두 시작 자리와 이어져 있다
 //    (갇힌 빈 곳이 있으면 실패. 일부러 못 가게 할 곳은 collision 으로 막는다)
+//  - front 층(있으면): 조각이 맵 안에 있고, baseY 가 조각의 위 끝보다 아래·맵 안이며, 조각 뒤(발 y < baseY)에
+//    주인공이 설 수 있는 칸이 있다(없으면 그 조각은 쓸모없다)
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
@@ -93,9 +95,20 @@ for (const f of files) {
       const ex = lost.slice(0, 6).map(i => { const c = i % g.cols; return `(${(c + 0.5) * g.cell},${(((i - c) / g.cols) + 0.5) * g.cell})`; });
       assert.fail(`${lost.length} walkable cells not reachable from spawn, e.g. ${ex.join(' ')}`);
     }
+    for (const f of m.fronts) {
+      const tag = `front '${f.name}'`;
+      assert.ok(f.x >= 0 && f.y >= 0 && f.x + f.w <= m.width && f.y + f.h <= m.height, tag + ' inside the map');
+      assert.ok(f.baseY > f.y && f.baseY <= m.height, tag + ` baseY ${f.baseY} below its top ${f.y}`);
+      let behind = 0;
+      for (let r = 0; r < g.rows; r++) for (let c = 0; c < g.cols; c++) {
+        const x = (c + 0.5) * g.cell, y = (r + 0.5) * g.cell;
+        if (seen[r * g.cols + c] && y < f.baseY && x > f.x && x < f.x + f.w && y > f.y - 96 && y - 96 < f.y + f.h) behind++;
+      }
+      assert.ok(behind > 0, tag + ' has walkable cells behind it');
+    }
     const total = mask.reduce((a, b) => a + b, 0);
     assert.ok(total / (g.cols * g.rows) > 0.15, 'at least 15% of the map is walkable');
-    console.log(`ok ${id}: ${m.width}x${m.height}, ${m.rects.length} rects + ${m.polys.length} polys, walkable ${reached} cells (${Math.round(100 * reached / (g.cols * g.rows))}%)`);
+    console.log(`ok ${id}: ${m.width}x${m.height}, ${m.rects.length} rects + ${m.polys.length} polys, walkable ${reached} cells (${Math.round(100 * reached / (g.cols * g.rows))}%)${m.fronts.length ? ', ' + m.fronts.length + ' front' : ''}`);
   } catch (e) {
     fails++;
     console.error(`a3-maps ${id}: ${e.message}`);

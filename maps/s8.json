@@ -9,8 +9,8 @@
   "height": 28,
   "tilewidth": 32,
   "tileheight": 32,
-  "nextlayerid": 6,
-  "nextobjectid": 20,
+  "nextlayerid": 7,
+  "nextobjectid": 21,
   "tilesets": [],
   "layers": [
     {"id": 1, "name": "bg", "type": "imagelayer", "image": "../assets/bg/s8.webp", "x": 0, "y": 0, "offsetx": 0, "offsety": 0, "opacity": 1, "visible": true},
@@ -23,10 +23,13 @@
         {"id": 6, "name": "maple-rocks-right", "type": "", "x": 1152, "y": 560, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": -112, "y": 40}, {"x": -172, "y": 100}, {"x": -192, "y": 140}, {"x": 0, "y": 140}]},
         {"id": 7, "name": "pagoda-spire", "type": "", "x": 410, "y": 300, "width": 100, "height": 90, "rotation": 0, "visible": true},
         {"id": 8, "name": "pagoda-base", "type": "", "x": 340, "y": 390, "width": 230, "height": 130, "rotation": 0, "visible": true},
-        {"id": 9, "name": "stone-lantern", "type": "", "x": 655, "y": 350, "width": 60, "height": 90, "rotation": 0, "visible": true},
+        {"id": 9, "name": "stone-lantern", "type": "", "x": 655, "y": 315, "width": 60, "height": 125, "rotation": 0, "visible": true},
         {"id": 10, "name": "trees-wall-left", "type": "", "x": 0, "y": 510, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 110, "y": 20}, {"x": 250, "y": 110}, {"x": 320, "y": 190}, {"x": 420, "y": 190}, {"x": 420, "y": 386}, {"x": 0, "y": 386}]},
         {"id": 11, "name": "gate", "type": "", "x": 420, "y": 640, "width": 340, "height": 256, "rotation": 0, "visible": true},
         {"id": 12, "name": "trees-wall-right", "type": "", "x": 760, "y": 690, "rotation": 0, "visible": true, "polygon": [{"x": 0, "y": 0}, {"x": 140, "y": 10}, {"x": 240, "y": -30}, {"x": 392, "y": -50}, {"x": 392, "y": 206}, {"x": 0, "y": 206}]}
+      ]},
+    {"id": 6, "name": "front", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
+        {"id": 20, "name": "pine-left-canopy", "type": "", "x": 55, "y": 600, "polygon": [{"x": 0, "y": 0}, {"x": 5, "y": -40}, {"x": 45, "y": -60}, {"x": 95, "y": -75}, {"x": 140, "y": -88}, {"x": 175, "y": -97}, {"x": 207, "y": -88}, {"x": 235, "y": -65}, {"x": 250, "y": -35}, {"x": 263, "y": -5}, {"x": 285, "y": 12}, {"x": 307, "y": 28}, {"x": 317, "y": 50}, {"x": 313, "y": 75}, {"x": 290, "y": 88}, {"x": 263, "y": 76}, {"x": 240, "y": 60}, {"x": 210, "y": 50}, {"x": 180, "y": 40}, {"x": 145, "y": 38}, {"x": 125, "y": 60}, {"x": 120, "y": 100}, {"x": 95, "y": 105}, {"x": 85, "y": 70}, {"x": 60, "y": 48}, {"x": 25, "y": 32}], "properties": [{"name": "baseY", "type": "float", "value": 700}], "rotation": 0, "visible": true}
       ]},
     {"id": 3, "name": "spots", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
         {"id": 14, "name": "book-on-veranda", "type": "", "x": 150, "y": 352, "width": 56, "height": 40, "rotation": 0, "visible": true, "properties": [{"name": "contextId", "type": "string", "value": "s8.c2"}]},
@@ -34,7 +37,7 @@
       ]},
     {"id": 4, "name": "npcs", "type": "objectgroup", "draworder": "topdown", "x": 0, "y": 0, "opacity": 1, "visible": true, "objects": [
         {"id": 16, "name": "monk", "type": "", "x": 770, "y": 340, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "monk"}, {"name": "contextId", "type": "string", "value": "s8.c1"}, {"name": "sprite", "type": "string", "value": "monk"}]},
-        {"id": 17, "name": "child", "type": "", "x": 290, "y": 575, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "child"}, {"name": "contextId", "type": "string", "value": "s8.c3"}, {"name": "sprite", "type": "string", "value": "child"}]},
+        {"id": 17, "name": "child", "type": "", "x": 255, "y": 478, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "child"}, {"name": "contextId", "type": "string", "value": "s8.c3"}, {"name": "sprite", "type": "string", "value": "child"}]},
         {"id": 18, "name": "scholar", "type": "", "x": 800, "y": 575, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "scholar"}, {"name": "contextId", "type": "string", "value": "s8.c4"}, {"name": "sprite", "type": "string", "value": "yangban_man"}]},
         {"id": 19, "name": "senior", "type": "", "x": 660, "y": 600, "width": 0, "height": 0, "rotation": 0, "visible": true, "point": true, "properties": [{"name": "npcId", "type": "string", "value": "senior"}, {"name": "sprite", "type": "string", "value": "senior_tongsa"}]}
       ]},
