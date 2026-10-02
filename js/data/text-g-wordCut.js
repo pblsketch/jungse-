@@ -18,7 +18,7 @@ NM.data.TEXT.g.wordCut = {
   submit: '제출하기',
   pitchTitle: '방점 음높이 막대',
   pitch: { 0: '평성 · 점 없음 · 낮음', 1: '거성 · 점 하나 · 높음', 2: '상성 · 점 둘 · 낮다가 높음' },
-  pitchNote: '막대는 어림이에요. 옛 소리의 정확한 높낮이는 학자마다 생각이 달라요.',
+  pitchNote: '막대는 대강의 높낮이를 보여 줘요.',
   compareTitle: '두 장에서 같은 말 견주기',
   found: '끊어 찾음',
   notFound: '아직 못 찾음',

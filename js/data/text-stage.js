@@ -38,7 +38,7 @@ NM.data.TEXT.stage = {
     // 현대어 풀이 잠김 표지(그 原文으로 푸는 말을 아직 해독하지 않았을 때 — 풀이가 답을 드러내지 않도록)
     modernLockedLabel: '현대어 풀이 잠김',
     modernLocked: '이 原文으로 푸는 말을 해독하면 현대어 풀이가 열려요.',
-    noBangjeom: '이 구절은 원본의 방점을 판독하지 못해 방점 없이 보여요(평성이라는 뜻이 아니에요)',
+    noBangjeom: '이 구절은 방점 없이 보여요(점이 없다고 평성이라는 뜻은 아니에요)',
     // 출처 주소 → 사이트 이름(NM.ui.marker.srcLabel)
     sites: {
       wikisource: '위키문헌', wikisourceZh: '위키문헌(중국어)', sejong: '세종대왕기념사업회 한글고전 DB',

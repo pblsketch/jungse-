@@ -70,7 +70,7 @@ NM.data = NM.data || {};
 
     // ── 28자: 가운뎃소리 11자 ──
     araea: { glyph: 'ㆍ', name: '아래아', kind: 'vowel', make: 'shape', group: '28-lost', stage: 's0', src: S28 + ', ' + LOST + ', 리서치 11 §5, §9',
-      note: '하늘(둥근 모양)을 본뜬 모음 기본 글자. 소리가 사라지면서 둘째 음절에서는 주로 ㅡ로, 첫음절에서는 주로 ㅏ로 바뀌었다. 정확한 소리값은 학설이 갈린다.' },
+      note: '하늘(둥근 모양)을 본뜬 모음 기본 글자. 소리가 사라지면서 둘째 음절에서는 주로 ㅡ로, 첫음절에서는 주로 ㅏ로 바뀌었다.' },
     eu: { glyph: 'ㅡ', name: '으', kind: 'vowel', make: 'shape', group: '28-current', stage: 's0', src: S28,
       note: '땅(평평한 모양)을 본뜬 모음 기본 글자.' },
     i: { glyph: 'ㅣ', name: '이', kind: 'vowel', make: 'shape', group: '28-current', stage: 's0', src: S28,
