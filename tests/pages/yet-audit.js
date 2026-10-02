@@ -253,7 +253,7 @@
         items: ws.map(x => ({ id: x.it.id, orig: plain(x.w), modern: x.it.gloss || '' })),
         translations: tr.map(x => plain(x.text)), rules: rules.map(r => ({ id: r.id, name: plain(r.name), text: plain(r.text) })),
         reflection: '', glyph: M.carveGlyph(sid) ? (/^[〮〯]$/.test(M.carveGlyph(sid)) ? NM.core.yet.soloTone(M.carveGlyph(sid)) : plain(M.carveGlyph(sid))) : '',
-        title: '', stats: { firstTryRate: 1, firstTryText: '100%', helps: 0, misreads: 0 }, status: 'done', statusText: '끝냄',
+        title: '', stats: { self: 1, byHelp: 0, growthText: '스스로 확정한 말 1 · 도움 받아 확정한 말 0', helps: 0, misreads: 0, misreadText: '0번' }, status: 'done', statusText: '끝냄',
         teacher: false, teacherText: '', createdAt: '', createdText: '2026-10-02 09:00', fileName: 'x.png'
       };
       try {
@@ -445,6 +445,8 @@
     document.querySelectorAll('#ui-layer *').forEach(e => {
       if (e.closest('.nm-sr')) return;
       const cs = getComputedStyle(e);
+      // 화면 낭독기용으로만 남긴 요소(1px·clip 으로 숨김, 예: 좁은 화면의 기믹 칸 설명)는 잘림이 아니다
+      if (/rect\(0(px)?,? 0(px)?,? 0(px)?,? 0(px)?\)/.test(cs.clip) && e.clientWidth <= 1) return;
       if (cs.overflowX === 'visible' && cs.overflowY === 'visible') return;
       if (e.clientWidth && e.scrollWidth > e.clientWidth + 1 && cs.overflowX !== 'auto' && cs.overflowX !== 'scroll') add('clipped-x', e, { cls: e.className, sw: e.scrollWidth, cw: e.clientWidth });
       if (e.clientHeight && e.scrollHeight > e.clientHeight + 1 && cs.overflowY === 'hidden') add('clipped-y', e, { cls: e.className, sh: e.scrollHeight, ch: e.clientHeight });

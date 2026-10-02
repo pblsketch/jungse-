@@ -8,6 +8,8 @@
  * - 끝(통역 자리): 과거로 떨어진다. 중학교·고1은 1443년(기본), 고2~3은 고대(editions.h23.translate). spec §5-6.
  * - 선배 통사는 이 시대에 없으므로 흩어진 글자 틈에서 들리는 목소리로만 나온다(맵에 없음).
  * - 반 친구들은 그림이 없으므로 해설로만 나온다.
+ * - 첫 1분 안에 학생이 손을 쓰게: 도입·의뢰는 5쪽(원문과 마주침·선배의 풀이 예시 없음) → 과제 「흩어진 글자」 두 단계
+ *   (① ㄱ ㅏ ㆍ 세 글자로 아는/모르는 글자 연습 → 선배의 짧은 한마디 ② 나머지 글자 + 스물여덟 자 안·밖). 긴 설명은 맥락 '선생님'.
  */
 window.NM = window.NM || {};
 NM.data = NM.data || {};
@@ -18,6 +20,7 @@ NM.data.SCENES['s0'] = {
   era: '2026년 교실',
   mapKey: 's0',
   bgmKey: 'bgm_s0',
+  startItem: 's0.t1',
   cast: {
     teacher: { name: '선생님', portrait: 'teacher_modern' }
   },
@@ -28,38 +31,17 @@ NM.data.SCENES['s0'] = {
       real: '이런 직책은 없었어요. 이 이야기를 위해 지어낸 역할이에요.' }
   ],
 
+  // 첫 조작까지 대사 5쪽(도입 4 + 의뢰 1). 선배의 긴 설명은 학생이 글자를 가른 뒤(과제 단계 대사·맥락 '선생님')로 옮겼다.
   intro: [
-    { who: 'narrator', text: '2026년 가을, 국어 시간. 교과서에 실린 「세종어제훈민정음」 사진을 펴 놓은 참이다.', cg: 's0_intro' },
-    { who: 'teacher', expr: 'smile', text: '오늘은 오백 년도 더 된 글을 읽어 볼 거예요. 사진 속 글자를 잘 보세요.' },
-    { who: 'narrator', text: '그때 사진 속 글자들이 종이에서 떨어져 나와 빛 조각처럼 교실로 흩어졌다.' },
-    { who: 'narrator', text: '친구들은 연필을 든 채 그대로 멈춰 있다. 움직이는 사람은 나와 선생님뿐이다.' },
+    { who: 'narrator', text: '2026년 가을, 국어 시간. 교과서의 「세종어제훈민정음」 사진에서 글자들이 떨어져 나와 교실로 흩어졌다!', cg: 's0_intro' },
+    { who: 'narrator', text: '친구들은 연필을 든 채 그대로 멈췄다. 움직이는 사람은 나와 선생님뿐이다.' },
     { who: 'teacher', expr: 'surprised', text: '<@아>, 너도 보이니? 글자가 사진 밖으로 날아갔어!' },
-    { who: 'me', expr: 'surprised', text: '저 글자들… 반은 아는 글자인데, 반은 처음 보는 모양이에요.' }
+    { who: 'senior', text: '글자 틈에서 내 목소리가 들리느냐? 나는 새 글자를 사람들에게 옮겨 주는 정음 통사다.', fiction: 'tongsa' }
   ],
 
   request: [
-    { who: 'teacher', expr: 'thinking', text: '흩어진 글자를 아는 글자와 모르는 글자로 갈라 보자. 그래야 무엇이 사라졌는지 알 수 있겠어.' },
-    { who: 'teacher', text: '교실 곳곳에 실마리가 있을 거야. 펼친 교과서와 책장의 옛 책도 살펴보렴.' }
+    { who: 'senior', expr: 'smile', text: '흩어진 글자를 다시 모아야 한다. 먼저 글자부터 갈라 다오!' }
   ],
-
-  encounter: {
-    orig: ['O-s9-SEOMUN1'],
-    lines: [
-      { who: 'narrator', text: '사진 속 첫 구절이다. 글자가 빠져나간 자리에 흐릿한 자국만 남아 원래 모양을 겨우 알아볼 수 있다.' },
-      { who: 'me', expr: 'thinking', text: '나랏말… 뒤는 못 읽겠다. 생긴 것부터 낯선 글자가 섞여 있어.' }
-    ]
-  },
-
-  example: {
-    orig: ['O-s9-SEOMUN2'],
-    lines: [
-      { who: 'narrator', text: '흩어진 글자 틈에서 낯선 목소리가 들려온다.' },
-      { who: 'senior', expr: 'smile', text: '거기 누가 있구나. 나는 새 글자를 사람들에게 옮겨 주는 정음 통사다.', fiction: 'tongsa' },
-      { who: 'senior', text: '가르는 법을 보여 주마. ㄱ 은 너희도 지금 쓰지? 그러면 아는 글자 칸이다.' },
-      { who: 'senior', expr: 'thinking', text: '이 구절에 여러 번 보이는 둥근 점 ㆍ 은 처음 보지? 스물여덟 자 가운데 하나인데 네가 모르는 걸 보니, 너희 때까지 이어지지 못한 모양이구나. 그런 글자는 모르는 글자 가운데 스물여덟 자 안 칸으로 보낸다.' },
-      { who: 'senior', text: '나머지는 네가 해 보아라. 스물여덟 자에 아예 들지 않는 글자도 하나 섞여 있다.' }
-    ]
-  },
 
   contexts: [
     {
@@ -94,12 +76,21 @@ NM.data.SCENES['s0'] = {
   items: [
     {
       id: 's0.t1', kind: 'task', levels: ['m', 'h1', 'h23'], label: '흩어진 글자',
-      prompt: '흩어진 글자를 아는 글자와 모르는 글자로 갈라 보자.',
       gimmick: 'sortGlyphs',
-      config: { glyphs: ['g', 'va', 'z', 'n', 'eu', 'q', 'm', 'bv', 'vo', 'araea', 's', 'ng', 'o'] },
-      answer: { g: 'known', va: 'known', z: 'lost', n: 'known', eu: 'known', q: 'lost', m: 'known',
-                bv: 'outside', vo: 'known', araea: 'lost', s: 'known', ng: 'lost', o: 'known' },
-      hints: ['훈민정음은 스물여덟 자였어. 그 가운데 지금 안 쓰는 글자는 넷뿐이야. 남는 하나는 스물여덟 자 밖이지.', 'outside'],
+      // 두 단계: ① 세 글자만 두 칸(아는 글자 / 모르는 글자) — 연습, 기록에 넣지 않음. 남은 ㆍ 은 저절로 '모르는 글자'로.
+      //          ② 나머지 열 글자가 오고 '모르는 글자'가 스물여덟 자 안·밖으로 나뉜다(ㆍ 은 '안'으로 옮겨짐). 제출·판정은 열세 글자 모두.
+      config: {
+        steps: [
+          { glyphs: ['g', 'va', 'araea'], bins: ['known', 'unknown'], rest: 'unknown',
+            say: { who: 'senior', text: '지금도 쓰는 글자를 찾아 다오! 찾으면 「아는 글자」 칸에 놓아라.' },
+            done: { who: 'senior', expr: 'smile', text: '잘했다! 남은 ㆍ 도 훈민정음 스물여덟 자 가운데 하나다. 지금은 쓰지 않을 뿐이지.' } },
+          { glyphs: ['bv', 'z', 'n', 'eu', 'q', 'm', 'vo', 's', 'ng', 'o'],
+            say: { who: 'senior', expr: 'thinking', text: 'ㅸ 은 ㅂ 아래에 ㅇ 을 이어 써서 만든 글자라 스물여덟 자에 들지 않는다. 나머지도 갈라 보아라.' } }
+        ]
+      },
+      answer: { g: 'known', va: 'known', araea: 'lost', bv: 'outside', z: 'lost', n: 'known', eu: 'known',
+                q: 'lost', m: 'known', vo: 'known', s: 'known', ng: 'lost', o: 'known' },
+      hints: ['지금도 쓰는 글자인지부터 보자. 스물여덟 자 가운데 지금 안 쓰는 글자는 넷뿐이야. 남는 하나는 스물여덟 자 밖이지.', 'outside'],
       explain: 'ㆍ ㅿ ㆆ ㆁ 은 스물여덟 자에 들었지만 지금은 쓰지 않는 글자이고, ㅸ 은 ㅂ 아래 ㅇ 을 이어 써서 만든 글자라 스물여덟 자에 들지 않는다.'
     },
     {

@@ -3,6 +3,7 @@
 // - 틀린 제출 → 틀린 글자에 × 표시(data-mark="wrong")·과제는 open / 2번째 → 강조 칸(showHint 2) / 3번째 → doneByHelp + 정답 자리 + 도감
 // - 도감 결과판: 사라진 4자 + ㅸ, NM.data.DOGAM 이름, 'nm:dogam-open' 사건, data-dogam="open"
 // - 끝난 과제 다시 열기 → 읽기 전용으로 정답 / 바로 맞음 → done + 도감
+// - 단계 나눠 가르기(s0.t3): 첫 단계 3자·두 칸 연습(틀림 × 기록 안 함, 남은 글자 저절로) → 남은 글자 불러오기 → 세 칸, 고정·미리 고름·실마리 더 보기
 // - 360px 폭 가로 스크롤 없음, 움직임 줄이기, 오류·콘솔 오류·외부 요청 0
 import { startKit, TOP } from '../fixtures/g1-browser-kit.mjs';
 
@@ -160,6 +161,70 @@ try {
   ev = await page.evaluate(() => window.__dogam.slice());
   check('done event byHelp false', ev.length === 3 && ev[2].item === 's0.t2' && ev[2].byHelp === false, ev);
 
+  await K.closeTop(page);
+
+  // ── 단계 나눠 가르기(s0.t3): ① ㄱ ㅏ ㆍ 두 칸 연습 → ② 나머지 + 세 칸 ──
+  await K.openTask(page, 's0.t3');
+  const stepView = () => page.evaluate((sel) => {
+    const w = document.querySelector(sel);
+    const g = w.querySelector('.nm-gsg');
+    const shown = (x) => x && !x.hidden && x.offsetParent !== null;
+    const inBin = (b) => [...w.querySelectorAll(`.nm-gsg-bin[data-bin="${b}"] .nm-gsg-tile`)].map(x => x.getAttribute('data-glyph')).join();
+    const say = w.querySelector('.nm-gsg-say');
+    const now = w.querySelector('.nm-gsg-now');
+    return {
+      step: g.getAttribute('data-step'), steps: g.getAttribute('data-steps'),
+      tiles: [...w.querySelectorAll('.nm-gsg-tile')].filter(shown).map(x => x.getAttribute('data-glyph')).join(),
+      pool: [...w.querySelectorAll('.nm-gsg-pool .nm-gsg-tile')].filter(shown).map(x => x.getAttribute('data-glyph')).join(),
+      bins: [...w.querySelectorAll('.nm-gsg-bin')].filter(shown).map(x => x.getAttribute('data-bin')).join(),
+      known: inBin('known'), unknown: inBin('unknown'), lost: inBin('lost'), outside: inBin('outside'),
+      say: shown(say) ? say.textContent : null, sayKind: say.getAttribute('data-say'),
+      next: shown(w.querySelector('.nm-gsg-next')), submit: shown(w.querySelector('.nm-gsg-submit')),
+      submitDisabled: w.querySelector('.nm-gsg-submit').disabled,
+      retry: shown(w.querySelector('.nm-gsg-retry')),
+      puts: [...w.querySelectorAll('.nm-gsg-bin:not([hidden]) .nm-gsg-put')].map(b => b.disabled),
+      selected: (w.querySelector('.nm-gsg-tile[aria-pressed="true"]') || { getAttribute: () => null }).getAttribute('data-glyph'),
+      nowAuto: shown(now) ? now.getAttribute('data-auto') + ':' + now.getAttribute('data-glyph') : null,
+      fixed: [...w.querySelectorAll('.nm-gsg-tile.is-fixed')].map(x => x.getAttribute('data-glyph') + (x.disabled ? '' : '!')).join(),
+      wrong: [...w.querySelectorAll('.nm-gsg-tile[data-mark="wrong"]')].map(x => x.getAttribute('data-glyph')).join(),
+      focus: document.activeElement && (document.activeElement.getAttribute('data-glyph') || document.activeElement.className)
+    };
+  }, TOP);
+  v = await stepView();
+  check('steps: first step shows only ㄱ ㅏ ㆍ and two bins (known / unknown)', v.steps === '2' && v.step === '0' && v.tiles === 'g,va,araea' && v.bins === 'known,unknown', v);
+  check('steps: first step line shown, no submit/next yet, nothing preselected', v.say && v.say.includes('시험 단계 하나 대사') && !v.submit && !v.next && v.selected === null, v);
+  await page.click(TOP + ' .nm-gsg-tile[data-glyph="g"]');
+  await page.click(TOP + ' .nm-gsg-bin[data-bin="known"] .nm-gsg-put');
+  v = await stepView();
+  check('steps: after placing ㄱ, ㅏ is auto-selected and announced (D03)', v.known === 'g' && v.selected === 'va' && v.nowAuto === '1:va' && v.focus === 'va', v);
+  await page.click(TOP + ' .nm-gsg-bin[data-bin="unknown"] .nm-gsg-put');
+  v = await stepView();
+  check('steps: practice wrong → × on ㅏ + retry line, step not finished', v.wrong === 'va' && v.retry && v.step === '0' && !v.next, v);
+  check('steps: practice wrong is not recorded (no wrong submission)', (await K.state(page, 's0', 's0.t3')) === 'none' ||
+    (await page.evaluate(() => { const r = window.__store.stage('s0').items['s0.t3']; return r && r.wrongs === 0; })));
+  await page.click(TOP + ' .nm-gsg-tile[data-glyph="va"]');
+  await page.click(TOP + ' .nm-gsg-bin[data-bin="known"] .nm-gsg-put');
+  v = await stepView();
+  check('steps: ㄱ ㅏ in 아는 글자 → leftover ㆍ slides into 모르는 글자 by itself', v.known === 'g,va' && v.unknown === 'araea' && v.wrong === '' && !v.retry, v);
+  check('steps: step done → senior line + "남은 글자 불러오기" focused, put buttons off', v.sayKind === 'done' && v.say.includes('시험 단계 하나 끝 대사') && v.next && /nm-gsg-next/.test(v.focus) && v.puts.every(Boolean), v);
+  await page.click(TOP + ' .nm-gsg-next');
+  v = await stepView();
+  check('steps: second step → rest arrives, bins known / lost / outside', v.step === '1' && v.pool === 'bv,z,n,q,ng' && v.bins === 'known,lost,outside', v);
+  check('steps: ㆍ moved from 모르는 글자 to 스물여덟 자 안; first-step glyphs stay fixed', v.lost === 'araea' && v.known === 'g,va' && v.fixed === 'g,va,araea', v);
+  check('steps: second step line + ㅸ auto-selected and focused, submit shown (disabled)', v.say.includes('시험 단계 둘 대사') && v.selected === 'bv' && v.nowAuto === '1:bv' && v.focus === 'bv' && v.submit && v.submitDisabled && !v.next, v);
+  // 일부러 틀리게: ㅸ 을 스물여덟 자 안에 → 제출 → 틀림 1(기록) → 실마리 더 보기 → 강조 → 정답
+  await placeAll({ bv: 'lost', z: 'lost', n: 'known', q: 'lost', ng: 'lost' }, false);
+  await page.click(TOP + ' .nm-gsg-submit');
+  v = await stepView();
+  check('steps: wrong final submit → only ㅸ marked, recorded as 1 wrong', v.wrong === 'bv' && (await page.evaluate(() => window.__store.stage('s0').items['s0.t3'].wrongs)) === 1, v);
+  await page.click(TOP + ' .nm-st-morehelp');
+  v = await page.evaluate((sel) => { const b = document.querySelector(sel + ' .nm-gsg-bin[data-bin="outside"]'); return { hint: b.classList.contains('is-hint'), step: document.querySelector(sel + ' .nm-st-help').getAttribute('data-step') }; }, TOP);
+  check("steps: '실마리 더 보기' still works (help 2 → outside emphasized)", v.hint && v.step === '2', v);
+  await page.click(TOP + ' .nm-st-morehelp');
+  v = await stepView();
+  check("steps: last '실마리' → doneByHelp, answer in place", (await K.state(page, 's0', 's0.t3')) === 'doneByHelp' && v.outside === 'bv' && v.lost.split(',').sort().join() === 'araea,ng,q,z', v);
+  await K.closeTop(page);
+
   // 360px 폭 + 글자 크기 3단계 + 움직임 줄이기
   const small = await K.browser.newContext({ viewport: { width: 360, height: 740 }, deviceScaleFactor: 1 });
   page = await K.open(small, 'g-sortGlyphs.html', 'stage=s0&level=h1&reset=1');
@@ -170,6 +235,19 @@ try {
   check('360px width (font scale 1.5): no horizontal scroll', hs.win <= 1 && hs.doc <= 0, hs);
   v = await page.evaluate((sel) => getComputedStyle(document.querySelector(sel + ' .nm-gsg-tile')).animationName + '|' + getComputedStyle(document.querySelector(sel + ' .nm-gsg-tile')).transform, TOP);
   check('reduced motion: no scatter animation or tilt', v === 'none|none', v);
+  await K.closeTop(page);
+  // 단계 과제: 첫 단계에서 진행기가 판정한 답(점검 통로)이 오면 마지막 단계로 넘어가 틀린 글자를 보인다
+  await K.openTask(page, 's0.t3');
+  const hs3 = await K.noHScroll(page);
+  check('360px: stepped task has no horizontal scroll', hs3.win <= 1 && hs3.doc <= 0, hs3);
+  await page.evaluate(() => NM.ui.itemTask.test.submit({ g: 'known', va: 'known', araea: 'outside', bv: 'outside', z: 'lost', n: 'known', q: 'lost', ng: 'lost' }));
+  v = await page.evaluate((sel) => { const w = document.querySelector(sel); return { step: w.querySelector('.nm-gsg').getAttribute('data-step'),
+    wrong: [...w.querySelectorAll('.nm-gsg-tile[data-mark="wrong"]')].filter(x => x.offsetParent !== null).map(x => x.getAttribute('data-glyph')).join() }; }, TOP);
+  check('stepped task: runner wrong result during step 1 → jumps to last step, wrong glyph visible', v.step === '1' && v.wrong === 'araea', v);
+  await page.evaluate(() => NM.ui.itemTask.test.submit({ g: 'known', va: 'known', araea: 'lost', bv: 'outside', z: 'lost', n: 'known', q: 'lost', ng: 'lost' }));
+  v = await page.evaluate((sel) => { const w = document.querySelector(sel); return { state: w.querySelector('.nm-gsg').getAttribute('data-state'), dogam: !w.querySelector('.nm-gsg-dogam').hidden,
+    lost: [...w.querySelectorAll('.nm-gsg-bin[data-bin="lost"] .nm-gsg-tile')].length }; }, TOP);
+  check('stepped task: correct runner result → done, glyphs placed, 도감 open (showDone)', (await K.state(page, 's0', 's0.t3')) === 'done' && v.state === 'done' && v.dogam && v.lost === 4, v);
 
   await K.finish(pages);
 } catch (e) { await K.fail(e); }
