@@ -198,7 +198,8 @@
         }
       });
       sec.appendChild(row);
-      if (block.src) sec.appendChild(mk('p', 'gwc-src nm-card-src', block.src));
+      const src = NM.ui && NM.ui.marker && NM.ui.marker.srcLabel ? NM.ui.marker.srcLabel(block.src) : block.src;
+      if (src) sec.appendChild(mk('p', 'gwc-src nm-card-src', src));
       box.appendChild(sec);
       L.units.forEach((u, i) => paintGap(L, i));
       lines.push(L);

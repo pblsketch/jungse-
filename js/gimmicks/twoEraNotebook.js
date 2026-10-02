@@ -14,6 +14,8 @@
   const NM = root.NM;
   const K = () => NM.g789;
   const list = (x) => (Array.isArray(x) ? x.filter(Boolean) : []);
+  // 출처 칸 → 학생에게 보일 출처 글(검증 메모 빼기, NM.ui.marker.srcLabel). 없으면 그대로.
+  const srcText = (s) => (NM.ui && NM.ui.marker && NM.ui.marker.srcLabel ? NM.ui.marker.srcLabel(s) : String(s || ''));
   const STATUSES = ['kept', 'shaky', 'none'];
 
   function check(answer, item) {
@@ -80,7 +82,7 @@
         words15[x.id] = sp;
         wrap.appendChild(sp);
         if (x.note) wrap.appendChild(G.richSpan(o, x.note, 'tn-extra-note'));
-        if (x.src) wrap.appendChild(E('span', 'tn-src', x.src));
+        if (srcText(x.src)) wrap.appendChild(E('span', 'tn-src', srcText(x.src)));
         row.appendChild(wrap);
       });
       ex.appendChild(row);
@@ -114,7 +116,7 @@
         const wrap = E('span', 'tn-extra-item');
         wrap.appendChild(b);
         if (x.note) wrap.appendChild(G.richSpan(o, x.note, 'tn-extra-note'));
-        if (x.src) wrap.appendChild(E('span', 'tn-src', x.src));
+        if (srcText(x.src)) wrap.appendChild(E('span', 'tn-src', srcText(x.src)));
         row.appendChild(wrap);
       });
       ex.appendChild(row);
@@ -140,7 +142,7 @@
         head.appendChild(G.mark(doc, 'know', o.text('marks.know')));
         head.appendChild(E('span', 'tn-notscored', o.text('marks.notScored')));
         if (rc.note) row.appendChild(G.richSpan(o, rc.note, 'tn-row-note'));
-        if (rc.src) row.appendChild(E('p', 'tn-src', rc.src));
+        if (srcText(rc.src)) row.appendChild(E('p', 'tn-src', srcText(rc.src)));
         rows[rc.id] = r;
         book.appendChild(row);
         return;
@@ -189,7 +191,7 @@
         card.appendChild(h);
         list([].concat(n.orig || [])).forEach(b => card.appendChild(G.origView(o, b, { noteNoBangjeom: o.text('marks.noBangjeom') }).el));
         if (n.text) { const p = E('p', 'nm-card-text'); p.appendChild(G.richSpan(o, n.text)); card.appendChild(p); }
-        if (n.src) card.appendChild(E('p', 'nm-card-src', o.text('marks.src') + ' ' + n.src));
+        if (srcText(n.src)) card.appendChild(E('p', 'nm-card-src', o.text('marks.src') + ' ' + srcText(n.src)));
         ns.appendChild(card);
       });
       box.appendChild(ns);
