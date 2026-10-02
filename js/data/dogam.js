@@ -116,7 +116,7 @@ NM.data = NM.data || {};
     bsg: { glyph: 'ㅴ', name: 'ㅂ, ㅅ, ㄱ을 나란히 쓴 글자', kind: 'consonant', make: 'diffDouble', group: 'not28', stage: 's3', src: HJ,
       note: '서로 다른 자음 셋을 나란히 쓴 첫소리. [ㅴㅡㅁ](틈)에 보인다.' },
     bd: { glyph: 'ㅳ', name: 'ㅂ과 ㄷ을 나란히 쓴 글자', kind: 'consonant', make: 'diffDouble', group: 'not28', stage: 's5', src: '「용비어천가」 (리서치 10 §5), 공통국어2 4단원 (리서치 05 §2)',
-      note: '서로 다른 자음 ㅂ과 ㄷ을 나란히 쓴 첫소리. [ㅳㅡㄷ](뜻)에 보인다. ㅂ과 ㄷ을 이어 소리 내다가 뒤에 된소리로 바뀌었다고 보는 견해가 일반적이다.' },
+      note: '서로 다른 자음 ㅂ과 ㄷ을 나란히 쓴 첫소리. [ㅳㅡㄷ](뜻)에 보인다. ㅂ과 ㄷ을 이어 소리 내다가 뒤에 된소리로 바뀌었다(어두 자음군).' },
     sg: { glyph: 'ㅺ', name: 'ㅅ과 ㄱ을 나란히 쓴 글자', kind: 'consonant', make: 'diffDouble', group: 'not28', stage: 's5', src: '「용비어천가」 제13장 (리서치 10 §5)',
       note: '서로 다른 자음 ㅅ과 ㄱ을 나란히 쓴 첫소리. [ㅺㅜㅁ](꿈)에 보인다.' },
     bs: { glyph: 'ㅄ', name: 'ㅂ과 ㅅ을 나란히 쓴 글자', kind: 'consonant', make: 'diffDouble', group: 'not28', stage: 's5', src: '서문 (리서치 09 §8-2), 우리말샘 좁쌀 (리서치 11 §5)',
