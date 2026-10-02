@@ -392,6 +392,50 @@
     translate: {
       id: 's2.x1',
       text: '정음 스물여덟 글자는 저마다 무언가의 꼴을 본떠 지었다.',
+      // 통역 고르기(js/ui/stage-translate.js): 단면 그림 앞에서 ㅋ을 만든 길(s2.r2 획을 더한 까닭)과
+      // 모음 기본 글자의 바탕(s2.r3)을 어떻게 보여 줄지 고른다. 두 항목은 모든 학교급의 핵심 항목이라 학교급마다 같다.
+      chooseAt: 1,
+      compose: '"가" 할 때의 혀뿌리 모양이 ㄱ, 숨이 세지면 {?} ㅋ이에요. 모음은 {?} 합쳐서 만들어요.',
+      choose: [
+        {
+          id: 's2.i1', item: 's2.r2',
+          prompt: '숨이 세게 터지는 ㅋ, 사람들에게 어떻게 만든 글자라고 보여 줄까?',
+          options: [
+            { id: 's2.i1.a', text: 'ㄱ에 획을 하나 더해 만들었다', part: '획 하나를 더해', correct: true },
+            { id: 's2.i1.b', text: 'ㄱ을 두 번 겹쳐 써서 만들었다', part: 'ㄱ을 둘 겹쳐 써서', correct: false,
+              reaction: [
+                { who: 'me', text: '숨이 세지면 ㄱ을 둘 겹쳐 써서 ㅋ이에요.' },
+                { who: 'farmer', cg: 'mis_commoner_puzzled', text: 'ㄱ이 둘이면 "가가" 하고 두 번 소리 내야 하오? 그림 속 ㅋ에는 ㄱ이 하나뿐인데.' },
+                { who: 'senior', text: 'ㄱ을 겹쳐 쓰는 건 된소리 ㄲ이야. ㅋ 안에 무엇이 들어 있었는지 해독할 때 본 걸 떠올려 봐.' }
+              ] },
+            { id: 's2.i1.c', text: 'ㄱ과 상관없이 새 모양으로 따로 만들었다', part: 'ㄱ과 상관없는 새 모양을 그려', correct: false,
+              reaction: [
+                { who: 'me', text: '숨이 세지면 ㄱ과 상관없는 새 모양을 그려 ㅋ이에요.' },
+                { who: 'farmer', cg: 'mis_commoner_puzzled', text: '하나하나 따로 그렸다면 스물여덟 자를 몽땅 따로 외워야겠구먼.' },
+                { who: 'senior', text: '소리가 닮은 글자는 모양도 닮았어. 해독할 때 알아낸 걸 떠올려 봐.' }
+              ] }
+          ]
+        },
+        {
+          id: 's2.i2', item: 's2.r3',
+          prompt: '모음의 기본 글자 ㆍ ㅡ ㅣ, 무엇을 본뜬 글자라고 보여 줄까?',
+          options: [
+            { id: 's2.i2.a', text: '하늘의 둥근 모양, 땅의 평평한 모양, 사람이 선 모양', part: '둥근 하늘 ㆍ, 평평한 땅 ㅡ, 서 있는 사람 ㅣ를', correct: true },
+            { id: 's2.i2.b', text: '소리 낼 때의 혀와 입술 모양', part: '혀와 입술 모양을 본뜬 ㆍ ㅡ ㅣ를', correct: false,
+              reaction: [
+                { who: 'me', text: '모음은 혀와 입술 모양을 본뜬 ㆍ ㅡ ㅣ를 합쳐서 만들어요.' },
+                { who: 'child', cg: 'mis_child_laughing', text: '혀 모양이요? 그럼 ㆍ는 혀끝에 붙은 밥알이에요?' },
+                { who: 'senior', text: '혀와 입 모양을 본뜬 건 자음이었지. 청동 그릇 앞에서 본 걸 떠올려 봐.' }
+              ] },
+            { id: 's2.i2.c', text: 'ㆍ는 하늘, ㅡ는 사람, ㅣ는 땅의 모양', part: '둥근 하늘 ㆍ, 누운 사람 ㅡ, 서 있는 땅 ㅣ를', correct: false,
+              reaction: [
+                { who: 'me', text: '모음은 둥근 하늘 ㆍ, 누운 사람 ㅡ, 서 있는 땅 ㅣ를 합쳐서 만들어요.' },
+                { who: 'child', cg: 'mis_child_laughing', text: '땅이 벌떡 서 있어요? 사람은 누워 있고요?' },
+                { who: 'senior', text: '땅은 평평하고 사람은 서 있지. 해독할 때 알아낸 걸 떠올려 봐.' }
+              ] }
+          ]
+        }
+      ],
       lines: [
         { who: 'narrator', text: '단면 그림 앞에 사람들이 모였다. 임금도 걸음을 멈추고 그림을 들여다본다.', cg: 's2_climax' },
         { who: 'me', text: '보세요. "가" 할 때의 혀뿌리 모양이 ㄱ, 숨이 세지면 획 하나를 더해 ㅋ이에요.' },

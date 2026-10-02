@@ -130,6 +130,102 @@ for (const lv of ['m', 'h1', 'h23']) {
   assert.ok(squash(next.text).includes(squash(sentence)), lv + ': 고른 통역 = 다 된 통역 대사 — ' + sentence);
 }
 
+// ── 고르기가 있는 모든 장면(s0~s12), 학교급마다(그 학교급이 보는 판 = resolveScene) ──
+// 고르기 1~2번·카드 3장·정답 1개, 근거 항목이 그 학교급의 핵심 항목, 틀린 카드마다 반응(2~4줄),
+// 빈칸 수 = 고르기 수, 고르기 앞뒤에 대사, 정답으로 채운 문장 조각이 고르기 뒤 내 통역 대사에 차례대로 든다.
+{
+  const all = load([
+    'js/core/ns.js', 'js/data/stages.js', 'js/data/rules-config.js', 'js/data/profanity.js', 'js/data/jamo.js',
+    'js/core/yet.js', 'js/core/rules.js', 'js/core/nickname.js', 'js/core/save.js',
+    'js/data/text-stage.js', 'js/ui/stage-text.js', 'js/ui/stage-logic.js', 'js/ui/stage-translate.js'
+  ].concat(NM.data.STAGE_IDS.map(id => 'js/data/scenes/' + id + '.js')));
+  const A = all.NM, AG = A.ui.stageTranslate.logic;
+  const aplain = (s) => A.core.yet.render(String(s), { bangjeom: false, ruby: 'base' });
+  const sq = (x) => aplain(x).replace(/[\s,.!?'"]/g, '');
+  const seen = [];
+  for (const id of A.data.STAGE_IDS) {
+    for (const lv of ['m', 'h1', 'h23']) {
+      const sc = A.ui.stageLogic.resolveScene(A.data.SCENES[id], lv);
+      sc.id = id;
+      const T = sc.translate || {};
+      if (T.choose === undefined) { assert.equal(A.ui.stageTranslate.has(T), false, `${id}/${lv}: 고르기가 없으면 예전 통역`); continue; }
+      const tag = `${id}/${lv}`;
+      seen.push(tag);
+      const st = AG.steps(T);
+      assert.equal(st.length, T.choose.length, tag + ': 데이터의 고르기가 모두 올바르다(정답 1개·카드 2장 이상)');
+      assert.ok(st.length >= 1 && st.length <= 2, tag + ': 고르기 1~2번');
+      const core = A.core.rules.coreItemsFor(sc, lv).map(i => i.id);
+      const taken = new Set((sc.items || []).map(i => i.id).concat((sc.contexts || []).map(c => c.id)));
+      const ids = new Set();
+      for (const s of st) {
+        assert.ok(!taken.has(s.id) && !ids.has(s.id), `${tag}: 고르기 id ${s.id} 가 항목·맥락·다른 고르기와 겹치지 않는다`); ids.add(s.id);
+        assert.ok(s.item && core.indexOf(s.item) >= 0, `${tag}: ${s.id} 의 근거 항목 ${s.item} 이 이 학교급 핵심 항목 (${core.join(',')})`);
+        assert.equal(s.options.length, 3, `${tag}: ${s.id} 카드 3장`);
+        aplain(s.prompt);
+        for (const o of s.options) {
+          assert.ok(!ids.has(o.id), `${tag}: 카드 id 겹침 ${o.id}`); ids.add(o.id);
+          if (o.correct) assert.ok(!o.reaction, `${tag}: ${o.id} 정답 카드에는 반응이 없다`);
+          else assert.ok(Array.isArray(o.reaction) && o.reaction.length >= 2 && o.reaction.length <= 4, `${tag}: ${o.id} 틀린 카드마다 짧은 반응(2~4줄)`);
+          for (const ln of o.reaction || []) {
+            assert.ok(ln.who === 'me' || ln.who === 'senior' || (sc.cast && sc.cast[ln.who]), `${tag}: ${o.id} 말하는 사람 ${ln.who}`);
+            assert.ok(typeof ln.text === 'string' && ln.text, `${tag}: ${o.id} 반응 대사`);
+            aplain(ln.text);
+          }
+          aplain(o.text); aplain(o.part || o.text);
+        }
+      }
+      assert.equal(T.compose.split(AG.BLANK).length - 1, st.length, tag + ': 빈칸 수 = 고르기 수');
+      assert.ok(Number.isInteger(T.chooseAt) && T.chooseAt >= 1 && T.chooseAt < T.lines.length, tag + ': 고르기 앞뒤에 대사가 있다');
+      assert.equal(T.lines[T.chooseAt].who, 'me', tag + ': 고르기 뒤 첫 줄은 내 통역');
+      // 정답 문장 조각(고정 글·고른 말)이 고르기 뒤 내 대사들에 차례대로 들어 있다(띄어쓰기·문장 부호 무시)
+      const right = {};
+      st.forEach(s => { right[s.id] = s.options.filter(o => o.correct)[0].id; });
+      const parts = AG.compose(T.compose, st, right);
+      assert.ok(parts.every(p => typeof p.text === 'string'), tag + ': 정답으로 빈칸이 모두 찬다');
+      const mine = sq(T.lines.slice(T.chooseAt).filter(l => l.who === 'me').map(l => l.text).join(''));
+      let at = 0;
+      // 고정 글은 문장마다 나눈다(통역 문장 둘이 내 대사 두 줄에 나뉘어 들 수 있다)
+      for (const piece of parts.reduce((a, p) => a.concat(p.blank === undefined ? p.text.split(/[.?!]\s+/) : [p.text]), [])) {
+        const f = sq(piece);
+        if (!f) continue;
+        const k = mine.indexOf(f, at);
+        assert.ok(k >= 0, `${tag}: 고른 통역 조각 '${piece}' 이 뒤의 내 통역 대사에 차례대로 든다`);
+        at = k + f.length;
+      }
+      // 틀린 카드로 채운 문장은 다 된 통역과 달라야 한다
+      for (const s of st) for (const o of s.options.filter(x => !x.correct)) {
+        const w = Object.assign({}, right, { [s.id]: o.id });
+        assert.ok(!mine.includes(sq(AG.compose(T.compose, st, w).map(p => p.text).join(''))), `${tag}: ${o.id} 로 채운 문장은 바른 통역이 아니다`);
+      }
+    }
+  }
+  for (const tag of ['s0/m', 's0/h1', 's0/h23', 's1/h23', 's2/m', 's2/h1', 's2/h23', 's3/m', 's3/h1', 's3/h23', 's5/h1', 's5/h23',
+    's4/m', 's4/h1', 's4/h23', 's6/m', 's6/h1', 's6/h23', 's7/m', 's7/h1', 's7/h23', 's8/m', 's8/h1', 's8/h23',
+    's9/m', 's9/h1', 's9/h23', 's10/m', 's10/h1', 's10/h23', 's11/m', 's11/h1', 's11/h23', 's12/m', 's12/h1', 's12/h23']) {
+    assert.ok(seen.indexOf(tag) >= 0, tag + ': 통역 고르기가 있다');
+  }
+  // s9·s12: 중학교판(editions.m.translate)은 그 판이 실제로 다룬 항목으로 고른다(고등판과 근거 항목이 다르다)
+  {
+    const items = (id, lv) => AG.steps(A.ui.stageLogic.resolveScene(A.data.SCENES[id], lv).translate).map(s => s.item).join();
+    assert.equal(items('s9', 'm'), 's9.r1,s9.t3', 's9 중학교판: 누가·왜(s9.r1) + 창제 정신(s9.t3)');
+    assert.equal(items('s9', 'h1'), 's9.t1,s9.t1', 's9 고등판: 서문 해독 ①(어린, 하니라)');
+    assert.equal(items('s12', 'm'), 's12.r1,s12.r2', 's12 중학교판: 입력 방식 + 글자와 소리');
+    assert.equal(items('s12', 'h23'), 's12.r1,s12.r2', 's12 고등판: 변화의 순서 + 지금도 바뀌는 말');
+    assert.notEqual(A.data.SCENES.s12.editions.m.translate.choose[0].prompt, A.data.SCENES.s12.translate.choose[0].prompt, 's12 두 판의 고르기는 서로 다르다');
+  }
+  assert.ok(!(all.__nmErrors || []).length, '장면 전체 불러오기 오류 없음');
+  // s6: 고1(중학생은 고1 범위)은 주격 하나, 고2~3판(editions.h23.translate)은 주격 + 관형격 [ㅇㆎ] — 대사·통역 id 는 같다
+  {
+    const s6 = A.data.SCENES.s6, pick = (lv) => A.ui.stageLogic.resolveScene(s6, lv).translate;
+    assert.equal(AG.steps(pick('m')).map(s => s.id).join(), 's6.i1');
+    assert.equal(AG.steps(pick('h1')).map(s => s.id).join(), 's6.i1');
+    assert.equal(AG.steps(pick('h23')).map(s => s.id).join(), 's6.i1,s6.i2');
+    assert.equal(pick('h23').id, s6.translate.id);
+    assert.equal(pick('h23').lines.length, s6.translate.lines.length);
+    assert.ok(!('said' in pick('h23')), 's6 h23: said 는 대사로 옮겨진다');
+  }
+}
+
 // 화면 문구가 모두 있다
 for (const k of ['title', 'lead', 'preview', 'stepNo', 'pickAll', 'deliver', 'again', 'tried', 'react', 'misNote']) {
   assert.ok(typeof NM.data.TEXT.stage.interp[k] === 'string' && NM.data.TEXT.stage.interp[k], 'TEXT.stage.interp.' + k);

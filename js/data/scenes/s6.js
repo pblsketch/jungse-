@@ -276,7 +276,35 @@ NM.data.SCENES['s6'] = {
   translate: {
     id: 's6.x1',
     text: '이웃집 소가 이 사람의 밭을 밟았다 — 끈을 바로 이어 받아 적은 진술',
+    // 통역 고르기(js/ui/stage-translate.js): 관원의 부탁 한 줄 뒤에, 해독한 주격 조사(s6.r1)로 아전에게 소 뒤의 끈을 일러 준다.
+    // 고1(중학생은 고1 범위)은 이 고르기 하나. 고2~3은 관형격 [ㅇㆎ](s6.r4)·모음 조화(s6.r5)를 하나 더 고른다(파일 맨 끝, editions.h23.translate).
+    // 고른 말은 바로 뒤 내 대사에 그대로 든다.
+    chooseAt: 1,
+    compose: '소 뒤에는 {?} 밟은 쪽으로 적어 주세요.',
+    choose: [
+      {
+        id: 's6.i1', item: 's6.r1',
+        prompt: '밭을 밟은 쪽은 이웃집 소. 하는 쪽을 알려 주는 끈, 소 뒤에는 어떻게 붙여 적으라고 할까?',
+        options: [
+          { id: 's6.i1.a', text: "'ㅣ'를 앞 음절에 녹여 붙인다(너 + ㅣ → :네처럼)", part: 'ㅣ를 녹여 붙여', correct: true },
+          { id: 's6.i1.b', text: "'가'를 붙인다(소 + 가)", part: '가를 붙여', correct: false,
+            reaction: [
+              { who: 'me', text: '소 뒤에는 가를 붙여 적어 주세요.' },
+              { who: 'official', cg: 'mis_official_confused', text: "'가'라니? 서안 위 책 어디에도 그런 끈은 없었네." },
+              { who: 'senior', text: "15세기 책의 주격 조사는 '이', 'ㅣ', 아무것도 없음 셋이었어. ':네'를 떠올려 봐." }
+            ] },
+          { id: 's6.i1.c', text: '아무 끈도 붙이지 않는다(소 그대로)', part: '아무 끈도 없이', correct: false,
+            reaction: [
+              { who: 'me', text: '소 뒤에는 아무 끈도 붙이지 말고 적어 주세요.' },
+              { who: 'commoner', cg: 'mis_commoner_puzzled', text: '끈을 빼 버리면 또 엉뚱하게 읽히지 않겠습니까? 저는 그게 걱정입니다.' },
+              { who: 'senior', text: '끈 없이 적는 건 ㅣ로 끝난 말 뒤야(불·휘). 소는 ㅣ로 끝나지 않으니 무언가 붙어야 해.' }
+            ] }
+        ]
+      }
+    ],
     lines: [
+      { who: 'official', text: '통사, 아전에게 끈을 다시 일러 주게. 누가 밟았는지부터 바로잡아야 하네.' },
+      { who: 'me', text: '소 뒤에는 ㅣ를 녹여 붙여 밟은 쪽으로 적어 주세요. 이웃집 소가 밟았으니까요.' },
       { who: 'narrator', cg: 's6_climax', text: '관원이 새로 받아 적은 진술서를 소리 내어 읽는다.' },
       { who: 'official', text: '"이웃집 소가 이 사람의 밭을 밟았다." 누가 했는지는 주어 뒤의 끈이, 누구의 밭인지는 관형어 뒤의 끈이 또렷하게 말해 주는구나.' },
       { who: 'commoner', text: '맞습니다, 나리! 제가 드린 말씀 그대로입니다.' },
@@ -294,7 +322,46 @@ NM.data.SCENES['s6'] = {
         { rule: 'rule.vowelHarmony', lines: [
           { who: 'senior', text: '모음도 두 무리로 나뉘었어. ㆍ ㅗ ㅏ는 양성 모음, ㅡ ㅜ ㅓ는 음성 모음이고 같은 무리끼리 어울렸지. ㅣ는 어느 쪽과도 어울렸어.' }
         ] }
-      ]
+      ],
+      // 고2~3판 통역: 주격(s6.i1, 위 translate 와 같음) 다음에 관형격 [ㅇㆎ](s6.r4)·모음 조화(s6.r5)를 하나 더 고른다.
+      // id·text·대사·s6.i1 은 파일 맨 끝에서 위 translate 의 것을 가져온다. 고른 말이 든 내 대사(said)만 다르다.
+      translate: {
+        compose: '소 뒤에는 {?} 밟은 쪽으로, 사람 뒤에는 {?} 밭 임자로 적어 주세요.',
+        said: { who: 'me', text: '소 뒤에는 ㅣ를 녹여 붙여 밟은 쪽으로, 사람 뒤에는 [ㅇㆎ]를 붙여 밭 임자로 적어 주세요.' },
+        choose: [
+          {
+            id: 's6.i2', item: 's6.r4',
+            prompt: '밟힌 밭의 임자는 이 사람. 누구의 것인지 알려 주는 끈, 사람 뒤에는 무엇을 붙여 적으라고 할까?',
+            options: [
+              { id: 's6.i2.a', text: "'[ㅇㆎ]' — 높이지 않는 사람이고 앞말 모음이 양성이라(:사[ㄹㆍ]·[ㅁㆎ]처럼)", part: '[ㅇㆎ]를 붙여', correct: true },
+              { id: 's6.i2.b', text: "'ㅅ' — 부텻 {法|·법}처럼", part: 'ㅅ을 붙여', correct: false,
+                reaction: [
+                  { who: 'me', text: '사람 뒤에는 ㅅ을 붙여 적어 주세요. 부텻 {法|·법}처럼요.' },
+                  { who: 'commoner', cg: 'mis_commoner_puzzled', text: '제가 부처님처럼 높여 모실 사람이란 말씀입니까? 황송해서 원…' },
+                  { who: 'senior', text: 'ㅅ은 높여야 할 분이나 사람도 동물도 아닌 것 뒤에 붙었어. 이분은 어느 쪽이지?' }
+                ] },
+              { id: 's6.i2.c', text: "'의' — {羅|랑}{雲|운}·의처럼", part: '의를 붙여', correct: false,
+                reaction: [
+                  { who: 'me', text: '사람 뒤에는 의를 붙여 적어 주세요.' },
+                  { who: 'official', cg: 'mis_official_confused', text: '내 책장에는 :사[ㄹㆍ]·[ㅁㆎ]라고 적혀 있었네. 어찌 모양을 바꾸는가?' },
+                  { who: 'senior', text: '[ㅇㆎ]와 의는 앞말의 모음이 갈라. :사[ㄹㆍ]·[ㅁㆎ]의 ㆍ는 어느 쪽 모음이었지?' }
+                ] }
+            ]
+          }
+        ]
+      }
     }
   }
 };
+
+// 고2~3판 통역 채우기. resolveScene 은 editions 를 얕게 합치므로(translate 를 통째로 바꿈) 그쪽 translate 에 모두 둔다:
+// 주격 고르기(s6.i1)를 앞에 두고, 위 translate 의 대사에서 고른 말이 든 내 대사만 said 로 바꾼다.
+(function (sc) {
+  const b = sc.translate, h = sc.editions.h23.translate;
+  h.id = b.id;
+  h.text = b.text;
+  h.chooseAt = b.chooseAt;
+  h.choose = [b.choose[0]].concat(h.choose);
+  h.lines = b.lines.map((ln, i) => (i === b.chooseAt ? h.said : ln));
+  delete h.said;
+})(NM.data.SCENES['s6']);

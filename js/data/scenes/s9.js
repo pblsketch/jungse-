@@ -284,10 +284,54 @@ NM.data.SCENES = NM.data.SCENES || {};
 
     translate: {
       id: 's9.x1', at: 's9.c1', text: FULL_MODERN_H,
+      // 통역 고르기(js/ui/stage-translate.js): 이어 읽기 전에 셋째·넷째 구절을 학생이 해독한 뜻(s9.t1 의 어린 = 어리석은,
+      // 하니라 = 많다, 노미 = 사람이)으로 옮긴다. s9.t1 은 고1·고2~3 모두의 핵심 항목이다(중학교판은 아래 editions.m).
+      chooseAt: 2,
+      compose: '그 때문에 {?} 백성은 하고 싶은 이야기가 있더라도 끝내 제 속뜻을 글로 드러내지 못하는 {?}.',
+      choose: [
+        {
+          id: 's9.i1', item: 's9.t1',
+          prompt: '셋째 구절의 ‘어·린 {百|·[ㅂㆎㄱ]}{姓|·[ㅅㅕㆁ]}’, 어떤 백성이라고 옮길까?',
+          options: [
+            { id: 's9.i1.a', text: '어리석은(글 모르는) 백성', part: '어리석은', correct: true },
+            { id: 's9.i1.b', text: '나이가 어린 백성', part: '나이 어린', correct: false,
+              reaction: [
+                { who: 'me', text: '그 때문에 나이 어린 백성은 하고 싶은 이야기가 있더라도…' },
+                { who: 'official', cg: 'mis_official_confused', text: '아이들만 걱정하셨다는 말이오? 할 말을 글로 펴지 못하는 건 글 모르는 어른들도 마찬가지인데.' },
+                { who: 'senior', text: '모양은 지금 말과 같아도 뜻이 달랐던 말이야. 오른쪽 서안의 한문과 견주어 봐.' }
+              ] },
+            { id: 's9.i1.c', text: '가엾은 백성', part: '가엾은', correct: false,
+              reaction: [
+                { who: 'me', text: '그 때문에 가엾은 백성은 하고 싶은 이야기가 있더라도…' },
+                { who: 'official', cg: 'mis_official_confused', text: '가엾게 여기셨다는 말씀은 다음 장에 따로 나오지 않소? 여기서 벌써 그리 옮기면 말이 겹치오.' },
+                { who: 'senior', text: '가엾게 여긴다는 건 다섯째 구절의 ‘:어엿·비’ 쪽이야. ‘어·린’은 백성이 어떤 처지인지 말해 줘.' }
+              ] }
+          ]
+        },
+        {
+          id: 's9.i2', item: 's9.t1',
+          prompt: '넷째 구절 끝의 ‘·노·미 하·니·라’는 어떻게 옮길까?',
+          options: [
+            { id: 's9.i2.a', text: '사람이 많다', part: '이가 많다', correct: true },
+            { id: 's9.i2.b', text: '사람이 (무엇을) 한다', part: '이가 무언가를 한다', correct: false,
+              reaction: [
+                { who: 'me', text: '끝내 제 속뜻을 글로 드러내지 못하는 이가 무언가를 한다.' },
+                { who: 'official', cg: 'mis_official_confused', text: '무엇을 한다는 거요? 말이 중간에 끊긴 것 같소. 아랫사람들이 들으면 고개를 갸웃하겠소.' },
+                { who: 'senior', text: '15세기의 ‘하다’가 무슨 뜻이었는지 떠올려 봐. 같은 대목의 한문도 함께 보고.' }
+              ] },
+            { id: 's9.i2.c', text: '놈(남을 낮춰 부르는 말)이 많다', part: '놈들이 많다', correct: false,
+              reaction: [
+                { who: 'me', text: '끝내 제 속뜻을 글로 드러내지 못하는 놈들이 많다.' },
+                { who: 'official', cg: 'mis_official_confused', text: '임금께서 백성을 놈이라 낮춰 부르셨다고? 그리 옮겼다간 큰일 나오.' },
+                { who: 'senior', text: '그때의 ‘놈’이 지금처럼 낮춰 부르는 말이었는지 떠올려 봐.' }
+              ] }
+          ]
+        }
+      ],
       lines: [
         { who: 'narrator', text: '여덟 장의 서문이 단 위 서안에 차례대로 놓였다. 마지막 장을 내려놓자 종이들이 금빛으로 빛나며 한 권의 책처럼 모여든다.', cg: 's9_climax' },
         { who: 'senior', text: '<@아>, 이제 처음부터 끝까지 이어 읽어 봐.' },
-        { who: 'me', text: '우리나라의 말소리는 중국 말과 같지 않아서, 한자로 적어서는 서로 뜻이 막힘없이 오가지 못한다…' },
+        { who: 'me', text: '우리나라의 말소리는 중국 말과 같지 않아서, 한자로 적어서는 서로 뜻이 막힘없이 오가지 못한다. 그 때문에 어리석은 백성은 하고 싶은 이야기가 있더라도 끝내 제 속뜻을 글로 드러내지 못하는 이가 많다…' },
         { who: 'narrator', text: '빛 속에서 붉은 옷을 입은 사람의 모습이 어렴풋이 떠오른다.', fiction: 'fiction.sejongMemory' },
         { who: 'sejong', text: '나는 이것을 가엾게 여겨 스물여덟 글자를 새로 만들었다. 누구나 쉽게 익혀 날마다 편히 쓰기를 바랄 뿐이다.' },
         { who: 'narrator', text: '빛이 잦아들자 모습도 사라지고, 서안 위에는 가지런히 묶인 서문만 남았다.' },
@@ -319,10 +363,56 @@ NM.data.SCENES = NM.data.SCENES || {};
         items: [READ_WHO, TASK_MODERN],
         translate: {
           id: 's9.x1', at: 's9.c1', text: FULL_MODERN_M,
+          // 통역 고르기: 지금 말 서문을 다 읽은 뒤, 관원이 책 첫머리에 적을 한마디를 묻는다. 중학교판이 실제로 다룬
+          // s9.r1(누가, 왜 만들었나)과 s9.t3(창제 정신 — 마지막 대목의 실용)으로 고른다. 세종의 회상 모습은 고른 뒤에 나온다.
+          chooseAt: 4,
+          compose: '새 글자는 {?} 만드신 거예요. {?} 바라셨고요.',
+          choose: [
+            {
+              id: 's9.i1', item: 's9.r1',
+              prompt: '서문 속 ‘나’는 누구이고, 왜 새 글자를 만들었다고 전할까?',
+              options: [
+                { id: 's9.i1.a', text: '임금이, 글 모르는 백성을 딱하게 여겨', part: '임금께서 글 모르는 백성을 딱하게 여겨 손수', correct: true },
+                { id: 's9.i1.b', text: '집현전 학자들이, 임금께 지어 바치려고', part: '집현전 학자들이 임금께 지어 바치려고', correct: false,
+                  reaction: [
+                    { who: 'me', text: '새 글자는 집현전 학자들이 임금께 지어 바치려고 만드신 거예요.' },
+                    { who: 'official', cg: 'mis_official_confused', text: '학자들이 지었다고? 서문에서 임금께서 \'내가 새로 만들었다\'고 하셨는데, 그리 적으면 임금의 글을 고쳐 쓰는 셈이오.' },
+                    { who: 'senior', text: '서문 속 \'나\'가 이 글을 쓴 사람이라는 걸 떠올려 봐.' }
+                  ] },
+                { id: 's9.i1.c', text: '임금이, 한자를 없애려고', part: '임금께서 한자를 없애려고', correct: false,
+                  reaction: [
+                    { who: 'me', text: '새 글자는 임금께서 한자를 없애려고 만드신 거예요.' },
+                    { who: 'official', cg: 'mis_official_confused', text: '한자를 없앤다니. 이 책만 해도 한자 옆에 새 글자로 소리를 달아 함께 적었는데, 어디서 그런 말이 나왔소?' },
+                    { who: 'senior', text: '서문은 누구의 어떤 처지를 안타까워했지? 그게 새 글자를 만든 까닭이야.' }
+                  ] }
+              ]
+            },
+            {
+              id: 's9.i2', item: 's9.t3',
+              prompt: '서문의 마지막 대목, 새 글자가 어떻게 쓰이기를 바랐다고 전할까?',
+              options: [
+                { id: 's9.i2.a', text: '누구나 쉽게 배워 날마다 편하게 쓰기를', correct: true },
+                { id: 's9.i2.b', text: '반포하자마자 온 나라가 한꺼번에 쓰기를', correct: false,
+                  reaction: [
+                    { who: 'me', text: '반포하자마자 온 나라가 한꺼번에 쓰기를 바라셨대요.' },
+                    { who: 'official', cg: 'mis_official_confused', text: '온 나라가 한꺼번에? 그리 바로 퍼질 일이었다면 내가 이 책을 이리 애써 엮을 까닭이 있겠소?' },
+                    { who: 'senior', text: '마지막 대목을 다시 떠올려 봐. 누가, 얼마나 쉽게, 언제 쓰기를 바랐지?' }
+                  ] },
+                { id: 's9.i2.c', text: '글을 아는 양반들이 귀하게 아껴 쓰기를', correct: false,
+                  reaction: [
+                    { who: 'me', text: '글을 아는 양반들이 귀하게 아껴 쓰기를 바라셨대요.' },
+                    { who: 'official', cg: 'mis_official_confused', text: '양반들만 아껴 쓰라고? 그럼 글 모르는 백성 이야기는 왜 하셨겠소?' },
+                    { who: 'senior', text: '서문이 처음부터 누구 이야기를 했는지 떠올려 봐. 마지막 바람도 그 사람들을 위한 거야.' }
+                  ] }
+              ]
+            }
+          ],
           lines: [
             { who: 'narrator', text: '여덟 장의 서문이 단 위 서안에 차례대로 놓였다. 마지막 장을 내려놓자 종이들이 금빛으로 빛나며 한 권의 책처럼 모여든다.', cg: 's9_climax' },
             { who: 'senior', text: '<@아>, 이제 처음부터 끝까지 이어 읽어 봐.' },
             { who: 'me', text: '우리말은 중국말과 소리부터 다르다. 그런데 글은 중국 글자인 한자를 빌려 써 왔으니…' },
+            { who: 'official', text: '잘 들었소. 그럼 책 첫머리에는 무어라 적으면 되겠소? 이 글자를 누가, 무슨 뜻으로 만들었는지 한마디로 일러 주시오.' },
+            { who: 'me', text: '새 글자는 임금께서 글 모르는 백성을 딱하게 여겨 손수 만드신 거예요. 누구나 쉽게 배워 날마다 편하게 쓰기를 바라셨고요.' },
             { who: 'narrator', text: '빛 속에서 붉은 옷을 입은 사람의 모습이 어렴풋이 떠오른다.', fiction: 'fiction.sejongMemory' },
             { who: 'sejong', text: '나는 이것을 가엾게 여겨 스물여덟 글자를 새로 만들었다. 누구나 쉽게 익혀 날마다 편히 쓰기를 바랄 뿐이다.' },
             { who: 'official', text: '방금 그 말씀은, 서문의 뜻 그대로가 아니오?' },

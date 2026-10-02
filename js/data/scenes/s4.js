@@ -298,6 +298,51 @@ NM.data.SCENES['s4'] = {
     id: 's4.x1',
     text: '뿌리가 깊이 박힌 나무는 바람이 불어도 흔들리지 않아, 꽃이 탐스럽고 열매가 많이 열린다.',
     at: 's4.listeners',
+    // 통역 고르기(js/ui/stage-translate.js): 문 앞 장면 한 줄 뒤에, 해독한 띄어쓰기 없음(s4.r4)과 이어 적기(s4.r1)로
+    // 어디서 끊어 읽고 기·픈을 어떻게 풀지 고른다. 두 항목은 고1·고2~3 모두의 핵심 항목이라(중학생은 고1 범위) 학교급마다 같다.
+    // 고른 말은 바로 뒤 내 대사(불·휘에서 한 번, …)에 그대로 든다.
+    chooseAt: 1,
+    compose: '{?} 끊어요. 기·픈은 {?}.',
+    choose: [
+      {
+        id: 's4.i1', item: 's4.r4',
+        prompt: '빈칸 없이 이어 찍힌 첫머리 불·휘기·픈남·[ㄱㆍㄴ]…, 어디서 끊어 읽으라고 할까?',
+        options: [
+          { id: 's4.i1.a', text: '불·휘 / 기·픈 / 남·[ㄱㆍㄴ] — 조사나 어미가 붙은 데까지 한 덩어리로', part: '불·휘에서 한 번, 기·픈에서 한 번', correct: true },
+          { id: 's4.i1.b', text: '점이 찍힌 글자 앞마다 — 불 / ·휘 / 기 / ·픈', part: '점이 찍힌 글자 앞마다', correct: false,
+            reaction: [
+              { who: 'me', text: '점이 찍힌 글자 앞마다 끊어요. 불, 휘, 기, 픈…' },
+              { who: 'commoner_man', text: '불, 휘, 기, 픈… 한 낱말 안에서도 끊으니 말이 토막 나오.', cg: 'mis_commoner_puzzled' },
+              { who: 'senior', text: '점은 끊는 자리가 아니라 소리의 높낮이 표시였지. 낱말이 끝나는 자리를 찾아봐.' }
+            ] },
+          { id: 's4.i1.c', text: '책에 띄어 찍힌 빈칸마다', part: '책에 띄어 찍힌 빈칸마다', correct: false,
+            reaction: [
+              { who: 'me', text: '책에 띄어 찍힌 빈칸마다 끊어요.' },
+              { who: 'artisan', text: '빈칸이라니? 나는 활자를 빈틈없이 붙여 박았소. 어디서 끊을지는 읽는 사람 몫이오.', cg: 'mis_official_confused' },
+              { who: 'senior', text: '원래 책에는 빈칸이 없어. 조사나 어미가 붙은 데까지 한 덩어리로 끊어 봐.' }
+            ] }
+        ]
+      },
+      {
+        id: 's4.i2', item: 's4.r1',
+        prompt: '기·픈은 무엇이라고 풀어 줄까?',
+        options: [
+          { id: 's4.i2.a', text: '깊 + 은 — 받침을 뒤 글자로 넘겨 소리 나는 대로 적은 말', part: '깊 + 은', correct: true },
+          { id: 's4.i2.b', text: '기픈이라는 나무 이름', part: '기픈이라는 나무 이름', correct: false,
+            reaction: [
+              { who: 'me', text: '기·픈은 기픈이라는 나무 이름이에요.' },
+              { who: 'commoner_woman', text: '기픈 나무요? 그런 나무는 처음 들어요. 뿌리가 깊다는 말 아니에요?', cg: 'mis_woman_flustered' },
+              { who: 'senior', text: '깊 + 은을 소리 내어 읽어 봐. 들리는 대로 찍으면 어떻게 될까?' }
+            ] },
+          { id: 's4.i2.c', text: '깊은을 장인이 잘못 찍은 글자', part: '잘못 찍은 깊은', correct: false,
+            reaction: [
+              { who: 'me', text: '기·픈은 잘못 찍은 글자예요. 깊은이 맞아요.' },
+              { who: 'artisan', text: '잘못 찍었다니! ·므·른도 바·[ㄹㆍ]·래도 이 책은 다 들리는 대로 찍었소.', cg: 'mis_official_confused' },
+              { who: 'senior', text: '그때는 받침을 뒤 음절로 넘겨 적는 게 원리였어. 틀린 게 아니라 지금과 방법이 다른 거야.' }
+            ] }
+        ]
+      }
+    ],
     lines: [
       { who: 'narrator', text: '문 앞에 사람들이 모여 앉는다. <@이> 제2장 앞쪽을 펴 든다.', cg: 's4_climax' },
       { who: 'me', text: '불·휘에서 한 번, 기·픈에서 한 번 끊어요. 기·픈은 깊 + 은, 소리 나는 대로 적은 말이에요.' },

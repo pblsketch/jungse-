@@ -127,8 +127,36 @@ NM.data.SCENES['s0'] = {
 
   // 통역 자리 = 과거로 떨어지는 끝 장면. 기본(중학교·고1)은 1443년.
   translate: {
+    // 통역 고르기(js/ui/stage-translate.js): 빛나는 다섯 글자를 선생님께 어떻게 알려 줄지 한 번 고른다.
+    // 근거는 s0.r1(스물여덟 자) — 모든 학교급의 핵심 항목. 틀린 카드는 s0.r1 의 오답(ㅸ 도 28자 / 안 쓰는 글자는 28자 밖)에서.
+    // 고2~3판(editions.h23.translate)도 같은 고르기를 쓴다(이 파일 맨 끝).
+    chooseAt: 2,
+    compose: '이 다섯 글자는 모두 지금은 안 쓰는 글자예요. {?}.',
+    choose: [
+      {
+        id: 's0.i1', item: 's0.r1',
+        prompt: '빛나는 다섯 글자 ㆍ ㅿ ㆆ ㆁ ㅸ, 선생님께 어떻게 알려 줄까?',
+        options: [
+          { id: 's0.i1.a', text: 'ㆍ ㅿ ㆆ ㆁ 은 스물여덟 자 안, ㅸ 은 그 밖', part: 'ㆍ ㅿ ㆆ ㆁ 은 스물여덟 자에 들고, ㅸ 은 스물여덟 자 밖이에요', correct: true },
+          { id: 's0.i1.b', text: 'ㅸ 까지 다섯 모두 스물여덟 자 안', part: 'ㅸ 까지 다섯 모두 스물여덟 자에 들어요', correct: false,
+            reaction: [
+              { who: 'me', text: '이 다섯 글자는 ㅸ 까지 모두 스물여덟 자에 들어요.' },
+              { who: 'teacher', expr: 'surprised', text: '첫소리 17자에 가운뎃소리 11자인데, ㅸ 까지 넣으면 스물아홉 자가 되잖아?' },
+              { who: 'senior', text: '글자를 가를 때 ㅸ 을 어느 칸에 놓았는지 떠올려 보아라.' }
+            ] },
+          { id: 's0.i1.c', text: 'ㆍ ㅿ ㆆ ㆁ 도 ㅸ 처럼 스물여덟 자 밖', part: 'ㆍ ㅿ ㆆ ㆁ 도 ㅸ 처럼 스물여덟 자 밖이에요', correct: false,
+            reaction: [
+              { who: 'me', text: 'ㆍ ㅿ ㆆ ㆁ 도 ㅸ 처럼 스물여덟 자 밖의 글자예요.' },
+              { who: 'teacher', expr: 'surprised', text: '그러면 세종이 만든 글자가 스물넷뿐이었다는 말이 되는걸?' },
+              { who: 'senior', text: '지금 안 쓴다고 처음부터 없던 글자는 아니다. 해독할 때 알아낸 것을 떠올려 보아라.' }
+            ] }
+        ]
+      }
+    ],
     lines: [
       { who: 'narrator', text: '글자를 다 가르자, 모르는 글자 다섯이 한꺼번에 환하게 빛났다.' },
+      { who: 'teacher', expr: 'thinking', text: '<@아>, 저 빛나는 글자 다섯은 어떤 글자야? 네가 갈랐으니 알려 줄래?' },
+      { who: 'me', text: '이 다섯 글자는 모두 지금은 안 쓰는 글자예요. ㆍ ㅿ ㆆ ㆁ 은 스물여덟 자에 들고, ㅸ 은 스물여덟 자 밖이에요.' },
       { who: 'senior', text: '잘 갈랐다. 그 글자들이 살아 있던 때로 와 다오. 네 눈이 필요하다.' },
       { who: 'narrator', text: '손바닥에 나무 패 하나가 떨어진다. 통사가 차는 패라고 했다. 아직 아무 글자도 새겨져 있지 않다.' },
       { who: 'teacher', expr: 'surprised', text: '<@아>! 바닥이…!', cg: 's0_climax' },
@@ -143,6 +171,8 @@ NM.data.SCENES['s0'] = {
       translate: {
         lines: [
           { who: 'narrator', text: '글자를 다 가르자, 모르는 글자 다섯이 한꺼번에 환하게 빛났다.' },
+          { who: 'teacher', expr: 'thinking', text: '<@아>, 저 빛나는 글자 다섯은 어떤 글자야? 네가 갈랐으니 알려 줄래?' },
+          { who: 'me', text: '이 다섯 글자는 모두 지금은 안 쓰는 글자예요. ㆍ ㅿ ㆆ ㆁ 은 스물여덟 자에 들고, ㅸ 은 스물여덟 자 밖이에요.' },
           { who: 'senior', text: '잘 갈랐다. 그 글자들이 살아 있던 때로 와 다오. 네 눈이 필요하다.' },
           { who: 'narrator', text: '손바닥에 나무 패 하나가 떨어진다. 통사가 차는 패라고 했다. 아직 아무 글자도 새겨져 있지 않다.' },
           { who: 'teacher', expr: 'surprised', text: '<@아>! 바닥이…!', cg: 's0_climax' },
@@ -154,3 +184,11 @@ NM.data.SCENES['s0'] = {
     }
   }
 };
+
+// 고2~3판 통역도 같은 고르기를 쓴다. resolveScene 은 editions 를 얕게 합치므로(translate 를 통째로 바꿈) 그쪽 translate 에도 둔다.
+(function (sc) {
+  const h = sc.editions.h23.translate;
+  h.chooseAt = sc.translate.chooseAt;
+  h.compose = sc.translate.compose;
+  h.choose = sc.translate.choose;
+})(NM.data.SCENES['s0']);

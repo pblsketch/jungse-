@@ -305,8 +305,55 @@
     translate: {
       id: 's3.x1',
       text: '첫소리, 가운뎃소리, 끝소리 셋이 모여야 비로소 한 글자가 된다.',
+      // 통역 고르기(js/ui/stage-translate.js): 손님들에게 이름표 독(s3.r1 모아쓰기)과 홰(s3.r3 모음자 합치기)를
+      // 어떻게 읽어 줄지 고른다. 두 항목은 모든 학교급의 핵심 항목이다(s3.r2 는 학교급마다 내용이 달라 쓰지 않는다).
+      chooseAt: 2,
+      compose: '독은 {?}. 홰는 가운뎃소리 자리에 {?} 썼어요.',
+      choose: [
+        {
+          id: 's3.i1', item: 's3.r1',
+          prompt: '옹기 장수의 독, 손님들에게 어떻게 쓴 글자라고 일러 줄까?',
+          options: [
+            { id: 's3.i1.a', text: '첫소리, 가운뎃소리, 끝소리를 한자리에 모아 쓴 한 글자', part: '첫소리 ㄷ, 가운뎃소리 ㅗ, 끝소리 ㄱ을 한자리에 모아 쓴 한 글자예요', correct: true },
+            { id: 's3.i1.b', text: 'ㄷ ㅗ ㄱ을 옆으로 한 줄에 풀어 늘어놓은 글자', part: 'ㄷ, ㅗ, ㄱ을 옆으로 한 줄에 늘어놓아 쓴 글자예요', correct: false,
+              reaction: [
+                { who: 'me', text: '독은 ㄷ, ㅗ, ㄱ을 옆으로 한 줄에 늘어놓아 쓴 글자예요.' },
+                { who: 'merchant', cg: 'mis_commoner_puzzled', text: '늘어놓았다고? 내 이름표에는 위아래로 포갠 한 덩이뿐인데?' },
+                { who: 'senior', text: '방에서 본 글자 자리를 떠올려 봐. 첫소리와 끝소리가 어디에 앉았지?' }
+              ] },
+            { id: 's3.i1.c', text: '독 소리 하나만을 위해 따로 만든 글자', part: '독 소리 하나만을 위해 따로 만든 글자예요', correct: false,
+              reaction: [
+                { who: 'me', text: '독은 그 소리 하나만을 위해 따로 만든 글자예요.' },
+                { who: 'merchant', cg: 'mis_commoner_puzzled', text: '물건마다 글자를 따로 만들면, 이름 다 적으려고 글자를 몇 천 개나 외워야 하오?' },
+                { who: 'senior', text: '스물여덟 자만으로 어떤 이름이든 적는다고 했지? 해독할 때 알아낸 방법을 떠올려 봐.' }
+              ] }
+          ]
+        },
+        {
+          id: 's3.i2', item: 's3.r3',
+          prompt: '노점의 홰, 가운뎃소리 자리의 ㅗ ㅏ ㅣ는 어떻게 쓴 거라고 일러 줄까?',
+          options: [
+            { id: 's3.i2.a', text: '합쳐서 모음자 하나로 썼다', part: 'ㅗ와 ㅏ와 ㅣ를 합쳐', correct: true },
+            { id: 's3.i2.b', text: 'ㅗ에 획을 더해서 썼다', part: 'ㅗ에 획을 더해', correct: false,
+              reaction: [
+                { who: 'me', text: '홰는 가운뎃소리 자리에 ㅗ에 획을 더해 썼어요.' },
+                { who: 'merchant', cg: 'mis_commoner_puzzled', text: '획을 더했다고? 이름표에는 ㅗ, ㅏ, ㅣ가 그대로 붙어 보이는데?' },
+                { who: 'senior', text: '획을 더하는 건 자음 기본 글자에서 쓴 방법이야. 홰를 쓸 때 가운뎃소리 자리에서 한 일을 떠올려 봐.' }
+              ] },
+            { id: 's3.i2.c', text: '나란히 써서 된소리로 바꾸었다', part: 'ㅗ ㅏ ㅣ를 나란히 써서 된소리로', correct: false,
+              reaction: [
+                { who: 'me', text: '홰는 가운뎃소리 자리에 ㅗ ㅏ ㅣ를 나란히 써서 된소리로 썼어요.' },
+                { who: 'merchant', cg: 'mis_commoner_puzzled', text: '된소리라니, 홰를 세게 부르란 말이오? 홰! 홰! 목만 아프겠소.' },
+                { who: 'senior', text: '나란히 써서 소리를 세게 내는 건 자음 이야기야. 모음자는 어떻게 했는지 떠올려 봐.' }
+              ] }
+          ]
+        }
+      ],
       lines: [
         { who: 'narrator', text: '이름표마다 새 글자가 한 덩이씩 또렷하다. 아낙과 아이가 이름표를 높이 들어 보인다.', cg: 's3_climax' },
+        { who: 'merchant', text: '통사 양반, 이 이름표들을 손님들한테 어찌 읽는지 일러 주오.' },
+        { who: 'me', text: '독은 첫소리 ㄷ, 가운뎃소리 ㅗ, 끝소리 ㄱ을 한자리에 모아 쓴 한 글자예요.' },
+        { who: 'me', text: '홰는 가운뎃소리 자리에 ㅗ와 ㅏ와 ㅣ를 합쳐 썼어요.' },
         { who: 'woman', text: '"신"! 정말 우리 짚신 이름이네요. 한 글자 안에 소리가 다 들었어요.' },
         { who: 'merchant', text: '독 한 글자에 소리가 셋이나 들었구먼. 이제 손님한테 이름표만 가리키면 되겠소.' },
         { who: 'senior', text: '스물여덟 자를 모으고, 나란히 쓰고, 합치니 어떤 말이든 적을 수 있지. <@아>, 수고했어.', expr: 'smile' }
