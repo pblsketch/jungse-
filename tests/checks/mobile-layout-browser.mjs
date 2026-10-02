@@ -47,7 +47,7 @@ const boxes = (page) => page.evaluate(() => {
   const r = (s) => { const e = document.querySelector(s); if (!e || e.hidden || !e.getClientRects().length) return null; const b = e.getBoundingClientRect(); return { l: b.left, t: b.top, r: b.right, b: b.bottom, w: b.width, h: b.height }; };
   const vv = window.visualViewport;
   const app = document.getElementById('app').getBoundingClientRect();
-  const tb = [...document.querySelectorAll('#nm-toolbar button')].map(b => { const q = b.getBoundingClientRect(); return { act: b.getAttribute('data-act'), w: q.width, h: q.height, t: q.top, icon: !!b.querySelector('img.nm-tb-icon[aria-hidden="true"]'), label: (b.querySelector('.nm-tb-label') || {}).textContent }; });
+  const tb = [...document.querySelectorAll('#nm-toolbar button')].map(b => { const q = b.getBoundingClientRect(); return { act: b.getAttribute('data-act'), w: q.width, h: q.height, t: q.top, icon: !!b.querySelector('img.nm-tb-icon[aria-hidden="true"], svg.nm-fs-icon[aria-hidden="true"]'), label: (b.querySelector('.nm-tb-label') || {}).textContent }; });
   const s = NM.engine.test.state();
   return { vw: innerWidth, vh: vv ? vv.height : innerHeight, docH: document.documentElement.scrollHeight, bodyH: document.body.scrollHeight, scrollY,
     appH: app.height, appTop: app.top, hud: r('.nm-st-hud'), toolbar: r('#nm-toolbar'), act: r('#nm-act'), tb,
@@ -163,7 +163,7 @@ try {
       check(`${env.tag} stage (HUD ${st}): toolbar does not overlap the HUD`, !overlap(m.hud, m.toolbar), { hud: m.hud, toolbar: m.toolbar });
     }
     await setHud(page, false);
-    check(`${env.tag} stage: toolbar buttons have icon + label, >= 44px`, m.tb.length === 3 && m.tb.every(b => b.icon && b.label && b.w >= 44 && b.h >= 44), m.tb);
+    check(`${env.tag} stage: toolbar buttons have icon + label, >= 44px`, m.tb.length >= 3 && m.tb.every(b => b.icon && b.label && b.w >= 44 && b.h >= 44), m.tb);
     if (env.narrow) check(`${env.tag} stage: compact toolbar is one horizontal row`, m.tb.every(b => Math.abs(b.t - m.tb[0].t) < 1) && m.toolbar.h < 70, { tb: m.tb, h: m.toolbar.h });
     if (env.vp.height > env.vp.width * 1.15) check(`${env.tag} stage: map fills >= 80% of the screen height (smaller black bands)`, m.mapCssH >= 0.8 * m.cssH, { mapH: Math.round(m.mapCssH), cssH: m.cssH });
     // 살피기 단추가 보이게 선생님 곁으로 걸어가기

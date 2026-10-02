@@ -439,3 +439,10 @@
 .nm-credits-sec { margin: 0 0 1em; }
 .nm-credits-title { margin: 0 0 .3em; font-size: calc(1.05rem * var(--fs, 1)); }
 .nm-credits-line { margin: 0 0 .35em; font-size: calc(.92rem * var(--fs, 1)); line-height: 1.55; overflow-wrap: anywhere; }
+
+/* 전체 화면 단추(첫 화면·도구 막대·설정) — js/ui/fullscreen.js */
+.nm-fs-btn { display: inline-flex; align-items: center; justify-content: center; gap: .4em; }
+.nm-fs-icon { width: 1.15em; height: 1.15em; flex: none; }
+#nm-toolbar .nm-fs-icon { width: 1.6em; height: 1.6em; color: #5a3b22; }
+@media (max-width: 520px), (max-height: 520px) { #nm-toolbar .nm-fs-icon { width: 24px; height: 24px; } }
+html.nm-fullscreen .nm-fs-icon path { d: path('M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5'); }

@@ -160,6 +160,7 @@
       toolbarEl.appendChild(toolButton(t('places.button'), 'student-places', 'map', () => UI.places.open(api)));
     }
     toolbarEl.appendChild(toolButton(t('toolbar.notebook'), 'notebook', 'notebook', () => openNotebook(state.stageId)));
+    if (UI.fullscreen && UI.fullscreen.supported()) toolbarEl.appendChild(UI.fullscreen.button({ cls: 'nm-tb-btn', labelCls: 'nm-tb-label' }));
     toolbarEl.appendChild(toolButton(t('toolbar.settings'), 'settings', 'settings', () => openSettings()));
     measureToolbar();
   }

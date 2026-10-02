@@ -73,6 +73,10 @@
         seg('bgm', onOff(), s.bgm ? 'on' : 'off', v => app.updateSettings({ bgm: v === 'on' }))));
       body.appendChild(row('sfx', 'settings.sfx', null,
         seg('sfx', onOff(), s.sfx ? 'on' : 'off', v => app.updateSettings({ sfx: v === 'on' }))));
+      // 전체 화면: 저장하는 설정이 아니라 지금 화면을 바꾼다(지원하지 않는 브라우저는 안내만)
+      const FS = UI.fullscreen;
+      if (FS && FS.supported()) body.appendChild(row('fullscreen', 'settings.fullscreen', 'settings.fullscreenHelp', [FS.button({ cls: 'nm-seg-btn' })]));
+      else body.appendChild(row('fullscreen', 'settings.fullscreen', 'settings.fullscreenNo', []));
 
       // 교사 모드
       let tControls;

@@ -87,7 +87,8 @@
     }
     acts.appendChild(el('div', { class: 'nm-title-minor' }, [
       dom.button(t('title.settings'), 'settings', () => app.openSettings(), { class: 'nm-btn-quiet' }),
-      dom.button(t('title.credits'), 'credits', () => openCredits(), { class: 'nm-btn-quiet' })
+      dom.button(t('title.credits'), 'credits', () => openCredits(), { class: 'nm-btn-quiet' }),
+      UI.fullscreen && UI.fullscreen.supported() ? UI.fullscreen.button({ cls: 'nm-btn-quiet' }) : null
     ]));
     card.appendChild(acts);
     box.appendChild(card);
