@@ -21,7 +21,7 @@ NM.data.TEXT.stage = {
   speakers: { senior: '선배 통사', sejong: '세종', narrator: '' },
 
   btn: {
-    next: '다음', close: '닫기', confirm: '확정하기', guess: '추측하기', translateStart: '통역하기', exit: '장면 나가기', open: '살펴보기',
+    next: '다음', close: '닫기', confirm: '확정하기', guess: '추측하기', backToMap: '맵으로 돌아가기', translateStart: '통역하기', exit: '장면 나가기', open: '살펴보기',
     save: '수첩 이미지 저장하기', later: '나중에 하기', skip: '건너뛰기', done: '다 썼어요',
     teacherAnswer: '정답과 풀이 바로 보기', notebook: '수첩', skipAll: '대화 넘기기',
     moreHelp: '실마리 더 보기', helpAnswer: '선배에게 정답 듣기'

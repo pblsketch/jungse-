@@ -182,6 +182,13 @@
         gb.addEventListener('click', onGuess);
         foot.appendChild(gb);
       }
+      // 확정한 뒤: × 말고도 바로 맵으로 돌아가는 단추(해독 창과 아래 단서 창을 함께 닫는다)
+      if (done && env.backToMap) {
+        const bb = el('button', 'nm-st-btn nm-st-primary nm-st-back', TX().t('btn.backToMap'));
+        bb.type = 'button';
+        bb.addEventListener('click', () => env.backToMap());
+        foot.appendChild(bb);
+      }
       const cb = el('button', 'nm-st-btn nm-st-primary nm-st-confirm', TX().t('btn.confirm'));
       cb.type = 'button';
       cb.hidden = done || needMore;

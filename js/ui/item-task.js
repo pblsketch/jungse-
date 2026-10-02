@@ -39,7 +39,7 @@
     const item = (env.scene.items || []).filter(i => i.id === itemId)[0];
     if (!item) { NM.reportError('stage.task', 'unknown item: ' + itemId); return null; }
     const def = NM.gimmicks.get(item.gimmick);
-    let inst = null, w = null, status = null, helpBox = null, moreBtn = null, teacherShown = false;
+    let inst = null, w = null, status = null, helpBox = null, moreBtn = null, backBtn = null, teacherShown = false;
 
     function showHelp(rec) {
       helpBox.textContent = '';
@@ -63,6 +63,11 @@
 
     // 실마리 더 보기(S03): 틀리지 않고도 도움을 한 단계씩(해독 항목과 같은 단계·같은 보기). 마지막 단계는 정답·풀이 → doneByHelp.
     function updateMoreHelp(rec) {
+      if (backBtn) {
+        const wasHidden = backBtn.hidden;
+        backBtn.hidden = !NM.core.rules.isItemDone(rec);
+        if (wasHidden && !backBtn.hidden) setTimeout(() => { try { backBtn.focus({ preventScroll: true }); } catch (e) { /* 무시 */ } }, 0);
+      }
       if (!moreBtn) return;
       const step = NM.core.rules.helpView(item, rec).step;
       const max = NM.core.rules.helpMax();
@@ -161,6 +166,14 @@
           } catch (e) { NM.reportError('gimmick.mount', e); }
           if (done) call(inst, 'showAnswer', [item.answer]);
           else if (rec.helps >= 2) call(inst, 'showHint', [2, Array.isArray(item.hints) ? item.hints[1] : null]);
+        }
+        // 과제를 끝낸 뒤: 맵으로 바로 돌아가는 단추(끝나기 전에는 숨김)
+        if (env.backToMap) {
+          backBtn = el('button', 'nm-st-btn nm-st-primary nm-st-back', TX().t('btn.backToMap'));
+          backBtn.type = 'button';
+          backBtn.hidden = !done;
+          backBtn.addEventListener('click', () => env.backToMap());
+          win.foot.appendChild(backBtn);
         }
         moreBtn = el('button', 'nm-st-btn nm-st-morehelp', TX().t('btn.moreHelp'));
         moreBtn.type = 'button';

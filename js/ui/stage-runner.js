@@ -359,8 +359,17 @@
       knownRules: () => L().knownRules(store.get(), store.level),
       addTranslation: (tid) => (typeof tid === 'string' && tid ? store.addTranslation(cur.stageId, tid) : null),
       onItemClosed: () => afterWindowClosed(),
-      notice: (text) => notice(text)
+      notice: (text) => notice(text),
+      backToMap: () => backToMap()
     };
+  }
+  // 해독·과제를 끝낸 뒤 '맵으로 돌아가기': 열린 장면 창(항목·그 아래 맥락)을 모두 닫고 탐색으로
+  function backToMap() {
+    // 'all' 로 닫아 창마다의 뒷처리(통역 시작 등)를 막고, 마지막에 한 번만 한다 — 그 뒤 새로 열린 창(통역)은 건드리지 않는다
+    const SW = NM.ui.stageWindow;
+    let guard = 20;
+    while (SW.count() && guard-- > 0) SW.top().close('all');
+    afterWindowClosed();
   }
   // 잠깐 보였다 사라지는 안내(화면 낭독기에도 알림)
   function notice(text) {

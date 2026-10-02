@@ -267,7 +267,10 @@ try {
   const res = await page.evaluate((sel) => { const w = document.querySelector(sel); return { r: w.querySelector('.nm-st-result') && w.querySelector('.nm-st-result').getAttribute('data-result'), rule: !!w.querySelector('.nm-st-rule-added'), explain: !!w.querySelector('.nm-card[data-mark="explain"]') }; }, TOP);
   check('correct confirm → confirmed, explanation, rule card added', (await state(page, 's6.r2')) === 'confirmed' && res.r === 'correct' && res.rule && res.explain, res);
   check('rule card stored in notebook', await page.evaluate(() => window.__store.stage('s6').rules.join() === 'rule.fixture'));
-  await closeAll(page);
+  check('after confirm: 맵으로 돌아가기 button', await page.evaluate((sel) => { const b = document.querySelector(sel + ' .nm-st-back'); return !!b && !b.hidden && b.textContent === '맵으로 돌아가기'; }, TOP));
+  await page.click(TOP + ' .nm-st-back');
+  await page.waitForTimeout(50);
+  check('맵으로 돌아가기 closes item + context windows', await page.evaluate(() => NM.ui.stageWindow.count() === 0 && NM.ui.stage.current().phase === 'explore'));
   await goTo(page, 's6.c1');
   const lock1 = await page.evaluate((sel) => { const w = document.querySelector(sel); const m = w.querySelector('.nm-orig .nm-orig-modern-text'); return { locked: !!w.querySelector('.nm-orig-modern-locked'), modern: m && m.textContent }; }, TOP);
   check('after decoding: locked note replaced by 현대어 풀이', !lock1.locked && !!lock1.modern && lock1.modern.includes('시험 현대어 풀이'), lock1);
@@ -290,8 +293,10 @@ try {
   tk = await page.evaluate((sel) => { const w = document.querySelector(sel); return { ans: !!w.querySelector('.d1tg-answer'), explain: w.querySelector('.nm-card[data-mark="explain"]') && w.querySelector('.nm-card[data-mark="explain"]').textContent }; }, TOP);
   check('3rd wrong → doneByHelp with answer + explanation', (await state(page, 's6.t1')) === 'doneByHelp' && tk.ans && tk.explain && tk.explain.includes('과제 풀이'), tk);
 
+  check('task done: 맵으로 돌아가기 button', await page.evaluate((sel) => { const b = document.querySelector(sel + ' .nm-st-back'); return !!b && !b.hidden; }, TOP));
+
   // ───────── 8) 장면 끝 ─────────
-  await page.click(TOP + ' .nm-st-close');
+  await page.click(TOP + ' .nm-st-back');
   await page.waitForTimeout(50);
   t = await topWin(page);
   check('all core done → translate scene', t && t.win === 'dialog' && t.kind === 'translate', t);
