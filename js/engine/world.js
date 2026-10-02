@@ -18,7 +18,7 @@
     npcs: [], spots: [],
     keys: { up: false, down: false, left: false, right: false },
     pointers: new Map(), joy: { active: false, id: null, ox: 0, oy: 0, dx: 0, dy: 0 },
-    path: [], pathFace: null, pathGfx: null, destGfx: null, stuck: 0,
+    path: [], pathFace: null, pathNudged: false, pathGfx: null, destGfx: null, stuck: 0,
     paused: false, reduced: false, overlays: [],
     objective: [], objMarkers: [], arrowSig: '',
     highlight: null, hlGfx: null,
@@ -299,9 +299,26 @@
     return c ? P.cellCenter(g, c.c, c.r) : null;
   }
 
+  // 길 끝(격자 칸 중심)이 살피기 거리 바로 밖이면 대상 쪽으로 몇 걸음 더 갈 점
+  function nudgePoint(t) {
+    const r = targetRect(t), hw = cfg.feet.hw, hh = cfg.feet.hh, g = W.grid;
+    const fy = W.pos.y - hh, d = distRect(W.pos.x, fy, r);
+    if (d <= cfg.reach || !d) return null;
+    const nx = Math.max(r.x, Math.min(W.pos.x, r.x + r.w)), ny = Math.max(r.y, Math.min(fy, r.y + r.h));
+    for (const extra of [3, 8, 16]) {
+      const k = Math.min(1, (d - cfg.reach + extra) / d), dx = (nx - W.pos.x) * k, dy = (ny - fy) * k;
+      const cands = [{ x: W.pos.x + dx, y: W.pos.y + dy }, { x: W.pos.x + dx, y: W.pos.y }, { x: W.pos.x, y: W.pos.y + dy }];
+      for (const p of cands) {
+        if (!P.collides(g, p.x, p.y, hw, hh) && P.lineClear(g, W.pos.x, W.pos.y, p.x, p.y, hw, hh) &&
+          distRect(p.x, p.y - hh, r) <= cfg.reach) return p;
+      }
+    }
+    return null;
+  }
+
   /* ---------- 이동 ---------- */
   function cancelPath() {
-    W.path = []; W.pathFace = null; W.stuck = 0;
+    W.path = []; W.pathFace = null; W.pathNudged = false; W.stuck = 0;
     if (W.pathGfx) W.pathGfx.clear();
     if (W.destGfx) { if (W.scene) W.scene.tweens.killTweensOf(W.destGfx); W.destGfx.clear(); W.destGfx.setScale(1); }
   }
@@ -364,7 +381,7 @@
     const simple = P.simplify(g, pts, hw, hh);
     W.path = simple.slice(1);
     if (!W.path.length) { cancelPath(); return true; }
-    W.pathFace = target; W.stuck = 0;
+    W.pathFace = target; W.pathNudged = false; W.stuck = 0;
     drawPath(); drawDest(W.path[W.path.length - 1]);
     return true;
   }
@@ -431,8 +448,12 @@
             W.path.shift(); W.stuck = 0;
             if (!W.path.length) {
               const face = W.pathFace;
-              cancelPath();
-              if (face) { const r = targetRect(face); faceToward(r.x + r.w / 2, r.y + r.h / 2); }
+              const extra = face && !W.pathNudged ? nudgePoint(face) : null;
+              if (extra) { W.path = [extra]; W.pathNudged = true; drawPath(); }
+              else {
+                cancelPath();
+                if (face) { const r = targetRect(face); faceToward(r.x + r.w / 2, r.y + r.h / 2); }
+              }
             } else drawPath();
           }
           fromPath = 'arrived';
