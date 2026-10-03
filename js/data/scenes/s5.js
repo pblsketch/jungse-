@@ -18,6 +18,10 @@ NM.data.SCENES['s5'] = {
   title: '사라진 소리, 바뀐 뜻',
   era: '1450년대 강가 장터',
   mapKey: 's5',
+  reflection: {
+    ask: '지금과 뜻이 다른 옛말 하나를 고르고, 옛 뜻과 지금 뜻을 비교해 보세요.',
+    placeholder: '고른 낱말의 옛 뜻과 지금 뜻'
+  },
   bgmKey: 'bgm_s5',
   carveGlyph: 'ㅳ',
 
@@ -33,20 +37,20 @@ NM.data.SCENES['s5'] = {
 
   fiction: [
     { id: 'fiction.tongsa', text: '정음 통사: 새 글자로 적은 글을 읽고, 그 뜻을 사람들에게 전해 주는 통역관', real: '이런 직책은 없었어요. 이야기를 위해 지어낸 일이에요.' },
-    { id: 'fiction.s5market', text: '장터에 새 글자로 쓴 방과 쪽지가 나붙은 장면', real: '장터에 이런 방이나 쪽지가 붙었다는 기록을 바탕으로 한 장면이 아니에요. 방에 보이는 서문의 우리말 풀이는 1459년 『월인석보』 첫머리에 실려 전해요.' },
+    { id: 'fiction.s5market', text: '장터에 새 글자로 쓴 알림 글과 쪽지가 붙은 장면', real: '장터에 이런 알림 글이나 쪽지가 붙었다는 기록을 바탕으로 한 장면이 아니에요. 알림 글에 보이는 서문의 우리말 풀이는 1459년 『월인석보』 첫머리에 실려 전해요.' },
     { id: 'fiction.s5pages', text: '나루에 떠밀려 온 뒷날의 책장', real: '이 두 구절은 1481년에 펴낸 『분류두공부시언해』에 실려 있어요. 1450년대 장터에는 아직 없던 책이에요.' }
   ],
 
   intro: [
     { who: 'narrator', text: '1450년대, 강가의 장터. 해가 기울어 천막마다 금빛이 든다.', cg: 's5_intro' },
-    { who: 'senior', text: '<@아>, 오늘은 장터야. 새 글자로 쓴 방과 쪽지가 나붙었는데 읽어 줄 사람이 모자란대.', fiction: 'fiction.tongsa' },
+    { who: 'senior', text: '<@아>, 오늘은 장터야. 새 글자로 쓴 알림 글과 쪽지가 붙어 있는데 읽어 줄 사람이 모자란대.', fiction: 'fiction.tongsa' },
     { who: 'me', text: '이번엔 쉬울 것 같아요. 지금 말이랑 똑같이 생긴 낱말이 많던데요.' },
     { who: 'senior', text: '그게 함정이야. 모양이 같아도 뜻이 다른 말이 있거든. 지금 뜻으로 옮겼다가는 흥정이 엉망이 돼.', expr: 'thinking', fiction: 'fiction.s5market' }
   ],
 
   request: [
     { who: 'merchant', text: '통사 양반, 마침 잘 왔소. 저 마님이 쓴 쪽지를 받았는데, 나는 글을 막 깨쳐서 뜻을 제대로 모르겠소.' },
-    { who: 'yangban_woman', text: '쪽지에 적은 대로 쌀을 사려 하오. 장터 방에 붙은 말을 따라 적었으니, 그 말부터 바로 읽어 흥정을 이어 주시오.' }
+    { who: 'yangban_woman', text: '쪽지에 적은 대로 쌀을 사려 하오. 장터의 알림 글을 따라 적었으니, 그 말부터 바로 읽어 흥정을 이어 주시오.' }
   ],
 
   encounter: {
@@ -77,9 +81,9 @@ NM.data.SCENES['s5'] = {
 
   contexts: [
     {
-      id: 's5.c1', label: '느티나무에 붙은 방', orig: ['O-s9-SEOMUN3', 'O-s9-SEOMUN4', 'O-s9-SEOMUN5'],
+      id: 's5.c1', label: '느티나무에 붙은 알림 글', orig: ['O-s9-SEOMUN3', 'O-s9-SEOMUN4', 'O-s9-SEOMUN5'],
       lines: [
-        { who: 'narrator', text: '느티나무 줄기에 방 한 장이 붙어 있다. 사람들이 모여 더듬더듬 소리 내어 읽는다.', fiction: 'fiction.s5market' },
+        { who: 'narrator', text: '느티나무 줄기에 알림 글 한 장이 붙어 있다. 사람들이 모여 더듬더듬 소리 내어 읽는다.', fiction: 'fiction.s5market' },
         { who: 'senior', text: '임금께서 새 글자를 만든 까닭을 적은 글이야. 낯익은 말이 많지? 그래서 더 조심해야 해.' }
       ],
       items: ['s5.r1', 's5.r2', 's5.r3', 's5.r4', 's5.r5']
@@ -305,7 +309,7 @@ NM.data.SCENES['s5'] = {
     's5.child': {
       name: '장터 아이',
       lines: [
-        { who: 'child', text: '저 방 글자 읽을 줄 알아요? 나는 아직 반밖에 못 읽어요.' }
+        { who: 'child', text: '저 알림 글 읽을 줄 알아요? 나는 아직 반밖에 못 읽어요.' }
       ]
     }
   },

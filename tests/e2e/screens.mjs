@@ -44,6 +44,27 @@ const canvasPoint = (page, { zone, dists, free }) => page.evaluate(({ zone, dist
       return { wx, wy, x: p.x, y: p.y };
     }
   }
+  // 카메라가 이동하면 고정 반경 밖에 입력 영역이 놓일 수 있으므로 보이는 캔버스에서도 찾는다.
+  if (zone === 'tap' || zone === 'joy') {
+    const zero = NM.engine.test.worldToScreen(0, 0);
+    const unit = NM.engine.test.worldToScreen(1, 1);
+    const candidates = [];
+    const xStart = zone === 'tap' ? r.left + joyW + 12 : r.left + 12;
+    const xEnd = zone === 'tap' ? r.right - 12 : r.left + joyW - 70;
+    for (let x = xStart; x < xEnd; x += 16) {
+      for (let y = r.top + 12; y < r.bottom - 12; y += 16) {
+        if (document.elementFromPoint(x, y) !== cv) continue;
+        const wx = (x - zero.x) / (unit.x - zero.x);
+        const wy = (y - zero.y) / (unit.y - zero.y);
+        if (free && NM.engine.test.collides(wx, wy)) continue;
+        const distance = Math.hypot(wx - s.x, wy - s.y);
+        if (zone === 'tap' && distance < 40) continue;
+        candidates.push({ wx, wy, x, y, distance });
+      }
+    }
+    candidates.sort((a, b) => a.distance - b.distance);
+    if (candidates.length) return candidates[0];
+  }
   return null;
 }, { zone, dists, free });
 const eng = (page) => page.evaluate(() => NM.engine.test.state());
@@ -117,6 +138,31 @@ async function movement(S, tag, touch) {
 }
 
 try {
+  const probe = await newSession(env, { viewport: { width: 1280, height: 800 } });
+  await probe.open('');
+  const decoration = await horizontalOverflow(probe.page);
+  C.check('decorative title animation does not create visible overflow', decoration.length === 0, decoration);
+  await probe.page.evaluate(() => {
+    const button = document.createElement('button');
+    button.className = 'nm-layout-probe';
+    button.style.cssText = 'position:fixed;left:0;top:0;width:120vw;height:30px';
+    button.textContent = 'layout';
+    document.getElementById('nm-screens').appendChild(button);
+  });
+  C.check('overflow check still detects an oversized control', (await horizontalOverflow(probe.page)).some(r => r.what.includes('nm-layout-probe')));
+  await probe.page.evaluate(() => {
+    document.querySelector('.nm-layout-probe').remove();
+    const box = document.createElement('div');
+    box.className = 'nm-layout-probe';
+    box.style.cssText = 'position:fixed;left:0;top:0;width:40px;height:40px;overflow-x:auto';
+    const content = document.createElement('div');
+    content.style.cssText = 'width:140px;height:20px';
+    content.textContent = 'layout';
+    box.appendChild(content);
+    document.getElementById('nm-screens').appendChild(box);
+  });
+  C.check('overflow check still detects a horizontally scrolling container', (await horizontalOverflow(probe.page)).some(r => r.what.includes('scrolls sideways')));
+  await probe.context.close();
   for (const [w, h] of SIZES) {
     const tag = `${w}x${h}`;
     if (only && only !== tag) continue;
@@ -161,7 +207,7 @@ try {
       await settleDialogs(page);
       await page.waitForFunction(() => NM.ui.stage.current().phase === 'explore', null, { timeout: 30000 });
       await look(S, tag, 's2-explore', bad);
-      if (touch && w < 520) C.check(`${tag}: HUD starts folded on a narrow screen`, (await page.getAttribute('.nm-st-hud .nm-st-hud-head', 'aria-expanded')) === 'false');
+      if (touch && (w <= 520 || h <= 520)) C.check(`${tag}: HUD starts folded on a narrow or short screen`, (await page.getAttribute('.nm-st-hud .nm-st-hud-head', 'aria-expanded')) === 'false');
       await ensureHudOpen(page);
       await look(S, tag, 's2-explore-hud-open', bad);
       await page.click('#nm-toolbar [data-act="settings"]');
@@ -191,7 +237,7 @@ try {
       await look(S, tag, 's2-task', bad);
       await closeWindows(page);
       // 움직임 세 가지
-      await page.evaluate(() => { const h = document.querySelector('.nm-st-hud .nm-st-hud-head'); if (h && h.getAttribute('aria-expanded') === 'true' && window.matchMedia('(max-width: 520px)').matches) h.click(); });
+      await page.evaluate(() => { const h = document.querySelector('.nm-st-hud .nm-st-hud-head'); if (h && h.getAttribute('aria-expanded') === 'true' && window.matchMedia('(max-width: 520px), (max-height: 520px)').matches) h.click(); });
       await movement(S, tag, touch);
       C.check(`${tag}: still exploring after movement (no stray windows)`, (await S.stageNow()).phase === 'explore');
       await closeWindows(page);

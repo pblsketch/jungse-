@@ -20,6 +20,10 @@ NM.data.SCENES['s11'] = {
   title: '끊어 적는 시대',
   era: '18~19세기 · 개화기',
   mapKey: 's11',
+  reflection: {
+    ask: '중세에서 근대로 오면서 달라진 소리나 표기 하나를 예와 함께 적어 보세요.',
+    placeholder: '시대별 예와 소리 또는 표기의 변화'
+  },
   bgmKey: 'bgm_s11',
   carveGlyph: '가',
   cast: {

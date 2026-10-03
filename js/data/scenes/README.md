@@ -3,6 +3,8 @@
 장면 하나에 파일 하나를 둔다(spec §19-3). 선생님이 고치는 파일이다. 장면 진행기(`js/ui/stage-runner.js`)가 이 데이터로 장면을 돌린다.
 화면에 나오는 문구는 모두 이 파일(또는 `js/data/text-stage.js`)에 두고, 화면 코드에는 한국어 문장을 넣지 않는다.
 
+돌아보기 질문은 장면의 `reflection: { ask, placeholder }`에 쓴다. `ask`는 질문, `placeholder`는 입력칸 안내다. 학교급마다 다르면 `editions.<학교급>.reflection`에 두 값을 함께 둔다. 생략하면 `text-stage.js`의 공통 질문을 쓰며, 채점하지 않고 건너뛸 수 있다는 안내는 공통 화면이 붙인다.
+
 ## 등록
 
 ```js

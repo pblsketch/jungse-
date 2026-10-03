@@ -18,6 +18,10 @@ NM.data.SCENES['s6'] = {
   title: '말을 잇는 끈',
   era: '15세기 · 관아와 서당',
   mapKey: 's6',
+  reflection: {
+    ask: '조사나 어미가 문장의 뜻을 어떻게 바꾸는지, 이 장면의 예를 들어 적어 보세요.',
+    placeholder: '조사나 어미가 바뀐 예와 뜻의 차이'
+  },
   bgmKey: 'bgm_s6',
   carveGlyph: 'ㅣ',
 

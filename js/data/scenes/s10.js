@@ -80,6 +80,10 @@ NM.data.SCENES = NM.data.SCENES || {};
     title: '백 년 뒤',
     era: '16세기 후반 · 서당',
     mapKey: 's10',
+    reflection: {
+      ask: '15세기와 16세기의 글에서 달라진 점 하나를 예와 함께 적어 보세요.',
+      placeholder: '두 시대의 예와 달라진 점'
+    },
     bgmKey: 'bgm_s10',
     carveGlyph: 'ㅿ',
     bangjeomAlways: true,

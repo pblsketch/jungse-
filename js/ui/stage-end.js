@@ -59,14 +59,15 @@
         win: 'reflect', title: TX().t('win.reflect'), className: 'nm-st-endwin',
         build(w) {
           const id = 'nm-st-reflect-' + Date.now();
-          const lab = el('label', 'nm-st-end-text', TX().t('reflectAsk'));
+          const prompt = env.scene.reflection || {};
+          const lab = el('label', 'nm-st-end-text', (prompt.ask || TX().t('reflectAsk')) + ' ' + TX().t('reflectHelp'));
           lab.setAttribute('for', id);
           w.body.appendChild(lab);
           input = el('textarea', 'nm-st-reflect-input');
           input.id = id;
           input.rows = 2;
           input.maxLength = REFLECT_MAX;
-          input.placeholder = TX().t('reflectPlaceholder');
+          input.placeholder = prompt.placeholder || TX().t('reflectPlaceholder');
           w.body.appendChild(input);
           const skip = button('nm-st-skip', 'btn.skip');
           skip.addEventListener('click', () => { input.value = ''; w.close('skip'); });

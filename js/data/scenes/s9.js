@@ -174,6 +174,10 @@ NM.data.SCENES = NM.data.SCENES || {};
     title: '나랏말[ㅆㆍ]미',
     era: '1459년 · 책을 엮는 전각',
     mapKey: 's9',
+    reflection: {
+      ask: '서문의 구절 하나를 골라, 그 구절에서 드러나는 세종의 뜻을 적어 보세요.',
+      placeholder: '고른 구절과 그 구절에 담긴 세종의 뜻'
+    },
     bgmKey: 'bgm_s9',
     carveGlyph: '정',
     cast: {
@@ -190,7 +194,7 @@ NM.data.SCENES = NM.data.SCENES || {};
       { who: 'narrator', text: '1459년, 새 책 『월인석보』를 엮는 큰 마루방. 열린 창으로 바람이 들이치자 책장들이 하얗게 흩날린다.', cg: 's9_intro' },
       { who: 'senior', text: '<@아>, 저 종이들 좀 잡아! 책 맨 앞에 실을 서문이야.' },
       { who: 'me', text: '서문이요? 교과서에서 보다가 글자가 눈앞에서 흩어졌던, 그 서문이요?' },
-      { who: 'senior', text: '맞아. 세종 임금이 손수 지은 「세종어제훈민정음」 서문이야. 처음부터 끝까지 읽어 내면 돌아갈 길이 보일 거야.' }
+      { who: 'senior', text: '맞아. 세종 임금이 지은 서문을 우리말로 풀어 적은 글이야. 처음부터 끝까지 읽어 내면 돌아갈 길이 보일 거야.' }
     ],
 
     request: [

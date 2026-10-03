@@ -19,6 +19,10 @@ NM.data.SCENES['s7'] = {
   title: '높이는 말',
   era: '15세기 · 궁과 절',
   mapKey: 's7',
+  reflection: {
+    ask: '이 장면의 높임 표현 하나를 고르고, 그 표현이 누구를 높이는지 적어 보세요.',
+    placeholder: '고른 높임 표현과 높임을 받는 사람'
+  },
   bgmKey: 'bgm_s7',
   carveGlyph: 'ㆁ',
 

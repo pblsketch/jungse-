@@ -223,7 +223,9 @@ export const horizontalOverflow = (page) => page.evaluate(() => {
       if ((cs.overflowX === 'auto' || cs.overflowX === 'scroll') && e.scrollWidth > e.clientWidth + 1) out.push({ what: name(e) + ' (scrolls sideways)', sw: e.scrollWidth, cw: e.clientWidth });
       // 보이는 요소가 화면 밖으로 나감(잘려 안 보임)
       const b = e.getBoundingClientRect();
-      if (b.width > 1 && b.height > 1 && cs.visibility !== 'hidden' && (b.right > vw + 1 || b.left < -1)) out.push({ what: name(e) + ' (outside screen)', left: Math.round(b.left), right: Math.round(b.right), vw });
+      // 화면에서 잘라 표시하는 장식 배경의 확대 애니메이션은 요소 경계만으로 넘침으로 보지 않는다.
+      const decoration = e.closest('[aria-hidden="true"]') && cs.pointerEvents === 'none';
+      if (!decoration && b.width > 1 && b.height > 1 && cs.visibility !== 'hidden' && (b.right > vw + 1 || b.left < -1)) out.push({ what: name(e) + ' (outside screen)', left: Math.round(b.left), right: Math.round(b.right), vw });
     }
   }
   return out;

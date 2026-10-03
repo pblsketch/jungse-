@@ -16,6 +16,10 @@ NM.data.SCENES['s4'] = {
   title: '소리대로 적은 책',
   era: '1447년 활자 인쇄소',
   mapKey: 's4',
+  reflection: {
+    ask: '띄어쓰기 없는 원문에서 낱말을 끊어 읽는 데 도움이 된 단서는 무엇이었나요?',
+    placeholder: '끊어 읽은 예와 단서'
+  },
   bgmKey: 'bgm_s4',
   carveGlyph: '〮',
   bangjeomAlways: true,
@@ -124,7 +128,7 @@ NM.data.SCENES['s4'] = {
     {
       id: 's4.t1', kind: 'task', levels: ['h1', 'h23'],
       label: '띄어쓰기 없는 두 줄 끊어 읽기',
-      prompt: '빈칸 없이 찍힌 두 줄을 낱말이 끝나는 자리에서 끊어 보세요. 조사와 어미는 앞말에 붙여 한 덩어리로 둡니다.',
+      prompt: '띄어쓰기 없이 찍힌 두 줄을 낱말이 끝나는 자리에서 끊어 보세요. 조사와 어미는 앞말에 붙여 한 덩어리로 둡니다.',
       gimmick: 'wordCut',
       config: {
         lines: [{ block: 'O-s4-YB2a' }, { block: 'O-s4-YB34a' }],
@@ -306,7 +310,7 @@ NM.data.SCENES['s4'] = {
     choose: [
       {
         id: 's4.i1', item: 's4.r4',
-        prompt: '빈칸 없이 이어 찍힌 첫머리 불·휘기·픈남·[ㄱㆍㄴ]…, 어디서 끊어 읽으라고 할까?',
+        prompt: '띄어쓰기 없이 이어 찍힌 첫머리 불·휘기·픈남·[ㄱㆍㄴ]…, 어디서 끊어 읽으라고 할까?',
         options: [
           { id: 's4.i1.a', text: '불·휘 / 기·픈 / 남·[ㄱㆍㄴ] — 조사나 어미가 붙은 데까지 한 덩어리로', part: '불·휘에서 한 번, 기·픈에서 한 번', correct: true },
           { id: 's4.i1.b', text: '점이 찍힌 글자 앞마다 — 불 / ·휘 / 기 / ·픈', part: '점이 찍힌 글자 앞마다', correct: false,

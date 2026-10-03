@@ -60,7 +60,7 @@ NM.data.TEXT.ui = {
   select: {
     heading: '장면 고르기',
     titleLabel: '칭호',
-    titleCount: '추천 묶음 %done% / %total%',
+    titleCount: '끝낸 추천 장면 %done% / %total%',
     defaultAddress: '통사',
     legendBundle: '★ 추천 묶음',
     legendOptional: '☆ 추천 선택',
@@ -85,7 +85,7 @@ NM.data.TEXT.ui = {
   },
 
   notice: {
-    outside: '%where%에서 배우는 내용이에요. 추천 묶음 밖이지만 들어가서 해 볼 수 있어요. 끝내면 완료와 패 글자를 받지만 칭호에는 세지 않아요.',
+    outside: '%where%에서 배우는 내용이에요. 선택한 학교급의 추천 장면은 아니지만 들어가서 해 볼 수 있어요. 완료 표시와 패 글자는 남고, 칭호를 정할 때는 이 장면을 세지 않아요.',
     outsideTitle: '추천 묶음 밖 장면',
     enter: '들어가기',
     pickOther: '다른 장면 고르기',
@@ -104,17 +104,17 @@ NM.data.TEXT.ui = {
   settings: {
     title: '설정',
     level: '학교급',
-    levelHelp: '바꾸면 그 학교급의 기록과 추천 묶음으로 바뀌어요.',
+    levelHelp: '고른 학교급의 진행 기록과 추천 장면을 보여 줘요. 다른 학교급의 기록도 그대로 남아요.',
     bangjeom: '방점 표시',
     bangjeomHelp: '제4장과 제10장에서는 늘 보여요.',
     modern: '현대어 풀이',
-    modernHelp: '원문 아래에 오늘날 말로 옮긴 풀이를 보여 줘요. 그 원문으로 푸는 말을 해독한 뒤에 열려요(그 전에는 잠김 표지만 보여요). 과제 화면에는 나오지 않아요.',
+    modernHelp: '원문 아래에 현대어 풀이를 보여 줘요. 원문과 연결된 해독 항목의 답을 모두 확정하면 열려요. 그 전에는 잠김 안내가 나오며, 과제 화면에는 표시되지 않아요.',
     moderns: { tap: '눌러서 보기', always: '늘 보기', off: '끔' },
     fullscreen: '전체 화면',
     fullscreenHelp: '주소창과 위쪽 표시줄을 숨기고 게임만 크게 보여요. Esc 키나 같은 단추로 돌아와요.',
     fullscreenNo: '이 브라우저에서는 전체 화면을 쓸 수 없어요. 크롬이나 삼성 인터넷으로 열거나, 브라우저 메뉴의 \'홈 화면에 추가\'로 앱처럼 열면 주소창 없이 쓸 수 있어요.',
     eum: '한자 음 달기',
-    eumHelp: '한자 아래에 오늘날 음을 작게 달아요. 원문에 원래 적힌 옛 읽기는 늘 보여요.',
+    eumHelp: '한자 아래에 지금의 한자음을 작게 표시해요. 원문에 적힌 옛 한자음은 이 설정과 관계없이 보여요.',
     fontScale: '글자 크기',
     fontScales: { 1: '보통', 2: '크게', 3: '아주 크게' },
     reducedMotion: '움직임 줄이기',

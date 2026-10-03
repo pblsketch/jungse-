@@ -174,7 +174,8 @@ try {
   t = await topWin(page);
   const toast = await page.evaluate(() => { const e = document.querySelector('.nm-st-toast'); return e ? { text: e.textContent, role: e.getAttribute('role') } : null; });
   check('추측하기 closes only the item window (context stays)', t && t.win === 'context', t);
-  check('추측하기 shows a short notice (role=status)', !!toast && toast.role === 'status' && toast.text.includes('한 곳 더'), toast);
+  const guessSavedText = await page.evaluate(() => NM.data.TEXT.stage.guessSaved);
+  check('추측하기 shows a short notice (role=status)', !!toast && toast.role === 'status' && toast.text === guessSavedText, toast);
   check('guess kept after 추측하기', (await state(page, 's6.r1')) === 'guessed');
   await page.keyboard.press('Escape');
   check('Esc closes context; map resumes', !(await page.evaluate(() => NM.engine.isOverlayOpen())));

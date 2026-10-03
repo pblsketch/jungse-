@@ -12,12 +12,12 @@ NM.data = NM.data || {};
 NM.data.TEXT = NM.data.TEXT || {};
 NM.data.TEXT.g = NM.data.TEXT.g || {};
 NM.data.TEXT.g.questionPair = {
-  howto: '물음마다 짝이 되는 대답을 고르고, 어미를 먼저 정하는 조건을 고른 다음, 그 물음을 끝맺는 어미를 골라 보세요. 주어가 듣는 이(너)이면 의문사가 있어도 2인칭 주어 의문이 먼저예요. 주어가 듣는 이가 아니면 의문사가 있는지로 판정 의문과 설명 의문을 가르세요.',
+  howto: '물음마다 대답, 어미를 정하는 기준, 끝맺는 어미를 차례로 고르세요. 먼저 주어가 듣는 이(너)인지 확인하세요. 주어가 듣는 이이면 의문사가 있어도 -ㄴ다를 씁니다. 그렇지 않으면 의문사가 있는지 보고 판정 의문과 설명 의문을 구별하세요.',
   answersHead: '대답 카드',
   question: '물음 %n%',
   answerNo: '대답 %n%',
   stepPair: '짝이 되는 대답',
-  stepKind: '어미를 먼저 정하는 조건은?',
+  stepKind: '이 물음의 어미를 정하는 기준은?',
   stepEnding: '물음을 끝맺는 어미',
   kinds: { yesno: '판정 의문', wh: '설명 의문', second: '2인칭 주어 의문' },
   kindNotes: {
@@ -29,7 +29,7 @@ NM.data.TEXT.g.questionPair = {
   cue: { wh: '의문사', second: '2인칭 주어', none: '의문사 없음' },
   endingTag: '어미',
   submit: '제출하기',
-  needAll: '모든 물음에서 셋을 다 고르면 제출할 수 있어요.',
+  needAll: '물음마다 대답, 어미를 정하는 기준, 끝맺는 어미를 모두 고르면 제출할 수 있어요.',
   wrongNote: '엑스 표시가 붙은 곳을 다시 골라 보세요.',
   hintNote: '빛나는 낱말을 단서로 다시 살펴보세요. 먼저 주어가 듣는 이(너)인지 보고, 아니면 의문사가 있는지 보세요.',
   answerTag: '정답',

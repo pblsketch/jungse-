@@ -17,6 +17,10 @@ NM.data.SCENES['s1'] = {
   title: '빌려 쓴 글자',
   era: '고대',
   mapKey: 's1',
+  reflection: {
+    ask: '한자의 뜻이나 소리를 빌려 우리말을 적은 예 하나를 고르고, 어떻게 읽었는지 적어 보세요.',
+    placeholder: '한자를 빌려 쓴 예와 읽는 방법'
+  },
   bgmKey: 'bgm_s1',
   carveGlyph: '借',
   cast: {
@@ -40,9 +44,9 @@ NM.data.SCENES['s1'] = {
 
   intro: [
     { who: 'narrator', text: '눈을 뜨니 초가와 돌담이 둘러선 마을이다. 마당 한가운데에 닳은 돌비석이 서 있다.', cg: 's1_intro' },
-    { who: 'narrator', text: '사람들의 말은 알아듣겠는데, 어디를 봐도 우리 글자가 없다. 보이는 글자는 모두 한자다.' },
-    { who: 'senior', text: '들리느냐? 통사 패 너머로 목소리만 겨우 닿는구나. 여기는 우리 글자가 생기기 훨씬 전, 아주 먼 옛날이다.' },
-    { who: 'senior', expr: 'thinking', text: '글자가 없으니 이곳 사람들은 한자를 빌려 제 말을 적는다. 정음 통사라면 그 빌려 쓴 글자부터 읽을 줄 알아야지.', fiction: 'tongsa' }
+    { who: 'narrator', text: '사람들의 말은 알아듣겠는데, 익숙한 한글은 보이지 않는다. 비석과 기록에 적힌 글자는 모두 한자다.' },
+    { who: 'senior', text: '들리느냐? 통사 패 너머로 목소리만 겨우 닿는구나. 여기는 훈민정음이 만들어지기 전 시대다.' },
+    { who: 'senior', expr: 'thinking', text: '이곳 사람들은 한자의 뜻이나 소리를 빌려 우리말을 적는다. 정음 통사라면 그 표기부터 읽을 줄 알아야지.', fiction: 'tongsa' }
   ],
 
   request: [

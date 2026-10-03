@@ -18,7 +18,7 @@
   /* ---------- 해독 항목 ---------- */
   const R1 = {
     id: 's3.r1', kind: 'read', levels: ALL, label: '모아쓰기', ruleCard: 'rule.moasseugi',
-    prompt: '방과 장사꾼들의 이름표를 살피고, 빈칸에 맞는 말을 고르자.',
+    prompt: '알림 글과 장사꾼들의 이름표를 살피고, 빈칸에 맞는 말을 고르자.',
     sentence: '새 글자는 낱소리를 적는 글자이지만, {?} 한 음절씩 쓴다.',
     cards: [
       { id: 's3.r1.a', text: '첫소리, 가운뎃소리, 끝소리 글자를 한자리에 모아', correct: true, why: '' },
@@ -170,6 +170,10 @@
     title: '모아 써야 소리가 된다',
     era: '1446 · 저잣거리',
     mapKey: 's3',
+    reflection: {
+      ask: '자음과 모음을 한 음절로 모아 쓰면 어떤 점이 편리한가요? 이 장면에서 만든 글자를 예로 들어 보세요.',
+      placeholder: '만든 글자와 모아쓰기가 편리한 점'
+    },
     bgmKey: 'bgm_s3',
     carveGlyph: 'ㅘ',
     cast: {
@@ -214,10 +218,10 @@
 
     contexts: [
       {
-        id: 's3.c1', label: '벽에 붙은 방',
+        id: 's3.c1', label: '벽에 붙은 알림 글',
         orig: ['O-s3-HJ-CHO', 'O-s3-HJ-JUNG', 'O-s3-HJ-JONG'],
         lines: [
-          { who: 'narrator', text: '흰 담벼락에 새 글자 쓰는 법을 적은 방이 붙어 있다.', fiction: 'fiction.bang' },
+          { who: 'narrator', text: '흰 담벼락에 새 글자 쓰는 법을 적은 알림 글이 붙어 있다.', fiction: 'fiction.bang' },
           { who: 'senior', text: '첫소리는 가운뎃소리 위나 왼쪽에, 끝소리는 그 아래에 둔대. 글자마다 앉을 자리가 정해져 있어.' }
         ],
         items: ['s3.r1']
@@ -319,7 +323,7 @@
               reaction: [
                 { who: 'me', text: '독은 ㄷ, ㅗ, ㄱ을 옆으로 한 줄에 늘어놓아 쓴 글자예요.' },
                 { who: 'merchant', cg: 'mis_commoner_puzzled', text: '늘어놓았다고? 내 이름표에는 위아래로 포갠 한 덩이뿐인데?' },
-                { who: 'senior', text: '방에서 본 글자 자리를 떠올려 봐. 첫소리와 끝소리가 어디에 앉았지?' }
+                { who: 'senior', text: '알림 글에서 본 글자 자리를 떠올려 봐. 첫소리와 끝소리가 어디에 앉았지?' }
               ] },
             { id: 's3.i1.c', text: '독 소리 하나만을 위해 따로 만든 글자', part: '독 소리 하나만을 위해 따로 만든 글자예요', correct: false,
               reaction: [
