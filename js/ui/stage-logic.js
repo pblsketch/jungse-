@@ -40,6 +40,46 @@
   const contextById = (scene, id) => list(scene && scene.contexts).filter(c => c.id === id)[0] || null;
   const contextsOf = (scene, itemId) => list(scene && scene.contexts).filter(c => list(c.items).indexOf(itemId) >= 0);
 
+  function learningFlow(scene, prog, core, level) {
+    const path = NM.data.LEARNING_PATHS && NM.data.LEARNING_PATHS[scene.id];
+    if (!path) return null;
+    const scope = R().scopeLevel(scene, level);
+    const raw = Array.isArray(path) ? path : path[scope] || path.default;
+    if (!Array.isArray(raw)) return null;
+    const coreIds = list(core).map(i => i.id);
+    const phases = raw.map(p => {
+      const items = list(p.items).filter(id => coreIds.indexOf(id) >= 0);
+      const contexts = list(p.contexts).filter(id => !list(p.items).length || list((contextById(scene, id) || {}).items).some(it => items.indexOf(it) >= 0));
+      return Object.assign({}, p, { contexts, items });
+    })
+      .filter((p, i) => !list(raw[i].items).length || p.items.length);
+    const records = (prog && prog.items) || {};
+    const legacy = Object.keys(records).flatMap(id => list(records[id].seenContexts));
+    const visited = prog && Array.isArray(prog.visitedContexts) ? prog.visitedContexts : legacy;
+    const done = id => R().isItemDone(records[id]);
+    const finished = p => (p.items.length > 0 && p.items.every(done)) || (p.contexts.every(id => visited.indexOf(id) >= 0) && p.items.every(done));
+    let index = phases.findIndex(p => !finished(p));
+    if (prog && prog.status === 'done' || index < 0) index = phases.length;
+    const allContexts = list(scene.contexts).map(c => c.id);
+    const assigned = phases.flatMap(p => p.contexts);
+    const contexts = visited.slice();
+    const items = coreIds.filter(done);
+    const canOpen = (id, p) => {
+      const item = list(core).find(it => it.id === id);
+      if (item && item.kind === 'read') return list((records[id] || {}).seenContexts).filter(cid => visited.indexOf(cid) >= 0).length >= 2;
+      return p.contexts.every(cid => visited.indexOf(cid) >= 0);
+    };
+    phases.slice(0, index + 1).forEach((p, i) => {
+      p.contexts.forEach(id => { if (contexts.indexOf(id) < 0) contexts.push(id); });
+      p.items.filter(id => i < index || canOpen(id, p)).forEach(id => { if (items.indexOf(id) < 0) items.push(id); });
+    });
+    if (index > 0) allContexts.filter(id => assigned.indexOf(id) < 0).forEach(id => { if (contexts.indexOf(id) < 0) contexts.push(id); });
+    const current = phases[index] || null;
+    return { index, total: phases.length, title: current ? current.title : '', contexts, items,
+      objectives: current ? current.contexts.filter(id => visited.indexOf(id) < 0) : [],
+      readyItems: current ? current.items.filter(id => items.indexOf(id) >= 0 && !done(id)) : [] };
+  }
+
   function nonCoreItems(scene, core) {
     const ids = list(core).map(i => i.id);
     return list(scene && scene.items).filter(i => ids.indexOf(i.id) < 0);
@@ -155,7 +195,7 @@
   }
 
   NM.ui.stageLogic = {
-    ALWAYS_BANGJEOM, resolveScene, itemById, contextById, contextsOf, nonCoreItems, bangjeomFor, modernLocked,
+    ALWAYS_BANGJEOM, resolveScene, itemById, contextById, contextsOf, learningFlow, nonCoreItems, bangjeomFor, modernLocked,
     objectives, solvedWords, knownRules, unknownRules, judge, stageName
   };
 })(typeof window !== 'undefined' ? window : globalThis);

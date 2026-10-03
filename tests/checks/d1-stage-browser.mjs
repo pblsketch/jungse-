@@ -288,7 +288,7 @@ try {
   check('task still open', (await state(page, 's6.t1')) === 'open');
   await page.click(TOP + ' .d1tg-choice[data-choice="3"]');
   await page.click(TOP + ' .d1tg-submit');
-  check('2nd wrong → fix target emphasized (showHint 2)', await page.evaluate((sel) => !!document.querySelector(sel + ' .d1tg-choice[data-choice="2"].d1tg-hint'), TOP));
+  check('2nd wrong → submitted wrong choice emphasized, answer not revealed', await page.evaluate((sel) => !!document.querySelector(sel + ' .d1tg-choice[data-choice="3"].d1tg-hint') && !document.querySelector(sel + ' .d1tg-choice[data-choice="2"].d1tg-hint'), TOP));
   await page.click(TOP + ' .d1tg-choice[data-choice="1"]');
   await page.click(TOP + ' .d1tg-submit');
   tk = await page.evaluate((sel) => { const w = document.querySelector(sel); return { ans: !!w.querySelector('.d1tg-answer'), explain: w.querySelector('.nm-card[data-mark="explain"]') && w.querySelector('.nm-card[data-mark="explain"]').textContent }; }, TOP);

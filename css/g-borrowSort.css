@@ -6,6 +6,7 @@
  * - 360px 폭에서 줄바꿈, 단추 44px 이상. 움직임 없음(움직임 줄이기와 상관없이 같다).
  */
 .nm-gbs { display: flex; flex-direction: column; gap: .9em; }
+.nm-gbs [hidden] { display: none !important; }
 .nm-gbs-lead { margin: 0; font-size: .95em; }
 .nm-gbs-line { border: 2px solid var(--st-line, rgba(43, 36, 32, .22)); border-radius: 12px; padding: .6em .7em; background: #fffaf0; display: flex; flex-direction: column; gap: .5em; }
 .nm-gbs-linehead { display: flex; flex-wrap: wrap; gap: .45em; align-items: center; }
@@ -49,3 +50,7 @@
 
 .nm-gbs-foot { display: flex; flex-wrap: wrap; gap: .6em; align-items: center; justify-content: flex-end; }
 .nm-gbs-left { margin-right: auto; font-size: .9em; }
+.nm-gbs-nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5em; }
+.nm-gbs-reading { margin: 0; padding: .4em .6em; border-left: 3px solid var(--st-know, #4f6b3a); font-size: .9em; line-height: 1.6; }
+.nm-gbs-practice { margin: 0; color: var(--seal, #b8322a); }
+.nm-gbs-practice:empty { display: none; }

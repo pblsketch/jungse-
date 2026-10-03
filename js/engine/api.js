@@ -128,6 +128,7 @@
   };
 
   E.interact = function () { try { return W.interact(); } catch (e) { NM.reportError('engine.interact', e); return false; } };
+  E.setAvailablePlaces = function (ids) { W.setAvailablePlaces(ids); };
   E.setObjective = function (ids) { try { W.setObjective(ids); } catch (e) { NM.reportError('engine.setObjective', e); } };
   E.highlight = function (id) { try { W.setHighlightObj(id); } catch (e) { NM.reportError('engine.highlight', e); } };
   E.setReducedMotion = function (on) { try { W.setReduced(on); } catch (e) { NM.reportError('engine.reducedMotion', e); } };

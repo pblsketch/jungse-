@@ -20,7 +20,8 @@
  *   })
  *   인스턴스(모두 선택):
  *     showWrong({ wrong, answer, wrongs, help })   틀린 제출 직후. 틀린 부분을 바로 표시(번짐·흐려짐 등)
- *     showHint(step, target)       도움 단계. step 2 에 target = item.hints[1](고칠 곳)을 강조
+ *     showHint(step, target)       도움 2단계. 오답 상세가 있으면 target = null → 마지막 showWrong 의 고칠 곳을 강조.
+ *                                 제출 전에는 item.hints[1]을 받는다. 짧은 연습을 나눠 보이는 기믹은 현재 사례를 안내할 수 있다.
  *     showAnswer(answer)           3번째 틀림(doneByHelp) 또는 이미 끝난 과제를 다시 열 때 정답을 보인다
  *     showDone(answer)             맞게 제출해 done 이 된 직후(입력 잠그기·결과 보이기 등)
  *     destroy()                    창이 닫힐 때

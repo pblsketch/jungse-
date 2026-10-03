@@ -78,16 +78,16 @@ try {
   await page.keyboard.press('Enter');
   m = await page.evaluate((sel) => {
     const w = document.querySelector(sel);
-    const cue = w.querySelector('.qp-q[data-q="q2"] [data-word="q2.wh"]');
+    const cue = w.querySelector('.qp-q[data-q="q3"] [data-ending="1"]');
     return {
-      hintCard: w.querySelector('.qp-q[data-q="q2"]').classList.contains('is-hint'),
-      cue: cue && cue.classList.contains('is-cue') && cue.getAttribute('data-cue') === '1',
-      tag: (w.querySelector('.qp-q[data-q="q2"] .qp-cue-tags') || {}).textContent || '',
+      hintCard: w.querySelector('.qp-q[data-q="q3"]').classList.contains('is-hint') && !w.querySelector('.qp-q[data-q="q2"]').classList.contains('is-hint'),
+      cue: cue && cue.classList.contains('is-ending'),
+      tag: (w.querySelector('.qp-q[data-q="q3"] .qp-cue-tags') || {}).textContent || '',
       endWrong: !!w.querySelector('.qp-q[data-q="q3"] .qp-step[data-field="ending"] .g789-radios.is-wrong'),
       fix: !!w.querySelector('.nm-st-fix')
     };
   }, TOP);
-  check('2nd wrong (keyboard submit) → showHint(2): cue word (의문사) emphasized with ◆ tag', m.hintCard && m.cue && m.tag.includes('◆') && m.tag.includes('의문사') && m.fix, m);
+  check('2nd wrong (keyboard submit) → actual wrong question and ending emphasized, correct question left clean', m.hintCard && m.cue && m.tag.includes('◇') && m.fix, m);
   check('2nd wrong → the new wrong part marked', m.endWrong, m);
   check('state still open after 2nd wrong', (await H.state(page, 's8', 's8.t1')) === 'open');
 

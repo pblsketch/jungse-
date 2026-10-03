@@ -513,7 +513,7 @@
       },
       showHint(stepNo, target) {
         if (stepNo < 2) return;
-        const list = target == null ? lastWrong : (Array.isArray(target) ? target : [target]);
+        const list = target == null ? lastWrong.concat(lastWrong.map(id => want[id]).filter(Boolean)) : (Array.isArray(target) ? target : [target]);
         list.forEach(tk => {
           if (bins[tk]) { bins[tk].sec.classList.add('is-hint'); bins[tk].sec.setAttribute('data-mark', 'hint'); }
           else if (tiles[tk]) setMark(tk, 'hint', true);

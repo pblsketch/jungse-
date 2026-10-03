@@ -11,6 +11,7 @@ import { mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { serve } from '../server.mjs';
 import { ROOT } from '../lib/load.mjs';
+import { reachLearningTarget } from '../lib/learning-flow.mjs';
 
 const HARD_LIMIT = setTimeout(() => { console.log('FAIL nav-window-browser: time limit (300 s)'); process.exit(1); }, 300000);
 const SHOTS = join(ROOT, 'tests', 'shots', 'ui-fix');
@@ -77,6 +78,8 @@ function measure(page) {
 const inside = (b, m) => b && b.top >= 0 && b.left >= 0 && b.bottom <= m.vh && b.right <= m.vw && b.w > 0;
 
 async function checkWindow(page, tag, open, arg, shot) {
+  if (tag.includes('context')) await reachLearningTarget(page, { context: arg });
+  else await reachLearningTarget(page, { item: arg });
   await page.evaluate(open, arg);
   await page.waitForTimeout(250);
   const m0 = await measure(page);
@@ -160,14 +163,14 @@ try {
       name: (p.npcId && scene.npcs[p.npcId]) || (p.contextId && scene.labels[p.contextId]) || null,
       goal: objective.includes(p.id) || (!!p.contextId && objective.includes(p.contextId))
     }]));
-    const nameOf = (id) => meta[id] && meta[id].name;
+    const nameOf = (id) => meta[id] && meta[id].name || scene.npcs[id] || scene.labels[id];
     // 목록 열기
     await page.click('#nm-toolbar [data-act="student-places"]');
     await page.waitForSelector('.nm-modal[data-modal="student-places"]');
     let list = await page.$$eval('.nm-modal[data-modal="student-places"] [data-act="walk-place"]', bs => bs.map(b => ({ id: b.getAttribute('data-place'), goal: b.getAttribute('data-goal') === '1', visited: b.getAttribute('data-visited') === '1', text: b.textContent })));
-    check(`${env.tag}: place list lists every map place`, list.length === places.length && list.length >= 5, list.length);
+    check(`${env.tag}: place list lists currently unlocked places and hides later contexts`, list.length === places.length && list.length > 0 && !places.some(p => p.contextId === 's4.c3'), list.length);
     check(`${env.tag}: place names come from scene data (npc name or context label)`, list.every(p => nameOf(p.id) && p.text.includes(nameOf(p.id))), list.map(p => p.text));
-    check(`${env.tag}: kind shown (인물 / 살필 곳) and visited state shown`, list.some(p => p.text.includes('인물')) && list.some(p => p.text.includes('살필 곳')) && list.every(p => p.text.includes('아직 안 봄') || p.text.includes('살펴봄')), list.map(p => p.text));
+    check(`${env.tag}: place kind and visited state shown`, list.every(p => p.text.includes('인물') || p.text.includes('살필 곳')) && list.every(p => p.text.includes('아직 안 봄') || p.text.includes('살펴봄')), list.map(p => p.text));
     const goals = list.filter(p => p.goal).map(p => p.id);
     check(`${env.tag}: current objectives marked (목표) and listed first`, goals.length > 0 && list.every(p => p.goal === meta[p.id].goal) && list.slice(0, goals.length).every(p => p.goal) && list.every(p => !p.goal || p.text.includes('목표')), { goals, objective });
     if (short === 'd') await page.screenshot({ path: join(SHOTS, 'd-student-places.png') });

@@ -109,6 +109,7 @@
     p.rules = strList(x.rules);
     p.translations = strList(x.translations);
     p.reflection = typeof x.reflection === 'string' ? x.reflection.slice(0, REFLECTION_MAX) : '';
+    if (Array.isArray(x.visitedContexts)) p.visitedContexts = strList(x.visitedContexts);
     const it = normInterp(x.interp);
     if (it) p.interp = it; // 있을 때만 둔다(없으면 예전 기록과 같은 모양)
     return p;
@@ -291,6 +292,7 @@
         const ids = (c.items || []).filter(id => { const it = coreItem(stage, id); return it && it.kind === 'read'; });
         return commit(rec => {
           const p = stageOf(rec, stage.id);
+          if (!Array.isArray(p.visitedContexts)) p.visitedContexts = strList(Object.values(p.items).flatMap(it => it.seenContexts || []));
           const changed = [];
           ids.forEach(id => {
             const r = R.seeContext(p.items[id] || R.newItemRecord('read'), contextId);
@@ -298,6 +300,16 @@
           });
           touch(p);
           return { ok: true, changed };
+        });
+      },
+      completeContext(stage, contextId) {
+        if (!validStage(stage) || !(stage.contexts || []).some(c => c.id === contextId)) return { ok: false, reason: 'unknownContext' };
+        return commit(rec => {
+          const p = stageOf(rec, stage.id);
+          if (!Array.isArray(p.visitedContexts)) p.visitedContexts = strList(Object.values(p.items).flatMap(it => it.seenContexts || []));
+          if (p.visitedContexts.indexOf(contextId) < 0) p.visitedContexts.push(contextId);
+          touch(p);
+          return { ok: true };
         });
       },
       choose(stage, itemId, cardId) { return itemOp(stage, itemId, 'read', (cur, item) => R.chooseCard(cur, item, cardId)); },

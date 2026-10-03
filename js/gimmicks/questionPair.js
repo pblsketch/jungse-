@@ -52,9 +52,20 @@
 
     const box = E('div', 'qp');
     box.appendChild(E('p', 'qp-howto', t('howto')));
+    let pageIndex = 0;
+    const nav = E('div', 'qp-nav');
+    const previous = E('button', 'nm-st-btn', t('previous'));
+    const pageLabel = E('span', 'qp-page');
+    const next = E('button', 'nm-st-btn', t('next'));
+    previous.type = next.type = 'button';
+    pageLabel.setAttribute('aria-live', 'polite');
+    nav.append(previous, pageLabel, next);
+    nav.hidden = !cfg.paged;
+    box.appendChild(nav);
 
     // 대답 카드
     const ansLabel = {};
+    let answerSection = null;
     if (answers.length) {
       const sec = E('section', 'qp-answers');
       sec.appendChild(E('h3', 'qp-h', t('answersHead')));
@@ -66,11 +77,17 @@
         head.setAttribute('aria-label', t('answerNo', { n: i + 1 }));
         card.appendChild(head);
         if (a.who) card.appendChild(G.richSpan(o, a.who, 'qp-who'));
-        if (a.orig) list([].concat(a.orig)).forEach(b => card.appendChild(G.origView(o, b, { asSpans: true, words: [], noteNoBangjeom: o.text('marks.noBangjeom') }).el));
+        if (a.orig) list([].concat(a.orig)).forEach(b => {
+          if (cfg.paged) {
+            const block = G.block(b);
+            list(block && block.modern).forEach(text => card.appendChild(G.richSpan(o, text, 'qp-answer-text')));
+          } else card.appendChild(G.origView(o, b, { asSpans: true, words: [], noteNoBangjeom: o.text('marks.noBangjeom') }).el);
+        });
         if (a.text) card.appendChild(G.richSpan(o, a.text, 'qp-answer-text'));
         sec.appendChild(card);
       });
-      box.appendChild(sec);
+      answerSection = sec;
+      if (!cfg.paged) box.appendChild(sec);
     }
 
     const rows = {};
@@ -129,12 +146,36 @@
       return Object.keys(rows).every(q => Object.keys(rows[q].groups).every(f => rows[q].groups[f].get() !== null));
     }
     function refresh() {
-      if (locked) { submit.disabled = true; submit.hidden = true; return; }
+      if (locked) { submit.disabled = true; submit.hidden = true; showPage(pageIndex); return; }
       const ok = complete();
       submit.disabled = !ok;
       if (!ok) note.textContent = t('needAll');
       else if (note.textContent === t('needAll')) note.textContent = '';
+      showPage(pageIndex);
     }
+    function showPage(index) {
+      pageIndex = Math.max(0, Math.min(questions.length - 1, index));
+      if (!cfg.paged) { previous.disabled = next.disabled = locked; return; }
+      questions.forEach((q, i) => { rows[q.id].card.hidden = i !== pageIndex; });
+      if (answerSection) rows[questions[pageIndex].id].card.insertBefore(answerSection, rows[questions[pageIndex].id].card.querySelector('.qp-step'));
+      previous.disabled = pageIndex === 0;
+      next.hidden = pageIndex === questions.length - 1;
+      next.disabled = !locked && Object.values(rows[questions[pageIndex].id].groups).some(g => g.get() === null);
+      submit.hidden = locked || pageIndex !== questions.length - 1;
+      pageLabel.textContent = t('page', { n: pageIndex + 1, total: questions.length });
+    }
+    previous.addEventListener('click', () => { showPage(pageIndex - 1); const body = box.closest('.nm-st-body'); if (body) body.scrollTop = 0; });
+    next.addEventListener('click', () => {
+      if (!locked) {
+        const qid = questions[pageIndex].id;
+        const want = (o.item.answer || {})[qid] || {};
+        const bad = Object.keys(want).filter(field => rows[qid].groups[field] && rows[qid].groups[field].get() !== want[field]);
+        bad.forEach(field => rows[qid].groups[field].markWrong());
+        if (bad.length) { emphasize([qid]); note.textContent = t('practiceWrong'); return; }
+      }
+      showPage(pageIndex + 1);
+      const body = box.closest('.nm-st-body'); if (body) body.scrollTop = 0;
+    });
     function lockAll() {
       locked = true;
       Object.keys(rows).forEach(q => Object.keys(rows[q].groups).forEach(f => rows[q].groups[f].disable(true)));
@@ -180,6 +221,8 @@
           Object.keys(r.groups).forEach(f => { if (bad.indexOf(f) >= 0) r.groups[f].markWrong(); else r.groups[f].clearMarks(); });
         });
         note.textContent = t('wrongNote');
+        const index = questions.findIndex(q => Object.keys(w).indexOf(q.id) >= 0);
+        if (index >= 0) showPage(index);
       },
       showHint(step, target) {
         if (step < 2) return;
@@ -188,6 +231,8 @@
         else ids = Object.keys(lastWrong).filter(q => rows[q]);
         if (!ids.length) ids = Object.keys(rows);
         emphasize(ids);
+        const index = questions.findIndex(q => ids.indexOf(q.id) >= 0);
+        if (index >= 0) showPage(index);
         note.textContent = t('hintNote');
       },
       showAnswer(answer) {

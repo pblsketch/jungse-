@@ -39,7 +39,25 @@
     const item = (env.scene.items || []).filter(i => i.id === itemId)[0];
     if (!item) { NM.reportError('stage.task', 'unknown item: ' + itemId); return null; }
     const def = NM.gimmicks.get(item.gimmick);
-    let inst = null, w = null, status = null, helpBox = null, moreBtn = null, backBtn = null, teacherShown = false;
+    let inst = null, w = null, status = null, helpBox = null, moreBtn = null, backBtn = null, teacherShown = false, lastWrong = null;
+    function hintTarget() { return lastWrong !== null ? null : Array.isArray(item.hints) ? item.hints[1] : null; }
+    function showHint() {
+      call(inst, 'showHint', [2, hintTarget()]);
+      if (!w) return;
+      const target = [...w.body.querySelectorAll('.is-cue, .is-hint')].find(n => n.getClientRects().length && n.classList.contains('is-cue'))
+        || [...w.body.querySelectorAll('.is-hint')].find(n => n.getClientRects().length);
+      if (target) target.scrollIntoView({ block: 'center', behavior: 'auto' });
+    }
+    function hintText(base) {
+      const byPart = item.hintsByPart;
+      if (!byPart || lastWrong === null) return base;
+      const keys = Array.isArray(lastWrong) ? lastWrong.map(k => String(k).split('.')[0]) : Object.keys(lastWrong).filter(k => {
+        const v = lastWrong[k];
+        return Array.isArray(v) ? v.length > 0 : v && typeof v === 'object' ? Object.keys(v).length > 0 : true;
+      });
+      const key = keys.find(k => typeof byPart[k] === 'string');
+      return key ? byPart[key] : base;
+    }
 
     function showHelp(rec) {
       helpBox.textContent = '';
@@ -50,7 +68,7 @@
         const h = el('p', 'nm-st-hint');
         h.appendChild(el('span', 'nm-st-hint-label', TX().t('hint')));
         h.appendChild(document.createTextNode(' '));
-        h.appendChild(rich(env, hv.hint));
+        h.appendChild(rich(env, hintText(hv.hint)));
         helpBox.appendChild(h);
       }
       if (hv.step >= 2 && !NM.core.rules.isItemDone(rec)) helpBox.appendChild(el('p', 'nm-st-fix', TX().t('fix')));
@@ -81,7 +99,7 @@
       if (!r || !r.ok) { NM.reportError('stage.task.help', r && r.reason); return; }
       const rec = env.rec(itemId);
       env.sfx('help');
-      if (r.help >= 2) call(inst, 'showHint', [2, Array.isArray(item.hints) ? item.hints[1] : null]);
+      if (r.help >= 2) showHint();
       if (rec.state === 'doneByHelp') {
         call(inst, 'showAnswer', [item.answer]);
         setStatus('taskByHelp', 'help');
@@ -108,6 +126,7 @@
       if (cur && NM.core.rules.isItemDone(cur)) return;
       const j = NM.ui.stageLogic.judge(def, answer, item);
       if (j.error) return;
+      lastWrong = j.correct ? null : j.wrong;
       const r = env.submit(itemId, j.correct);
       if (!r || !r.ok) { NM.reportError('stage.task.submit', r && r.reason); return; }
       const rec = env.rec(itemId);
@@ -119,7 +138,7 @@
         return;
       }
       call(inst, 'showWrong', [{ wrong: j.wrong, answer, wrongs: rec.wrongs, help: r.help }]);
-      if (r.help >= 2) call(inst, 'showHint', [2, Array.isArray(item.hints) ? item.hints[1] : null]);
+      if (r.help >= 2) showHint();
       if (rec.state === 'doneByHelp') {
         env.sfx('help');
         call(inst, 'showAnswer', [item.answer]);

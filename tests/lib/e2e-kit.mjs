@@ -289,10 +289,28 @@ export async function playStageUI(S, C, stageId, opts) {
   const plan = await stagePlan(page, stageId);
   C.check(`${tag}: has core items for level`, plan.items.length > 0, plan);
   let reloaded = false, imaged = false;
-  for (let k = 0; k < plan.items.length; k++) {
-    const it = plan.items[k];
+  const remaining = plan.items.slice();
+  let k = 0, turns = 0;
+  while (remaining.length && turns++ < 160) {
+    const guide = await page.evaluate(() => NM.ui.stage.guidance ? NM.ui.stage.guidance() : null);
+    if (guide && !guide.readyItems.length) {
+      if (!guide.objectives.length) { C.check(`${tag}: learning flow has a next step`, false, guide); break; }
+      const cid = guide.objectives[0];
+      const partial = remaining.find(it => it.kind === 'read' && it.contexts.includes(cid));
+      const before = partial ? await itemRec(page, stageId, partial.id) : null;
+      await visit(S, C, tag, cid);
+      await closeWindows(page);
+      if (o.reloadAfterItems !== undefined && !reloaded && k >= o.reloadAfterItems && partial && (!before || before.seen === 0)) {
+        reloaded = true;
+        await reloadAndResume(S, C, stageId, { tag, spawn, partialItem: partial.id });
+      }
+      continue;
+    }
+    const index = guide ? remaining.findIndex(it => guide.readyItems.includes(it.id)) : 0;
+    if (index < 0) { C.check(`${tag}: learning flow reaches remaining items`, false, guide); break; }
+    const it = remaining.splice(index, 1)[0];
     // 새로 고침 → 이어 하기 (해독 항목의 맥락 하나를 살핀 상태에서)
-    if (o.reloadAfterItems !== undefined && !reloaded && k >= o.reloadAfterItems && it.kind === 'read') {
+    if (!guide && o.reloadAfterItems !== undefined && !reloaded && k >= o.reloadAfterItems && it.kind === 'read') {
       reloaded = true;
       await closeWindows(page);
       await page.evaluate((c) => NM.engine.goTo(c), it.contexts[0]);
@@ -307,7 +325,9 @@ export async function playStageUI(S, C, stageId, opts) {
     }
     if (it.kind === 'read') await solveRead(S, C, stageId, it, { tag, wrongOnce: o.wrongOnce });
     else await solveTask(S, C, stageId, it, { tag, wrongOnce: o.wrongOnce });
+    k++;
   }
+  C.check(`${tag}: all core items reached through learning flow`, remaining.length === 0, remaining.map(it => it.id));
   if (o.reloadAfterItems !== undefined && !reloaded) C.check(`${tag}: reload step ran`, false, 'no read item after index ' + o.reloadAfterItems);
   await finishStage(S, C, stageId, plan, { tag, saveAtEnd: o.saveAtEnd, reflection: o.reflection });
   return { plan, spawn };
@@ -368,10 +388,14 @@ async function solveRead(S, C, stageId, it, { tag, wrongOnce }) {
   const { page } = S;
   const ctx = [...new Set(it.contexts)];
   if (ctx.length < 2) { C.check(`${tag}: ${it.id} is in 2+ contexts`, false, ctx); return; }
-  await visit(S, C, tag, ctx[0]);
-  if (!(await visit(S, C, tag, ctx[1]))) return;
+  const guided = await page.evaluate(() => !!(NM.ui.stage.guidance && NM.ui.stage.guidance()));
+  if (!guided) {
+    await visit(S, C, tag, ctx[0]);
+    if (!(await visit(S, C, tag, ctx[1]))) return;
+  } else { await closeWindows(page); await ensureHudOpen(page); }
   // 맥락 창의 항목 단추로 항목 창 열기
-  if (!(await domClick(page, TOP + ` .nm-st-ctx-item[data-item="${it.id}"]`))) { C.check(`${tag}: ${it.id} button in context window`, false); return; }
+  const selector = guided ? `.nm-st-hud-item[data-item="${it.id}"]` : TOP + ` .nm-st-ctx-item[data-item="${it.id}"]`;
+  if (!(await domClick(page, selector))) { C.check(`${tag}: ${it.id} available button opens the item`, false); return; }
   let t = await waitTop(page, { win: 'item', item: it.id });
   if (!t || t.win !== 'item' || t.item !== it.id) { C.check(`${tag}: ${it.id} item window opens`, false, t); return; }
   if (wrongOnce && it.wrong) {

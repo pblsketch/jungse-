@@ -10,6 +10,7 @@ import {
   makeChecker, startBrowser, newSession, playStageUI, settleDialogs, closeWindows, waitTop, domClick,
   horizontalOverflow, visibleTestUi, ensureHudOpen, exitStageViaHud, stagePlan, TOP
 } from '../lib/e2e-kit.mjs';
+import { reachLearningTarget } from '../lib/learning-flow.mjs';
 
 const SIZES = [[1920, 1080], [1280, 800], [1366, 768], [390, 844], [360, 740], [844, 390]];
 const args = process.argv.slice(2);
@@ -31,11 +32,15 @@ const canvasPoint = (page, { zone, dists, free }) => page.evaluate(({ zone, dist
   const cv = document.querySelector('#game canvas');
   const r = cv.getBoundingClientRect();
   const joyW = r.width * 0.45;
+  const sc = NM.data.SCENES[NM.ui.stage.current().stageId];
+  const targets = (sc.contexts || []).map(c => c.id).concat(Object.keys(sc.npcs || {}))
+    .map(id => NM.engine.test.target(id)).filter(Boolean).map(t => t.rect);
+  const ground = (wx, wy) => !NM.engine.test.collides(wx, wy) && !targets.some(t => wx >= t.x - 20 && wx <= t.x + t.w + 20 && wy >= t.y - 20 && wy <= t.y + t.h + 20);
   for (const d of dists) {
     for (let a = 0; a < 24; a++) {
       const ang = (a / 24) * Math.PI * 2;
       const wx = s.x + Math.cos(ang) * d, wy = s.y + Math.sin(ang) * d;
-      if (free && NM.engine.test.collides(wx, wy)) continue;
+      if (free && !ground(wx, wy)) continue;
       const p = NM.engine.test.worldToScreen(wx, wy);
       if (p.x < r.left + 12 || p.x > r.right - 12 || p.y < r.top + 12 || p.y > r.bottom - 12) continue;
       if (zone === 'joy' && p.x - r.left > joyW - 70) continue;
@@ -56,7 +61,7 @@ const canvasPoint = (page, { zone, dists, free }) => page.evaluate(({ zone, dist
         if (document.elementFromPoint(x, y) !== cv) continue;
         const wx = (x - zero.x) / (unit.x - zero.x);
         const wy = (y - zero.y) / (unit.y - zero.y);
-        if (free && NM.engine.test.collides(wx, wy)) continue;
+        if (free && !ground(wx, wy)) continue;
         const distance = Math.hypot(wx - s.x, wy - s.y);
         if (zone === 'tap' && distance < 40) continue;
         candidates.push({ wx, wy, x, y, distance });
@@ -100,7 +105,8 @@ async function movement(S, tag, touch) {
     await idle(page);
     const b = await eng(page);
     const dist = Math.hypot(b.x - p.wx, b.y - p.wy), from = Math.hypot(a.x - p.wx, a.y - p.wy);
-    tapTries.push({ path: started.path.length, from: Math.round(from), dist: Math.round(dist) });
+    const notice = await page.locator('.nm-st-toast').innerText().catch(() => '');
+    tapTries.push({ path: started.path.length, from: Math.round(from), dist: Math.round(dist), point: p, notice });
     if (started.path.length > 0 && dist < 8) { tapOk = true; break; }
   }
   C.check(`${tag}: tap-to-move walks to the tapped spot (${touch ? 'touch' : 'mouse'})`, tapOk, tapTries);
@@ -222,7 +228,8 @@ try {
       await closeWindows(page);
       await page.evaluate((c) => NM.engine.goTo(c), read.contexts[1]);
       await waitTop(page, { win: 'context', context: read.contexts[1] });
-      await domClick(page, TOP + ` .nm-st-ctx-item[data-item="${read.id}"]`);
+      await closeWindows(page);
+      await domClick(page, `.nm-st-hud-item[data-item="${read.id}"]`);
       C.check(`${tag}: item window opens`, ((await waitTop(page, { win: 'item' })) || {}).win === 'item');
       await look(S, tag, 's2-item', bad);
       await domClick(page, TOP + ` .nm-st-card[data-card="${read.wrong}"]`);
@@ -232,6 +239,7 @@ try {
       await settleDialogs(page);
       await closeWindows(page);
       await ensureHudOpen(page);
+      await reachLearningTarget(page, { item: task.id });
       await domClick(page, `.nm-st-hud .nm-st-hud-item[data-item="${task.id}"]`);
       C.check(`${tag}: task window opens`, ((await waitTop(page, { win: 'task' })) || {}).win === 'task');
       await look(S, tag, 's2-task', bad);

@@ -215,6 +215,7 @@ NM.data.SCENES['s8'] = {
       id: 's8.t1', kind: 'task', levels: ['h23'], label: '물음과 대답 짝 맞추기', gimmick: 'questionPair',
       prompt: '물음마다 대답, 어미를 정하는 기준, 끝맺는 어미를 고르자. 먼저 주어가 듣는 이 \'너\'인지 확인하고, 아니라면 의문사가 있는지 살펴보자.',
       config: {
+        paged: true,
         questions: [
           // 2인칭 주어 -ㄴ다: 주어 ':네'는 바로 앞 구절(O-s6-SS6e)에 있다. 의문사 ':엇·뎨'가 있어도 -ㄴ다
           { id: 'q1', orig: ['O-s6-SS6e', 'O-s8-SS6f'], who: '부처 → 羅雲', lead: '놀기만 좋아하는 어린 羅雲에게 부처가 건넨 말.',

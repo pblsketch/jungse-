@@ -105,7 +105,8 @@ NM.data.SCENES['s1'] = {
       orig: ['O-s1-CHEOYONG1'],
       lines: [
         { who: 'woman', text: '처용이라는 사람이 불렀다는 노래예요. 둘째 줄은 밤늦도록 놀러 다니다가 돌아왔다는 말이고요.' },
-        { who: 'woman', text: '夜 는 밤, 遊 는 놀다 하고 새겨 읽어요. 그 사이사이에 낀 글자는 말끝을 이어 주는 소리예요.' }
+        { who: 'woman', text: '夜 는 밤, 遊 는 놀다 하고 새겨 읽어요. 그 사이사이에 낀 글자는 말끝을 이어 주는 소리예요.' },
+        { who: 'woman', text: '다만 如 는 말끝인데도 다라고 새겨 읽은 예외예요. 그래서 말끝은 언제나가 아니라 대체로 소리를 빌렸다고 해요.' }
       ],
       items: ['s1.r2']
     },
@@ -132,21 +133,20 @@ NM.data.SCENES['s1'] = {
       prompt: '비석과 노래의 한자마다 뜻을 빌렸는지 소리를 빌렸는지 가려 보자.',
       gimmick: 'borrowSort',
       config: {
+        paged: true,
         lines: [
-          { orig: 'O-s1-YEONGDONG', line: 0, targets: [{ at: 0, id: 'yeong' }, { at: 5, id: 'gil' }] },
-          { orig: 'O-s1-SEODONG1', line: 0, targets: [{ at: 4, id: 'ju' }, { at: 5, id: 'eun' }] },
+          { orig: 'O-s1-YEONGDONG', line: 0, targets: [{ at: 0, id: 'yeong', gloss: '길다', reading: '길' }, { at: 5, id: 'gil', gloss: '길하다(좋다)', reading: '길' }] },
+          { orig: 'O-s1-SEODONG1', line: 0, targets: [{ at: 4, id: 'ju', gloss: '주인(님)', reading: '님' }, { at: 5, id: 'eun', gloss: '숨다', reading: '은' }] },
           { orig: 'O-s1-CHEOYONG1', line: 0, targets: [], notes: [
             { at: [0, 1], kind: 'interp', text: '풀이가 둘로 갈려 고르지 않는다.' },
             { at: 5, kind: 'interp', text: '풀이가 둘로 갈려 고르지 않는다.' }
           ] },
           { orig: 'O-s1-CHEOYONG1', line: 1, targets: [
-            { at: 0, id: 'ya' }, { at: 1, id: 'ip' }, { at: 2, id: 'i' }, { at: 3, id: 'yu' }, { at: 4, id: 'haeng' },
-            { at: 5, id: 'yeo', note: { kind: 'know', text: '如 는 어미 자리인데도 소리가 아니라 뜻(새김 다)을 빌려 적은 예외다.' } },
-            { at: 6, id: 'ga' }
-          ] }
+            { at: 0, id: 'ya', gloss: '밤', reading: '밤' }, { at: 2, id: 'i', gloss: '저(그)', reading: '이' }
+          ], notes: [{ at: 5, kind: 'know', text: '如 는 어미 자리인데도 다라는 새김을 빌린 예외예요. 이 글자는 분류하지 않아요. 그래서 규칙에 대체로라고 적어요.' }] }
         ],
         rule: {
-          sentence: '실질 형태소는 대체로 뜻을, 조사와 어미는 {?} 빌려 적었다.',
+          sentence: '뜻을 지닌 말은 대체로 뜻을, 조사와 어미는 {?} 빌려 적었다.',
           cards: [
             { id: 's1.t1.a', text: '대체로 소리를' },
             { id: 's1.t1.b', text: '언제나 소리만' },
@@ -155,10 +155,10 @@ NM.data.SCENES['s1'] = {
         }
       },
       answer: {
-        marks: { yeong: 'hun', gil: 'eum', ju: 'hun', eun: 'eum', ya: 'hun', ip: 'hun', i: 'eum', yu: 'hun', haeng: 'hun', yeo: 'hun', ga: 'eum' },
+        marks: { yeong: 'hun', gil: 'eum', ju: 'hun', eun: 'eum', ya: 'hun', i: 'eum' },
         rule: 's1.t1.a'
       },
-      hints: ['낱말의 뜻을 맡은 글자와 조사나 어미 자리에 붙은 글자를 나누어 봐.', 'rule'],
+      hints: ['이 구절의 읽기가 한자음과 같으면 소리를, 새김과 이어지면 뜻을 빌린 거야. 주어진 읽기와 새김을 견주어 봐.', 'rule'],
       explain: '永 은 뜻 길- 을, 吉 은 소리 길 을 빌려 같은 고을을 적었다. 향찰에서도 夜 入 遊 行 처럼 뜻을 가진 말은 뜻을, 伊 可 隱 처럼 조사와 어미는 소리를 빌렸다. 다만 如 처럼 어미를 새김으로 적은 예외가 있어 대체로라고 한다.'
     },
     {

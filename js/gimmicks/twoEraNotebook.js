@@ -59,6 +59,7 @@
 
     const box = E('div', 'tn');
     box.appendChild(E('p', 'tn-howto', t('howto')));
+    box.appendChild(E('p', 'tn-howto', t('criteria')));
 
     // ── 두 쪽 ──
     const spread = E('div', 'tn-spread');

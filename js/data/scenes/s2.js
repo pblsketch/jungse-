@@ -170,6 +170,7 @@
 
   /* ---------- 기믹 과제 (letterForge) ---------- */
   const T1_CONFIG = {
+    paged: true,
     steps: ['shape', 'add', 'odd'],
     shape: { orig: ['O-s2-SANG-G', 'O-s2-SANG-N', 'O-s2-SANG-M', 'O-s2-SANG-S', 'O-s2-SANG-O'] },
     add: { orig: ['O-s2-GAHOEK1', 'O-s2-GAHOEK2'] },
@@ -186,6 +187,7 @@
       prompt: '농부의 말소리를 자음 글자로 바꾸어 보이자. 단면도의 굵은 선을 따라 기본 글자부터.',
       gimmick: 'letterForge', config: T1_CONFIG, answer: T1_ANSWER,
       hints: ['ㄱ은 혀뿌리가 목구멍을 막는 모양이야. 단면도의 굵은 선이 어디서 꺾이는지 봐.', 'shape'],
+      hintsByPart: { shape: '발음 기관의 굵은 선과 고른 획의 위치를 견주어 봐.', add: '같은 소리 갈래에서 소리가 세질수록 기본자에 획을 더해. 빈 자리가 몇 번째 가획인지 봐.', odd: '획이 더 있어도 소리가 세지는 가획 원리로 설명되지 않는 글자를 찾아봐.' },
       explain
     };
   }
@@ -194,7 +196,7 @@
   const T1_M = Object.assign(t1('기본 글자 ㄱ ㄴ ㅁ ㅅ ㅇ은 소리 낼 때의 발음 기관 모양을 본떴다(상형). 소리가 세지면 획을 더했다(가획). ㆁ ㄹ ㅿ은 겉보기에 획이 더 있지만, 소리가 세져서 획을 더한 글자가 아니라 모양을 달리해 만든 글자다.'), {
     // 가획 줄도 ㄱ·ㄴ·ㅁ 세 줄만(ㄱ→ㅋ, ㄴ→ㄷ→ㅌ, ㅁ→ㅂ→ㅍ). 나머지 줄은 r2 의 풀이·규칙 카드에 그대로 있다.
     // 기믹 창 첫머리의 原文 카드는 줄였다: 상형 원고 다섯 장은 학사 맥락(s2.c1)에 있어 조작판이 바로 보이게 한다(플레이테스트 Q2).
-    config: { steps: ['shape', 'add'], shape: {}, add: { chains: ['g', 'n', 'm'], orig: ['O-s2-GAHOEK1'] } },
+    config: { paged: true, steps: ['shape', 'add'], shape: {}, add: { chains: ['g', 'n', 'm'], orig: ['O-s2-GAHOEK1'] } },
     answer: { shape: T1_ANSWER.shape, add: { 'g.1': 'k', 'n.1': 'd', 'n.2': 't', 'm.1': 'b', 'm.2': 'p' } }
   });
 
@@ -203,6 +205,7 @@
     prompt: '아낙에게 모음 글자가 생겨난 길을 보여 주자. 기본 글자 셋이 무엇을 본떴는지 고르고, 합쳐서 모음을 만들자.',
     gimmick: 'letterForge',
     config: {
+      paged: true,
       steps: ['samjae', 'vowel'],
       samjae: { orig: ['O-s2-CHEON', 'O-s2-JI', 'O-s2-IN'] },
       vowel: { orig: ['O-s2-HAP-O', 'O-s2-HAP-A', 'O-s2-JAECHUL'] }
@@ -213,12 +216,13 @@
         vyo: 'eu-up-2', vya: 'i-right-2', vyu: 'eu-down-2', vyeo: 'i-left-2' }
     },
     hints: ['ㅏ는 곧게 선 ㅣ의 오른쪽에 ㆍ가 붙은 꼴이야. ㅣ를 먼저 누르고 ㆍ를 눌러 봐.', 'vowel.va'],
+    hintsByPart: { samjae: '둥근 하늘, 평평한 땅, 곧게 선 사람의 모습과 기본 글자를 짝지어 봐.', vowel: '목표 모음의 곧은 선을 먼저 고르고, 점이 붙는 쪽과 점의 수를 견주어 봐.' },
     explain: '둥근 ㆍ는 하늘, 평평한 ㅡ는 땅, 곧게 선 ㅣ는 사람을 본떴다. ㆍ를 ㅡ의 위아래나 ㅣ의 양옆에 하나 합치면 ㅗ ㅜ ㅏ ㅓ, 둘 합치면 ㅛ ㅠ ㅑ ㅕ가 된다(합성).'
   };
 
   // 중학교판 모음 과제: 합성은 ㅗ ㅏ(ㆍ 하나)와 ㅛ ㅑ(ㆍ 둘) 네 자만 만들어 본다(시간 조정, Q2). 나머지는 r4 의 풀이에 있다.
   const T2_M = Object.assign({}, T2, {
-    config: { steps: ['samjae', 'vowel'], samjae: T2.config.samjae, vowel: Object.assign({ targets: ['vo', 'va', 'vyo', 'vya'] }, T2.config.vowel) },
+    config: { paged: true, steps: ['samjae', 'vowel'], samjae: T2.config.samjae, vowel: Object.assign({ targets: ['vo', 'va', 'vyo', 'vya'] }, T2.config.vowel) },
     answer: { samjae: T2.answer.samjae, vowel: { vo: 'eu-up-1', va: 'i-right-1', vyo: 'eu-up-2', vya: 'i-right-2' } },
     explain: '둥근 ㆍ는 하늘, 평평한 ㅡ는 땅, 곧게 선 ㅣ는 사람을 본떴다. ㆍ를 ㅡ의 위나 ㅣ의 오른쪽에 하나 합치면 ㅗ ㅏ, 둘 합치면 ㅛ ㅑ가 된다. ㅜ ㅓ ㅠ ㅕ도 같은 방법으로 합쳐 만들었다(합성).'
   });

@@ -16,7 +16,7 @@
       const box = doc.createElement('div');
       box.className = 'd1tg';
       const buttons = {};
-      let picked = null;
+      let picked = null, lastWrong = null;
       (o.config.choices || []).forEach(n => {
         const b = doc.createElement('button');
         b.type = 'button'; b.className = 'd1tg-choice'; b.textContent = String(n);
@@ -35,10 +35,11 @@
       if (o.readOnly) submit.disabled = true;
       return {
         showWrong(info) {
+          lastWrong = info.wrong;
           Object.keys(buttons).forEach(k => buttons[k].classList.remove('d1tg-wrong'));
           if (buttons[info.wrong]) buttons[info.wrong].classList.add('d1tg-wrong');
         },
-        showHint(step, target) { if (step >= 2 && buttons[target]) buttons[target].classList.add('d1tg-hint'); },
+        showHint(step, target) { const fix = target == null ? lastWrong : target; if (step >= 2 && buttons[fix]) buttons[fix].classList.add('d1tg-hint'); },
         showAnswer(answer) { if (buttons[answer]) buttons[answer].classList.add('d1tg-answer'); submit.disabled = true; },
         showDone() { box.setAttribute('data-done', '1'); submit.disabled = true; },
         destroy() { box.remove(); }

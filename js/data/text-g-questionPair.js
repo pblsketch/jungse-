@@ -14,6 +14,10 @@ NM.data.TEXT.g = NM.data.TEXT.g || {};
 NM.data.TEXT.g.questionPair = {
   howto: '물음마다 대답, 어미를 정하는 기준, 끝맺는 어미를 차례로 고르세요. 먼저 주어가 듣는 이(너)인지 확인하세요. 주어가 듣는 이이면 의문사가 있어도 -ㄴ다를 씁니다. 그렇지 않으면 의문사가 있는지 보고 판정 의문과 설명 의문을 구별하세요.',
   answersHead: '대답 카드',
+  previous: '앞 물음',
+  next: '확인하고 다음 물음',
+  page: '물음 %n% / %total%',
+  practiceWrong: '이 물음에서 다시 볼 곳을 표시했어요. 주어, 의문사, 말끝을 차례로 확인해 보세요.',
   question: '물음 %n%',
   answerNo: '대답 %n%',
   stepPair: '짝이 되는 대답',

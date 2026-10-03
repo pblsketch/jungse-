@@ -395,6 +395,51 @@
     box.appendChild(foot);
     host.appendChild(box);
 
+    const pages = N.steps.flatMap(step => {
+      const ids = step === 'shape' ? N.letters : step === 'samjae' ? KEYS : step === 'vowel' ? N.targets : [null];
+      return ids.map(id => ({ step, id: id ? step + '.' + id : step, key: id }));
+    });
+    let pageIndex = 0;
+    const nav = el('div', 'nm-glf-nav');
+    const previous = btn('nm-st-btn', tx('previous'));
+    const pageLabel = el('span', 'nm-glf-page');
+    pageLabel.setAttribute('aria-live', 'polite');
+    const next = btn('nm-st-btn', tx('next'));
+    const practiceNote = el('p', 'nm-glf-practice');
+    practiceNote.setAttribute('aria-live', 'polite');
+    nav.append(previous, pageLabel, next);
+    nav.hidden = !(o.config && o.config.paged);
+    box.insertBefore(nav, box.firstChild);
+    box.insertBefore(practiceNote, foot);
+    const pageWrong = p => {
+      const result = check(buildAnswer(), item);
+      return result === true ? [] : result.wrong.filter(id => id === p.id || id.indexOf(p.id + '.') === 0);
+    };
+    function showPage(index) {
+      if (!(o.config && o.config.paged)) { previous.disabled = next.disabled = locked; return; }
+      pageIndex = Math.max(0, Math.min(pages.length - 1, index));
+      const p = pages[pageIndex];
+      Object.keys(stepEls).forEach(step => { stepEls[step].hidden = step !== p.step; });
+      Object.keys(parts).forEach(id => {
+        if (id.indexOf('shape.') === 0 || id.indexOf('samjae.') === 0 || id.indexOf('vowel.') === 0) parts[id].el.hidden = id !== p.id;
+      });
+      previous.disabled = pageIndex === 0;
+      next.hidden = pageIndex === pages.length - 1;
+      const selected = p.step === 'shape' ? S.shape[p.key].length > 0 : p.step === 'samjae' ? !!S.samjae[p.key] : p.step === 'vowel' ? S.vowel[p.key].length > 0 : p.step === 'add' ? Object.keys(want.add || {}).every(k => S.add[k]) : S.odd.length > 0;
+      next.disabled = !locked && !selected;
+      submit.hidden = pageIndex !== pages.length - 1;
+      pageLabel.textContent = tx('page', { n: pageIndex + 1, total: pages.length });
+    }
+    previous.addEventListener('click', () => { showPage(pageIndex - 1); const body = box.closest('.nm-st-body'); if (body) body.scrollTop = 0; });
+    next.addEventListener('click', () => {
+      const wrong = locked ? [] : pageWrong(pages[pageIndex]);
+      wrong.forEach(id => setMark(id, 'wrong', true));
+      if (wrong.length) { practiceNote.textContent = tx('practiceWrong'); return; }
+      practiceNote.textContent = '';
+      showPage(pageIndex + 1);
+      const body = box.closest('.nm-st-body'); if (body) body.scrollTop = 0;
+    });
+
     /* ---------- 표시 ---------- */
     function sym(m) { return m === 'wrong' ? '×' : m === 'hint' ? '△' : m === 'answer' ? '○' : ''; }
     function setMark(id, key, on) {
@@ -471,6 +516,7 @@
       const n = incomplete();
       left.textContent = n && !locked ? tx('left', { n }) : '';
       submit.disabled = locked || n > 0;
+      showPage(pageIndex);
     }
 
     function buildAnswer() {
@@ -520,11 +566,13 @@
           stepEls.odd.classList.toggle('is-missing', missing);
         }
         lastWrong = w.slice();
+        const index = pages.findIndex(p => w.some(id => id === p.id || id.indexOf(p.id + '.') === 0));
+        if (index >= 0) showPage(index);
         refresh();
       },
       showHint(step, target) {
         if (step < 2) return;
-        const tl = target == null ? lastWrong : (Array.isArray(target) ? target : [target]);
+        const tl = o.config && o.config.paged && !lastWrong.length ? [pages[pageIndex].id] : target == null ? lastWrong : (Array.isArray(target) ? target : [target]);
         tl.forEach(tk => {
           if (stepEls[tk]) { stepEls[tk].classList.add('is-hint'); stepEls[tk].setAttribute('data-mark', 'hint'); }
           else setMark(tk, 'hint', true);
@@ -538,6 +586,7 @@
         if (want.vowel) N.targets.forEach(t => { S.vowel[t] = seqFor(want.vowel[t]); setMark('vowel.' + t, 'answer', true); });
         Object.keys(stepEls).forEach(s => { stepEls[s].classList.remove('is-hint', 'is-missing'); stepEls[s].removeAttribute('data-mark'); });
         finish(o.readOnly ? 'done' : 'answer');
+        showPage(pages.length - 1);
       },
       destroy() { if (box.parentNode) box.parentNode.removeChild(box); }
     };

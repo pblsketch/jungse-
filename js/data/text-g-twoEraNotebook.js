@@ -14,6 +14,7 @@ NM.data.TEXT.g.twoEraNotebook = {
   page16: '16세기 쪽',
   extraHead: '더 살펴볼 낱말',
   notebook: '두 시대 수첩',
+  criteria: '지켜짐: 제시된 예에서 같은 규칙을 따르고 있어요. 흔들림: 규칙을 따르지 않는 예도 섞여 있어요. 없음: 제시된 글에서 그 현상이 보이지 않아요. 판단한 뒤 근거 고르기를 켜고, 그 판단을 보여 주는 낱말을 하나 이상 눌러요. 없음에는 근거를 붙이지 않아요.',
   statusLabel: '16세기에는?',
   status: { kept: '지켜짐', shaky: '흔들림', none: '없음' },
   pickEvidence: '근거 고르기',

@@ -121,7 +121,8 @@ try {
   // ───────── 4) 2번째 틀림 → 고칠 자리 강조 ─────────
   await page.click(TOP + ' .gwc-submit');
   g = await gaps(page, 'O-s4-YB2a');
-  check('2nd wrong → hinted gaps emphasized (▼)', /is-hint/.test(g[1].cls) && /is-hint/.test(g[3].cls) && g[3].sym === '▼' && (await state(page, 's4.t1')) === 'open', [g[1], g[3]]);
+  const missing = g.filter(x => ANS['O-s4-YB2a'].includes(x.i) && x.cut !== '1');
+  check('2nd wrong → actual missing gaps emphasized, corrected gaps left clean', missing.length > 0 && missing.every(x => /is-hint/.test(x.cls) && x.sym === '▼') && !/is-hint/.test(g[1].cls) && !/is-hint/.test(g[3].cls) && (await state(page, 's4.t1')) === 'open', missing);
 
   // ───────── 5) 3번째 틀림 → doneByHelp ─────────
   await page.click(TOP + ' .gwc-submit');

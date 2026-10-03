@@ -79,6 +79,15 @@
   }
   function coreItems() { return cur.store.coreItems(cur.scene); }
   function isCore(id) { return coreItems().some(i => i.id === id); }
+  function flow() { return cur && !cur.teacher ? L().learningFlow(cur.scene, stageProg(), coreItems(), cur.store.level) : null; }
+  function allowed(kind, id) {
+    const f = flow();
+    return !f || f[kind].indexOf(id) >= 0;
+  }
+  function lockedNotice() {
+    const f = flow();
+    if (f) notice(TX().t('flowLocked', { goal: plain(f.title) }));
+  }
 
   /* ---------- 문구 환경 ---------- */
   function fill(text) {
@@ -180,11 +189,26 @@
         hud.appendChild(go);
       } else hud.appendChild(el('p', 'nm-st-hud-goal', who ? TX().t('goTranslateTo', { name: who }) : TX().t('goTranslate')));
     }
-    if (!cur.hudOpen) return;
+    const guide = flow();
+    if (guide && guide.title && !cur.translateReady) {
+      hud.appendChild(el('p', 'nm-st-hud-sub', TX().t('flowGoal', { n: guide.index + 1, total: guide.total })));
+      hud.appendChild(el('p', 'nm-st-hud-goal', guide.title));
+    }
+    if (!cur.hudOpen) {
+      if (guide && guide.readyItems.length && !cur.translateReady) {
+        const item = L().itemById(cur.scene, guide.readyItems[0]);
+        const next = el('button', 'nm-st-btn nm-st-primary', plain(item.label));
+        next.type = 'button';
+        next.addEventListener('click', () => openItem(item.id));
+        hud.appendChild(next);
+      }
+      return;
+    }
     if (!cur.translateReady) hud.appendChild(el('p', 'nm-st-hud-sub', TX().t('hudItems')));
     const ul = el('ul', 'nm-st-hud-list');
     const prog = stageProg();
     coreItems().forEach(item => {
+      if (guide && guide.items.indexOf(item.id) < 0) return;
       const rec = prog.items[item.id] || null;
       const b = stateBits(item, rec);
       const li = el('li');
@@ -227,8 +251,11 @@
   function updateObjectives() {
     if (!cur || cur.phase !== 'explore') return;
     const at = cur.scene.translate && cur.scene.translate.at;
+    const guide = flow();
+    const sidePeople = guide && guide.index > 0 ? Object.keys(cur.scene.npcs || {}) : [];
+    if (E().setAvailablePlaces) E().setAvailablePlaces(guide ? guide.contexts.concat(sidePeople, cur.translateReady && at ? [at] : []) : null);
     if (cur.translateReady && at) E().setObjective([at]);
-    else E().setObjective(L().objectives(cur.scene, stageProg(), coreItems()));
+    else E().setObjective(guide ? guide.objectives : L().objectives(cur.scene, stageProg(), coreItems()));
   }
   function updateGlow() {
     if (!cur) return;
@@ -238,7 +265,7 @@
       const rec = prog.items[it.id];
       if (it.kind !== 'read' || !rec || NM.core.rules.isItemDone(rec)) return false;
       const hv = NM.core.rules.helpView(it, rec);
-      if (hv.glow) { glow = hv.glow; return true; }
+      if (hv.glow && allowed('contexts', hv.glow)) { glow = hv.glow; return true; }
       return false;
     });
     if (cur.glow !== glow) { cur.glow = glow; E().highlight(glow); }
@@ -300,6 +327,7 @@
         btn.type = 'button';
         btn.setAttribute('data-item', id);
         btn.setAttribute('data-state', b.st);
+        btn.disabled = !allowed('items', id);
         const sym = el('span', 'nm-st-sym', b.sym);
         sym.setAttribute('aria-hidden', 'true');
         btn.appendChild(sym);
@@ -319,6 +347,7 @@
 
   function openContext(contextId) {
     if (!cur) return null;
+    if (!allowed('contexts', contextId)) { lockedNotice(); return null; }
     const cx = L().contextById(cur.scene, contextId);
     if (!cx) { NM.reportError('stage.context', 'unknown context: ' + contextId); return null; }
     const r = cur.store.seeContext(cur.scene, contextId);
@@ -329,8 +358,15 @@
     const view = { w: null, cx };
     view.w = NM.ui.stageWindow.open({
       win: 'context', eyebrow: TX().t('win.context'), title: titleNode(cx.label), data: { context: contextId }, className: 'nm-st-ctxwin',
-      build(w) { renderContext(w, cx); },
+      build(w) {
+        renderContext(w, cx);
+        const done = el('button', 'nm-st-btn nm-st-primary', TX().t('finishContext'));
+        done.type = 'button';
+        done.addEventListener('click', () => w.close());
+        w.foot.appendChild(done);
+      },
       onClose(reason) {
+        if (cur && !cur.tearing && cur.store.completeContext) cur.store.completeContext(cur.scene, contextId);
         const i = cur ? cur.ctxWins.indexOf(view) : -1;
         if (i >= 0) cur.ctxWins.splice(i, 1);
         if (reason !== 'all') afterWindowClosed();
@@ -384,6 +420,7 @@
   }
   function openItem(itemId) {
     if (!cur) return null;
+    if (!allowed('items', itemId)) { lockedNotice(); return null; }
     const item = L().itemById(cur.scene, itemId);
     if (!item || !isCore(itemId)) { NM.reportError('stage.item', 'not a core item: ' + itemId); return null; }
     return item.kind === 'task' ? NM.ui.itemTask.open(itemEnv(), itemId) : NM.ui.itemRead.open(itemEnv(), itemId);
@@ -532,6 +569,7 @@
     try {
       E().highlight(null);
       E().setObjective([]);
+      if (E().setAvailablePlaces) E().setAvailablePlaces(null);
       if (E().audio) E().audio.stopBgm();
     } catch (e) { NM.reportError('stage.teardown', e); }
     if (c.hud && c.hud.parentNode) c.hud.parentNode.removeChild(c.hud);
@@ -619,6 +657,7 @@
         if (!alive(my)) return false;
         if (E().audio) { if (bgmKey) E().audio.playBgm(bgmKey); else E().audio.stopBgm(); }
         cur.offs.push(E().on('interact', onInteract));
+        cur.offs.push(E().on('lockedInteract', () => lockedNotice()));
         const onSettings = (ev) => {
           if (!cur) return;
           const d = (ev && ev.detail) || {};
@@ -646,6 +685,7 @@
 
   NM.ui.stage = {
     run, exit, stop, applySettings,
+    guidance: () => flow(),
     current: () => (cur ? { stageId: cur.stageId, phase: cur.phase } : Object.assign({}, last)),
     unknownRules(stageId, store) {
       const raw = NM.data.SCENES && NM.data.SCENES[stageId];

@@ -118,7 +118,7 @@ try {
       wordRevealed: !!w.querySelector('.tn-page16 [data-word="x.saheul"].is-cue')
     };
   }, TOP);
-  check('2nd wrong → showHint(2,"araea"): row glows & becomes active, 15th-c examples ◆, evidence area glows (word not revealed)', r.row && r.active === 'araea' && r.cue === 'e.saram,e.saal' && r.extra && r.blocksHint === 0 && !r.wordRevealed, r);
+  check('2nd wrong → actual wrong rows emphasized, first wrong row active, corresponding evidence areas glowed', r.row && r.active === 'vh' && r.cue.includes('e.mom') && r.cue.includes('e.buteo') && r.cue.includes('e.saal') && r.extra && r.blocksHint > 0 && !r.wordRevealed, r);
   check('state open after 2nd wrong', (await H.state(page, 's10', 's10.t1')) === 'open');
 
   await page.click(S('.tn-submit'));

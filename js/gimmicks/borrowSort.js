@@ -54,7 +54,7 @@
         const ch = chars[t.at];
         if (typeof t.at !== 'number' || !ch || /\s/.test(ch)) { errors.push('bad target position: ' + t.id); return; }
         ids.push(t.id);
-        targets.push({ at: t.at, id: t.id, char: ch, note: t.note && typeof t.note.text === 'string' ? t.note : null });
+        targets.push(Object.assign({}, t, { char: ch, note: t.note && typeof t.note.text === 'string' ? t.note : null }));
       });
       const notes = list(ln.notes).map(n => ({ at: (Array.isArray(n.at) ? n.at : [n.at]).filter(i => typeof i === 'number' && chars[i]), kind: n.kind === 'know' ? 'know' : 'interp', text: String(n.text || '') }));
       notes.forEach(n => n.at.forEach(i => { if (targets.some(t => t.at === i)) errors.push('note on a scored character: ' + ln.orig + '@' + i); }));
@@ -97,6 +97,21 @@
     const box = el('div', 'nm-gbs');
     box.setAttribute('data-state', 'open');
     box.appendChild(el('p', 'nm-gbs-lead', tx('lead')));
+    const pages = R.lines.filter(ln => ln.targets.length);
+    const sections = [];
+    let pageIndex = 0;
+    const nav = el('div', 'nm-gbs-nav');
+    const pageLabel = el('span', 'nm-gbs-page');
+    pageLabel.setAttribute('aria-live', 'polite');
+    const previous = el('button', 'nm-st-btn', tx('previous'));
+    previous.type = 'button';
+    const next = el('button', 'nm-st-btn', tx('next'));
+    next.type = 'button';
+    const practiceNote = el('p', 'nm-gbs-practice');
+    practiceNote.setAttribute('aria-live', 'polite');
+    nav.append(previous, pageLabel, next);
+    nav.hidden = !cfg.paged;
+    box.append(nav, practiceNote);
 
     const cells = {};   // 표시 id → { cell, opts:{hun,eum}, flag, sr, noteBox, marks:{} }
     R.lines.forEach((ln, li) => {
@@ -161,6 +176,9 @@
         row.appendChild(cell);
       });
       sec.appendChild(row);
+      ln.targets.filter(t => t.reading && t.gloss).forEach(t => {
+        sec.appendChild(el('p', 'nm-gbs-reading', tx('reading', { char: t.char, eum: eum[t.at] || '', gloss: t.gloss, reading: t.reading })));
+      });
       // 고르지 않는 글자의 설명(해석·알아 두기)은 처음부터, 고르는 글자의 설명은 끝난 뒤
       ln.notes.forEach(n => {
         if (!NM.ui.marker || !n.text) return;
@@ -180,6 +198,7 @@
       });
       sec.appendChild(after);
       sec._after = after;
+      sections.push({ sec, ln });
       box.appendChild(sec);
     });
 
@@ -235,6 +254,33 @@
       ruleSec._flag.textContent = sym(m);
     }
     function allMarked() { return R.ids.every(id => CHOICES.indexOf(marks[id]) >= 0); }
+    function showPage() {
+      if (!cfg.paged) { previous.disabled = next.disabled = locked; return; }
+      const current = pages[pageIndex];
+      sections.forEach(({ sec, ln }) => { sec.hidden = ln.targets.length ? ln !== current : pageIndex !== pages.length - 1; });
+      previous.disabled = pageIndex === 0;
+      next.hidden = pageIndex === pages.length - 1;
+      next.disabled = !locked && !current.targets.every(t => marks[t.id]);
+      pageLabel.textContent = tx('page', { n: pageIndex + 1, total: pages.length });
+      if (ruleSec) ruleSec.hidden = pageIndex !== pages.length - 1;
+      submit.hidden = pageIndex !== pages.length - 1;
+    }
+    function goPage(index) {
+      pageIndex = Math.max(0, Math.min(pages.length - 1, index));
+      practiceNote.textContent = '';
+      showPage();
+      const body = box.closest('.nm-st-body');
+      if (body) body.scrollTop = 0;
+    }
+    previous.addEventListener('click', () => goPage(pageIndex - 1));
+    next.addEventListener('click', () => {
+      if (!locked) {
+        const wrong = pages[pageIndex].targets.filter(t => marks[t.id] !== wantMarks[t.id]);
+        wrong.forEach(t => setMark(t.id, 'wrong', true));
+        if (wrong.length) { practiceNote.textContent = tx('practiceWrong'); return; }
+      }
+      goPage(pageIndex + 1);
+    });
     function refresh() {
       R.ids.forEach(id => CHOICES.forEach(k => {
         const b = cells[id].opts[k];
@@ -251,6 +297,7 @@
       }
       left.textContent = n ? tx('left', { n }) : '';
       submit.disabled = locked || !ready || (!!rule && !ruleSel);
+      showPage();
     }
     function choose(id, k) {
       if (locked) return;
@@ -285,10 +332,14 @@
         R.ids.forEach(id => setMark(id, 'wrong', w.indexOf(id) >= 0));
         setRuleMark('wrong', w.indexOf('rule') >= 0);
         lastWrong = w.slice();
+        if (cfg.paged) {
+          const index = pages.findIndex(ln => ln.targets.some(t => w.indexOf(t.id) >= 0));
+          if (index >= 0) goPage(index);
+        }
       },
       showHint(step, target) {
         if (step < 2) return;
-        const tl = target == null ? lastWrong : (Array.isArray(target) ? target : [target]);
+        const tl = cfg.paged && !lastWrong.length ? (allMarked() ? ['rule'] : pages[pageIndex].targets.map(t => t.id)) : target == null ? lastWrong : (Array.isArray(target) ? target : [target]);
         tl.forEach(tk => { if (tk === 'rule') setRuleMark('hint', true); else setMark(tk, 'hint', true); });
       },
       showAnswer(answer) {
@@ -297,6 +348,7 @@
         R.ids.forEach(id => { marks[id] = am[id]; setMark(id, 'answer', true); });
         if (rule && a.rule) { ruleSel = a.rule; rule.setSelected(a.rule); rule.reveal(a.rule); setRuleMark('answer', true); }
         finish(o.readOnly ? 'done' : 'answer');
+        if (cfg.paged) goPage(pages.length - 1);
       },
       destroy() { if (box.parentNode) box.parentNode.removeChild(box); }
     };

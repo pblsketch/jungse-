@@ -10,6 +10,7 @@
 import { chromium } from 'playwright';
 import { serve } from '../server.mjs';
 import { answerOpening } from '../lib/opening.mjs';
+import { reachLearningTarget } from '../lib/learning-flow.mjs';
 
 const HARD_LIMIT = setTimeout(() => { console.log('FAIL mobile-layout-browser: time limit (240 s)'); process.exit(1); }, 240000);
 let failed = 0;
@@ -169,6 +170,7 @@ try {
     if (env.narrow) check(`${env.tag} stage: compact toolbar is one horizontal row`, m.tb.every(b => Math.abs(b.t - m.tb[0].t) < 1) && m.toolbar.h < 70, { tb: m.tb, h: m.toolbar.h });
     if (env.vp.height > env.vp.width * 1.15) check(`${env.tag} stage: map fills >= 80% of the screen height (smaller black bands)`, m.mapCssH >= 0.8 * m.cssH, { mapH: Math.round(m.mapCssH), cssH: m.cssH });
     // 살피기 단추가 보이게 선생님 곁으로 걸어가기
+    await reachLearningTarget(page, { context: 's0.c3' });
     await page.evaluate(() => NM.engine.walkTo('s0.c3', { focusAct: true }));
     await page.waitForFunction(() => { const s = NM.engine.test.state(); return !s.walking && !document.getElementById('nm-act').hidden; }, null, { timeout: 20000 }).catch(() => {});
     await page.waitForTimeout(100);

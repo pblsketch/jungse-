@@ -88,7 +88,7 @@ try {
   // 2번째 틀림 → hints[1] = 'shape.g' 강조 (지금은 맞게 고쳤어도 강조 대상은 데이터가 정한다)
   await page.click(q('.nm-glf-submit'));
   v = await marks();
-  check('2nd wrong: hint target emphasized (showHint 2)', v.hint.split(',').includes('shape.g') && v.step === '2', v);
+  check('2nd wrong: actual wrong add slots emphasized, correct shape left clean', v.hint.split(',').includes('add.n.1') && v.hint.split(',').includes('add.n.2') && !v.hint.split(',').includes('shape.g') && v.step === '2', v);
   check('2nd wrong: still open', (await K.state(page, 's2', 's2.t1')) === 'open');
 
   // 3번째 틀림 → doneByHelp

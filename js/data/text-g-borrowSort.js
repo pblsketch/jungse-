@@ -10,6 +10,11 @@ NM.data.TEXT = NM.data.TEXT || {};
 NM.data.TEXT.g = NM.data.TEXT.g || {};
 NM.data.TEXT.g.borrowSort = {
   lead: '밑줄 친 한자마다 그 글자의 뜻을 빌려 썼는지, 소리를 빌려 썼는지 고르세요.',
+  reading: '%char% · 한자음: %eum% / 새김: %gloss% / 이 구절의 읽기: %reading%',
+  page: '사례 %n% / %total%',
+  previous: '앞 사례',
+  next: '확인하고 다음 사례',
+  practiceWrong: '다시 볼 글자를 표시했어요. 한자음, 새김, 이 구절의 읽기를 견주어 고쳐 보세요.',
   hun: '뜻',
   eum: '소리',
   hunLong: '뜻을 빌림',

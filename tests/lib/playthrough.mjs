@@ -84,11 +84,24 @@ export async function playStage(page, { stageId, level, nickname = '시험', wro
   if (!plan.items.length) note('no core items for this level');
   const stateOf = (id) => page.evaluate((id) => { const p = window.__pt.store.stage(window.__pt.stageId || NM.ui.stage.current().stageId); return p.items[id] ? p.items[id].state : 'none'; }, id);
 
-  for (const it of plan.items) {
+  const remaining = plan.items.slice();
+  let turns = 0;
+  while (remaining.length && turns++ < 160) {
+    const guide = await page.evaluate(() => NM.ui.stage.guidance ? NM.ui.stage.guidance() : null);
+    if (guide && !guide.readyItems.length) {
+      if (!guide.objectives.length) { note('learning flow has no next context or item'); break; }
+      await page.evaluate(id => NM.ui.stage.openContext(id), guide.objectives[0]);
+      await settle(page);
+      await closeAll(page);
+      continue;
+    }
+    const index = guide ? remaining.findIndex(it => guide.readyItems.includes(it.id)) : 0;
+    if (index < 0) { note('learning flow cannot reach remaining items'); break; }
+    const it = remaining.splice(index, 1)[0];
     if (it.kind === 'read') {
       const ctx = [...new Set(it.contexts)];
       if (ctx.length < 2) { note(it.id + ' has fewer than 2 contexts'); continue; }
-      for (const cid of ctx.slice(0, 2)) {
+      for (const cid of (guide ? [] : ctx.slice(0, 2))) {
         const onMap = await page.evaluate((cid) => !!NM.engine.test.target(cid), cid);
         if (!onMap) note(it.id + ': context ' + cid + ' not on the map');
         await page.evaluate((cid) => NM.ui.stage.openContext(cid), cid);

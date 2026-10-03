@@ -58,6 +58,9 @@ NM.data.TEXT.stage = {
   },
 
   hudItems: '풀어야 할 것',
+  flowGoal: '지금 할 일 · %n% / %total%',
+  flowLocked: '먼저 %goal%',
+  finishContext: '조사를 마쳤어요',
   seen: '살펴본 단서 %n% / %need%',
   clues: '살핀 곳 (눌러서 다시 보기)',
   needMore: '이 항목의 단서가 있는 서로 다른 장소 두 곳을 살펴야 답을 확정할 수 있어요.',

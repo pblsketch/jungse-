@@ -306,6 +306,11 @@
     if (!id) return null;
     return W.spots.find(s => s.contextId === id) || W.npcs.find(n => n.npcId === id) || W.npcs.find(n => n.contextId === id) || null;
   }
+  function placeAvailable(t) { return !W.availablePlaces || W.availablePlaces.has(t.contextId) || W.availablePlaces.has(t.npcId); }
+  function setAvailablePlaces(ids) {
+    W.availablePlaces = Array.isArray(ids) ? new Set(ids) : null;
+    updateNearest();
+  }
   function markerPoint(t) { return t.kind === 'npc' ? { x: t.x, y: t.y - 70 } : { x: t.cx, y: t.y - 10 }; }
   function targetId(t) { return t.kind === 'npc' ? t.npcId : t.contextId; }
   function placeOf(t) {
@@ -356,6 +361,7 @@
     if (W.map && !W.paused) {
       const fy = W.pos.y - cfg.feet.hh;
       W.spots.concat(W.npcs).forEach(t => {
+        if (!placeAvailable(t)) return;
         const d = distRect(W.pos.x, fy, targetRect(t));
         if (d <= cfg.reach && d < bd) { bd = d; best = t; }
       });
@@ -371,6 +377,7 @@
   }
 
   function fireInteract(t) {
+    if (!placeAvailable(t)) return false;
     const r = targetRect(t);
     faceToward(r.x + r.w / 2, r.y + r.h / 2);
     applyAnim();
@@ -465,6 +472,7 @@
     W.spots.forEach(s => { if (!target && distRect(wx, wy, { x: s.x, y: s.y, w: s.w, h: s.h }) <= 20) target = s; });
     W.npcs.forEach(n => { if (!target && wx > n.x - 22 && wx < n.x + 22 && wy > n.y - 64 && wy < n.y + 6) target = n; });
     let goal;
+    if (target && !placeAvailable(target)) { E.emit('lockedInteract', { contextId: target.contextId || null, npcId: target.npcId || null }); return false; }
     if (target) goal = approachPoint(target);
     else if (!P.collides(g, wx, wy, hw, hh)) goal = { x: wx, y: wy };
     else {
@@ -609,7 +617,7 @@
   // 장소 목록(학생): 그 대상 곁까지 걸어간다(순간 이동 없음). 길을 놓으면 true.
   function walkTo(id, opts) {
     const t = findTarget(id), o = opts || {};
-    if (!t || !W.map || W.paused) return false;
+    if (!t || !placeAvailable(t) || !W.map || W.paused) return false;
     const info = placeInfo(t), name = info ? info.name : String(id);
     const goal = approachPoint(t);
     const fy = W.pos.y - cfg.feet.hh;
@@ -795,7 +803,7 @@
 
   function goTo(id) {
     const t = findTarget(id);
-    if (!t || !W.map) return false;
+    if (!t || !placeAvailable(t) || !W.map) return false;
     const p = approachPoint(t);
     if (p) teleport(p.x, p.y);
     return fireInteract(t);
@@ -803,7 +811,7 @@
 
   // 장소 목록: 맵 순서(조사 지점 → 인물). name(대상 이름, 모르면 null)·person·objective(지금 목표)·visited(이 맵에서 살핌)
   function listPlaces() {
-    return W.spots.concat(W.npcs).map(t => {
+    return W.spots.concat(W.npcs).filter(placeAvailable).map(t => {
       const p = placeOf(t), info = placeInfo(t), id = p.id;
       return Object.assign(p, {
         name: info ? info.name : null, person: !!(info && info.person),
@@ -836,7 +844,7 @@
   }
 
   Object.assign(W, {
-    makeSceneClass, attachInput, loadMap, tapAt, interact, setPaused, setReduced, setObjective, setHighlightObj,
+    makeSceneClass, attachInput, loadMap, tapAt, interact, setPaused, setReduced, setObjective, setAvailablePlaces, setHighlightObj,
     teleport, goTo, walkTo, listPlaces, setPlaceNamer, placeName, findTarget, worldToCss, cssToWorld, updateCamera, updateArrows, cancelPath, releaseJoy, clearKeys, targetRect
   });
 })(typeof window !== 'undefined' ? window : globalThis);

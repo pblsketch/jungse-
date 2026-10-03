@@ -13,6 +13,10 @@ NM.data = NM.data || {};
 NM.data.TEXT = NM.data.TEXT || {};
 NM.data.TEXT.g = NM.data.TEXT.g || {};
 NM.data.TEXT.g.letterForge = {
+  previous: '앞 글자',
+  next: '확인하고 다음 글자',
+  page: '연습 %n% / %total%',
+  practiceWrong: '다시 볼 곳을 표시했어요. 이 글자의 모양이나 획을 고쳐 보세요.',
   glyphs: {
     g: 'ㄱ', k: 'ㅋ', n: 'ㄴ', d: 'ㄷ', t: 'ㅌ', m: 'ㅁ', b: 'ㅂ', p: 'ㅍ', s: 'ㅅ', j: 'ㅈ', ch: 'ㅊ',
     o: 'ㅇ', q: 'ㆆ', h: 'ㅎ', ng: 'ㆁ', r: 'ㄹ', z: 'ㅿ',

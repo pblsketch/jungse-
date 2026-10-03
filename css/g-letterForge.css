@@ -120,3 +120,7 @@ html.nm-reduced-motion .nm-glf-board .nm-glf-stroke, html[data-nm-motion="reduce
 
 .nm-glf-foot { display: flex; flex-wrap: wrap; gap: .6em; align-items: center; justify-content: flex-end; }
 .nm-glf-left { margin-right: auto; font-size: .9em; }
+.nm-glf [hidden] { display: none !important; }
+.nm-glf-nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5em; }
+.nm-glf-practice { margin: 0; color: var(--seal, #b8322a); }
+.nm-glf-practice:empty { display: none; }

@@ -439,13 +439,14 @@
         if (!o.readOnly) { locked = false; box.classList.remove('is-locked', 'is-done'); }
         clearAll('wrong');
         const w = (info && info.wrong) || {};
+        box._hintTargets = Object.keys(w.link || {}).concat(list(w.spell));
         Object.keys(w.link || {}).forEach(cid => list(w.link[cid]).forEach(pos => setMark(nodes.slot[cid] && nodes.slot[cid][pos], 'wrong', true)));
         list(w.spell).forEach(sid => { if (spell[sid] && nodes.kind[sid]) setMark(nodes.kind[sid][spell[sid]], 'wrong', true); });
         render();
       },
       showHint(step, target) {
         if (step < 2) return;
-        const targets = Array.isArray(target) ? target : [target];
+        const targets = target == null ? (box._hintTargets || []) : Array.isArray(target) ? target : [target];
         targets.forEach(t => {
           if (t == null) return;
           box.querySelectorAll('[data-target]').forEach(n => { if (n.getAttribute('data-target') === String(t)) setMark(n, 'hint', true); });

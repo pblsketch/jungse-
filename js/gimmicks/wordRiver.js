@@ -145,6 +145,7 @@
       words.forEach((w, wi) => {
         const row = el('div', 'wr-word');
         row.setAttribute('data-target', w.id);
+        if (w.note) row.appendChild(el('p', 'wr-help', w.note));
         row.setAttribute('data-word', w.id);
         const lab = el('p', 'wr-word-label');
         if (w.label) {
@@ -356,6 +357,7 @@
         if (!o.readOnly) { locked = false; box.classList.remove('is-locked', 'is-done'); }
         clearAll('wrong');
         const w = (info && info.wrong) || {};
+        box._hintTargets = Object.keys(w.order || {}).concat(w.now && (list(w.now.extra).length || w.now.missing) ? ['now'] : []);
         Object.keys(w.order || {}).forEach(wid => list(w.order[wid]).forEach(n => setMark(nodes.stop[wid] && nodes.stop[wid][n - 1], 'wrong', true)));
         const nw = w.now || {};
         list(nw.extra).forEach(id => setMark(nodes.choice[id], 'wrong', true));
@@ -368,7 +370,7 @@
       },
       showHint(step, target) {
         if (step < 2) return;
-        (Array.isArray(target) ? target : [target]).forEach(t => {
+        (target == null ? (box._hintTargets || []) : Array.isArray(target) ? target : [target]).forEach(t => {
           if (t == null) return;
           box.querySelectorAll('[data-target]').forEach(n => { if (n.getAttribute('data-target') === String(t)) setMark(n, 'hint', true); });
         });
