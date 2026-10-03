@@ -44,6 +44,11 @@ try {
         placeholder: NM.ui.stageText.t('reflectPlaceholder')
       };
     }, { id, level, fallback });
+    if (id === 's0') {
+      const plate = page.locator('[data-win="carve"]');
+      assert.match(await plate.innerText(), /통사 패를 받았어요/);
+      assert.equal(await plate.locator('.nm-st-glyph').innerText(), '');
+    }
     await page.locator('[data-win="carve"] .nm-st-next').click();
     await page.locator('[data-win="reflect"]').waitFor();
     return prompt;
@@ -81,44 +86,10 @@ try {
   await page.keyboard.press('Escape');
   await page.evaluate(() => window.__reflectionRun);
   assert.equal(await page.evaluate(() => window.__reflectionStore.stage('s5').reflection), '기존 기록');
-  for (const width of [1280, 360]) {
-    await page.setViewportSize({ width, height: width === 360 ? 740 : 800 });
-    await page.evaluate(async () => {
-      NM.ui.stage.stop();
-      const store = NM.core.save.createStore({ storage: null, level: 'm' });
-      store.setup({ level: 'm', protagonist: 1, nickname: '바다' });
-      await NM.ui.stage.run('s0', { store, level: 'm', teacher: false, onExit() {} });
-    });
-    const dialog = page.locator('[data-win="dialog"][data-kind="intro"]');
-    await dialog.waitFor();
-    assert.match(await dialog.innerText(), /15세기 조선/);
-    await dialog.locator('.nm-dlg-next').click();
-    assert.match(await dialog.innerText(), /누구나 쉽게 배워 날마다 쓸 수 있는/);
-    const portrait = dialog.locator('.nm-dlg-portrait img');
-    assert.match(await portrait.getAttribute('src'), /sejong/);
-    await portrait.evaluate(img => img.decode());
-    const history = dialog.locator('.nm-dlg-main').getByRole('button', { name: /^실제 역사 보기/ });
-    await history.click();
-    assert.match(await dialog.innerText(), /서문의 뜻을 바탕으로 다시 쓴/);
-    await page.screenshot({ path: join(shots, `intro-sejong-${width}.png`) });
-    await dialog.locator('.nm-dlg-next').click();
-    assert.match(await dialog.innerText(), /2026년, 국어 시간/);
-    await page.screenshot({ path: join(shots, `intro-classroom-${width}.png`) });
-    for (let n = 0; n < 10 && await dialog.count(); n++) await dialog.locator('.nm-dlg-next').click();
-    const request = page.locator('[data-kind="request"]');
-    await request.waitFor();
-    assert.match(await request.innerText(), /지금도 쓰는 글자를 골라/);
-    await request.locator('.nm-dlg-next').click();
-    const task = page.locator('[data-win="task"][data-item="s0.t1"]');
-    await task.waitFor();
-    assert.match(await task.innerText(), /지금도 쓰는 글자/);
-    assert.equal(await task.evaluate(w => w.scrollWidth <= w.clientWidth + 1), true);
-    await page.evaluate(() => NM.ui.stage.stop());
-  }
   assert.deepEqual(log.console, []);
   assert.deepEqual(log.external, []);
   assert.deepEqual(await page.evaluate(() => window.__nmErrors || []), []);
-  console.log(`reflection-browser ok: ${checked} reflection cases; intro in 2 viewports; save, skip, Escape, fallback; errors 0`);
+  console.log(`reflection-browser ok: ${checked} reflection cases; save, skip, Escape, fallback; errors 0`);
 } finally {
   if (browser) await browser.close();
   await server.close();

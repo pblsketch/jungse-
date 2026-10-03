@@ -1,0 +1,88 @@
+{
+  "provider": "Fish Audio",
+  "models": [
+    "s2.1-pro-free"
+  ],
+  "clips": [
+    {
+      "id": "s0.villager-request",
+      "speaker": "villager",
+      "text": "나리, 저는 어린 백성입니다. 억울한 일을 당해도 제 뜻을 글로 적어 전할 수가 없습니다.",
+      "direction": "[worried]",
+      "file": "assets/audio/voices/s0-villager-request.mp3",
+      "duration": 6.556735,
+      "sha256": "6bde97a10d22fa9ed757759fae60efe366403db6fc8781d0bc0b304ebb14b9f9",
+      "generation_digest": "197c4935c7bd9d288d7875b93ff74117dc54609e17edd53fcc32329f26f6d1f4"
+    },
+    {
+      "id": "s0.villager-young",
+      "speaker": "villager",
+      "text": "제가 어린아이로 보이시오? 나이가 아니라, 글을 몰라 제 뜻을 전하지 못한다는 말이오.",
+      "direction": "[confused]",
+      "file": "assets/audio/voices/s0-villager-young.mp3",
+      "duration": 6.060408,
+      "sha256": "11bf18989c5745e95d2e20b3c9eb5c7c15a3de1a067b4342ee93fef22cfe71f2",
+      "generation_digest": "336ba76a90db2947f9dd19a6b3b776ab05887999e48547b3fb4f2c42ddb5877a"
+    },
+    {
+      "id": "s0.villager-unlearned",
+      "speaker": "villager",
+      "text": "그렇소. 제 나이가 어리다는 말이 아니오. 글을 몰라 말하고 싶은 뜻을 제대로 전하지 못하고 있소.",
+      "direction": "[relieved]",
+      "file": "assets/audio/voices/s0-villager-unlearned.mp3",
+      "duration": 6.844082,
+      "sha256": "3a5c7f9942f1e9b7213490d3fbae38955e97961eaf3643998c5c6fb0d1bba481",
+      "generation_digest": "706c406a261d97a94cc4e14f1195f553dc815bb072150e418c870919b77ccd5f"
+    },
+    {
+      "id": "s0.sejong",
+      "speaker": "sejong",
+      "text": "백성이 자기 뜻을 글로 전할 수 있도록, 누구나 쉽게 배워 날마다 쓸 수 있는 새 글자를 만들고자 한다.",
+      "direction": "[calm]",
+      "file": "assets/audio/voices/s0-sejong.mp3",
+      "duration": 6.138776,
+      "sha256": "6d16431af44d819c0d572663e255063b28f0eb3a093bc11d436f5c9fe53b49e7",
+      "generation_digest": "9651cc55b7a4433ce57960c8d69ccab291795961e2ab955bb2e20e201d254305"
+    },
+    {
+      "id": "s0.explanation",
+      "speaker": "narrator",
+      "text": "옛말 ‘어리다’는 ‘어리석다’라는 뜻이었어요. 여기서는 글을 잘 알지 못하는 백성의 어려움을 말해요.",
+      "direction": "[explaining]",
+      "file": "assets/audio/voices/s0-explanation.mp3",
+      "duration": 6.974694,
+      "sha256": "845e426b05d6777d04dafd97dfff2f25d0197623571301ba32524e99f86f4143",
+      "generation_digest": "c6e2b3d1787e9588ac02ababe4a4c75f03afd35ba19b43b78aaadc64d60d1dae"
+    },
+    {
+      "id": "s0.mission",
+      "speaker": "narrator",
+      "text": "내 역할은 옛 글을 읽어 사람들을 돕는 정음 통사입니다. 마지막 미션은 세종의 서문을 끝까지 해독하고, 말의 강을 따라 내 시대로 돌아오는 것입니다.",
+      "direction": "[encouraging]",
+      "file": "assets/audio/voices/s0-mission.mp3",
+      "duration": 10.370612,
+      "sha256": "53851bf77ee3d9739bf66f5314dbc921e1d467799c85251c01da39e9d2afad39",
+      "generation_digest": "302939594d4901b0f2ea383436e3a22d3b09f49ee664cf4d0b5a02c4747e0618"
+    },
+    {
+      "id": "s0.portal",
+      "speaker": "narrator",
+      "text": "목소리가 잦아들자, 눈앞에 2026년의 교실이 보인다. 펼친 교과서에서 옛 글자가 떨어져 나와 빛난다. 시간 여행의 문을 열려면 먼저 이 글자들을 모아야 한다.",
+      "direction": "[storytelling]",
+      "file": "assets/audio/voices/s0-portal.mp3",
+      "duration": 12.329796,
+      "sha256": "a9f68bc694e0a1896fed9afcc1c4c1df0b592c454f7cd069e5023119b6e36788",
+      "generation_digest": "a6abcb5b9a71359f6ad9985a985b720f2bfedc5ba7756b99f02cc46b985c67d3"
+    },
+    {
+      "id": "s0.first-task",
+      "speaker": "sejong",
+      "text": "먼저 흩어진 글자 중에서 지금도 쓰는 글자를 골라 다오. 글자를 누른 뒤 알맞은 칸에 놓으면 된다.",
+      "direction": "[guiding]",
+      "file": "assets/audio/voices/s0-first-task.mp3",
+      "duration": 7.026939,
+      "sha256": "558b65fa29b9466858e71353591adb149b44a58a6bfad2699b43b9a9352c92bd",
+      "generation_digest": "55cae4bcd21370405b3c42b99bbba51e5b528d402c62da533f66050d1d5330d5"
+    }
+  ]
+}

@@ -31,7 +31,7 @@
   function carve(env) {
     return new Promise(resolve => {
       NM.ui.stageWindow.open({
-        win: 'carve', title: TX().t('win.carve'), className: 'nm-st-endwin',
+        win: 'carve', title: TX().t(env.scene.carveGlyph ? 'win.carve' : 'win.plate'), className: 'nm-st-endwin',
         build(w) {
           const plate = el('div', 'nm-st-plate' + (env.reducedMotion() ? ' is-still' : ''));
           const g = el('span', 'nm-st-glyph nm-yet');
@@ -41,7 +41,7 @@
           else g.appendChild(YB().build(cg, {}));
           plate.appendChild(g);
           w.body.appendChild(plate);
-          w.body.appendChild(el('p', 'nm-st-end-text', TX().t('carve')));
+          w.body.appendChild(el('p', 'nm-st-end-text', TX().t(cg ? 'carve' : 'carveEmpty')));
           const next = button('nm-st-next', 'btn.next', true);
           next.addEventListener('click', () => w.close('next'));
           w.foot.appendChild(next);

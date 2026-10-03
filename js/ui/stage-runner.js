@@ -126,6 +126,7 @@
     try {
       E().setReducedMotion(reduce);
       if (E().audio) { E().audio.setBgmEnabled(s.bgm !== false); E().audio.setSfxEnabled(s.sfx !== false); }
+      if (E().audio && E().audio.setVoiceEnabled) E().audio.setVoiceEnabled(s.voice !== false);
     } catch (e) { NM.reportError('stage.settings', e); }
     cur.eff = { bangjeom: bj, reducedMotion: reduce };
   }
@@ -415,7 +416,7 @@
 
   function intro(my) {
     const sc = cur.scene;
-    const fic = (Array.isArray(sc.fiction) ? sc.fiction : []).filter(f => f && f.id && !cur.store.hasSeenNotice('fiction:' + f.id)).map(f => {
+    const fic = (sc.opening ? [] : (Array.isArray(sc.fiction) ? sc.fiction : [])).filter(f => f && f.id && !cur.store.hasSeenNotice('fiction:' + f.id)).map(f => {
       // 이야기 앞에 크게 늘어놓지 않고 한 줄 표지로(펼치면 "실제로는 →") — 처음 나올 때 실제 설명이 바로 열린다
       const card = MK().card({ kind: 'fiction', compact: true, id: f.id, name: f.name, text: f.text, real: f.real, showReal: true, fill });
       cur.store.markNotice('fiction:' + f.id);
@@ -423,6 +424,7 @@
     });
     const origs = (part) => (part && Array.isArray(part.orig) ? part.orig : []).map(id => MK().orig(id, { solved: [], modern: modernOn(id) })).filter(Boolean);
     const steps = [
+      () => sc.opening ? NM.ui.stageOpening.run(Object.assign(dialogEnv(), { alive: () => alive(my) })) : null,
       () => play(sc.intro, { kind: 'intro', title: titleNode(sc.title), extras: fic }),
       () => play(sc.request, { kind: 'request', title: TX().t('win.request') }),
       () => play(sc.encounter && sc.encounter.lines, { kind: 'encounter', title: TX().t('win.encounter'), extras: origs(sc.encounter) }),

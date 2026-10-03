@@ -1,0 +1,57 @@
+import assert from 'node:assert/strict';
+import { chromium } from 'playwright';
+import { serve } from '../server.mjs';
+import { openGame } from '../lib/playthrough.mjs';
+const urlArg = process.argv.indexOf('--url');
+const server = urlArg >= 0 ? { url: process.argv[urlArg + 1], close: async () => {} } : await serve();
+let browser;
+try {
+  browser = await chromium.launch({ channel: 'chrome', headless: true });
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const { page, log } = await openGame(context, server.url);
+  await page.evaluate(async () => {
+    const store = NM.core.save.createStore({ storage: null, level: 'm' });
+    store.setup({ level: 'm', protagonist: 1, nickname: '바다' });
+    window.__voiceStore = store;
+    await NM.ui.stage.run('s0', { store, level: 'm', teacher: false, onExit() {} });
+  });
+  const opening = page.locator('[data-opening="choice"]');
+  await opening.waitFor();
+  await opening.getByRole('button', { name: '지금 대사와 안내 다시 듣기' }).click();
+  await page.waitForFunction(() => NM.engine.audio.state().voiceKey === 's0.villager-request' && NM.engine.audio.state().voiceCurrentTime > 0.1);
+  let state = await page.evaluate(() => NM.engine.audio.state());
+  assert.equal(state.voicePlaying, true);
+  assert.ok(state.bgmVolumeActual < 0.2, 'music is ducked during speech');
+  const progress = await page.evaluate(() => JSON.stringify(window.__voiceStore.stage('s0')));
+  await opening.locator('[data-option="young"]').click();
+  await page.waitForFunction(() => NM.engine.audio.state().voiceKey === 's0.villager-young' && NM.engine.audio.state().voiceCurrentTime > 0.1);
+  await opening.locator('[data-option="unlearned"]').click();
+  await page.waitForFunction(() => NM.engine.audio.state().voiceKey === 's0.villager-unlearned' && NM.engine.audio.state().voiceCurrentTime > 0.1);
+  assert.equal(await page.evaluate(() => JSON.stringify(window.__voiceStore.stage('s0'))), progress);
+  await opening.locator('.nm-dlg-next').click();
+  const mission = page.locator('[data-opening="mission"]');
+  await mission.waitFor();
+  await page.waitForFunction(() => NM.engine.audio.state().voiceKey === 's0.mission' && NM.engine.audio.state().voiceCurrentTime > 0.1);
+  await page.evaluate(() => NM.engine.audio.setVoiceEnabled(false));
+  state = await page.evaluate(() => NM.engine.audio.state());
+  assert.equal(state.voicePlaying, false); assert.equal(state.voiceKey, null); assert.equal(state.voicePending, 0);
+  assert.equal(state.bgmVolumeActual, 0.5);
+  assert.equal(await mission.locator('.nm-voice-replay').isDisabled(), true);
+  await page.evaluate(() => { NM.engine.audio.setVoiceEnabled(true); NM.engine.audio.setSfxEnabled(false); });
+  await mission.locator('.nm-voice-replay').click();
+  await page.waitForFunction(() => NM.engine.audio.state().voiceCurrentTime > 0.1);
+  assert.equal(await page.evaluate(() => NM.engine.audio.state().voicePlaying), true, 'voice independent of sound effects');
+  await mission.locator('.nm-dlg-next').click();
+  await page.locator('[data-kind="intro"]').waitFor();
+  await page.waitForFunction(() => NM.engine.audio.state().voiceKey === 's0.portal');
+  await page.evaluate(() => NM.ui.stage.stop());
+  await page.waitForTimeout(150);
+  state = await page.evaluate(() => NM.engine.audio.state());
+  assert.equal(state.voicePlaying, false); assert.equal(state.voiceKey, null); assert.equal(state.voicePending, 0);
+  assert.deepEqual(log.console, []); assert.deepEqual(log.external, []);
+  assert.deepEqual(await page.evaluate(() => window.__nmErrors || []), []);
+  console.log('voice-browser ok: real MP3 playback, replay, replacement, ducking, mute, next, stop, record isolation, errors 0');
+} finally {
+  if (browser) await browser.close();
+  await server.close();
+}

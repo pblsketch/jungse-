@@ -27,7 +27,7 @@ NM.data.TEXT.stage = {
     moreHelp: '실마리 더 보기', helpAnswer: '선배에게 정답 듣기'
   },
   win: {
-    context: '조사', item: '해독', task: '과제', carve: '새김', reflect: '돌아보기', save: '수첩 이미지',
+    context: '조사', item: '해독', task: '과제', carve: '새김', plate: '통사 패', reflect: '돌아보기', save: '수첩 이미지',
     dialog: '이야기', request: '의뢰', encounter: '원문과 마주침', example: '선배의 풀이',
     needs: '선배의 짧은 설명', misread: '오해 장면', translate: '통역'
   },
@@ -92,6 +92,7 @@ NM.data.TEXT.stage = {
   prologue: '서장',
   epilogue: '종장',
   carve: '통사 패에 글자를 새겼어요.',
+  carveEmpty: '통사 패를 받았어요. 옛 글을 읽어 의뢰를 해결하면 여기에 글자가 하나씩 새겨져요.',
   reflectAsk: '이 장면에서 만난 말은 지금 우리가 쓰는 말과 어떤 점이 다른가요?',
   reflectHelp: '채점하지 않아요. 비워 두고 넘어가도 괜찮아요.',
   reflectPlaceholder: '지금 우리가 쓰는 말과 다른 점',
@@ -100,6 +101,20 @@ NM.data.TEXT.stage = {
   goTranslateTo: '해독과 과제를 모두 마쳤어요. %name%에게 가서 통역해 주세요.',
   goTranslateHere: '해독과 과제를 모두 마쳤어요. 준비되면 통역을 시작하세요.',
   hudLabel: '장면 진행',
+  voice: {
+    replay: '다시 듣기',
+    replayLabel: '지금 대사와 안내 다시 듣기',
+    off: '대사 음성이 꺼져 있어요. 설정에서 켤 수 있어요.'
+  },
+  opening: {
+    continue: '내 역할과 미션 보기',
+    accept: '첫 의뢰 맡기',
+    role: '내 역할',
+    play: '이렇게 플레이해요',
+    goal: '마지막 미션',
+    history: '이야기와 실제 역사',
+    feedback: '뜻을 골랐더니…'
+  },
   // 통역 고르기(js/ui/stage-translate.js) — 해독한 뜻으로 통역 문장을 직접 고르는 창
   interp: {
     title: '통역하기',

@@ -121,6 +121,8 @@ NM.data.TEXT.ui = {
     reducedMotions: { auto: '기기 설정 따름', on: '켬', off: '끔' },
     bgm: '배경음',
     sfx: '효과음',
+    voice: '대사 음성',
+    voiceHelp: '음성이 있는 대사와 안내를 읽어 줘요. 다음으로 넘어가면 앞 음성은 멈춰요.',
     soundHelp: '소리는 화면을 처음 누르거나 키를 누른 뒤에 나요.',
     teacher: '교사 모드',
     teacherHelp: '걷기 건너뛰기, 크게 보기, 정답 바로 보기를 쓸 수 있어요. 교사 모드에서는 기록을 남기지 않아요.',

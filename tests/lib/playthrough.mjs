@@ -6,6 +6,7 @@
 // 사용: const r = await playStage(page, { stageId: 's3', level: 'm' }); r.problems 가 비어 있어야 한다.
 
 import { isOpen as isChoiceOpen, answerTranslateChoice } from './translate-choice.mjs';
+import { answerOpening } from './opening.mjs';
 
 const TOP = '.nm-overlay-host > .nm-st-win:not([inert]):last-child';
 
@@ -37,7 +38,7 @@ async function settle(page, max = 80) {
   for (let i = 0; i < max; i++) {
     const t = await top(page);
     if (!t) break;
-    if (t.next) { seen.push(t); await click(page, TOP + ' .nm-dlg-next'); }
+    if (t.next) { seen.push(t); await answerOpening(page, TOP); await click(page, TOP + ' .nm-dlg-next'); }
     else if (t.skip) await click(page, TOP + ' .nm-st-skip');
     else if (t.later) await click(page, TOP + ' .nm-st-later');
     else if (t.endNext) await click(page, TOP + ' .nm-st-foot .nm-st-next');

@@ -9,6 +9,7 @@
 //    단추 data-act 그대로, 첫 초점 단추에 초점 테두리, 옛 글자 조각은 움직임 줄이기에서 숨는다. 가로 넘침 없음, 외부 요청 0.
 import { chromium } from 'playwright';
 import { serve } from '../server.mjs';
+import { answerOpening } from '../lib/opening.mjs';
 
 const HARD_LIMIT = setTimeout(() => { console.log('FAIL mobile-layout-browser: time limit (240 s)'); process.exit(1); }, 240000);
 let failed = 0;
@@ -140,7 +141,8 @@ try {
     await page.evaluate(() => NM.ui.app.enterStage('s0'));
     await page.waitForFunction(() => { const c = NM.ui.stage.current(); return c && (c.phase === 'intro' || c.phase === 'explore') && NM.engine.test.state().mapLoaded; }, null, { timeout: 30000 });
     for (let i = 0; i < 60; i++) {
-      const more = await page.evaluate((sel) => { const w = document.querySelector(sel); const b = w && w.querySelector('.nm-dlg-next'); if (b) { b.click(); return true; } return false; }, TOP);
+      await answerOpening(page, TOP);
+      const more = await page.evaluate((sel) => { const w = document.querySelector(sel); const b = w && w.querySelector('.nm-dlg-next'); if (b && !b.disabled) { b.click(); return true; } return false; }, TOP);
       if (!more) break;
       await page.waitForTimeout(20);
     }

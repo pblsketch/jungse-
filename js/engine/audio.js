@@ -10,8 +10,54 @@
   const NM = root.NM || (root.NM = {});
   const E = NM.engine = NM.engine || {};
 
-  const st = { unlocked: false, bgmOn: true, sfxOn: true, hidden: false, bgmKey: null, bgmVolume: 0.5, sfxVolume: 0.6, lastSfx: null, bgmPlaying: false };
+  const st = { unlocked: false, bgmOn: true, sfxOn: true, voiceOn: true, hidden: false, bgmKey: null, bgmVolume: 0.5, sfxVolume: 0.6, lastSfx: null, bgmPlaying: false, voicePlaying: false, voiceKey: null };
   let ctx = null, el = null, elKey = null;
+  let voiceEl = null, voiceEpoch = 0, voiceQueue = [];
+
+  function voiceEvent() {
+    if (typeof document !== 'undefined' && typeof root.CustomEvent === 'function') {
+      document.dispatchEvent(new root.CustomEvent('nm:voice-state'));
+    }
+  }
+  function voiceUrl(key) {
+    const u = NM.data && NM.data.VOICES && NM.data.VOICES[key];
+    return typeof u === 'string' && u ? u : null;
+  }
+  function bgmLevel() { if (el) el.volume = st.bgmVolume * (st.voicePlaying ? 0.3 : 1); }
+  function stopVoice() {
+    voiceEpoch++;
+    if (voiceEl) {
+      try { voiceEl.pause(); voiceEl.removeAttribute('src'); voiceEl.load(); } catch (e) { /* optional audio */ }
+    }
+    voiceEl = null; voiceQueue = []; st.voiceKey = null; st.voicePlaying = false;
+    bgmLevel(); voiceEvent();
+  }
+  function playVoice(keys) {
+    stopVoice();
+    if (!st.unlocked || !st.voiceOn || st.hidden || typeof root.Audio !== 'function') return false;
+    voiceQueue = (Array.isArray(keys) ? keys : [keys]).filter(key => voiceUrl(key));
+    if (!voiceQueue.length) return false;
+    const epoch = voiceEpoch;
+    function next() {
+      if (epoch !== voiceEpoch) return;
+      const key = voiceQueue.shift();
+      if (!key) { stopVoice(); return; }
+      const audio = new root.Audio();
+      voiceEl = audio; st.voiceKey = key;
+      audio.preload = 'auto'; audio.volume = 0.95; audio.src = voiceUrl(key);
+      audio.addEventListener('ended', next, { once: true });
+      audio.addEventListener('error', () => { if (epoch === voiceEpoch) stopVoice(); }, { once: true });
+      try {
+        const played = audio.play();
+        Promise.resolve(played).then(() => {
+          if (epoch !== voiceEpoch) { audio.pause(); return; }
+          st.voicePlaying = true; bgmLevel(); voiceEvent();
+        }).catch(() => { if (epoch === voiceEpoch) stopVoice(); });
+      } catch (e) { stopVoice(); }
+    }
+    next();
+    return true;
+  }
 
   function bgmUrl(key) {
     const A = NM.data && NM.data.ASSETS;
@@ -30,7 +76,7 @@
     if (elKey !== st.bgmKey) {
       stopEl();
       el = new Audio();
-      el.loop = true; el.preload = 'auto'; el.volume = st.bgmVolume;
+      el.loop = true; el.preload = 'auto'; el.volume = st.bgmVolume * (st.voicePlaying ? 0.3 : 1);
       el.addEventListener('error', () => { stopEl(); }); // 파일이 없으면 조용히 넘어간다
       el.src = bgmUrl(st.bgmKey); elKey = st.bgmKey;
     }
@@ -95,7 +141,11 @@
     stopBgm() { st.bgmKey = null; stopEl(); },
     setBgmEnabled(on) { st.bgmOn = !!on; syncBgm(); },
     setSfxEnabled(on) { st.sfxOn = !!on; },
-    state() { return { unlocked: st.unlocked, bgmOn: st.bgmOn, sfxOn: st.sfxOn, hidden: st.hidden, bgmKey: st.bgmKey, bgmPlaying: st.bgmPlaying, hasContext: !!ctx, lastSfx: st.lastSfx }; },
+    playVoice, stopVoice,
+    hasVoice: (key) => !!voiceUrl(key),
+    setVoiceEnabled(on) { st.voiceOn = !!on; if (!st.voiceOn) stopVoice(); else voiceEvent(); },
+    state() { return { unlocked: st.unlocked, bgmOn: st.bgmOn, sfxOn: st.sfxOn, voiceOn: st.voiceOn, hidden: st.hidden, bgmKey: st.bgmKey, bgmPlaying: st.bgmPlaying, hasContext: !!ctx, lastSfx: st.lastSfx,
+      voicePlaying: st.voicePlaying, voiceKey: st.voiceKey, voiceCurrentTime: voiceEl ? Number(voiceEl.currentTime) || 0 : 0, voicePending: voiceQueue.length, bgmVolumeActual: el ? el.volume : 0 }; },
     names: Object.keys(SFX)
   };
 
@@ -113,6 +163,7 @@
   if (typeof document !== 'undefined' && document.addEventListener) {
     document.addEventListener('visibilitychange', () => {
       st.hidden = document.visibilityState === 'hidden';
+      if (st.hidden) stopVoice();
       try {
         if (ctx) { if (st.hidden) ctx.suspend().catch(() => {}); else ctx.resume().catch(() => {}); }
         syncBgm();

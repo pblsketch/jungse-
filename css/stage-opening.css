@@ -1,0 +1,42 @@
+.nm-st-opening { width: min(760px, calc(100% - 24px)); }
+.nm-st-opening .nm-st-body { display: flex; flex-direction: column; gap: .65em; }
+.nm-opening-cue { margin: 0; font-size: .9em; color: #685846; }
+.nm-opening-art { display: block; width: 100%; max-height: 24vh; object-fit: cover; object-position: center 55%; border-radius: 8px; }
+.nm-opening-prompt { margin: 0; font-weight: 800; }
+.nm-opening-choices { display: grid; grid-template-columns: 1fr 1fr; gap: .6em; }
+.nm-opening-choice { min-height: 48px; text-align: center; }
+.nm-opening-choice[aria-pressed="true"] { background: #f4e1b3; border-color: #9b4c22; }
+.nm-opening-response { padding: .8em; border-left: 4px solid #a9552e; border-radius: 6px; background: #fff6e4; }
+.nm-opening-response[hidden] { display: none; }
+.nm-opening-feedback-title { margin: 0 0 .6em; font-size: 1em; }
+.nm-opening-explanation { margin: .7em 0; font-weight: 600; }
+.nm-opening-role { padding: .8em; border: 2px solid #997447; border-radius: 8px; background: #fff8e8; }
+.nm-opening-brief { display: grid; grid-template-columns: 1fr 1fr; gap: .65em; }
+.nm-opening-kicker { margin: 0 0 .3em; font-size: .85em; font-weight: 800; color: #875124; }
+.nm-opening-role-title { margin: 0 0 .6em; font-size: 1.2em; line-height: 1.45; }
+.nm-opening-appeal { margin: 0; line-height: 1.6; }
+.nm-opening-section-title { margin: .25em 0 0; font-size: 1em; }
+.nm-opening-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7em; margin: 0; padding-left: 1.3em; }
+.nm-opening-steps li { padding-left: .1em; }
+.nm-opening-steps li::marker { font-weight: 800; color: #9b4c22; }
+.nm-opening-steps strong { display: block; }
+.nm-opening-steps p { margin: .3em 0 0; font-size: .9em; }
+.nm-opening-goal { padding: .8em 1em; border-radius: 8px; background: #54251c; color: #fff7e6; }
+.nm-opening-goal .nm-opening-kicker { color: #f4d797; }
+.nm-opening-goal h3 { margin: 0; font-size: 1.1em; line-height: 1.5; }
+.nm-opening-first { margin: 0; font-weight: 600; }
+.nm-opening-history { font-size: .85em; }
+.nm-opening-history summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; text-decoration: underline; }
+.nm-opening-history .nm-card { margin-top: .6em; }
+.nm-st-foot .nm-voice-replay { flex: 0 0 auto; font-size: .85em; }
+.nm-st-foot:has(.nm-voice-replay:not([hidden])) .nm-dlg-next { flex: 1 1 auto; }
+@media (max-width: 520px) {
+  .nm-opening-brief { grid-template-columns: 1fr; }
+  .nm-opening-choices { grid-template-columns: 1fr; }
+  .nm-opening-art { max-height: 19vh; }
+  .nm-opening-steps { grid-template-columns: 1fr; gap: .6em; }
+  .nm-opening-steps p { margin-top: .15em; }
+}
+@media (max-height: 520px) {
+  .nm-opening-art { max-height: 20vh; }
+}

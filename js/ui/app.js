@@ -85,6 +85,7 @@
     if (E && E.audio) {
       if (typeof E.audio.setBgmEnabled === 'function') E.audio.setBgmEnabled(s.bgm !== false);
       if (typeof E.audio.setSfxEnabled === 'function') E.audio.setSfxEnabled(s.sfx !== false);
+      if (typeof E.audio.setVoiceEnabled === 'function') E.audio.setVoiceEnabled(s.voice !== false);
     }
     try {
       document.dispatchEvent(new CustomEvent('nm:settings', { detail: { settings: s, teacher: state.teacher, reducedMotion: reduced, fontScale: fs } }));

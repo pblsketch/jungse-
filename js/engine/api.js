@@ -150,6 +150,7 @@
   }
   E.openOverlay = function (el) {
     if (!el || el.nodeType !== 1) return false;
+    if (E.audio && E.audio.stopVoice) E.audio.stopVoice();
     const els = E.hud.init();
     if (!W.overlays.length) prevFocus = document.activeElement;
     if (W.overlays.indexOf(el) < 0) W.overlays.push(el);

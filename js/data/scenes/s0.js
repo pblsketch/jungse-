@@ -8,7 +8,7 @@
  * - 끝(통역 자리): 과거로 떨어진다. 중학교·고1은 1443년(기본), 고2~3은 고대(editions.h23.translate). spec §5-6.
  * - 선배 통사는 이 시대에 없으므로 흩어진 글자 틈에서 들리는 목소리로만 나온다(맵에 없음).
  * - 반 친구들은 그림이 없으므로 해설로만 나온다.
- * - 창제 이유에서 교실의 글자 모으기로 이어지는 도입·의뢰 6쪽 → 과제 「흩어진 글자」 두 단계.
+ * - 백성의 의뢰에 답을 골라 반응을 보는 첫 선택 → 역할·플레이 방법·최종 미션 → 교실의 글자 모으기.
  *   (① ㄱ ㅏ ㆍ 세 글자로 지금 쓰는/쓰지 않는 글자 분류 ② 나머지 글자 + 스물여덟 자 안·밖). 긴 설명은 맥락 '선생님'.
  */
 window.NM = window.NM || {};
@@ -27,10 +27,15 @@ NM.data.SCENES['s0'] = {
   startItem: 's0.t1',
   cast: {
     teacher: { name: '선생님', portrait: 'teacher_modern' },
-    sejong: { name: '세종', portrait: 'sejong' }
+    sejong: { name: '세종', portrait: 'sejong' },
+    villager: { name: '도움을 청하는 백성', portrait: 'commoner_man' }
   },
 
   fiction: [
+    { id: 'first-request', name: '책에서 들려온 첫 의뢰',
+      text: '시간을 건너 백성의 말을 듣고 뜻을 고르는 첫 의뢰',
+      real: '백성과 나누는 대화는 게임을 위해 지어냈어요. 훈민정음 서문이 밝힌, 자기 뜻을 글로 펴기 어려운 백성의 처지를 바탕으로 만든 장면이에요.',
+      src: 'https://www.korean.go.kr/nkview/nknews/200503/80_1.html' },
     { id: 'tongsa',
       text: '정음 통사: 새 글자로 적은 글을 읽고, 그 뜻을 사람들에게 전해 주는 통역관',
       real: '이런 직책은 없었어요. 이 이야기를 위해 지어낸 역할이에요.' },
@@ -41,17 +46,43 @@ NM.data.SCENES['s0'] = {
       src: 'https://contents.history.go.kr/mobile/ts/view.do?levelId=ts_b32' }
   ],
 
-  // 창제 이유를 짧게 보여 준 뒤 첫 조작으로 잇는다(도입 5 + 의뢰 1).
+  opening: {
+    title: '첫 의뢰',
+    cue: '글자 너머에서, 누군가 도움을 청한다.',
+    cg: 's6_intro',
+    quote: { who: 'villager', voice: 's0.villager-request', text: '나리, 저는 어린 백성입니다. 억울한 일을 당해도 제 뜻을 글로 적어 전할 수가 없습니다.' },
+    prompt: '이 사람의 말에서 ‘어린 백성’은 무슨 뜻일까?',
+    options: [
+      { id: 'young', text: '나이가 어린 백성',
+        reaction: { who: 'villager', voice: 's0.villager-young', text: '제가 어린아이로 보이시오? 나이가 아니라, 글을 몰라 제 뜻을 전하지 못한다는 말이오.' } },
+      { id: 'unlearned', text: '어리석은 백성',
+        reaction: { who: 'villager', voice: 's0.villager-unlearned', text: '그렇소. 제 나이가 어리다는 말이 아니오. 글을 몰라 말하고 싶은 뜻을 제대로 전하지 못하고 있소.' } }
+    ],
+    explanation: '옛말 ‘어리다’는 ‘어리석다’라는 뜻이었어요. 여기서는 글을 잘 알지 못하는 백성의 어려움을 말해요.',
+    explanationVoice: 's0.explanation',
+    sejong: { who: 'sejong', voice: 's0.sejong', text: '백성이 자기 뜻을 글로 전할 수 있도록, 누구나 쉽게 배워 날마다 쓸 수 있는 새 글자를 만들고자 한다.' },
+    mission: {
+      voice: 's0.mission',
+      title: '이제, 당신이 뜻을 전할 차례',
+      role: '옛 글을 읽어 사람들을 돕는 정음 통사',
+      identity: '나는 2026년에서 온 학생. 이제 옛 글을 읽고, 사람들에게 그 뜻을 전한다.',
+      appeal: '같은 말도 지금 뜻으로 읽으면 이야기가 엇갈려요. 내가 고른 뜻에 따라 사람들의 반응이 달라집니다.',
+      steps: [
+        { title: '단서 찾기', text: '사람과 책을 살피며 서로 다른 두 곳에서 단서를 모아요.' },
+        { title: '뜻 고르기', text: '단서를 근거로 옛말의 뜻과 규칙을 찾아요.' },
+        { title: '통역하기', text: '읽어 낸 뜻으로 의뢰를 해결하고, 통사 패에 글자를 모아요.' }
+      ],
+      goal: '세종의 서문을 끝까지 해독하고, 말의 강을 따라 내 시대로 돌아오기',
+      first: '먼저 흩어진 글자를 모아 옛글자 도감을 열어 보세요.'
+    }
+  },
+
   intro: [
-    { who: 'narrator', text: '15세기 조선. 우리말을 한자로 적기는 쉽지 않았다. 한문을 배우지 못한 백성은 자기 뜻을 글로 전하기 어려웠다.', cg: 's2_intro' },
-    { who: 'sejong', text: '백성이 제 뜻을 글로 펴기 어려운 것을 안타깝게 여겼다. 누구나 쉽게 배워 날마다 쓸 수 있는 새 글자를 만들고자 한다.', fiction: 'sejong-purpose' },
-    { who: 'teacher', expr: 'thinking', text: '2026년, 국어 시간. <@아>, 세종은 백성이 자기 뜻을 글로 전할 수 있도록 훈민정음을 만들었어. 그 글자로 옛사람들은 어떤 말을 남겼을까?', cg: 's0_intro' },
-    { who: 'narrator', text: '교과서의 「세종어제훈민정음」에서 글자가 떨어져 나와 교실로 흩어진다. 친구들은 멈춰 있고, 나와 선생님만 움직인다!' },
-    { who: 'senior', text: '글자 사이로 내 목소리가 들리느냐? 나는 새 글자로 적은 글을 읽어 사람들에게 뜻을 전하는 정음 통사다. 함께 옛사람들이 남긴 말을 읽어 보자.', fiction: 'tongsa' }
+    { who: 'narrator', voice: 's0.portal', text: '목소리가 잦아들자, 눈앞에 2026년의 교실이 보인다. 펼친 교과서에서 옛 글자가 떨어져 나와 빛난다. 시간 여행의 문을 열려면 먼저 이 글자들을 모아야 한다.', cg: 's0_intro' }
   ],
 
   request: [
-    { who: 'senior', expr: 'smile', text: '먼저 흩어진 글자 중에서 지금도 쓰는 글자를 골라 다오. 글자를 누른 뒤 알맞은 칸에 놓으면 된다.' }
+    { who: 'senior', voice: 's0.first-task', expr: 'smile', text: '먼저 흩어진 글자 중에서 지금도 쓰는 글자를 골라 다오. 글자를 누른 뒤 알맞은 칸에 놓으면 된다.' }
   ],
 
   contexts: [

@@ -37,7 +37,7 @@
   }
 
   function defaultSettings() {
-    return { bangjeom: true, modern: 'tap', eum: true, fontScale: 1, reducedMotion: 'auto', bgm: true, sfx: true };
+    return { bangjeom: true, modern: 'tap', eum: true, fontScale: 1, reducedMotion: 'auto', bgm: true, sfx: true, voice: true };
   }
   // seed: 기록마다 한 번 정하는 수(해독 카드 보이는 순서 NM.core.rules.cardOrder 용, S01). 1 ~ 2^31-1 정수.
   const isSeed = (x) => Number.isInteger(x) && x >= 1 && x <= 0x7fffffff;
@@ -67,13 +67,15 @@
     fontScale: (v) => v === 1 || v === 2 || v === 3,
     reducedMotion: (v) => v === 'auto' || v === true || v === false,
     bgm: (v) => typeof v === 'boolean',
-    sfx: (v) => typeof v === 'boolean'
+    sfx: (v) => typeof v === 'boolean',
+    voice: (v) => typeof v === 'boolean'
   };
   // base 위에 s 의 올바른 값만 덮는다(모르는 키·잘못된 값은 무시).
   function normSettings(s, base) {
     const out = Object.assign(defaultSettings(), base || {});
     if (!isObj(s)) return out;
     Object.keys(SETTING_OK).forEach(k => { if (SETTING_OK[k](s[k])) out[k] = s[k]; });
+    if (!SETTING_OK.voice(s.voice) && !(base && SETTING_OK.voice(base.voice)) && s.bgm === false && s.sfx === false) out.voice = false;
     return out;
   }
 

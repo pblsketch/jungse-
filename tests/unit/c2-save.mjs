@@ -20,7 +20,7 @@ assert.equal(S.defaultRecord('h1', 77).seed, 77, 'seed 를 넘기면 그대로')
 delete def.seed;
 assert.deepEqual(def, {
   v: S.VERSION, level: 'h1', protagonist: 1, nickname: '',
-  settings: { bangjeom: true, modern: 'tap', eum: true, fontScale: 1, reducedMotion: 'auto', bgm: true, sfx: true },
+  settings: { bangjeom: true, modern: 'tap', eum: true, fontScale: 1, reducedMotion: 'auto', bgm: true, sfx: true, voice: true },
   prologueDone: false, progress: {}, glyphs: {}, seenNotices: []
 });
 
@@ -39,7 +39,7 @@ assert.deepEqual(def, {
   assert.equal(store.get().nickname, '세종1');
   store.setSettings({ fontScale: 3, bgm: false, reducedMotion: true, junk: 1, sfx: 'x' });
   const s = J(store.get().settings);
-  assert.deepEqual(s, { bangjeom: true, modern: 'tap', eum: true, fontScale: 3, reducedMotion: true, bgm: false, sfx: true });
+  assert.deepEqual(s, { bangjeom: true, modern: 'tap', eum: true, fontScale: 3, reducedMotion: true, bgm: false, sfx: true, voice: true });
   // 서장
   const r0 = clearStage(ctx, store, S0);
   assert.equal(r0.ok, true);
@@ -267,7 +267,7 @@ assert.deepEqual(def, {
   assert.equal(g.level, 'm');
   assert.equal(g.protagonist, 1);
   assert.equal(g.nickname, '');
-  assert.deepEqual(g.settings, { bangjeom: true, modern: 'tap', eum: true, fontScale: 1, reducedMotion: 'auto', bgm: false, sfx: true });
+  assert.deepEqual(g.settings, { bangjeom: true, modern: 'tap', eum: true, fontScale: 1, reducedMotion: 'auto', bgm: false, sfx: true, voice: true });
   assert.equal(g.prologueDone, false);
   assert.deepEqual(Object.keys(g.progress), ['h1']);
   assert.deepEqual(Object.keys(g.progress.h1), ['s4']);
@@ -394,4 +394,16 @@ assert.deepEqual(def, {
 }
 
 console.error = origErr;
+{
+  const storage = fakeStorage();
+  const legacy = J(S.defaultRecord('m'));
+  legacy.nickname = '음성'; legacy.settings = { bgm: false, sfx: false };
+  storage.setItem(KEY, JSON.stringify(legacy));
+  const muted = S.createStore({ storage });
+  assert.equal(muted.get().settings.voice, false, 'legacy all-muted record stays muted');
+  muted.setSettings({ bgm: true, sfx: true });
+  assert.equal(muted.get().settings.voice, false, 'other channels do not enable voice');
+  muted.setSettings({ voice: true });
+  assert.equal(S.createStore({ storage }).get().settings.voice, true, 'explicit voice preference persists');
+}
 console.log('c2 save ok');

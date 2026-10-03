@@ -29,3 +29,13 @@
 | bgm_s10.mp3 | s10 16세기 서당 | 거문고 · 가곡 | 남창 「우조 초수대엽」(거문고 가락) | S2-211-010, 020, 030, 040 |
 | bgm_s11.mp3 | s11 길·개화기 거리 | 대금 · 산조 | 「대금산조」 중중모리 | w3-001-025, 026, 027, 028, 029, 030, 031, 032 |
 | bgm_s12.mp3 | s12 종장 | 가야금 · 산조 | 「성금련류 가야금산조」 진양조 | s1-001-005, 006, 007, 008 |
+
+## 서장 대사 음성
+
+`assets/audio/voices/`의 MP3 8개는 Fish Audio `s2.1-pro-free` API로 생성한 가상의 인물·안내 음성이다. 특정 실존 인물의 녹음으로 복제하지 않고, 합성한 참조 음성을 재사용했다. 대사, 파일별 길이와 SHA-256은 [manifest.json](voices/manifest.json)에 기록했다. 볼륨은 -18 LUFS, 최대 피크 -2 dBTP를 목표로 정규화했다.
+
+- API 문서: https://docs.fish.audio/api-reference/endpoint/openapi-v1/text-to-speech
+- 모델과 가격: https://docs.fish.audio/developer-guide/models-pricing/models-overview
+- 생성: `python tools/build_opening_voices.py --free` (MessagePack과 ffmpeg 필요, API 키는 환경 변수 `NARATMALSSAMI_FISH_API_KEY`로만 전달)
+
+플레이 중에는 사이트의 MP3 파일만 재생하며 Fish Audio API를 호출하지 않는다. 다음 대사·다른 선택·창 닫기·탭 이동 때 앞 음성은 멈춘다. 설정의 ‘대사 음성’으로 끄거나 켜고 ‘다시 듣기’로 재생할 수 있다.

@@ -5,6 +5,10 @@
 
 돌아보기 질문은 장면의 `reflection: { ask, placeholder }`에 쓴다. `ask`는 질문, `placeholder`는 입력칸 안내다. 학교급마다 다르면 `editions.<학교급>.reflection`에 두 값을 함께 둔다. 생략하면 `text-stage.js`의 공통 질문을 쓰며, 채점하지 않고 건너뛸 수 있다는 안내는 공통 화면이 붙인다.
 
+서장의 `opening`은 채점하지 않는 첫 선택과 역할·미션 안내다. `quote`, `options[].reaction`, `explanation`, `sejong`으로 선택에 따른 반응을 쓰고, `mission`에 역할·플레이 방법·최종 목표·첫 행동을 쓴다. 이 선택은 해독 항목의 시도·정답·도움 기록에 들어가지 않는다. `opening`이 있는 장면은 역사 안내를 미션 화면에서 펼쳐 보며, 없는 장면은 기존 도입 대사를 사용한다.
+
+음성이 있는 대사에는 `voice`로 `NM.data.VOICES`의 키를 지정한다. 서장의 설명은 `explanationVoice`, 역할·미션은 `mission.voice`에 둔다. 대사를 고쳤으면 음성도 재생성해야 한다. `tools/opening_voice_plan.mjs`와 `tools/build_opening_voices.py`가 현재 대사로 생성 계획을 만들며, `voice-assets.mjs`가 문장과 파일 해시를 확인한다.
+
 ## 등록
 
 ```js

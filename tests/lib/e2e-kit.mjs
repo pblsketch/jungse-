@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { serve } from '../server.mjs';
 import { pickWrongAnswer, WRONG_MARK_SELECTOR } from './wrong-answer.mjs';
 import { answerTranslateChoice } from './translate-choice.mjs';
+import { answerOpening } from './opening.mjs';
 
 export const KEY = 'naratmalssami:v1';
 export const LEVELS = ['m', 'h1', 'h23'];
@@ -157,6 +158,7 @@ export async function settleDialogs(page, max = 200) {
     const t = await topWin(page);
     if (!t || t.win !== 'dialog' || !t.next) break;
     if (t.kind !== lastKind) { kinds.push(t.kind); lastKind = t.kind; }
+    await answerOpening(page, TOP);
     await domClick(page, TOP + ' .nm-dlg-next');
     await page.waitForTimeout(20);
   }

@@ -134,11 +134,13 @@
     return new Promise(resolve => {
       let i = 0;
       let stage = null, next = null;
+      let voice = null;
       const pages = list.length || 1;
       function show() {
         stage.textContent = '';
         if (list.length) stage.appendChild(lineEl(list[i], o.env));
         next.textContent = TX().t('btn.next');
+        if (voice) voice.update(list[i] && list[i].voice);
       }
       NM.ui.stageWindow.open({
         win: 'dialog', kind: o.kind || 'dialog', title: o.title || TX().t('win.dialog'),
@@ -160,8 +162,12 @@
           });
           w.foot.appendChild(next);
           show();
+          if (NM.ui.stageVoice && list.some(line => line && line.voice)) {
+            voice = NM.ui.stageVoice.attach(w, list[i] && list[i].voice);
+            Promise.resolve().then(() => { if (w.isOpen()) w.focus(next); });
+          }
         },
-        onClose(reason) { resolve(reason === 'end' ? 'end' : 'esc'); }
+        onClose(reason) { if (voice) voice.dispose(); resolve(reason === 'end' ? 'end' : 'esc'); }
       });
     });
   }
